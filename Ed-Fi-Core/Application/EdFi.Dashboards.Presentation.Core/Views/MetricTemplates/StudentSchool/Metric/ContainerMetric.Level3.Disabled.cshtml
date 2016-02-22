@@ -1,0 +1,26 @@
+﻿@model ContainerMetric
+@{
+    var columnCountValue = ViewBag.MetricRenderingContext.ContainsKey("colCount") ? ViewBag.MetricRenderingContext["colCount"] : null;
+    var columnSpan = (columnCountValue ?? 6) - 1;//-1 for the Details Column that will always exist in this template.
+} 
+<tr id="vMetric@(Model.MetricVariantId)" class="container"  data-metric-id="@(Model.MetricId)" data-metric-variant-id="@(Model.MetricVariantId)">
+    <td headers="MetricName@(this.GetMetricRenderingContextValue("ParentContainerMetricId"))" data-item-type="DisplayName" colspan="@(columnSpan)" title="@Model.ToolTip">
+        <p class="title deemphasized">
+            <span class="metricId">@(Model.MetricId)-@(Model.MetricVariantType)</span>
+            @(Model.DisplayName)
+            @if (!String.IsNullOrWhiteSpace(Model.Context))
+            {
+                <span>&nbsp;(@Model.Context)</span>
+            }
+            @Html.Partial("MetricFootnoteLabelSuperText", Model.Footnotes)
+            <a name="m@(Model.MetricVariantId)">&nbsp;</a>
+            @foreach (var metricBase in Model.Children)
+            {              
+                <a name="m@(metricBase.MetricVariantId)">&nbsp;</a>
+            }
+        </p>
+        <p class="description deemphasized"><span>@Model.Description</span></p>
+    </td>
+    <td headers="MetricDetails@(this.GetMetricRenderingContextValue("ParentContainerMetricId"))" data-item-type="ContextMenu">
+    </td>
+</tr>

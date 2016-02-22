@@ -1,0 +1,365 @@
+﻿@model EdFi.Dashboards.Resources.Models.Student.Information.InformationModel
+@using EdFi.Dashboards.Common
+@using EdFi.Dashboards.Core
+@using EdFi.Dashboards.Presentation.Core.Areas.StudentSchool.Controllers
+@using EdFi.Dashboards.Core.Providers.Context
+@{
+    //ViewBag.Title = "Student School Information";
+    var localEducationAgencyId = EdFiDashboardContext.Current.LocalEducationAgencyId.GetValueOrDefault();
+}
+@helper BoolToYesNo(bool value)
+{
+    @:&nbsp;@(value ? "applies." : "does not apply.")
+}
+@helper StatusToCheckboxStyle(bool status)
+{
+    @(status ? "icon-check" : "icon-check-empty")
+}
+@section ContentPlaceHolderHead {
+    <title>@(Html.Action("Title", typeof(StudentSchoolLayoutController).GetControllerName(), new { subTitle = "Student Information" }))</title>
+    <script type="text/javascript">
+        var pageArea = { Area: 'student', Page: 'Student Information' };
+        $(document).ready(function () {
+            $('.l-area-layout').wrap('<div class="l-area-layout_main"></div>');
+        });
+    </script>
+}
+
+@section ContentPlaceHolder1 {
+    <div class="tab-content">
+        <div role="tabpanel" class="tab-pane active tab-red-damask" id="tab-student-info">
+            <div class="action-btn action-btn-red-damask">
+                <a class="btn" href="#"><i class="fa fa-download"></i></a>
+                <a class="btn" href="#"><i class="fa fa-print"></i></a>
+                <a class="btn" href="#"><i class="fa fa-pencil"></i></a>
+            </div>
+            <div class="clearfix edfitable clear">
+                <div class="col-sm-6 col-md-4 std-grid-md-4">
+                    <div class="std-primary-col first">
+                        <div class="row pt40 mb20">
+                            <div class="col-xs-6 sm-pr0 std-primary-xs-small">
+                                <h3 class="std-name std-red-damask">@(Model.FullName)</h3>
+                                <div class="std-info relative">
+                                    <div class="left">
+                                        <!-- std-thumbnail -->
+                                        @*<img src="pix/images/student_pic.png" alt="student" />*@
+                                        <img id="StudentInformation.ProfileThumbnail" src="@(Model.ProfileThumbnail)" alt="Photograph of @(Model.FullName)" />
+                                    </div>
+                                    <div class="std-grades">
+                                        @{
+                                            var totprogsts = Model.Programs.Count(prog => prog.Status == true);
+                                            var progstsIndx = 1;
+                                        }
+                                        @foreach (var progDtls in Model.Programs)
+                                        {
+                                            if (progDtls.Status)
+                                            {
+                                            switch(progDtls.Name)
+                                            {
+                                                case "504 Designation":
+                                                    <span>504@((totprogsts == progstsIndx)? "" :",")</span>
+                                                    break;
+                                                case "Bilingual Program":
+                                                case "English as Second Language":
+                                                <span>L@((totprogsts == progstsIndx) ? "" : ",")</span>
+                                                    break;
+                                                    @*case "Career and Technical Education":
+                                                        <span>C@((totprogsts == progstsIndx) ? "" : ",")</span>
+                                                            break;
+                                                        case "Free or Reduced Priced Lunch Eligible":
+                                                        <span>F@((totprogsts == progstsIndx) ? "" : ",")</span>
+                                                            break;
+                                                                                                    case "Title I Participation":
+                                                                                                    <span>T@((totprogsts == progstsIndx) ? "" : ",")</span>
+                                                                                                        break;
+
+                                                    *@
+                                                case "Gifted/Talented":
+                                                <span>G@((totprogsts == progstsIndx) ? "" : ",")</span>
+                                                    break;
+                                                case "Special Education":
+                                                <span>S@((totprogsts == progstsIndx) ? "" : ",")</span>
+                                                    break;
+                                            }
+                                            progstsIndx++;
+                                            }
+                                            @*<span>G</span>, <span>S</span>, , <span>L</span>, <span>E</span>, <span>P</span>, <span>A</span>*@
+                                        }
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-xs-6 sm-pl0 sm-pr0 std-primary-xs-small">
+                                <address class="std-address">
+                                    @foreach (var addressLine in Model.AddressLines)
+                                    {
+                                        @(addressLine)<br />
+                                    }
+                                    <span id="StudentInformation.CityStateZipCode">@(Model.CityStateZipCode)</span>
+                                </address>
+                                <div class="std-desc">
+                                    <span class="tel"><i class="icon icon-tel"></i> @(Model.TelephoneNumber)</span><br />
+                                    <span class="email"><a class="underline" href="mailto:@(Model.EmailAddress)"><i class="icon icon-email"></i>@(Model.EmailAddress)</a></span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-sm-6 col-md-4 std-grid-md-5">
+                    <div class="std-primary-col std-primary-col-second">
+
+                        <div class="sm-pl30">
+                            <h4 class="std-title-red-damask">GUARDIAN / PARENT CONTACT</h4>
+                            @foreach (var parent in Model.Parents)
+                            {
+                                if (parent.PrimaryContact.HasValue && parent.PrimaryContact.Value)
+                                {
+                                    <h5 class="std-sub-title">Primary Contact</h5>
+                                }
+                            }
+                        </div>
+                        <div class="row">
+                            @foreach (var parent in Model.Parents)
+                            {
+                                <div class="col-xs-6">
+                                    <div class="sm-pl30">
+                                        <div class="primary-contact-person">
+                                            @parent.FullName <br />
+                                            @parent.Relation
+                                        </div>
+                                        <div class="primary-contact-address">
+                                            @foreach (var addressLine in parent.AddressLines)
+                                            {
+                                                @(addressLine)<br />
+                                            }
+                                            @parent.CityStateZipCode
+                                        </div>
+                                    </div>
+                                    <div class="std-desc">
+                                        <span class="tel"><i class="icon icon-tel"></i>@((parent.TelephoneNumber == null) ? "-" : parent.TelephoneNumber)</span><br />
+                                        <span class="email"><i class="icon icon-email"></i>@((parent.EmailAddress == null) ? "-" : parent.EmailAddress)</span>
+                                    </div>
+                                </div>
+                            }
+                        </div>
+                    </div>
+                </div>
+
+                <div class="clearfix visible-sm"></div>
+                <div class="col-sm-12 col-md-4 std-grid-md-3">
+                    <div class="std-primary-col std-primary-col-third">
+                        <div class="sm-pl20">
+                            <h4 class="std-title-red-damask">DEMOGRAPHICS</h4>
+                            <table class="table table-demograhpics">
+                                <tr>
+                                    <td>Date of Birth</td>
+                                    <td>@((Model.DateOfBirth == DateTime.MinValue) ? "-" : Model.DateOfBirth.ToString("MMMM dd, yyyy"))</td>
+                                </tr>
+                                <tr>
+                                    <td>Place of Birth</td>
+                                    <td>@((Model.PlaceOfBirth == null) ? "-" : Model.PlaceOfBirth)</td>
+                                </tr>
+                                <tr>
+                                    <td>Age (as of 1st Sept) </td>
+                                    <td>@(Model.CurrentAge)</td>
+                                </tr>
+                                <tr>
+                                    <td>Gender</td>
+                                    <td>@(Model.Gender)</td>
+                                </tr>
+                                <tr class="td-blank">
+                                    <td></td>
+                                    <td></td>
+                                </tr>
+                                <tr>
+                                    <td>Hispanic or Latino</td>
+                                    <td>@(Model.HispanicLatinoEthnicity)</td>
+                                </tr>
+                                <tr>
+                                    <td>Race</td>
+                                    <td>@(Model.Race)</td>
+                                </tr>
+                                <tr>
+                                    <td>Home Language</td>
+                                    <td>@((Model.HomeLanguage == null) ? "-" : Model.HomeLanguage)</td>
+                                </tr>
+                                <tr>
+                                    <td>Student Language </td>
+                                    <td>@((Model.Language == null) ? "-" : Model.Language)</td>
+                                </tr>
+                                <tr>
+                                    <td>Parent in Military</td>
+                                    <td>@(Model.ParentMilitary)</td>
+                                </tr>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <p class="std-info-text mb10">
+                @{
+                    var totprogCount = Model.Programs.Count();
+                    var progListCnt = 1;
+                }
+                @foreach (var progDtls in Model.Programs)
+                {
+                    if(progDtls.Status)
+                    {
+                        <span class="">@progDtls.Name </span>
+                    if(totprogCount != progListCnt)
+                        <span class="text-lightgrey"> |</span>
+                }
+else
+                    {
+                        <span class="text-lightgrey">@progDtls.Name @((totprogCount != progListCnt) ? "|" : "")</span>
+                }
+                    progListCnt++;
+                }
+                @*GIFTED &amp; TALENTED | SPECIAL EDUCATION | 504 DESIGNATION | ESL, LEP OR BILINGUAL | LATE ENROLMENT | PARTIAL TRANSCRIPT | TEST ACCOMODATION*@
+            </p>
+            <div class="row">
+                <div class="std-secondary no-gutter clearfix">
+                    <div class="col-sm-6 col-md-3">
+                        <h4 class="std-secondary-title first">SCHOOL INFORMATION</h4>
+                        <div class="std-secondary-col first">
+                            <table class="table std-table">
+                                <tr>
+                                    <td>Grade Level</td>
+                                    <td>@(Model.SchoolInformation.GradeLevel)</td>
+                                </tr>
+                                <tr>
+                                    <td>Late Enrollment</td>
+                                    <td>@((Model.SchoolInformation.LateEnrollment == null) ? "-" : Model.SchoolInformation.LateEnrollment)</td>
+                                </tr>
+                                <tr>
+                                    <td>Homeroom</td>
+                                    <td>@(Model.SchoolInformation.Homeroom)</td>
+                                </tr>
+                                <tr>
+                                    <td>Date of Entry</td>
+                                    <td>@((Model.SchoolInformation.DateOfEntry == null) ? "-" : Model.SchoolInformation.DateOfEntry.Value.ToString("MMMM dd, yyyy"))</td>
+                                </tr>
+                                <tr>
+                                    <td>Date of Withdrawal</td>
+                                    <td>@((Model.SchoolInformation.DateOfWithdrawal == null) ? "-" : Model.SchoolInformation.DateOfWithdrawal.Value.ToString("MMMM dd, yyyy"))</td>
+                                </tr>
+                                <tr>
+                                    <td>Graduation Plan</td>
+                                    <td>@(Model.SchoolInformation.GraduationPlan)</td>
+                                </tr>
+                                <tr>
+                                    <td>Expected Grad. Year</td>
+                                    <td>@(Model.SchoolInformation.ExpectedGraduationYear)</td>
+                                </tr>
+                            </table>
+                        </div>
+                    </div>
+                    <div class="col-sm-6 col-md-3">
+                        <h4 class="std-secondary-title">PROGRAM STATUS</h4>
+                        <div class="std-secondary-col">
+                            <table class="table std-table">
+
+                                @foreach (var programStatus in Model.Programs)
+                                {
+                                    @*
+                                        <span><i class="@StatusToCheckboxStyle(programStatus.Status)"></i>@programStatus.Name<span class="hidden">@BoolToYesNo(programStatus.Status)</span></span>*@
+                                    <tr>
+                                        <td>@programStatus.Name</td>
+
+                                        @if (programStatus.Status)
+                                        {
+                                            <td class="text-right"><span class="check-icon checked"></span></td>
+                                        }
+                                        else
+                                        {
+                                            <td class="text-right"><span class="check-icon"></span></td>
+                                        }
+
+                                    </tr>
+                                }
+                            </table>
+                        </div>
+                    </div>
+                    <div class="col-sm-6 col-md-3">
+                        <h4 class="std-secondary-title">OTHER STUDENT INFORMATION</h4>
+                        <div class="std-secondary-col">
+                            <table class="table std-table">
+                                @foreach (var otherInformation in Model.OtherStudentInformation)
+                                {
+                                    @*
+                                        <li>
+                                            <span><i class="@StatusToCheckboxStyle(otherInformation.Status)"></i>@otherInformation.Name<span class="hidden">@BoolToYesNo(otherInformation.Status)</span></span>
+                                        </li>
+                                        foreach (var otherInformationChildren in otherInformation.Children)
+                                        {
+                                        <li>
+                                            <span class="indent">@otherInformationChildren.Name</span>
+                                        </li>
+                                        }*@
+                                    <tr>
+
+
+                                        <td>@otherInformation.Name</td>
+                                        @if (otherInformation.Status)
+                                        {
+                                            <td class="text-right"><span class="check-icon checked"></span></td>
+                                        }
+                                        else
+                                        {
+                                            <td class="text-right"><span class="check-icon"></span></td>
+                                        }
+
+
+
+                                    </tr>
+                                }
+                            </table>
+                        </div>
+                    </div>
+                    <div class="col-sm-6 col-md-3">
+                        <h4 class="std-secondary-title">SCHOOL INFORMATION</h4>
+                        <div class="std-secondary-col">
+                            <table class="table std-table">
+
+                                @foreach (var specialServices in Model.SpecialServices)
+                                {
+
+                                    @*
+                                        <li>
+                                            <span><i class="@StatusToCheckboxStyle(specialServices.Status)"></i>@specialServices.Name<span class="hidden">@BoolToYesNo(specialServices.Status)</span></span>
+                                        </li>
+                                        foreach (var specialServicesChildren in specialServices.Children)
+                                        {
+                                        <li class="ContentTextStyle">
+                                            <span class="indent">@specialServicesChildren.Name</span>
+                                        </li>
+                                        }*@
+
+
+                                    <tr>
+                                        <td>@specialServices.Name</td>
+                                        @if (specialServices.Status)
+                                        {
+                                            <td class="text-right"><span class="check-icon checked"></span></td>
+                                        }
+                                        else
+                                        {
+                                            <td class="text-right"><span class="check-icon"></span></td>
+                                        }
+                                    </tr>
+
+
+                                }
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div><!-- /#tab-student-info -->
+        <div role="tabpanel" class="tab-pane" id="tab-academic-dashboard">
+            <p>Tab Academic Dashboard</p>
+        </div><!-- /#tab-academic-dashboard -->
+        <div role="tabpanel" class="tab-pane" id="tab-transcript">
+            <p>Tab Academic Transcript</p>
+        </div><!-- /#tab-transcript -->
+    </div>
+}

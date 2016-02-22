@@ -1,0 +1,43 @@
+﻿@using System.Web.Mvc.Html
+@using EdFi.Dashboards.Presentation.Architecture.Mvc.Extensions
+@{
+    ViewBag.Title = "Admin";
+    Layout = this.GetLayout("_SiteLayout");
+}
+
+@section head {
+	@RenderSection("ContentPlaceHolderHead", required: false)
+}
+
+@section ContentDataHeader{
+    @{Html.RenderAction("EducationOrganizationHeader", "AdminLayout");}
+}
+
+@section ContentMenu{
+    @{Html.RenderAction("Menu", "AdminLayout");}
+}
+
+@section ContentPlaceHolderTopMost {
+    <div class="l-area-layout"> 
+        @RenderSection("ContentPlaceHolder1", required: false)
+    </div>        
+
+    <!-- PageContext hidden field -->
+	<input type="hidden" name="PageContext" value="Admin" />
+
+	<!-- The ToolTip -->
+	<div id="JQToolTip"></div>
+
+	<script type="text/javascript">
+		$(document).ready(function () {
+			$(".JQToolTipTarget").tooltip({
+				tip: '#JQToolTip',
+				effect: 'slide',
+				position: 'bottom center',
+				bounce: true,
+				offset: [5, 0]
+
+			});
+		});
+	</script>
+}

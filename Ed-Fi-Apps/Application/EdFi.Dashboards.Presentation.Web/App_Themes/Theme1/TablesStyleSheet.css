@@ -1,0 +1,170 @@
+﻿table caption
+{
+    font-size:12pt;    
+    font-weight:bolder;
+    color:#255b80;
+    text-align:left;
+    padding-bottom:10px;
+    padding-left:10px;
+}
+
+#DetailTable
+{
+	font-family:Arial;
+    font-size:8pt;
+	color:Black;
+    font-weight:bold;
+    background-color:White;
+}
+
+#DetailTable th
+{
+    height:20px;
+	background-image:url('img/GrayHeader/BG.gif');
+	font-family:Arial;
+    font-size:9pt;
+	color:White;
+    background-color:#cacaca;
+    background-repeat:repeat-x;
+}
+
+#DetailTable tr
+{
+	background-color:White;
+}
+
+#DetailTable tr.Alternating,
+tr.Alternating
+{
+	background-color:#cacaca;
+}
+
+/*Multi Color Header*/
+.multiColorHeaderTable
+{
+	width:100%;
+	font-family:Arial;
+    font-size:8pt;
+    font-weight:bold;
+    color:White;
+}
+tr.multiColorSubTitle
+{
+	color:#36383b;
+}
+tr.multiColorContent
+{
+	color:Black;
+	font-weight:normal;
+}
+
+.multiColorHeaderTD01
+{
+	background-image:url('img/GrayHeader/01MultiColorHeader.gif');
+	background-position:right bottom;
+	background-repeat:no-repeat;
+    width:6px;
+}
+
+.multiColorHeaderTD02BG,
+.multiColorHeaderTDBG
+{
+	background-image:url('img/GrayHeader/02MultiColorHeaderGrayBG.gif');
+	background-repeat:repeat-x;
+    background-position:bottom;
+    text-align:center;
+    vertical-align:bottom;
+    padding-bottom:8px;
+}
+
+.multiColorHeaderTDBG
+{
+	 width:2px;
+}
+
+.multiColorHeaderTD03
+{
+	background-image:url('img/GrayHeader/03MultiColorHeaderTab01LeftCorner.gif');
+	background-position:right bottom;
+	background-repeat:no-repeat;
+    width:5px;
+}
+
+.multiColorHeaderTD04BG
+{
+	background-image:url('img/GrayHeader/04MultiColorHeaderTab01BG.gif');
+	background-repeat:repeat-x;
+	width:158px;
+	background-position:bottom;
+}
+
+.multiColorHeaderTD05
+{
+	background-image:url('img/GrayHeader/05MultiColorHeaderTab01RightCorner.gif');
+	background-position:left bottom;
+	background-repeat:no-repeat;
+    width:5px;
+}
+
+.multiColorHeaderTD06
+{
+	background-image:url('img/GrayHeader/06MultiColorHeaderTab02LeftCorner.gif');
+	background-position:right bottom;
+	background-repeat:no-repeat;
+    width:5px;
+}
+
+.multiColorHeaderTD07BG
+{
+	background-image:url('img/GrayHeader/07MultiColorHeaderTab02BG.gif');
+	background-repeat:repeat-x;
+	width:158px;
+	background-position:bottom;
+}
+
+.multiColorHeaderTD08
+{
+	background-image:url('img/GrayHeader/08MultiColorHeaderTab02RightCorner.gif');
+	background-position:left bottom;
+	background-repeat:no-repeat;
+    width:5px;
+}
+
+.multiColorHeaderTD09
+{
+	background-image:url('img/GrayHeader/09MultiColorHeaderTab03LeftCorner.gif');
+	background-position:right bottom;
+	background-repeat:no-repeat;
+    width:5px;
+}
+
+.multiColorHeaderTD10BG
+{
+	background-image:url('img/GrayHeader/10MultiColorHeaderTab03BG.gif');
+	background-repeat:repeat-x;
+	width:158px;
+	background-position:bottom;
+}
+
+.multiColorHeaderTD11
+{
+	background-image:url('img/GrayHeader/11MultiColorHeaderTab03RightCorner.gif');
+	background-position:left bottom;
+	background-repeat:no-repeat;
+    width:5px;
+}
+
+
+
+.multiColorHeaderTD00
+{
+	background-image:url('img/GrayHeader/00MultiColorHeaderLine.gif');
+	background-position:center;
+	background-repeat:repeat-y;
+    width:2px;
+}
+
+tfoot.multiColorFoot
+{
+	color:Gray;
+}

@@ -1,0 +1,90 @@
+﻿@using EdFi.Dashboards.Common
+@using EdFi.Dashboards.Common.Utilities
+@using EdFi.Dashboards.Core.Providers.Context
+@using EdFi.Dashboards.Presentation.Architecture.Mvc.Extensions
+@using EdFi.Dashboards.Presentation.Core.Areas.Search.Controllers
+@using EdFi.Dashboards.Resources.Navigation
+@using EdFi.Dashboards.Resources.Navigation.Mvc
+@using EdFi.Dashboards.Resources.Security.Common
+@using EdFi.Dashboards.SecurityTokenService.Authentication
+@model string
+         
+@{
+    //ViewBag.Title = "Search Page";
+}
+
+@section ContentPlaceHolderHead {
+    <title>@(Html.Action("Title", typeof(SearchLayoutController).GetControllerName()))</title>
+}
+
+@section ContentPlaceHolder1 {
+@{
+		const int maxSearchCount = 250;
+        var showStaff = IoC.Resolve<ICurrentUserClaimInterrogator>().HasClaimForLocalEducationAgencyWithinEducationOrganizationHierarchy(EdFiClaimTypes.AdministerDashboard, (int)(EdFiDashboardContext.Current.SchoolId ?? EdFiDashboardContext.Current.LocalEducationAgencyId ?? UserInformation.Current.AssociatedStateAgencies.SingleOrDefault().EducationOrganizationId));
+}
+
+@{
+    int? schoolId = EdFiDashboardContext.Current.SchoolId;
+    int localEducationAgencyId = EdFiDashboardContext.Current.LocalEducationAgencyId.GetValueOrDefault();
+
+    string searchString = HttpUtility.UrlDecode(Context.Request.QueryString["t"]);
+    int theInt;
+    bool isNumericInput = int.TryParse(searchString.Trim(), out theInt);
+}
+    <h1>Search Results</h1>
+    <div class="search-box">
+        <label for="localSearchInput">Your Search:</label>
+        <input id="localSearchInput" type="text" />
+        <input id="localSearchFilter" type="hidden" />
+        <a class="btn" href="#" onclick="searchAgainClick();">Search again <i class="icon-right"></i></a>
+        <div id="gettingSearchResultsIndicator"></div>
+    </div>
+    <div class="filter-container">
+        <span>Display results by:</span>
+        <a id="filterAll" class="btn-deemphasized" onclick="SetSearchResultsFilter('All')" href="#">SHOW ALL</a>
+        <a id="filterSchools" class="btn-deemphasized" onclick="SetSearchResultsFilter('Schools')" href="#">SCHOOLS</a>
+        <a id="filterTeachers" class="btn-deemphasized" onclick="SetSearchResultsFilter('Teachers')" href="#">TEACHERS</a>
+        <a id="filterStudents" class="btn-deemphasized" onclick="SetSearchResultsFilter('Students')" href="#">STUDENTS</a>
+        @if (showStaff)
+        {
+            <span id="filterStaff" class="btn-deemphasized" onclick="SetSearchResultsFilter('Staff')">STAFF</span>
+        }
+    </div>
+    <div id="searchResultsDiv" aria-live="assertive">
+
+	</div>	
+
+<script type="text/javascript">
+	var maxSearchCount = @(maxSearchCount);
+
+	var searchResultsPage = '@(Html.Raw((EdFiDashboards.Site.Search.Results(localEducationAgencyId) + "?t={textValue}&f={filterValue}").Resolve()))';
+	var getExpandedResultsUrl = '@(EdFiDashboards.Site.Search.SearchWebService(localEducationAgencyId, schoolId).Resolve())';
+	var setSessionObjectUrl = '@(EdFiDashboards.Site.Common.EdFiGridWebService_SetSessionObject(EdFiDashboardContext.Current.LocalEducationAgencyId.GetValueOrDefault()).Resolve())';
+	var loginButtonImage = '@(EdFiDashboards.Site.Common.ThemeImage("LoginButton.png").Resolve())';
+	var loginUrl = '@(EdFiDashboards.Site.Admin.LogInAs(EdFiDashboardContext.Current.LocalEducationAgencyId.GetValueOrDefault()).Resolve())';
+
+	var getLoggerWebServiceUrlWithMethodForSortingAction = '@(EdFiDashboards.Site.Search.LogUserSortingActionWebService(localEducationAgencyId, schoolId).Resolve())';
+	var getLoggerWebServiceUrlWithMethodForNavigationAction = '@(EdFiDashboards.Site.Search.LogUserActionWebService(localEducationAgencyId, schoolId).Resolve())';
+	
+	$(document).ready(function() {
+	    $('#localSearchInput').val(decodeURIComponent(requestQuerystring('t')));
+	    document.title = $('#localSearchInput').val() + " - Search";
+	    
+	    $('#localSearchFilter').val(decodeURIComponent(requestQuerystring('f')));
+	    //Add key down event to search when enter.
+	    $('#localSearchInput').keydown(function(e) {
+		    switch (e.keyCode) {
+			    case 13: // return
+				    e.preventDefault();
+				    searchAgainClick();
+				    break;
+			    default:
+				    // do nothing
+				    break;
+		    }
+	    });
+        
+		search();
+	});
+</script>
+}

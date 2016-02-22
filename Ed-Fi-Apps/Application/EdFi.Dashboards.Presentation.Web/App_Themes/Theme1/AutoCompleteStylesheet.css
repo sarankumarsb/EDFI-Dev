@@ -1,0 +1,35 @@
+﻿.autoCompleteTextBox,
+.autoCLoading,
+.autoCLoaded
+{
+	font-family:Arial;
+    font-size:8pt;
+    border:1px solid #255b80;
+}
+
+.autoClistItem
+{
+	font-size:8pt;
+	padding-left:5px;
+}
+.autoChighlightedListItem
+{
+	background-color:#255b80;
+	color:White;
+	font-size:8pt;
+	font-weight:bold;
+	padding-left:2px;
+	
+}
+
+.autoCLoading
+{
+	background-image:url('img/loadingSmall.gif');
+	background-repeat:no-repeat;
+    background-position:right;
+}
+
+.autoCLoaded
+{
+	background-image:none;
+}

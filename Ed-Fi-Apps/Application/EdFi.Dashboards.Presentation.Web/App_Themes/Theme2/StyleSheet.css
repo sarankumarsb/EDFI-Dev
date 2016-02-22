@@ -1,0 +1,290 @@
+﻿*
+    {
+        margin:0;
+        padding:0;
+        border:0 none;
+    }
+    body 
+    {
+        color:#626262;
+        background: url(img/bground.png) no-repeat scroll 50% 0 #ADAFA7;
+        font:12px/18px Arial, Helvetica, Veranda, Sans-Serif;
+    }
+    #outside-wrapper
+    {
+        background-color: #FFFFFF;
+        margin:0 auto;
+        width:1002px;
+    }
+    #wrapper
+    {
+        width:940px;
+        margin: 0px auto;
+        overflow:hidden;
+    }
+    #wrapper .header
+    {
+        height:140px;
+        margin-bottom:30px;
+        background: #E2E3E0 url(img/EdFi-logo-RGB-TM-203x100.png) no-repeat center left;
+        padding-left: 200px;
+    }
+    #wrapper .header h1
+    {
+        display:inline;
+        float:left;
+        margin:50px 0px 15px 20px;
+        position:relative;
+        width:749px;
+        z-index:1000;
+        font-family: Georgia,"Times New Roman",Times,serif;
+        font-size:24px;
+        font-weight: 400;
+        line-height:30px;
+    }
+    #logo
+    {
+        border-right: 1px solid #FFFFFF;
+        float:left;
+        width:160px;
+    }
+    #wrapper .footer
+    {
+        border-top: 5px solid #E2E3E0;
+        clear: both;
+        margin-bottom: 10px;
+        padding: 10px;
+    }
+    #wrapper .footer p
+    {
+        color: #626262;
+        font-size: 11px;
+        text-align: right;
+    }
+    #wrapper .footer a
+    {
+        color: #626262;
+        text-decoration:none;
+    }
+    #wrapper .footer a:hover,
+    #wrapper .footer a:active
+    {
+        text-decoration:underline;
+    }
+    #wrapper .content
+    {
+        clear:both;
+        margin-bottom:30px;
+    }
+    #wrapper .content h2
+    {    
+        color: #F8971D;
+        float: left;
+        font-family: Georgia,"Times New Roman",Times,serif;
+        font-size: 24px;
+        line-height: 24px;
+        margin-bottom: 0;
+        margin-right: 10px;
+    }
+    #wrapper .content .intro
+    {
+        color: #0082C8;
+        font-size: 24px;
+        line-height: 29px;
+        margin-bottom: 20px;
+    }
+    #wrapper .content ul
+    {
+         list-style: square outside none;
+         margin-bottom:15px;
+    }
+    #wrapper .content li
+    {
+        margin-bottom:5px;
+    }
+    #wrapper .content .message {
+        border:1px solid #009aa6; 
+        padding:5px 5px 5px 40px;
+        background: url(img/snowflake.jpg) no-repeat 5px;
+        display: none;
+    }    
+    #wrapper .features
+    {
+        width:100%;
+        background-color:#DBEEF4;
+        color: #0082C8;
+        margin:30px auto 0px;
+        padding-left: 20px;
+    }
+    #wrapper .features .section
+    {
+        font-size:30px;
+        vertical-align:middle;
+        padding-left:10px;
+        list-style-image: url(img/ArrowRightOrange.png);
+    }
+    
+    #wrapper .features .section-no-bullet
+    {
+        overflow: hidden;
+        padding-top: 20px;
+        padding-bottom: 20px;
+        font-size:30px;
+        vertical-align:middle;
+        padding-left:10px;
+        list-style-type: none;
+        margin-right: 50px;
+    }
+
+    #wrapper .features .section-no-bullet > a, 
+    #wrapper .features .section-no-bullet > span
+    {
+        line-height: 80px;
+        color: #0082c8;
+        float: left;
+    }
+ 
+    #wrapper .features .section-no-bullet .icon-arrow-right
+    {
+        float: left;
+        margin-top: 29px;
+        display: inline-block;
+        width: 24px;
+        height: 24px;
+        background-image: url(img/ArrowRightOrange.png);
+        background-repeat: no-repeat;
+        margin-left: 20px;
+        margin-right: 8px;
+    }
+    
+    #wrapper .features .section a
+    {
+        color: #0082C8;
+    }
+    #wrapper .features .divider
+    {
+        height:1px;
+        margin:20px 30px;
+        background-color:#0082C8;
+    }
+    #wrapper .features .image-list li
+    {
+        padding: 20px 10px;
+        margin-right: 60px;
+        margin-left: 20px;
+        list-style-position: outside;
+        list-style-type: square;
+    }
+    #wrapper .features .divider-border
+    {
+        border-bottom: 1px;
+        border-bottom-color: #0082C8;
+        border-bottom-style: solid;
+    }
+    #wrapper .features .download,
+    #wrapper .content .download
+    {
+        background-image:url(img/dload-arrow.png);
+        background-repeat:no-repeat;
+        background-position:left;
+        padding-left:20px;
+    }
+    .offsitelink
+    {    
+        background: url(img/offsite-link.png) no-repeat scroll right top transparent;
+        margin-right: 1px;
+        padding-right: 10px;
+    }
+    #wrapper .features .link,
+    #wrapper .content .link
+    {
+        background-image:url(img/offsite-link.png);
+        background-repeat:no-repeat;
+        background-position:right;
+        padding-right:12px;
+    }
+    #wrapper .features ul
+    {
+        color:#0082C8;    
+    }
+    #wrapper table.features ul {
+        margin-bottom: 0px;
+        margin-left: 0px;
+    }
+    #wrapper .features img
+    {
+        vertical-align:middle;    
+    }
+    
+    #contact-support {
+        color:#626262;
+        float: left;
+        font-size: 12px;
+        margin-left: 120px;
+    }
+    #contact-support li
+    {
+        list-style-type: square;
+        color:#626262;
+    }
+    #contact-support a, 
+    #contact-support span {
+        line-height: 0;
+        clear: both;
+        color:#626262;
+        font-size: 12px;
+    }
+
+    #wrapper a
+    {
+        text-decoration:none;
+        color:#626262;
+    }
+    #wrapper  a:hover,
+    #wrapper  a:active
+    {
+        text-decoration:underline;
+        color:#0082C8;
+    }
+    
+    #wrapper .content .links
+    {
+        padding-left:30px;
+    }
+    
+    .defaultTextActive
+    {
+        font-style: italic;
+    }
+    
+    #wrapper .features .dashboardImg {
+        display: inline-block;
+        float: left;
+        background: url(img/dashboard.png) no-repeat center left;
+        width: 70px;
+        height: 80px;
+    }
+    
+    #wrapper .features .trainingImg {
+        display: inline-block;
+        float: left;
+        background: url(img/training.png) no-repeat center left;
+        width: 70px;
+        height: 80px;
+    }
+    
+    #wrapper .features .supportImg {
+        display: inline-block;
+        float: left;
+        background: url(img/support.png) no-repeat center left;
+        width: 85px;
+        height: 80px;
+    }
+    
+    #wrapper .features .generalInformationImg {
+        display: inline-block;
+        float: left;
+        background: url(img/GeneralInformation.png) no-repeat center left;
+        width: 70px;
+        height: 80px;
+    }

@@ -1,0 +1,76 @@
+﻿@using EdFi.Dashboards.Common
+@using EdFi.Dashboards.Core.Providers.Context
+@using EdFi.Dashboards.Presentation.Core.Areas.StudentSchool.Controllers
+@using EdFi.Dashboards.Presentation.Core.Areas.StudentSchool.Models.Shared
+@using EdFi.Dashboards.Presentation.Core.Utilities.ExtensionMethods.HtmlHelper
+@model EdFi.Dashboards.Resources.Models.Student.AcademicProfile.AcademicProfileModel
+
+@section ContentPlaceHolderHead {
+	<title>@(Html.Action("Title", typeof(StudentSchoolLayoutController).GetControllerName(), new { subTitle = "Transcript" }))</title>
+	<script> var pageArea = { Area: 'student', Page: 'Transcript' }; </script>
+}
+
+@section ContentPlaceHolder1 {
+    <div class="l-metrics">
+        <h2>Transcript</h2>
+        <p class="inline-links">
+            Jump to subcategory:
+            <a class="first" href="#CurrentCourses">Current Courses</a>
+            <a href="#CourseHistory">Course History</a>
+            <a href="#HistoricalAssessmentScores">Historical Assessment Scores</a>
+        </p>
+
+        <!-- Current Courses -->
+        <h3><a id="CurrentCourses">Current Courses</a></h3>
+        @{ var semesterCount = 0; }
+        @foreach (var semester in Model.CurrentCourses.Semesters) {
+            @Html.Partial("TermCourses", new TermCoursesModel { Model = semester, DisplayCreditText = semesterCount == 0 })
+            semesterCount++;
+        }
+
+        <!-- Course History -->
+        <h3><a id="CourseHistory">Course History</a></h3>
+        <p class="h5 deem">Cumulative Credits Earned: @Html.FormatCredits(Model.CourseHistory.CumulativeCreditsEarned)</p>
+        @Html.Partial("CourseHistory", new CourseHistoryModel { Model = Model.CourseHistory })
+
+        <!-- Historical Assessment Scores -->
+        <h3><a id="HistoricalAssessmentScores">Historical Assessment Scores</a></h3>
+        <table summary="Historical Assessment Scores" class="standard-table tabular">
+            <thead>
+                <tr>
+                    <th id="assessment-school-year" style="width:10%">School<br />Year</th>
+                    <th id="assessment-date-taken" style="width:5%">Date<br />Taken</th><!-- Need to tweak width -->
+                    <th id="assessment-grade-level" style="width:8%">Grade<br />Level</th>
+                    <th id="assessment-assessment-title" style="width:14%">Assessment<br />Title</th>
+                    <th id="assessment-accommodations" style="width:15%">Accommodations</th>
+                    <th id="assessment-test-scores" style="width:12%">Student Test Scores</th>
+                    <th id="assessment-met-minimum" style="width:12%">Met<br />Minimum</th>
+                    <th id="assessment-met-standard" style="width:12%">Met Standard / Level II</th>
+                    <th id="assessment-commended" style="width:12%">Commended / Level III</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var assessmentSubjectArea in Model.AssessmentHistory.SubjectAreas) {
+                    <tr class="container" style="border-top: 2px solid black;">
+                        <td headers="assessment-assessment-title" colspan="9"><span class="title">@assessmentSubjectArea.Name</span></td>
+                    </tr>
+                    var rowCount = 0;
+                    foreach (var assessment in assessmentSubjectArea.Assessments) {
+                        rowCount++;
+                        <tr class="@(rowCount % 2 == 0 ? "" : "alt")">
+                            <td headers="assessment-school-year">@assessment.SchoolYear</td>
+                            <td headers="assessment-date-taken">@assessment.DateTaken.ToShortDateString()</td>
+                            <td headers="assessment-grade-level" style="text-align:center">@assessment.GradeLevel</td>
+                            <td headers="assessment-assessment-title">@assessment.AssessmentTitle</td>
+                            <td headers="assessment-accommodations" style="color: red;">@assessment.Accommodations</td>
+                            <td headers="assessment-test-scores">@Html.Partial("StatusLabel", @assessment.ScoreState)</td>
+                            <td headers="assessment-met-minimum" style="text-align:center">@assessment.MetMinimumScore</td>
+                            <td headers="assessment-met-standard" style="text-align:center">@assessment.MetStandardScore</td>
+                            <td headers="assessment-commended" style="text-align:center">@assessment.CommendedScore</td>
+                        </tr>
+                    }
+                }
+            </tbody>
+        </table>
+    </div>
+}

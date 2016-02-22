@@ -1,0 +1,76 @@
+﻿<Dictionary>
+  <Words>
+    <Unrecognized>
+    </Unrecognized>
+    <Recognized>
+      <Word>Ed</Word>
+      <Word>Fi</Word>
+      <Word>Appender</Word>
+      <Word>Dlp</Word>
+      <Word>Ferpa</Word>
+      <Word>Edfi</Word>
+      <Word>xpath</Word>
+      <Word>nbsp</Word>
+      <Word>br</Word>
+      <Word>Validators</Word>
+      <Word>Templating</Word>
+      <Word>Mvc</Word>
+      <Word>Conneg</Word>
+      <Word>Passthrough</Word>
+      <Word>Tejas</Word>
+      <Word>Proxied</Word>
+      <Word>Woopra</Word>
+      <Word>Abe</Word>
+      <Word>Ssis</Word>
+      <Word>Resizer</Word>
+    </Recognized>
+    <Deprecated>
+      <Term PreferredAlternate="SchoolId">CampusId</Term>
+      <Term PreferredAlternate="StudentUSI">StudentId</Term>
+    </Deprecated>
+    <Compound>
+      <!--<Term CompoundAlternate=""></Term>-->
+      <Term CompoundAlternate="DotNet">dotnet</Term>
+    </Compound>
+    <DiscreteExceptions>
+      <!--<Term></Term>-->
+    </DiscreteExceptions>
+  </Words>
+  <Acronyms>
+    <CasingExceptions>
+      <Acronym>USI</Acronym>
+      <Acronym>USIs</Acronym>
+      <Acronym>StateAssessmentM</Acronym>
+      <Acronym>StateAssessmentAlt</Acronym>
+      <Acronym>StateAssessmentA</Acronym>
+      <Acronym>TEKS</Acronym>
+      <Acronym>ELA</Acronym>
+      <Acronym>CSV</Acronym>
+      <Acronym>USI</Acronym>
+      <Acronym>ACT</Acronym>
+      <Acronym>PSAT</Acronym>
+      <Acronym>SAT</Acronym>
+      <Acronym>CSS</Acronym>
+      <Acronym>LAS</Acronym>
+      <Acronym>LEP</Acronym>
+      <Acronym>ESL</Acronym>
+      <Acronym>TPM</Acronym>
+      <Acronym>TPRI</Acronym>
+      <Acronym>ESC</Acronym>
+      <Acronym>FAFSA</Acronym>
+      <Acronym>StateAssessmentELA</Acronym> <!-- StateAssessment ELA -->
+      <Acronym>StateAssessmentMELA</Acronym> <!-- StateAssessment-M ELA -->
+      <Acronym>TPMELA</Acronym>  <!-- TPM ELA -->
+      <Acronym>BI</Acronym>
+      <Acronym>MVP</Acronym>
+      <Acronym>YTD</Acronym>
+      <Acronym>DCD</Acronym>
+      <Acronym>WIF</Acronym>
+      <Acronym>MD</Acronym>
+      <Acronym>LEE</Acronym>
+      <Acronym>DIBELS</Acronym>
+      <Acronym>EOC</Acronym>
+      <Acronym>III</Acronym>
+    </CasingExceptions>
+  </Acronyms>
+</Dictionary>

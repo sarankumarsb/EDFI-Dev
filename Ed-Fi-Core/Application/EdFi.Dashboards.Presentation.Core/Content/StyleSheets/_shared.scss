@@ -1,0 +1,72 @@
+﻿/* Variables and Mixins
+/* ====================================================== */
+
+$white: #fff;
+$black: #000;
+
+// Major accented features
+$accent-primary: #957013; //#c89c33; //#ff6e00;
+// Buttons and links
+$accent-secondary: #a3c0d9; //#007ac9;
+// Actionable items (e.g. tabs)
+$accent-tertiary: #ccddec; //#009ab1;
+// Content boxes
+$accent-quaternary: #fff;
+
+$background-primary: #333;
+$background-secondary: #595959;
+$background-tertiary: lighten($background-primary, 30%);
+
+/*Layout for Information Pages*/
+$informationLightBlue: #d2e2ef;
+$informationBlue: #255B80;
+$textBlack: #000;
+$rowHover: #add8e6;
+$adaRed: #b30002;
+$adaGreen: #09662f;
+$adaYellow: #957013;
+
+/*Metric page colors*/
+$arrowBackground: #dfdfdf;
+
+$header-highlight: rgb(130, 130, 130);
+$header-flat: rgb(115, 115, 115);
+$header-shadow: rgb(99, 99, 99);
+
+@mixin bullnose($shadow, $flat, $highlight) {
+	background: $flat;
+	background: -moz-linear-gradient(top, $highlight 0%, $flat 25%, $flat 75%, $shadow 100%); // FF3.6+
+	background: -webkit-gradient(linear, left top, left bottom, color-stop(0%, $highlight), color-stop(25%, $flat), color-stop(75%, $flat), color-stop(100%, $shadow)); // Chrome,Safari4+
+	background: -webkit-linear-gradient(top, $highlight 0%, $flat 25%, $flat 75%, $shadow 100%); // Chrome10+,Safari5.1+
+	background: -o-linear-gradient(top, $highlight 0%, $flat 25%, $flat 75%, $shadow 100%); // Opera 11.10+
+	background: -ms-linear-gradient(top, $highlight 0%, $flat 25%, $flat 75%, $shadow 100%); // IE10+
+	background: linear-gradient(to bottom, $highlight 0%, $flat 25%, $flat 75%, $shadow 100%); // W3C
+	filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#{$highlight}', endColorstr='#{$shadow}', GradientType=0); // IE6-9
+}
+
+@mixin bullnose-top($flat, $highlight) {
+	background: $flat;
+	background: -moz-linear-gradient(top, $highlight 0%, $flat 50%); /* FF3.6+ */
+	background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,$highlight), color-stop(50%,$flat)); /* Chrome,Safari4+ */
+	background: -webkit-linear-gradient(top, $highlight 0%,$flat 50%); /* Chrome10+,Safari5.1+ */
+	background: -o-linear-gradient(top, $highlight 0%,$flat 50%); /* Opera 11.10+ */
+	background: -ms-linear-gradient(top, $highlight 0%,$flat 50%); /* IE10+ */
+	background: linear-gradient(to bottom, $highlight 0%,$flat 50%); /* W3C */
+}
+
+@mixin bullnose-bottom($shadow, $flat) {
+	background: $flat;
+	background: -moz-linear-gradient(top, $flat 50%,$shadow 100%); /* FF3.6+ */
+	background: -webkit-gradient(linear, left top, left bottom, color-stop(50%,$flat), color-stop(100%,$shadow)); /* Chrome,Safari4+ */
+	background: -webkit-linear-gradient(top, $flat 50%,$shadow 100%); /* Chrome10+,Safari5.1+ */
+	background: -o-linear-gradient(top, $flat 50%,$shadow 100%); /* Opera 11.10+ */
+	background: -ms-linear-gradient(top, $flat 50%,$shadow 100%); /* IE10+ */
+	background: linear-gradient(to bottom, $flat 50%,$shadow 100%); /* W3C */
+}
+
+@mixin inline-block {
+    display: inline-block;
+    *vertical-align: auto;
+    zoom: 1;
+    *display: inline;
+}

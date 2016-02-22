@@ -1,0 +1,17 @@
+.watch-list-search div {
+  width: 100%;
+  padding-bottom: 5px; }
+  .watch-list-search div label {
+    float: left;
+    padding-right: 5px;
+    font-size: 10pt; }
+  .watch-list-search div span {
+    display: block;
+    overflow: hidden; }
+    .watch-list-search div span select {
+      width: 100%;
+      font-size: 10pt; }
+  .watch-list-search div ul {
+    list-style-type: none;
+    overflow: hidden; }
+

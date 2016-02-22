@@ -1,0 +1,144 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProductVersion>8.0.30703</ProductVersion>
+    <SchemaVersion>2.0</SchemaVersion>
+    <ProjectGuid>{6E35BE1A-824F-4B7B-801D-5C3431715A12}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>EdFi.Dashboards.Metric.Resources.Tests</RootNamespace>
+    <AssemblyName>EdFi.Dashboards.Metric.Resources.Tests</AssemblyName>
+    <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+    <SolutionDir Condition="$(SolutionDir) == '' Or $(SolutionDir) == '*Undefined*'">..\</SolutionDir>
+    <RestorePackages>true</RestorePackages>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <CodeAnalysisRuleSet>..\EdFi.Tests.ruleset</CodeAnalysisRuleSet>
+    <RunCodeAnalysis>false</RunCodeAnalysis>
+    <TreatWarningsAsErrors>true</TreatWarningsAsErrors>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <CodeAnalysisRuleSet>..\EdFi.Tests.ruleset</CodeAnalysisRuleSet>
+    <RunCodeAnalysis>true</RunCodeAnalysis>
+    <TreatWarningsAsErrors>true</TreatWarningsAsErrors>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="Castle.Core">
+      <HintPath>..\..\..\Ed-Fi-Apps\Application\packages\Castle.Core.3.3.1\lib\net40-client\Castle.Core.dll</HintPath>
+    </Reference>
+    <Reference Include="Castle.Windsor">
+      <HintPath>..\..\..\Ed-Fi-Apps\Application\packages\Castle.Windsor.3.3.0\lib\net40\Castle.Windsor.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="nunit.framework, Version=2.6.2.12296, Culture=neutral, PublicKeyToken=96d09a1eb7f44a77, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\..\Ed-Fi-Apps\Application\packages\NUnit.2.6.2\lib\nunit.framework.dll</HintPath>
+    </Reference>
+    <Reference Include="Rhino.Mocks">
+      <HintPath>..\packages\RhinoMocks.3.6\lib\Rhino.Mocks.dll</HintPath>
+      <HintPath>..\..\..\Ed-Fi-Apps\Application\packages\RhinoMocks.3.6\lib\Rhino.Mocks.dll</HintPath>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="..\SolutionAssemblyInfo.cs">
+      <Link>SolutionAssemblyInfo.cs</Link>
+    </Compile>
+    <Compile Include="Factories\MetricInstanceTreeFactoryFixture.cs" />
+    <Compile Include="Services\Data\MetricComponentsServiceFixtures.cs" />
+    <Compile Include="Services\MetricDataServiceFixture.cs" />
+    <Compile Include="Services\MetricServiceFixture.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Providers\MetricFlagProviderFixture.cs" />
+    <Compile Include="Providers\TrendRenderingDispositionProviderFixture.cs" />
+    <Compile Include="Services\CurrentYearMetricDataProviderFixture.cs" />
+    <Compile Include="Services\MetricGoalServiceFixture.cs" />
+    <Compile Include="Services\MetricMetadataTreeServiceFixture.cs" />
+    <Compile Include="Services\MetricStateServiceFixture.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\EdFi.Dashboards.Common\EdFi.Dashboards.Common.csproj">
+      <Project>{5138F45D-EB07-4733-97E7-C761832BDC07}</Project>
+      <Name>EdFi.Dashboards.Common</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\EdFi.Dashboards.Data\EdFi.Dashboards.Data.csproj">
+      <Project>{2D634E95-52F6-404D-89AF-CA13C7C995D1}</Project>
+      <Name>EdFi.Dashboards.Data</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\EdFi.Dashboards.Infrastructure\EdFi.Dashboards.Infrastructure.csproj">
+      <Project>{0C2CFA02-99C5-4BC1-8EBF-AA9EB75EEB3A}</Project>
+      <Name>EdFi.Dashboards.Infrastructure</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\EdFi.Dashboards.Metric.Data.Entities\EdFi.Dashboards.Metric.Data.Entities.csproj">
+      <Project>{A04D62AF-F76D-4C15-AEAB-DF022BEEB1A8}</Project>
+      <Name>EdFi.Dashboards.Metric.Data.Entities</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\EdFi.Dashboards.Metric.Resources.Models\EdFi.Dashboards.Metric.Resources.Models.csproj">
+      <Project>{D6E84CA6-8494-4F3C-90B5-2B868DDE7A6C}</Project>
+      <Name>EdFi.Dashboards.Metric.Resources.Models</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\EdFi.Dashboards.Metric.Resources\EdFi.Dashboards.Metric.Resources.csproj">
+      <Project>{83928965-AF03-4518-9940-12BEF4BC079D}</Project>
+      <Name>EdFi.Dashboards.Metric.Resources</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\EdFi.Dashboards.Resource.Models.Common\EdFi.Dashboards.Resource.Models.Common.csproj">
+      <Project>{B9977F25-9C76-4585-B52B-0826255F3318}</Project>
+      <Name>EdFi.Dashboards.Resource.Models.Common</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\EdFi.Dashboards.Resources.Tests\EdFi.Dashboards.Resources.Tests.csproj">
+      <Project>{C81E9207-0215-4941-9B71-2A47DA0C9580}</Project>
+      <Name>EdFi.Dashboards.Resources.Tests</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\EdFi.Dashboards.Resources\EdFi.Dashboards.Resources.csproj">
+      <Project>{6EA4750A-8C3C-4111-B9A4-F35F5EF436ED}</Project>
+      <Name>EdFi.Dashboards.Resources</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\EdFi.Dashboards.Testing\EdFi.Dashboards.Testing.csproj">
+      <Project>{94AD2E43-23A6-42AA-93E9-15D1ECEB2D4B}</Project>
+      <Name>EdFi.Dashboards.Testing</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <CodeAnalysisDictionary Include="..\CustomDictionary.xml">
+      <Link>CustomDictionary.xml</Link>
+    </CodeAnalysisDictionary>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="app.config" />
+    <None Include="packages.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <Service Include="{82A7F48D-3B50-4B1E-B82E-3ADA8210C358}" />
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <Import Project="$(SolutionDir)\.nuget\nuget.targets" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>

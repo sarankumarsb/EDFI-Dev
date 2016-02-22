@@ -1,0 +1,44 @@
+﻿@using EdFi.Dashboards.Presentation.Core.Controllers
+@using EdFi.Dashboards.Common
+@using EdFi.Dashboards.Resources.Navigation
+@model EdFi.Dashboards.Presentation.Core.Models.Shared.EducationOrganizationHeaderModel
+<header class="l-selected-entity-header">
+    @{Html.RenderAction("PreviousNext", typeof(PreviousNextController).GetControllerName());}
+    <img src="@Model.ProfileThumbnail" alt=" " />
+    @if (!Model.AssociatedEducationOrganizations.Any())
+    {
+        <h1>@Model.Name</h1>
+    }
+    else
+    {
+        <h1>@Model.Name
+            <i id="educationOrganizationSelector_img" class="icon-down-open"></i>
+        </h1>
+        <ul id="educationOrganizationSelector_ul">
+            @foreach (var associatedEducationOrganziation in Model.AssociatedEducationOrganizations)
+            {
+                <li><a href="@associatedEducationOrganziation.Href">@associatedEducationOrganziation.Name</a></li>
+            }
+        </ul>
+    }
+</header>
+<script type="text/javascript">
+    $(document).ready(function () {
+        $('#educationOrganizationSelector_img').tooltip({
+            tip: '#educationOrganizationSelector_ul',
+            effect: 'fade',
+            position: 'bottom right',
+            bounce: true,
+            delay: 500
+        });
+    
+        $('#educationOrganizationSelector_img').click(function (e) {
+            var tooltip = $('#educationOrganizationSelector_img').data('tooltip');
+            if (tooltip.isShown(false)) {
+                tooltip.hide();
+            } else {
+                tooltip.show();
+            }
+        });
+    });
+</script>

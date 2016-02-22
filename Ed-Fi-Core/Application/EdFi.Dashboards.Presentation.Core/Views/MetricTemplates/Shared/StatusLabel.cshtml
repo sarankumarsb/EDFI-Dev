@@ -1,0 +1,14 @@
+﻿@using EdFi.Dashboards.Presentation.Web.Utilities
+@using EdFi.Dashboards.Presentation.Core.Utilities
+@model EdFi.Dashboards.Metric.Resources.Models.State
+<span style="@Legacy.ShowState(Model.StateType)" class="@Legacy.StateClass(Model.StateType)" title="@(Model.StateText)">
+            @if (ViewBag.DisplayText != null)
+            {
+                @ViewBag.DisplayText
+            }
+            else
+            {
+                @Model.DisplayStateText
+            }
+            <em class="hidden">@Legacy.EvaluateState(Model.StateType)</em>
+</span>

@@ -1,0 +1,173 @@
+@using EdFi.Dashboards.Common
+@using EdFi.Dashboards.Core.Providers.Context
+@using EdFi.Dashboards.Presentation.Core.Areas.School.Controllers
+@using EdFi.Dashboards.Presentation.Core.Models.Shared
+@using EdFi.Dashboards.Presentation.Core.Areas.School.Models.StudentDemographicList;
+@using EdFi.Dashboards.Resources.Navigation.Mvc
+@using EdFi.Dashboards.SecurityTokenService.Authentication
+
+@model StudentDemographicListModel
+           
+@{
+    //ViewBag.Title = "Demographic";
+    var safeDemographicName = Model.Demographic.Replace(" ", "").Replace("/", "").Replace("-", "").Replace(")", "").Replace("(", "");
+    var localEducationAgencyId = EdFiDashboardContext.Current.LocalEducationAgencyId.GetValueOrDefault();
+    var schoolId = EdFiDashboardContext.Current.SchoolId.GetValueOrDefault();
+    var staffUSI = UserInformation.Current.StaffUSI;
+}
+
+@section ContentPlaceHolderHead {
+                        @* After discussions with Geoff, we decided to go for the most UI oridented way of changing the Attribute name, otherwise the change will start rippling deep into core functions. *@
+                        @if (Model.Demographic == "Late Enrollment")
+                        {
+                        <title>@(Html.Action("Title", typeof(SchoolLayoutController).GetControllerName(), new { subTitle = "Highly Mobile" }))</title>
+                        }
+                        else
+                        {
+                        <title>@(Html.Action("Title", typeof(SchoolLayoutController).GetControllerName(), new { subTitle = Model.Demographic }))</title>
+                        }
+    
+    <script type="text/javascript">
+        var pageArea = { Area: 'school', Page: 'Students by Demographics' };
+    </script>
+}
+
+@section ContentPlaceHolder1 {
+    <div class="student-drop-down" id="demographicSelector">
+        <h2>Students by Demographic</h2>
+        <label class="content-label" for="demographicSelect">Select demographic to show:</label>
+        <select id="demographicSelect" class="drop-down">
+            @if (Model.PageTitle.ToLower() == "select demographic")
+            {
+                <option selected="selected">@Model.PageTitle.ToUpper()</option>
+            }
+            <optgroup label="Gender">
+                @foreach (var gender in Model.MenuModel.Gender)
+                {
+                    <option value="@gender.Url"
+                        @if (Request.Url != null && gender.Attribute == Model.Demographic)
+                        {
+                            @:selected='selected'
+                        }>
+                        @gender.Attribute
+                    </option>
+                }
+            </optgroup>
+            <optgroup label="Ethnicity">
+                @foreach (var ethnicity in Model.MenuModel.Ethnicity)
+                {
+                    <option value="@ethnicity.Url"
+                        @if (Request.Url != null && ethnicity.Attribute == Model.Demographic)
+                        {
+                            @:selected='selected'
+                        }>
+                        @ethnicity.Attribute
+                    </option>
+                }
+            </optgroup>
+            <optgroup label="Race">
+                @foreach (var race in Model.MenuModel.Race)
+                {
+                    <option value="@race.Url"
+                        @if (Request.Url != null && race.Attribute == Model.Demographic)
+                        {
+                            @:selected='selected'
+                        }>
+                        @race.Attribute
+                    </option>
+                }
+            </optgroup>
+            <optgroup label="Program">
+                @foreach (var program in Model.MenuModel.Program)
+                {
+                    <option value="@program.Url"
+                        @if (Request.Url != null && program.Attribute == Model.Demographic)
+                        {
+                            @:selected='selected'
+                        }>
+                        @program.Attribute
+                    </option>
+                }
+            </optgroup>
+            <optgroup label="Indicator">
+                @foreach (var indicator in Model.MenuModel.Indicator)
+                {
+                    <option value="@indicator.Url"
+                        @if (Request.Url != null && indicator.Attribute == Model.Demographic)
+                        {
+                            @:selected='selected'
+                        }>
+                        @* After discussions with Geoff, we decided to go for the most UI oridented way of changing the Attribute name, otherwise the change will start rippling deep into core functions. *@
+                        @if (indicator.Attribute == "Late Enrollment")
+                        {
+                        @:Highly Mobile
+                        }
+                        else
+                        {
+                        @indicator.Attribute
+                        }
+                    </option>
+                }
+            </optgroup>
+        </select>
+    </div>
+
+<script type="text/javascript">
+    $(document).ready(function () {
+        $("#demographicSelect").navigateOnChange();
+        $('#Demographic@(safeDemographicName)-EdFiGrid-interaction-custom').append($('#buttonExportAll@(safeDemographicName)'));
+        $('#buttonExportAll@(safeDemographicName)').show();
+        $('#Demographic@(safeDemographicName)-EdFiGrid').bind('afterDrawEvent', function(e, table) {
+            Demographic@(safeDemographicName)CustomStudentList.redrawCheckboxes();
+        });
+    });
+</script>
+
+    @{
+        if (Model.GridData != null)
+        {
+            var callbackUrl = EdFiDashboardContext.Current.RoutedUrl;
+
+            var edfiGridModel = new EdFiGridModel
+            {
+                DisplayInteractionMenu = true,
+                DisplayAddRemoveColumns = true,
+                FixedHeight = 0,
+                GridName = "Demographic" + safeDemographicName,
+                GridTable = Model.GridData,
+                SizeToWindow = true,
+                UniqueTableName = "Demographic" + safeDemographicName,
+                EntityList = new EntityListModel { ListType = "StudentList", MetricVariantId = string.Empty, RowIndexForId = 1 },
+                LegendViewNames = new List<string> { "Default" },
+                DefaultSortColumn = 1,
+                UsePagination = true,
+                PaginationCallbackUrl = callbackUrl,
+                AllowMaximizeGrid = true,
+                StudentWatchList = Model.GridData.WatchList,
+                SelectedDemographicOption = Model.Demographic,
+                PreviousNextSessionPage = Model.PreviousNextSessionPage,
+                ExportGridDataUrl = Model.ExportGridDataUrl,
+                ListType = Model.ListType
+            };
+
+            var customStudentListModel = new CustomStudentListModel
+            {
+                ControlId = "Demographic" + safeDemographicName,
+                IsCustomStudentList = false,
+                LinkParentIdentifier = "#Demographic" + safeDemographicName + "-EdFiGrid-interaction-custom",
+                CheckboxParentIentifier = "#Demographic" + safeDemographicName + "-EdFiGrid-fixed-data-table",
+                SelectAllCheckboxParentIentifier = "#Demographic" + safeDemographicName + "-EdFiGrid-fixed-header-table",
+                CustomStudentListId = null,
+                LocalEducationAgencyId = localEducationAgencyId,
+                SchoolId = schoolId,
+                StaffUSI = staffUSI,
+                CustomStudentListUrl = EdFiDashboards.Site.Staff.CustomStudentList(schoolId, staffUSI, null, new { format = "json" }),
+                UniqueId = schoolId
+            };
+
+            <a id="buttonExportAll@(safeDemographicName)" class="btn" style="display:none;" onclick="Demographic@(safeDemographicName)EdFiGrid.exportGrid();"><i class="icon-floppy"></i> EXPORT ALL</a>
+            Html.RenderPartial("EdFiGrid", edfiGridModel);
+            Html.RenderPartial("CustomStudentList", customStudentListModel);
+        }
+    }
+}

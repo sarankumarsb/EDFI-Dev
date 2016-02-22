@@ -1,0 +1,31 @@
+﻿@model IGranularMetric
+<tr id="vMetric@(Model.MetricVariantId)"  data-metric-id="@(Model.MetricId)" data-metric-variant-id="@(Model.MetricVariantId)">
+    <td headers="MetricName@(this.GetMetricRenderingContextValue("ParentContainerMetricId"))" data-item-type="DisplayName" title="@Model.ToolTip">
+        <p class="arrow">
+            <i class="icon-blank"></i>
+            <a name="m@(Model.MetricVariantId)"></a>
+            <span class="metricId">@(Model.MetricId)-@(Model.MetricVariantType)</span>
+            @(Model.DisplayName)
+            @if (!String.IsNullOrWhiteSpace(Model.Context))
+            {
+                <span>&nbsp;(@Model.Context)</span>
+            }
+            @Html.Partial("MetricFootnoteLabelSuperText", Model.Footnotes)
+
+            @Html.Partial("UnderConstruction", (MetricBase)Model)
+        </p>
+    </td>
+    <td headers="MetricPSAT@(this.GetMetricRenderingContextValue("ParentContainerMetricId"))" data-item-type="PSAT">
+        @((Model.Values["PSAT"] ?? string.Empty).ToString())
+    </td>
+    <td headers="MetricGoal@(this.GetMetricRenderingContextValue("ParentContainerMetricId"))" data-item-type="Goal">
+        @((Model.Values["State Assessment"] ?? string.Empty).ToString())
+    </td>
+    <td headers="MetricEnrollment@(this.GetMetricRenderingContextValue("ParentContainerMetricId"))" data-item-type="Enrollment">
+        @Html.Partial("StatusLabel", Model.State)
+    </td>
+    <td headers="MetricDetails@(this.GetMetricRenderingContextValue("ParentContainerMetricId"))" data-item-type="ContextMenu">
+        @Html.Partial("ContextMenu", (MetricBase)Model)
+    </td>
+</tr>
+

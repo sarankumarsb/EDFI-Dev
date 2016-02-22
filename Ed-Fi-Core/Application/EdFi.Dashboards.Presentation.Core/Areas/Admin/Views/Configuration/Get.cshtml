@@ -1,0 +1,63 @@
+﻿@model EdFi.Dashboards.Resources.Models.Admin.ConfigurationModel
+@using System.Web.Mvc.Html
+@using EdFi.Dashboards.Common
+@using EdFi.Dashboards.Presentation.Architecture.Mvc.Extensions
+@using EdFi.Dashboards.Presentation.Core.Areas.Admin.Controllers
+@using EdFi.Dashboards.Resources.Navigation
+@{
+    //ViewBag.Title = "Admin";
+}
+
+@section ContentPlaceHolderHead {
+    <title>@(Html.Action("Title", typeof(AdminLayoutController).GetControllerName(), new { subTitle = "Admin" }))</title>
+}
+
+@section ContentPlaceHolder1 {
+The website for @Model.LocalEducationAgencyName is currently @(Model.IsKillSwitchActivated ? "not available" : "available").
+
+<br />
+<br />
+<form id="adminConfigurationForm" method="POST" onsubmit="SubmitadminConfigurationForm();">
+    <table id="configure">
+        <tr style="padding-bottom:5px;">
+            <td style="padding-bottom:5px;">
+                <input id="LocalEducationAgencyId" name="LocalEducationAgencyId" type='hidden' value="@Model.LocalEducationAgencyId"/>
+                <input id="IsKillSwitchActivated" name="IsKillSwitchActivated" type="checkbox"
+                    @if(Model.IsKillSwitchActivated)
+                    {
+                        @:checked='checked'
+                    } />
+                <label for="isKillSwitchActivated">Deactivate the website for the entire district</label>
+            </td>
+        </tr>
+        <tr style="padding-bottom:5px;">
+            <td style="padding-bottom:5px;">
+                <label for="systemMessage">District-wide system message</label><em style="font-size:smaller;">&nbsp;(150 Character Limit)</em>
+                <input id="SystemMessage" name="SystemMessage" type="text" value="@Model.SystemMessage" style="width: 400px;" maxlength="150">
+            </td>
+        </tr>
+        <tr>
+            <td>
+                <input id="saveButton" name="saveButton" type="image" alt="Save" src="@EdFiWebFormsDashboards.Site.Common.ThemeImage("SaveButton.png").Resolve()" />
+            </td>
+        </tr>
+    </table>
+</form>
+
+<script language="javascript">
+    $(document).ready(function () {
+        $("#configure").keyup(function (event) {
+            if (event.keyCode == '13') {
+                event.preventDefault();
+                $("#adminConfigurationForm").submit();
+            }
+        });
+    });
+
+    function SubmitadminConfigurationForm() {
+        $("#IsKillSwitchActivated").val($("#IsKillSwitchActivated").is(":checked"));
+        return true;
+    }
+</script>
+}
+

@@ -1,0 +1,8 @@
+﻿@model ContainerMetric
+<span id="vMetricVariantId@(Model.MetricVariantId)" class="metricId">
+    @(Model.MetricId)-@(Model.MetricVariantId)
+</span>
+<h2><a name="@(Model.DisplayName.Replace(" ","_"))">Goal Planning - @(Model.DisplayName)</a></h2>
+<a id="buttonPublishLEAGoals" class="btn" href="#" onclick="goals.publishEdOrgGoals();">Publish District Goals</a>
+<a id="buttonPublishAllGoals" class="btn" href="#" onclick="goals.publishAllGoals();">Publish All Goals</a>
+@Html.Partial("JumpToMetricSubcategory", Model.Children)

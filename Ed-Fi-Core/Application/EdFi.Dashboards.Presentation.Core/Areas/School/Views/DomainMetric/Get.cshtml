@@ -1,0 +1,41 @@
+﻿@using EdFi.Dashboards.Common
+@using EdFi.Dashboards.Metric.Rendering
+@using EdFi.Dashboards.Metric.Resources.Models
+@using EdFi.Dashboards.Presentation.Architecture.Mvc.Extensions
+@using EdFi.Dashboards.Presentation.Core.Areas.School.Controllers
+@using EdFi.Dashboards.Presentation.Web.Architecture
+@model dynamic
+@{
+    ViewBag.Title = @Model.DisplayName;
+}
+
+@section ContentPlaceHolderHead {
+    <title>@(Html.Action("Title", typeof(SchoolLayoutController).GetControllerName(), new { subTitle = Model.DisplayName }))</title>
+    <script type="text/javascript">
+        var pageArea = { Area: 'school', Page: 'Academic Dashboard - @Model.DisplayName' };
+        
+        $(function () {
+
+            $('a[id|="mainmoreActions"]').on("click keypress focus", openMoreMenu);
+
+            var tdId = requestQuerystring("tdId");
+            if (tdId != null) {
+                $("[data-tdid='" + tdId + "']").click();
+            }
+
+            var jump = requestQuerystring("jump");
+            if (jump != null && jump != '') {
+                window.location.hash = "#" + jump;
+            }
+            
+            highlightMetric();
+        });
+    </script>
+
+}
+
+@section ContentPlaceHolder1 {
+<div class="l-metrics">
+    @{ MetricRenderingExtensions.RenderMetrics(Html, Model, (RenderingMode) ViewBag.RenderingMode); }
+</div>
+}

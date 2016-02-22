@@ -1,0 +1,39 @@
+﻿@using EdFi.Dashboards.Core.Providers.Context
+@using EdFi.Dashboards.Presentation.Web.Architecture.HtmlHelperExtensions
+@model IList<EdFi.Dashboards.Resources.Models.Student.Detail.MetricObjectiveModel>
+
+@{
+	var studentUSI = EdFiDashboardContext.Current.StudentUSI.GetValueOrDefault();
+	var metricVariantId = EdFiDashboardContext.Current.MetricVariantId.GetValueOrDefault();
+}
+
+<script>
+	analyticsManager.trackDrilldown('StudentMetricObjectivesList', '@(metricVariantId)', '@(studentUSI)');
+</script>
+
+@if(Model.Any()) {
+	<table class="standard-table standard-table-compressed" summary="Table displays a list of metric objectives.">
+		<thead>
+			<tr>
+				<th>Objective</th>
+				<th>Value</th>
+			</tr>
+		</thead>
+		<tbody>
+			@for (int i = 0; i < Model.Count(); i++) {
+				var objective = Model[i];
+				<tr>
+					<td>
+						<p class="arrow">
+							<i class="icon-blank"></i>
+							<span class="MetricBulletTitle">@(objective.Description)</span>
+						</p>
+					</td>
+					<td>@Html.Partial("MetricStateTypeLabel", objective.State.StateType, new ViewDataDictionary { { "DisplayText", objective.Value } })</td>
+				</tr>
+			}
+		</tbody>
+	</table>
+} else {
+	<span class="MetricNoData">No data available.</span>
+}

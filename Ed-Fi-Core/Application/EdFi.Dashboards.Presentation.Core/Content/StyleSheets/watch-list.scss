@@ -1,0 +1,24 @@
+.watch-list-search{
+	div{
+		width: 100%;
+		padding-bottom: 5px;
+
+		label{
+			float: left;
+			padding-right: 5px;
+			font-size: 10pt;
+		}
+		span{
+			display:block;
+			overflow: hidden;
+			select{
+				width: 100%;
+				font-size: 10pt;
+			}
+		}
+		ul{
+			list-style-type: none;
+			overflow: hidden;
+		}
+	}
+}

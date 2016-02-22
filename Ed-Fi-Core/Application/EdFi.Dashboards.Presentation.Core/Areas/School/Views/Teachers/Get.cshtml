@@ -1,0 +1,26 @@
+﻿@using EdFi.Dashboards.Common
+@using EdFi.Dashboards.Common.Utilities
+@using EdFi.Dashboards.Presentation.Core.Areas.School.Controllers
+@using EdFi.Dashboards.Presentation.Core.Providers.Models
+
+@model EdFi.Dashboards.Resources.Models.CustomGrid.GridTable
+         
+@section ContentPlaceHolderHead {
+    <title>@(Html.Action("Title", typeof(SchoolLayoutController).GetControllerName(), new { subTitle = "Teacher List" }))</title>
+    <script>
+        var pageArea = { Area: 'school', Page: 'Teacher List' };
+    </script>
+}
+
+@section ContentPlaceHolder1 {
+    <h2>Teacher List</h2>
+    
+       @{
+           var edFiGridModelProvider = IoC.Resolve<IEdFiGridModelProvider>();
+
+           var edfiGridModel = edFiGridModelProvider.GetEdFiGridModel(true, true, 0, "TeacherList",
+               null, Model, null, null, true, "TeacherList", null, null, false, null, false);
+
+    }
+    @{Html.RenderPartial("EdFiGrid", model: edfiGridModel);}
+}

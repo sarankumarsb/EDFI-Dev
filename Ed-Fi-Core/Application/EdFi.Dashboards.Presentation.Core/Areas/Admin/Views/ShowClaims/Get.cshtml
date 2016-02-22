@@ -1,0 +1,18 @@
+﻿@using EdFi.Dashboards.Presentation.Architecture.Mvc.Extensions
+@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <title>Claims for Current User</title>
+</head>
+<body>
+    <div>
+		<h1>@User.Identity.Name</h1>
+		@Model
+    </div>
+</body>
+</html>

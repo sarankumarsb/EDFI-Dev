@@ -1,0 +1,52 @@
+﻿@using EdFi.Dashboards.Core.Providers.Context
+@using EdFi.Dashboards.Presentation.Architecture.Mvc.Extensions
+@using EdFi.Dashboards.Resources.Navigation.Mvc
+@{
+    
+    //ViewBag.Title = "Local Education Agency";
+	Layout = this.GetLayout("_SiteLayout");
+}
+
+@section head {
+    @RenderSection("ContentPlaceHolderHead", required: false)
+}
+
+@section ContentDataHeader{
+    @{Html.RenderAction("EducationOrganizationHeader", "LocalEducationAgencyLayout");}
+}
+
+@section ContentMenu{
+    @{Html.RenderAction("Menu", "LocalEducationAgencyLayout");}
+}
+
+@section ContentPlaceHolderTopMost {
+<div class="l-area-layout">
+    @RenderSection("ContentPlaceHolder1", required: false)
+</div>
+
+    <!-- PageContext hidden field -->
+	<input type="hidden" name="PageContext" value="LocalEducationAgency" />
+
+	<!-- The ToolTip -->
+    <div id="JQToolTip"></div>
+
+    <script type="text/javascript">
+        analyticsManager.trackDataView('@EdFiDashboardContext.Current.LocalEducationAgencyId');
+
+        function exportAll_Click() {
+            analyticsManager.trackExport('LocalEducationAgency', 'All');
+            window.location = '@(new HtmlString(EdFiDashboards.Site.LocalEducationAgency.ExportAllMetrics(EdFiDashboardContext.Current.LocalEducationAgencyId.GetValueOrDefault(), new{format="csv"})))';
+        }	
+        
+        $(function () {
+            $(".JQToolTipTarget").tooltip({
+                tip: '#JQToolTip',
+                effect: 'slide',
+                position: 'bottom center',
+                bounce: true,
+                offset: [5, 0]
+
+            });
+        });
+    </script>
+}

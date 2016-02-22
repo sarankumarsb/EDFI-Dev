@@ -1,0 +1,143 @@
+﻿@using EdFi.Dashboards.Presentation.Core.Models.Shared
+@using EdFi.Dashboards.Presentation.Core.Utilities.ExtensionMethods.HtmlHelper
+@model EdFi.Dashboards.Presentation.Core.Areas.StudentSchool.Models.Shared.CourseHistoryModel
+
+@*@if (Model.ShowJump)
+{
+    <p class="inline-links">
+        Jump to subcategory:
+        @{ var subjectAreaCount = 0;}
+        @foreach (var subjectArea in Model.Model.SubjectAreas)
+        {
+            <a class="@(subjectAreaCount == 0 ? "first" : "")" href="#@subjectArea.Name">@subjectArea.Name</a>
+            subjectAreaCount++;
+        }
+    </p>
+}*@
+<div class="credit-accumulation-grid">
+    @*<div class="expand-collapse-header">
+            <div class="expand-collapse-row">
+                <span class="subject-area">Subject Area</span>
+                <span class="credits-earned">Total Credits Earned</span>
+            </div>
+        </div>*@
+    @{ var courseCount = 0; }
+    @foreach (var subjectArea in Model.Model.SubjectAreas)
+    {
+        <div class="expand-collapse hide">
+            <div class="expand-collapse-row hide">
+                @{
+        var subjectAreaDivId = subjectArea.Name.Replace(" ", "");
+        subjectAreaDivId = subjectAreaDivId.Replace("/", "");
+        subjectAreaDivId = String.Format("CourseHistoryList{0}_{1}", Model.MetricVariantId, subjectAreaDivId);
+        var subjectAreaId = subjectAreaDivId.ToLower();
+                }
+
+                <span class="subject-area">
+                    @Html.Partial("ExpandCollapse", new ExpandCollapseModel { CollapseExpandInitialState = Model.CollapseExpandInitialState, Title = subjectArea.Name, TitleCSS = "MetricTitle", DivId = subjectAreaDivId })
+                    <a id="@subjectArea.Name">&nbsp;</a>
+                </span>
+                @if (Model.CollapseExpandInitialState == ExpandCollapseModel.InitialState.Collapsed)
+                {
+                    <script>
+                        document.onready($(".icon-collapse").hide());
+                    </script>
+                }
+                <span class="credits-earned">
+                    @Html.FormatCredits(subjectArea.TotalCreditsEarned)
+                </span>
+            </div>
+        </div>
+
+        if (courseCount == 0)
+        {
+            <table class="standard-table tabular history_course_table" summary="Course History for @subjectArea.Name" id="@(subjectAreaDivId)">
+                <thead>
+                    <tr>
+                        <th colspan="2" id="course_history">
+                            <a class="accordion-toggle" data-target="#HistoryCoursePart1,#HistoryCourseSub" href="#" id="historyToggle">
+                                <h4>Course History</h4>
+                            </a>
+                        </th>
+                        @*<th id="subject-area-@subjectAreaId-course-number" style="text-align:left">Course Number</th>
+                            <th id="subject-area-@subjectAreaId-description" style="text-align:left">Description</th>*@
+                        <th id="subject-area-@subjectAreaId-semester" style="width:16%;">
+                            <div class="label_wrap">Semester<img class="arrow" src="@Url.Content("~/App_Themes/Theme1/img/th_down_arrow.png")" alt="Downarrow" /></div>
+                        </th>
+                        <th id="subject-area-@subjectAreaId-grade-level" style="width:16%;">
+                            <div class="label_wrap">Grade Level<img class="arrow" src="@Url.Content("~/App_Themes/Theme1/img/th_down_arrow.png")" alt="Downarrow" /></div>
+                        </th>
+                        <th id="subject-area-@subjectAreaId-final-course-grade" style="width:16%;">
+                            <div class="label_wrap">Final Course Grade<img class="arrow" src="@Url.Content("~/App_Themes/Theme1/img/th_down_arrow.png")" alt="Downarrow" /></div>
+                        </th>
+                        <th id="subject-area-@subjectAreaId-credits-earned" style="width:16%;">
+                            <div class="label_wrap">Credits Earned<img class="arrow" src="@Url.Content("~/App_Themes/Theme1/img/th_down_arrow.png")" alt="Downarrow" /></div>
+                        </th>
+                    </tr>
+                </thead>
+                <tbody id="HistoryCoursePart1">
+                    <tr>
+                        <td class="heading" colspan="6">
+                            <span class="title">@subjectArea.Name</span>
+                            <h4 class="sub">Course # And Descriptions</h4>
+                        </td>
+                    </tr>
+                </tbody>
+                <tbody id="HistoryCoursePart1">
+                    @{ var rowCount = 0; }
+                    @foreach (var course in subjectArea.Courses)
+                    {
+                        rowCount++;
+                        <tr>
+                            <td headers="subject-area-@subjectAreaId-course-number">@course.LocalCourseCode</td>
+                            <td headers="subject-area-@subjectAreaId-description">@course.CourseTitle</td>
+                            <td headers="subject-area-@subjectAreaId-semester">@course.ActualSemester.TermType</td>
+                            <td headers="subject-area-@subjectAreaId-grade-level" style="text-align:center">@course.GradeLevel</td>
+                            <td headers="subject-area-@subjectAreaId-final-course-grade" style="text-align:center" class="center">@course.FinalGrade.Value</td>
+                            <td headers="subject-area-@subjectAreaId-credits-earned" style="text-align:center">@Html.FormatCredits(course.CreditsEarned)</td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        }
+        else
+        {
+            <table class="standard-table tabular history_course_table" summary="Course History for @subjectArea.Name" id="HistoryCourseSub">
+                @*<thead>
+                        <tr>
+                            <th id="subject-area-@subjectAreaId-course-number" style="text-align:left">Course Number</th>
+                            <th id="subject-area-@subjectAreaId-description" style="text-align:left">Description</th>
+                            <th id="subject-area-@subjectAreaId-semester" style="text-align:left">Semester</th>
+                            <th id="subject-area-@subjectAreaId-grade-level">Grade Level</th>
+                            <th id="subject-area-@subjectAreaId-final-course-grade">Final Course Grade</th>
+                            <th id="subject-area-@subjectAreaId-credits-earned">Credits Earned</th>
+                        </tr>
+                    </thead>*@
+                <tbody>
+                    <tr>
+                        <td class="heading" colspan="6">
+                            <span class="title">@subjectArea.Name</span>
+                            <h4 class="sub">Course # And Descriptions</h4>
+                        </td>
+                    </tr>
+                </tbody>
+                <tbody>
+                    @{ var rowCount = 0; }
+                    @foreach (var course in subjectArea.Courses)
+                    {
+                        rowCount++;
+                        <tr>
+                            <td headers="subject-area-@subjectAreaId-course-number">@course.LocalCourseCode</td>
+                            <td headers="subject-area-@subjectAreaId-description">@course.CourseTitle</td>
+                            <td headers="subject-area-@subjectAreaId-semester" style="width:16%;">@course.ActualSemester.TermType</td>
+                            <td headers="subject-area-@subjectAreaId-grade-level" style="text-align:center;width:16%;">@course.GradeLevel</td>
+                            <td headers="subject-area-@subjectAreaId-final-course-grade" style="text-align:center;width:16%;" class="center">@course.FinalGrade.Value</td>
+                            <td headers="subject-area-@subjectAreaId-credits-earned" style="text-align:center;width:16%;">@Html.FormatCredits(course.CreditsEarned)</td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        }
+        courseCount++;
+    }
+</div>

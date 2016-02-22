@@ -1,0 +1,8 @@
+﻿@model ContainerMetric
+           
+<span id="vMetricVariantId@(Model.MetricVariantId)" class="metricId">
+    @(Model.MetricId)-@(Model.MetricVariantType)
+</span>
+<h2>@(Model.DisplayName)</h2>
+<a class="PriorYearDisplayOption btn" style="display:none" href="#" onclick="priorYearDisplay.toggle();"></a>
+@Html.Partial("JumpToMetricSubcategory", Model.Children)

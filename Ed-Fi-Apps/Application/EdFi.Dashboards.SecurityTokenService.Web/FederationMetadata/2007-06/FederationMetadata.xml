@@ -1,0 +1,123 @@
+﻿<EntityDescriptor ID="_59a81113-40bc-4d8c-8d36-2dc634e76e90" entityID="https://localhost/EdFiDashboardDev_STS/" xmlns="urn:oasis:names:tc:SAML:2.0:metadata">
+  <ds:Signature xmlns:ds="http://www.w3.org/2000/09/xmldsig#">
+    <ds:SignedInfo>
+      <ds:CanonicalizationMethod Algorithm="http://www.w3.org/2001/10/xml-exc-c14n#"/>
+      <ds:SignatureMethod Algorithm="http://www.w3.org/2001/04/xmldsig-more#rsa-sha256"/>
+      <ds:Reference URI="#_59a81113-40bc-4d8c-8d36-2dc634e76e90">
+        <ds:Transforms>
+          <ds:Transform Algorithm="http://www.w3.org/2000/09/xmldsig#enveloped-signature"/>
+          <ds:Transform Algorithm="http://www.w3.org/2001/10/xml-exc-c14n#"/>
+        </ds:Transforms>
+        <ds:DigestMethod Algorithm="http://www.w3.org/2001/04/xmlenc#sha256"/>
+        <ds:DigestValue>5RRblrgOOnrb2tKGAKFGMzVfbrZ3ths+/4aKPUyIQ+o=</ds:DigestValue>
+      </ds:Reference>
+    </ds:SignedInfo>
+    <ds:SignatureValue>GVpXCgC1zne8PsLWUknX+M7hiakv4HmeFxJM88lnCIaH3kGNSOZIj7dV2eJIXrWf2TkfvKcH4sRs/debO6GYZaysUw0rbnfeQioK3EWY3swrtatUCFbuT0UnonkhrtEwKJIMEjDBnYneZcw1dp7v3liwR5HzJbxZFarxg1NZ6uI=</ds:SignatureValue>
+    <KeyInfo xmlns="http://www.w3.org/2000/09/xmldsig#">
+      <X509Data>
+        <X509Certificate>MIIB9DCCAWGgAwIBAgIQVUK5MBOnJqVEuboKVe3JFDAJBgUrDgMCHQUAMBYxFDASBgNVBAMTC1NUU1Rlc3RDZXJ0MB4XDTEyMTAyODA0NTQyNloXDTM5MTIzMTIzNTk1OVowFjEUMBIGA1UEAxMLU1RTVGVzdENlcnQwgZ8wDQYJKoZIhvcNAQEBBQADgY0AMIGJAoGBAKHjQGprAodo3+Ri7HAtpZZewcEIkpwF18C9GYd2eN4fUFXDDWl+/Gha4VdJPgAakqB2hkszQJrtWCaLACElHBTtfstb0tKTcjsJMR1Pe7s75a8GXo1pei7xvbO8lvMZePRIZ4WhOj38RXQjajni4gVLcYHo+x8+58En+/BDgBJTAgMBAAGjSzBJMEcGA1UdAQRAMD6AEOZlcEXstt3y/rFwbU4L2MqhGDAWMRQwEgYDVQQDEwtTVFNUZXN0Q2VydIIQVUK5MBOnJqVEuboKVe3JFDAJBgUrDgMCHQUAA4GBACYwub7duBDCJpR3fqZ0N2qDU8si2QBJap2azg1HeGCjjiiYzgZeusxGkNiSxB3En/3a4apuWZCtoTJtDOlFe6OH2KnRodwmLAPwBZCHClakZWsUjzTorGjmAaGJwEo4e+Xhf8af+2B5+reKNnRraZEalQuwBTV/Tbj5B99xL1yA</X509Certificate>
+      </X509Data>
+    </KeyInfo>
+  </ds:Signature>
+  <RoleDescriptor xsi:type="fed:SecurityTokenServiceType" protocolSupportEnumeration="http://docs.oasis-open.org/wsfed/federation/200706" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:fed="http://docs.oasis-open.org/wsfed/federation/200706">
+    <KeyDescriptor use="signing">
+      <KeyInfo xmlns="http://www.w3.org/2000/09/xmldsig#">
+        <X509Data>
+          <X509Certificate>MIIB9DCCAWGgAwIBAgIQVUK5MBOnJqVEuboKVe3JFDAJBgUrDgMCHQUAMBYxFDASBgNVBAMTC1NUU1Rlc3RDZXJ0MB4XDTEyMTAyODA0NTQyNloXDTM5MTIzMTIzNTk1OVowFjEUMBIGA1UEAxMLU1RTVGVzdENlcnQwgZ8wDQYJKoZIhvcNAQEBBQADgY0AMIGJAoGBAKHjQGprAodo3+Ri7HAtpZZewcEIkpwF18C9GYd2eN4fUFXDDWl+/Gha4VdJPgAakqB2hkszQJrtWCaLACElHBTtfstb0tKTcjsJMR1Pe7s75a8GXo1pei7xvbO8lvMZePRIZ4WhOj38RXQjajni4gVLcYHo+x8+58En+/BDgBJTAgMBAAGjSzBJMEcGA1UdAQRAMD6AEOZlcEXstt3y/rFwbU4L2MqhGDAWMRQwEgYDVQQDEwtTVFNUZXN0Q2VydIIQVUK5MBOnJqVEuboKVe3JFDAJBgUrDgMCHQUAA4GBACYwub7duBDCJpR3fqZ0N2qDU8si2QBJap2azg1HeGCjjiiYzgZeusxGkNiSxB3En/3a4apuWZCtoTJtDOlFe6OH2KnRodwmLAPwBZCHClakZWsUjzTorGjmAaGJwEo4e+Xhf8af+2B5+reKNnRraZEalQuwBTV/Tbj5B99xL1yA</X509Certificate>
+        </X509Data>
+      </KeyInfo>
+    </KeyDescriptor>
+    <fed:TokenTypesOffered>
+      <fed:TokenType Uri="urn:oasis:names:tc:SAML:1.0:assertion"/>
+    </fed:TokenTypesOffered>
+    <fed:ClaimTypesOffered>
+      <auth:ClaimType Uri="http://schemas.xmlsoap.org/ws/2005/05/identity/claims/name" Optional="true" xmlns:auth="http://docs.oasis-open.org/wsfed/authorization/200706">
+        <auth:DisplayName>Name</auth:DisplayName>
+        <auth:Description>The name of the subject.</auth:Description>
+      </auth:ClaimType>
+      <auth:ClaimType Uri="http://schemas.microsoft.com/ws/2008/06/identity/claims/role" Optional="true" xmlns:auth="http://docs.oasis-open.org/wsfed/authorization/200706">
+        <auth:DisplayName>Role</auth:DisplayName>
+        <auth:Description>The role of the subject.</auth:Description>
+      </auth:ClaimType>
+      <auth:ClaimType Uri="http://schemas.xmlsoap.org/ws/2005/05/identity/claims/givenname" Optional="true" xmlns:auth="http://docs.oasis-open.org/wsfed/authorization/200706">
+        <auth:DisplayName>Given Name</auth:DisplayName>
+        <auth:Description>The first name of the subject.</auth:Description>
+      </auth:ClaimType>
+      <auth:ClaimType Uri="http://schemas.xmlsoap.org/ws/2005/05/identity/claims/surname" Optional="true" xmlns:auth="http://docs.oasis-open.org/wsfed/authorization/200706">
+        <auth:DisplayName>Surname</auth:DisplayName>
+        <auth:Description>The last name of the subject.</auth:Description>
+      </auth:ClaimType>
+      <auth:ClaimType Uri="http://edfi.org/dashboards/identity/claims/staffUSI" Optional="true" xmlns:auth="http://docs.oasis-open.org/wsfed/authorization/200706">
+        <auth:DisplayName>Staff USI</auth:DisplayName>
+        <auth:Description>The user's unique Staff identifier.</auth:Description>
+      </auth:ClaimType>
+      <auth:ClaimType Uri="http://edfi.org/dashboards/identity/claims/localEducationAgencyId" Optional="true" xmlns:auth="http://docs.oasis-open.org/wsfed/authorization/200706">
+        <auth:DisplayName>Local Education Agency Id</auth:DisplayName>
+        <auth:Description>The identifier of the user's Local Education Agency.</auth:Description>
+      </auth:ClaimType>
+      <auth:ClaimType Uri="http://edfi.org/dashboards/identity/claims/fullName" Optional="true" xmlns:auth="http://docs.oasis-open.org/wsfed/authorization/200706">
+        <auth:DisplayName>Full Name</auth:DisplayName>
+        <auth:Description>The user's first, middle and last names.</auth:Description>
+      </auth:ClaimType>
+      <auth:ClaimType Uri="http://edfi.org/dashboards/identity/claims/org/viewAllMetrics" Optional="true" xmlns:auth="http://docs.oasis-open.org/wsfed/authorization/200706">
+        <auth:DisplayName>View All Metrics</auth:DisplayName>
+        <auth:Description>A claim indicating the user has permission to view all the metrics for the organization specified in the claim value.</auth:Description>
+      </auth:ClaimType>
+      <auth:ClaimType Uri="http://edfi.org/dashboards/identity/claims/org/viewMyMetrics" Optional="true" xmlns:auth="http://docs.oasis-open.org/wsfed/authorization/200706">
+        <auth:DisplayName>View My Metrics</auth:DisplayName>
+        <auth:Description>A claim indicating the user has permission to view the metrics for student they are associated with at the organization specified in the claim value.</auth:Description>
+      </auth:ClaimType>
+      <auth:ClaimType Uri="http://edfi.org/dashboards/identity/claims/org/viewAllStudents" Optional="true" xmlns:auth="http://docs.oasis-open.org/wsfed/authorization/200706">
+        <auth:DisplayName>View All Students</auth:DisplayName>
+        <auth:Description>A claim indicating the user has permission to view all the students at the organization specified in the claim value.</auth:Description>
+      </auth:ClaimType>
+      <auth:ClaimType Uri="http://edfi.org/dashboards/identity/claims/org/viewMyStudents" Optional="true" xmlns:auth="http://docs.oasis-open.org/wsfed/authorization/200706">
+        <auth:DisplayName>View My Students</auth:DisplayName>
+        <auth:Description>A claim indicating the user has permission to view information and metrics for students they are associated with at the organization specified in the claim value.</auth:Description>
+      </auth:ClaimType>
+      <auth:ClaimType Uri="http://edfi.org/dashboards/identity/claims/org/viewOperationalDashboard" Optional="true" xmlns:auth="http://docs.oasis-open.org/wsfed/authorization/200706">
+        <auth:DisplayName>View Operational Dashboard</auth:DisplayName>
+        <auth:Description>A claim indicating the user has permission to view the operational dashboard.</auth:Description>
+      </auth:ClaimType>
+      <auth:ClaimType Uri="http://edfi.org/dashboards/identity/claims/org/administerDashboard" Optional="true" xmlns:auth="http://docs.oasis-open.org/wsfed/authorization/200706">
+        <auth:DisplayName>Administer Dashboard</auth:DisplayName>
+        <auth:Description>A claim indicating the user has permission to perform such activities as impersonate users for support purposes, and to disable the dashboards for the organization in the claim value.</auth:Description>
+      </auth:ClaimType>
+      <auth:ClaimType Uri="http://edfi.org/dashboards/identity/claims/org/manageGoals" Optional="true" xmlns:auth="http://docs.oasis-open.org/wsfed/authorization/200706">
+        <auth:DisplayName>Manage Goals</auth:DisplayName>
+        <auth:Description>A claim indicating the user has permission to manage goals and thresholds for the organization in the claim value.</auth:Description>
+      </auth:ClaimType>
+      <auth:ClaimType Uri="http://edfi.org/dashboards/identity/claims/org/viewAllTeachers" Optional="true" xmlns:auth="http://docs.oasis-open.org/wsfed/authorization/200706">
+        <auth:DisplayName>View All Teachers</auth:DisplayName>
+        <auth:Description>A claim indicating the user has permission to view all the teachers for the organization specified in the claim value.</auth:Description>
+      </auth:ClaimType>
+      <auth:ClaimType Uri="http://edfi.org/dashboards/identity/claims/org/AccessOrganization" Optional="true" xmlns:auth="http://docs.oasis-open.org/wsfed/authorization/200706">
+        <auth:DisplayName>Access Organization</auth:DisplayName>
+        <auth:Description>A claim indicating the user has permission to view the organization.</auth:Description>
+      </auth:ClaimType>
+      <auth:ClaimType Uri="http://edfi.org/dashboards/identity/claims/Impersonating" Optional="true" xmlns:auth="http://docs.oasis-open.org/wsfed/authorization/200706">
+        <auth:DisplayName>Impersonating</auth:DisplayName>
+        <auth:Description>A claim indicating the user has permission to impersonate other uers.</auth:Description>
+      </auth:ClaimType>
+    </fed:ClaimTypesOffered>
+    <fed:SecurityTokenServiceEndpoint>
+      <EndpointReference xmlns="http://www.w3.org/2005/08/addressing">
+        <Address>https://localhost/EdFiDashboardDev_STS/</Address>
+        <Metadata>
+          <Metadata xmlns="http://schemas.xmlsoap.org/ws/2004/09/mex" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:wsx="http://schemas.xmlsoap.org/ws/2004/09/mex">
+            <wsx:MetadataSection Dialect="http://schemas.xmlsoap.org/ws/2004/09/mex" xmlns="">
+              <wsx:MetadataReference>
+                <Address xmlns="http://www.w3.org/2005/08/addressing">https://localhost/EdFiDashboardDev_STS//mex</Address>
+              </wsx:MetadataReference>
+            </wsx:MetadataSection>
+          </Metadata>
+        </Metadata>
+      </EndpointReference>
+    </fed:SecurityTokenServiceEndpoint>
+    <fed:PassiveRequestorEndpoint>
+      <EndpointReference xmlns="http://www.w3.org/2005/08/addressing">
+        <Address>https://localhost/EdFiDashboardDev_STS/</Address>
+      </EndpointReference>
+    </fed:PassiveRequestorEndpoint>
+  </RoleDescriptor>
+</EntityDescriptor>

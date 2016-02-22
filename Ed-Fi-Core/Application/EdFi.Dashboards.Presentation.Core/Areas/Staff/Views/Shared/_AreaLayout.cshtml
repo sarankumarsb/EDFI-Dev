@@ -1,0 +1,59 @@
+﻿@using EdFi.Dashboards.Core.Providers.Context
+@using EdFi.Dashboards.Presentation.Architecture.Mvc.Extensions
+@using EdFi.Dashboards.Resources.Navigation
+@using EdFi.Dashboards.Resources.Navigation.Mvc
+@{
+    //ViewBag.Title = "Staff";
+	Layout = this.GetLayout("_SiteLayout");
+}
+
+@section head {
+    <script type="text/javascript">
+        function GoToSchool(dropdown) {
+            var schoolUrl = $(dropdown).val();
+            NavigateToPage(schoolUrl);
+        }
+
+        function GoToView(dropdown) {
+            var viewUrl = $(dropdown).val();
+            NavigateToPage(viewUrl);
+        }
+
+        function GoToSection(dropdown) {
+            var viewUrl = $(dropdown).val();
+            NavigateToPage(viewUrl);
+        }
+
+    </script>
+
+
+	@RenderSection("ContentPlaceHolderHead", required: false)
+}
+
+@section ContentDataHeader{
+    @{Html.RenderAction("StaffHeader", "StaffLayout");}
+}
+
+@section ContentMenu{
+    <div id="StaffSlidingMenuHome">
+        <div id="StaffSlidingSubmenu">
+            @{Html.RenderAction("Menu", "StaffLayout");}
+        </div>
+    </div>
+}
+
+@section ContentPlaceHolderTopMost {
+<div class="l-area-layout">
+    @RenderSection("ContentPlaceHolder1", required: false)
+</div>
+<!-- PageContext hidden field -->
+<input type="hidden" name="PageContext" value="TeacherClassroom" />
+<script type="text/javascript" language="javascript">
+    analyticsManager.trackDataView('@EdFiDashboardContext.Current.StaffUSI');
+
+    var menuDisplayed = false;
+    var allowMenuAction = true;
+</script>
+<!-- The ToolTip -->
+<div id="JQToolTip"></div>
+}

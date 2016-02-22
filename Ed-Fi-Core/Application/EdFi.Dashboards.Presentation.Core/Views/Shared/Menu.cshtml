@@ -1,0 +1,50 @@
+﻿@using EdFi.Dashboards.Presentation.Core.Models.Shared
+@{
+    Layout = null;
+}
+@model IEnumerable<MenuItemModel>
+
+@{
+    var menuItems = Model.Where(x => x.Display && x.Enabled).ToArray();
+    var submenu = Model.SingleOrDefault(x => x.Selected);
+    var submenuItems = (submenu == null ? Enumerable.Empty<MenuItemModel>() : submenu.ChildItems.Where(x => x.Display && x.Enabled)).ToArray();
+}
+
+<ul class="l-tabs nav nav-tabs nav-tabs-edfi clearfix r-tabs-nav @(submenuItems.Length == 0 ? "l-tabs-short" : "")">
+    @for (int idx = 0; idx < menuItems.Length; idx++)
+    {
+        var menuItem = menuItems[idx];
+        <li class="@(menuItem.Selected ? "active" : "") @(idx == menuItems.Length - 1 ? "last" : "") @("tab" + (idx + 1))" style="width:@((79.9999f /menuItems.Length) + "%")">
+            @*<a href="@menuItem.NavigateUrl">@Html.Raw(menuItem.Text)<span class="spacecls"></span><span class="uparr"></span></a>*@
+            <a href="@menuItem.NavigateUrl" class="bg-@(idx + 1)-damask r-tabs-anchor">
+                <span class="tab-title">
+                    <span>@Html.Raw(menuItem.Text)</span>
+                </span>
+            </a>
+            @if (menuItem.Selected && submenuItems.Any())
+            {
+                <ul class="@("sub_ul" + (idx + 1))">
+                    @foreach (var submenuItem in submenuItems)
+                    {
+                        <li @(submenuItem.State == MenuItemModel.MenuItemState.Selected ? "class=active" : "") style="width:@((99.9999f /submenuItems.Length) + "%")"><a href="@submenuItem.NavigateUrl">@Html.Raw(submenuItem.Text)<span class="@("arr" + (idx + 1))"></span></a></li>
+                    }
+                </ul>
+            }
+        </li>
+    }
+</ul>
+                        
+@*<ul class="l-tabs @(submenuItems.Length == 0 ? "l-tabs-short" : "")">
+    @for (int idx = 0; idx < menuItems.Length; idx++) {
+        var menuItem = menuItems[idx];
+        <li class="@(menuItem.Selected ? "active" : "") @(idx == menuItems.Length - 1 ? "last" : "")" style="width:@((99.9999f /menuItems.Length) + "%")"><a href="@menuItem.NavigateUrl">@Html.Raw(menuItem.Text)</a>
+        @if (menuItem.Selected && submenuItems.Any()) {
+            <ul>
+                @foreach (var submenuItem in submenuItems) {
+                    <li @(submenuItem.State == MenuItemModel.MenuItemState.Selected ? "class=active" : "") style="width:@((99.9999f /submenuItems.Length) + "%")"><a href="@submenuItem.NavigateUrl">@Html.Raw(submenuItem.Text)</a></li>
+                }
+            </ul>
+        }
+        </li>
+    }
+</ul>*@

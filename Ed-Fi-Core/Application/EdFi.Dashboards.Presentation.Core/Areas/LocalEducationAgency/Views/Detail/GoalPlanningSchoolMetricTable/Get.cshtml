@@ -1,0 +1,49 @@
+﻿@using System.Web.Script.Serialization
+@using EdFi.Dashboards.Common.Utilities
+@using EdFi.Dashboards.Core.Providers.Context
+@using EdFi.Dashboards.Presentation.Core.Providers.Models
+@model EdFi.Dashboards.Presentation.Web.Areas.LocalEducationAgency.Models.Detail.GoalPlanningSchoolMetricTableModel
+         
+@{
+    var jss = new JavaScriptSerializer { MaxJsonLength = 50000000 };
+    var jsonMetricVariantIds = jss.Serialize(Model.SchoolMetrics);
+    var jsonGoalData = jss.Serialize(Model.GoalPlanning);
+    
+    var localEducationAgencyId = EdFiDashboardContext.Current.LocalEducationAgencyId.GetValueOrDefault();
+    var metricVariantId = EdFiDashboardContext.Current.MetricVariantId.GetValueOrDefault();
+
+    var edFiGridModelProvider = IoC.Resolve<IEdFiGridModelProvider>();
+
+    var edfiGridModel = edFiGridModelProvider.GetEdFiGridModel(false, false, 10, "GoalPlanningMetric" + metricVariantId, metricVariantId,
+        Model.GridTable, null, Model.GridTable.GetDefaultNonPersistedSettings("GoalPlanningMetric" + metricVariantId + "EdFiGrid"), 
+        false, "GoalPlanningSchoolList", null, "metricContext", false, null, false);
+
+}
+<div id="GoalPlanningSchoolMetricTable@(metricVariantId)" style="padding-top:10px;">
+    <script type="text/javascript" language="javascript">
+        analyticsManager.trackDrilldown('LocalEducationAgencyGoalPlanningSchoolMetricTable', '@(metricVariantId)', '@(localEducationAgencyId)');
+    </script>
+    <a id="buttonReplicate@(metricVariantId)" class="buttonReplicate buttonImage doNotPrint" href="#" onclick="goals.replicateGoal(@(metricVariantId), '#@(edfiGridModel.GridName)-EdFiGrid', '@(edfiGridModel.GridName)-GridData', 'goalSchoolMetrics-@(metricVariantId)', 'goalData-@(metricVariantId)', @(edfiGridModel.GridName)EdFiGrid); (event.preventDefault) ? event.preventDefault() : event.returnValue = false;">REPLICATE</a>
+    <div id="multiMetricLegend@(metricVariantId)" class="multiMetricLegend" style="display:none;">
+        <i class="icon-blank"></i> Displayed goal applies to multiple metrics. To set individual metric goals, please click through to the school.
+    </div>
+    @{Html.RenderPartial("EdFiGrid", model: edfiGridModel);}
+    
+    <script type="text/javascript">
+        jQuery['goalSchoolMetrics-@(metricVariantId)'] = @(Html.Raw(jsonMetricVariantIds));
+        jQuery['goalData-@(metricVariantId)'] = @(Html.Raw(jsonGoalData));
+        goals.applyGoalData('goalData-@(metricVariantId)', '@(edfiGridModel.GridName)-GridData');
+        
+        $(document).ready(function () {
+            $('#@(edfiGridModel.GridName)-EdFiGrid').bind('afterDrawEvent', function (e, table) {
+                goals.initializeChildMetrics('#@(edfiGridModel.GridName)-EdFiGrid', '@(edfiGridModel.GridName)-GridData', 'goalSchoolMetrics-@(metricVariantId)', 'goalData-@(metricVariantId)', @(edfiGridModel.GridName)EdFiGrid);
+                if ($('#@(edfiGridModel.GridName)-EdFiGrid .goalPlanningMultiMetric').length > 0) {
+                    $('#multiMetricLegend@(metricVariantId)').show();
+                } else {
+                    $('#multiMetricLegend@(metricVariantId)').hide();
+                }
+            });
+        });
+    </script>
+</div>
+

@@ -1,0 +1,18 @@
+﻿@using System.ComponentModel.Design
+@using System.Web.UI.DataVisualization.Charting
+@using EdFi.Dashboards.Core.Providers.Context
+@using EdFi.Dashboards.Metric.Resources.Models
+@using EdFi.Dashboards.Presentation.Architecture.Mvc.Extensions
+@using EdFi.Dashboards.Presentation.Web.Architecture.HtmlHelperExtensions
+@model EdFi.Dashboards.Resources.Models.Charting.AssessmentRateChartModel
+         
+@{
+  var schoolId = EdFiDashboardContext.Current.SchoolId.GetValueOrDefault();
+  var metricVariantId = EdFiDashboardContext.Current.MetricVariantId.GetValueOrDefault();
+}
+
+<script type="text/javascript" language="javascript">
+    analyticsManager.trackDrilldown('SchoolAssessmentRateChart', '@(metricVariantId)', '@(schoolId)');
+</script>
+    @Html.BarChart(Model.ChartData, 740, 250, 100, 0, 25, "{0} %", true, SeriesChartType.StackedColumn100, false)
+    @Html.Partial("~/Views/MetricTemplates/Shared/MetricFootnoteLabelSuperText.cshtml", Model.MetricFootnotes, new ViewDataDictionary{{"FootnoteVisible",true}})

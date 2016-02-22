@@ -1,0 +1,9 @@
+﻿<!-- This is the top level tab template -->
+<script type="text/html" id="metricTabTemplate">
+    <!-- ko if: IsActiveTab() -->
+    <li class="active-filter-tab"><a class="active-filter-tab" href="#" data-bind="attr: { id: '@(Model.GridName)-' + Name + '-tab', 'data-tab-content': '@(Model.GridName)-' + Name }, text: DisplayText"></a></li>
+    <!-- /ko -->
+    <!-- ko ifnot: IsActiveTab() -->
+    <li><a href="#" data-bind="attr: { id: '@(Model.GridName)-' + Name + '-tab', 'data-tab-content': '@(Model.GridName)-' + Name }, text: DisplayText"></a></li>
+    <!-- /ko -->
+</script>

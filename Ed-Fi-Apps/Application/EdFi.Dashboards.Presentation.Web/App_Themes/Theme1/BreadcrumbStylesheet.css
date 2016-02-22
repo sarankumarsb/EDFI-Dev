@@ -1,0 +1,44 @@
+﻿.Breadcrumb
+{
+	color:#b7b4b3; /*Web Standard says #cccccc*/    
+    margin-left:5px;
+    font-size:8pt;
+    height: 29px;
+    padding-top: 1px;
+}
+
+.BreadCrumb td {
+    vertical-align: bottom;
+}
+
+a.BreadcrumbLink
+{
+    vertical-align: bottom;
+	background-image:url('img/Breadcrumb/Separator.gif');
+    background-repeat:no-repeat;
+    background-position: left top;
+    padding: 7px 5px 6px 15px;
+	font-family:Arial;
+	font-size:8pt;
+    /*font-weight: bold;*/
+	color:white; /*Web Standard says #333333*/
+}
+
+a.BreadcrumbHome {
+	font-family:Arial;
+	font-size:9pt;
+	color:white; /*Web Standard says #333333*/
+    padding-right: 5px;
+    text-decoration: none;
+}
+
+a.BreadcrumbHome img {
+    padding-top: 5px;
+}
+
+td.BreadcrumbText
+{
+	color:#b7b4b3; /*Web Standard says #cccccc*/    
+    margin-left:24px;
+    font-size:8pt;
+}

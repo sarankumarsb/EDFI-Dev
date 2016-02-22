@@ -1,0 +1,70 @@
+﻿
+/*ROUNDED CORNER CONTAINER*/
+table.Box {
+    margin: 0px auto;
+    
+}
+tr.BoxTop
+{
+	height:4px;
+	background-image:url('img/BlueBox/BG.gif');
+}
+tr.BoxBottom
+{
+	height:4px;
+	background-image:url('img/BlueBox/BG.gif');
+}
+td.BoxC1
+{
+	width:4px;
+    text-align:left;
+    vertical-align:top;
+}
+
+td.BoxC1 div {
+	background-image:url('img/BlueBox/C1.gif');
+    width: 4px;
+    height: 4px;
+}
+
+td.BoxC2
+{
+	width:4px;
+    text-align:right;
+    vertical-align:top;
+}
+
+td.BoxC2 div {
+	background-image:url('img/BlueBox/C2.gif');
+    width: 4px;
+    height: 4px;
+}
+
+td.BoxC3
+{
+    text-align:right;
+    vertical-align:bottom;
+}
+
+td.BoxC3 div {
+	background-image:url('img/BlueBox/C3.gif');
+    width: 4px;
+    height: 4px;
+}
+
+td.BoxC4
+{ 
+    text-align:left;
+    vertical-align:bottom;
+}
+
+td.BoxC4 div {
+	background-image:url('img/BlueBox/C4.gif');
+    width: 4px;
+    height: 4px;
+}
+
+td.BoxBG
+{ 
+    background-image:url('img/BlueBox/BG.gif');
+}

@@ -1,0 +1,104 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{29FDD5FA-AFFA-4F3B-8300-95EA6F9D7708}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>EdFi.Dashboards.SecurityTokenService.Tests</RootNamespace>
+    <AssemblyName>EdFi.Dashboards.SecurityTokenService.Tests</AssemblyName>
+    <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+    <TargetFrameworkProfile />
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="Microsoft.IdentityModel, Version=3.5.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\..\..\..\Windows\assembly\GAC_MSIL\Microsoft.IdentityModel\3.5.0.0__31bf3856ad364e35\Microsoft.IdentityModel.dll</HintPath>
+    </Reference>
+    <Reference Include="Newtonsoft.Json, Version=4.5.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\packages\Newtonsoft.Json.4.5.11\lib\net40\Newtonsoft.Json.dll</HintPath>
+    </Reference>
+    <Reference Include="nunit.framework">
+      <HintPath>..\packages\NUnit.2.6.2\lib\nunit.framework.dll</HintPath>
+    </Reference>
+    <Reference Include="Rhino.Mocks">
+      <HintPath>..\packages\RhinoMocks.3.6.1\lib\net\Rhino.Mocks.dll</HintPath>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.IdentityModel" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Providers\DashboardClaimsGetOutputClaimsIdentityProviderFixture.cs" />
+    <Compile Include="Providers\IdentityClaimsGetOutputClaimsIdentityProviderFixture.cs" />
+    <Compile Include="Providers\GetImpersonatedClaimsDataProviderFixture.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\..\..\Ed-Fi-Core\Application\EdFi.Dashboards.Infrastructure.Tests\EdFi.Dashboards.Infrastructure.Tests.csproj">
+      <Project>{ac02bf38-f079-4370-972c-8daf8cbf7764}</Project>
+      <Name>EdFi.Dashboards.Infrastructure.Tests</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\..\Ed-Fi-Core\Application\EdFi.Dashboards.Infrastructure\EdFi.Dashboards.Infrastructure.csproj">
+      <Project>{0c2cfa02-99c5-4bc1-8ebf-aa9eb75eeb3a}</Project>
+      <Name>EdFi.Dashboards.Infrastructure</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\..\Ed-Fi-Core\Application\EdFi.Dashboards.Resources.Security\EdFi.Dashboards.Resources.Security.csproj">
+      <Project>{9d65e63a-9b33-497b-a583-e95da11d9da2}</Project>
+      <Name>EdFi.Dashboards.Resources.Security</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\..\Ed-Fi-Core\Application\EdFi.Dashboards.SecurityTokenService.Authentication\EdFi.Dashboards.SecurityTokenService.Authentication.csproj">
+      <Project>{dba5bfc2-b479-418e-84e9-44d39e1651d9}</Project>
+      <Name>EdFi.Dashboards.SecurityTokenService.Authentication</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\..\Ed-Fi-Core\Application\EdFi.Dashboards.SecurityTokenService.Core\EdFi.Dashboards.SecurityTokenService.Core.csproj">
+      <Project>{89b880e2-2fcc-4359-92db-ee23273b0d4f}</Project>
+      <Name>EdFi.Dashboards.SecurityTokenService.Core</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\..\Ed-Fi-Core\Application\EdFi.Dashboards.Testing\EdFi.Dashboards.Testing.csproj">
+      <Project>{94ad2e43-23a6-42aa-93e9-15d1eceb2d4b}</Project>
+      <Name>EdFi.Dashboards.Testing</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\EdFi.Dashboards.SecurityTokenService.Web\EdFi.Dashboards.SecurityTokenService.Web.csproj">
+      <Project>{35154772-0ebf-4c89-9f2f-197ac94a877e}</Project>
+      <Name>EdFi.Dashboards.SecurityTokenService.Web</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <Service Include="{82A7F48D-3B50-4B1E-B82E-3ADA8210C358}" />
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>

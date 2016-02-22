@@ -1,0 +1,113 @@
+﻿@using EdFi.Dashboards.Core.Providers.Context
+@using EdFi.Dashboards.Presentation.Architecture.Mvc.Extensions
+@using EdFi.Dashboards.Resources.Navigation
+@using EdFi.Dashboards.Resources.Navigation.Mvc
+@using EdFi.Dashboards.Resources.Navigation.Support
+@using EdFi.Dashboards.Resources.Models.Common
+
+@model EdFi.Dashboards.Presentation.Core.Areas.Staff.Models.StaffMenuModel
+
+@helper BuildViewsDropdown(IEnumerable<EdFi.Dashboards.Resources.Models.Staff.StaffModel.View> views, string listContext)
+{
+    foreach (var view in views)
+    {
+        var padding = string.Format("{0}px", (10 * view.MenuLevel) + 5);                   
+                    
+        if (view.ChildViews.Count == 0)
+        {
+            <option style="padding-left: @padding" value="@(view.Link.Href.AppendParameters(listContext))"
+                @if (view.Selected)
+                {
+                    @:selected='selected' 
+                } >
+                @view.Description
+            </option>
+        }
+        else
+        {
+            <optgroup style="padding-left: @padding; font-weight:normal;" label="@view.Description">
+            @BuildViewsDropdown(view.ChildViews, listContext);
+            </optgroup>
+        }
+    }
+}
+@helper BuildStudentListDropDown(IEnumerable<EdFi.Dashboards.Resources.Models.Staff.StaffModel.SectionOrCohort> sections, string listContext)
+{
+    foreach (var section in sections)
+    {
+        if (section.ChildSections.Count == 0)
+        {
+            <option value="@(section.Link.Href.AppendParameters(listContext))"
+                @if (section.Selected)
+                {
+                    @:selected='selected'
+                } >
+                @(section.Description)
+            </option>
+        }
+        else
+        {
+            <optgroup label="@(section.Description)">
+                @BuildStudentListDropDown(section.ChildSections, listContext);
+            </optgroup>
+        }
+    }
+}
+
+@{
+    bool showSchool = (Model != null && Model.Schools != null && Model.Schools.Count > 1);
+    string ListContext = "";
+    if (!string.IsNullOrEmpty(Request.QueryString["listContext"]))
+    {
+        ListContext = ("listContext=" + Request.QueryString["listContext"]);
+    }
+}
+
+@{
+    var context = EdFiDashboardContext.Current;
+    string separatorGrayThinUrl = EdFiDashboards.Site.Common.ThemeImage("SeparatorGrayThin.gif").Resolve();
+    var isAssessmentDetailsView = EdFiDashboardContext.Current.ViewType == EdFi.Dashboards.Resources.Models.Staff.StaffModel.ViewType.AssessmentDetails.ToString();
+    var assessmentSubType = Model.AssessmentSubTypeValue;
+}
+@*TODO: Ask Tim how to do middle dividers. *@
+<ul class="section-menu">
+    @if (showSchool)
+    {
+    <li><label for="schoolSelect">School:</label>
+        <select id="schoolSelect" onchange="GoToSchool(this);" style="width: 100px;">
+            @foreach (var school in Model.Schools)
+            {
+                <option value="@(school.Link.Href.AppendParameters(ListContext))" 
+                    @if (school.Selected)
+                    {
+                        @:selected='selected' 
+                    } >
+                    @school.Name
+                </option>
+            }
+        </select>
+    </li>
+    }
+    <li><label for="sectionSelect">Student List:</label>
+        <select id="sectionSelect" onchange="GoToSection(this);" style="width: 470px;">
+            @BuildStudentListDropDown(Model.SectionsAndCohorts, ListContext);
+        </select>
+    </li>
+    <li><label for="viewSelect">Data View:</label>
+        <select id="viewSelect" onchange="GoToView(this);" style="width: 170px;">
+            @BuildViewsDropdown(Model.Views.Where(v => v.MenuLevel == 0), ListContext);
+        </select>
+    </li>
+</ul>
+<script type="text/javascript">
+    function exportAll_Click() {
+        analyticsManager.trackExport('Staff', 'All');
+
+      if ("@isAssessmentDetailsView" == "True") {
+          window.location = '@(new HtmlString(EdFiDashboards.Site.Staff.ExportAllMetrics(EdFiDashboardContext.Current.SchoolId.GetValueOrDefault(), EdFiDashboardContext.Current.StaffUSI.GetValueOrDefault(), null, (EdFiDashboardContext.Current.SectionOrCohortId ?? 0) == 0 ? null : EdFiDashboardContext.Current.SectionOrCohortId, (EdFiDashboardContext.Current.SectionOrCohortId ?? 0) == 0 ? "All" : EdFiDashboardContext.Current.StudentListType, EdFiDashboardContext.Current.SubjectArea, @assessmentSubType, new { format = "csv", SubjectArea = EdFiDashboardContext.Current.SubjectArea })))';
+      }
+      else {
+          window.location = '@(new HtmlString(EdFiDashboards.Site.Staff.ExportAllMetrics(EdFiDashboardContext.Current.SchoolId.GetValueOrDefault(), EdFiDashboardContext.Current.StaffUSI.GetValueOrDefault(), null, (EdFiDashboardContext.Current.SectionOrCohortId ?? 0) == 0 ? null : EdFiDashboardContext.Current.SectionOrCohortId, (EdFiDashboardContext.Current.SectionOrCohortId ?? 0) == 0 ? "All" : EdFiDashboardContext.Current.StudentListType, null, null, new { format = "csv" })))';
+      }
+  }
+</script>

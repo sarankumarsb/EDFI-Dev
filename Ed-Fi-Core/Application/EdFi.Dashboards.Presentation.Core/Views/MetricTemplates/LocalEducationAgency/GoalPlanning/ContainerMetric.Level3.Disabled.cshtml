@@ -1,0 +1,22 @@
+﻿@model ContainerMetric
+<tr id="vMetric@(Model.MetricVariantId)" class="container" data-metric-id="@(Model.MetricId)" data-metric-variant-id="@(Model.MetricVariantId)">
+    <td headers="MetricName@(this.GetMetricRenderingContextValue("ParentContainerMetricId"))" data-item-type="DisplayName" colspan="6" title="@Model.ToolTip">
+        <p class="title deemphasized">
+            <span class="metricId">
+                @(Model.MetricId)-@(Model.MetricVariantType)
+            </span>
+            <a id="@(Model.DisplayName)">@(Model.DisplayName)</a>
+            @if (!String.IsNullOrWhiteSpace(Model.Context))
+            {
+                <span>(@Model.Context)</span>
+            }
+            @Html.Partial("MetricFootnoteLabelSuperText", Model.Footnotes)
+            <a id="m@(Model.MetricVariantId)"></a>
+            @foreach (var metricBase in Model.Children)
+            {
+                <a id="m@(metricBase.MetricVariantId)"></a>
+            }
+        </p>
+        <p class="description deemphasized"><span>@Model.Description</span></p>
+    </td>
+</tr>

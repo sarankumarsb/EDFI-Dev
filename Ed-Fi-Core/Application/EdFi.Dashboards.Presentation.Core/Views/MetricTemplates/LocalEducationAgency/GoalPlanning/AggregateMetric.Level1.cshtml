@@ -1,0 +1,37 @@
+﻿@model AggregateMetric
+@{
+    //Define the ParentContainerMetricId to propagate fo the unique columns.
+    //This si needed because we have "Complex tables" meaning colspans that then need unique ids in the headers and matching the cells in the rows below with the same headers="uniqueColumnId". 
+    this.SetMetricRenderingContextValue("ParentContainerMetricId", Model.MetricVariantId);
+    this.SetMetricRenderingContextValue("colCount", 6);
+}
+<table summary="This table displays metric goals regarding @(Model.DisplayName).">
+<thead>
+<tr id="vMetric@(Model.MetricVariantId)">
+    <th id="MetricName@(this.GetMetricRenderingContextValue("ParentContainerMetricId"))" style="width: 40%">
+        <span id="vMetricVariantId@(Model.MetricVariantId)" class="metricId">
+            @(Model.MetricId)-@(Model.MetricVariantType)
+        </span>
+        <a id="@(Model.DisplayName)">@(Model.DisplayName)</a>
+        <a id="m@(Model.MetricVariantId)"></a>
+    </th>
+    <th id="MetricValue@(this.GetMetricRenderingContextValue("ParentContainerMetricId"))" title="Color indicates if meeting school goal" style="width: 10%">
+        METRIC VALUE<br />
+        <small>(% of students)</small>
+    </th>
+    <th id="MetricGoal@(this.GetMetricRenderingContextValue("ParentContainerMetricId"))" style="width: 14%">
+        CURRENT DISTRICT GOAL<br />
+        <small>(% of students)</small>
+    </th>
+    <th id="MetricDifferenceFromGoal@(this.GetMetricRenderingContextValue("ParentContainerMetricId"))" title="Color indicates if meeting school goal" style="width: 9%">
+        DIFFERENCE FROM GOAL
+    </th>
+    <th id="MetricNewGoal@(this.GetMetricRenderingContextValue("ParentContainerMetricId"))" style="width: 11%">
+        NEW DISTRICT GOAL
+    </th>
+    <th id="DropDown@(this.GetMetricRenderingContextValue("ParentContainerMetricId"))">
+        SCHOOL GOALS
+    </th>
+</tr>
+</thead>
+<tbody>

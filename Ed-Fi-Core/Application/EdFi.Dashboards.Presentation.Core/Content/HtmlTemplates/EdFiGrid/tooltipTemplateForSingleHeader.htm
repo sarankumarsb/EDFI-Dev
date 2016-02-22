@@ -1,0 +1,7 @@
+﻿{{each(key,dataItem) $data}}
+    {{if ( key=="Columns")}}
+        {{each(i,cellData) dataItem}}
+            {{tmpl(cellData, {group:0, index:i, identifier:$item.identifier}) getTemplateForSingleTabedHeaderTooltip(i, cellData)}}
+        {{/each}}
+    {{/if}}
+{{/each}}

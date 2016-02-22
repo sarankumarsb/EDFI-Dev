@@ -1,0 +1,175 @@
+﻿@using Cassette.Views
+@using EdFi.Dashboards.Common
+@using EdFi.Dashboards.Common.Utilities
+@using EdFi.Dashboards.Core.Providers.Context
+@using EdFi.Dashboards.Presentation.Core.Areas.School.Controllers
+@using EdFi.Dashboards.Resources.Security.Common
+@using EdFi.Dashboards.SecurityTokenService.Authentication
+@model EdFi.Dashboards.Resources.Models.Common.MetricsBasedWatchListSearchModel
+
+@{
+    var schoolId = EdFiDashboardContext.Current.SchoolId.GetValueOrDefault();
+    var localEducationAgencyId = EdFiDashboardContext.Current.LocalEducationAgencyId.GetValueOrDefault();
+    var staffUSI = UserInformation.Current.StaffUSI;
+    var referringController = Model.ReferringController;
+    var showUnshareButton = IoC.Resolve<ICurrentUserClaimInterrogator>().HasClaimWithinEducationOrganizationHierarchy(EdFiClaimTypes.ManageWatchList, schoolId);
+}
+
+@section ContentPlaceHolderHead{
+    <title>@(Html.Action("Title", typeof(SchoolLayoutController).GetControllerName(), new { subTitle = "Dynamic List Search" }))</title>
+    <script type="text/javascript">
+        var pageArea = { Area: 'school', Page: 'Dynamic List Search' };
+    </script>
+}
+@section ContentPlaceHolder1 {
+    <div class="watch-list-search">
+        <form>
+            <div>
+                <label>Shared Dynamic Lists:</label>
+                <span>
+                    <select id="selected-watch-list">
+                        @if (Model.WatchListGroups.Count > 0)
+                        {
+                            <option selected="selected" value="0">Select Dynamic List</option>
+                        }
+                        else
+                        {
+                            <option selected="selected" value="0">No Dynamic Lists Available</option>
+                        }
+                        
+                        @foreach (var group in Model.WatchListGroups)
+                        {
+                            <optgroup label="@group.TeacherName">
+                                @foreach (var list in group.WatchLists)
+                                {
+                                    <option value="@list.MetricBasedWatchListId">@list.WatchListName</option>
+                                }
+                            </optgroup>
+                        }
+                    </select>
+                </span>
+            </div>
+            <div>
+                <ul>
+                    @if (showUnshareButton)
+                    {
+                        <li><button id="unshare-watch-list" class="btn">Unshare Dynamic List</button></li>
+                    }
+                    <li>
+                        @if (Model.WatchListGroups.Count > 0)
+                        {
+                            <button id="save-shared-watch-list" class="btn">Add Dynamic List</button>
+                        }
+                        else
+                        {
+                            <button id="save-shared-watch-list" class="btn" disabled="disabled">Add Dynamic List</button>
+                        }
+                    </li>
+                    <li><button id="cancel-shared-watch-list" class="btn">Cancel</button></li>
+                </ul>
+            </div>
+        </form>
+        <div>&nbsp;</div>
+        <div id="watch-list-description-label" style="display: none;width: 100%;"><label style="width: 100%;">Description:</label></div>
+        <div id="watch-list-description" style="display: none;width: 100%;"><label style="width: 100%;" id="watch-list-description-text"></label></div>
+        <div id="watch-list-space" style="display: none;width: 100%;">&nbsp;</div>
+        <div id="watch-list-selections-label" style="display: none;width: 100%;"><label style="width: 100%;">Selected Filters:</label></div>
+        <div id="watch-list-selections" style="display: none;width: 100%;"><label style="width: 100%;" id="watch-list-selections-text"></label></div>
+    </div>
+    <script type="text/javascript">
+        $('#save-shared-watch-list').click(function() {
+            if ($('#selected-watch-list').val() <= 0) {
+                alert('Please select a dynamic list first');
+            }
+
+            var dataToSend = {
+                SchoolId: @(schoolId),
+                LocalEducationAgencyId: @(localEducationAgencyId),
+                StaffUSI: '@(staffUSI)',
+                MetricsBasedWatchListId: $('#selected-watch-list').val(),
+                ReferringController: '@(referringController)'
+            };
+
+            $.ajax({
+                type: 'POST',
+                contentType: 'application/json',
+                data: JSON.stringify(dataToSend)
+            }).done(function(returnData) {
+                NavigateToPage(returnData.Url);
+            });
+        });
+
+        $('#cancel-shared-watch-list').click(function() {
+            var returnPage = '@(Request.UrlReferrer)';
+
+            if (returnPage !== '') {
+                NavigateToPage(returnPage);
+            }
+        });
+
+        $('#unshare-watch-list').click(function() {
+            var watchListId = $('#selected-watch-list').val();
+
+            var dataToSend = {
+                SchoolId: @(schoolId),
+                StaffUSI: '@(staffUSI)',
+                MetricBasedWatchListId: watchListId
+            };
+
+            $.ajax({
+                url: '@(Model.UnshareServiceUrl)',
+                type: 'POST',
+                contentType: 'application/json',
+                data: JSON.stringify(dataToSend)
+            }).done(function(returnData) {
+                NavigateToPage('@EdFiDashboardContext.Current.RoutedUrl');
+            });
+        });
+
+        $('#selected-watch-list').change(function() {
+            var selectedValue = $(this).find('option:selected').val();
+
+            var dataToSend = {
+                LocalEducationAgencyId: @(localEducationAgencyId),
+                StaffUSI: '@(staffUSI)',
+                MetricsBasedWatchListId: selectedValue
+            };
+
+            $.ajax({
+                url: '@(Model.DescriptionServiceUrl)',
+                type: 'POST',
+                contentType: 'application/json',
+                data: JSON.stringify(dataToSend)
+            }).done(function(returnData) {
+                if (returnData.WatchListDescription != '') {
+                    $('#watch-list-description-label').show();
+                    $('#watch-list-description').show();
+                    $('#watch-list-space').show();
+                    $('#watch-list-description-text').text(returnData.WatchListDescription);
+                } else {
+                    $('#watch-list-description-label').hide();
+                    $('#watch-list-description').hide();
+                    $('#watch-list-space').hide();
+                    $('#watch-list-description-text').text('');
+                }
+
+                if (returnData.WatchListSelections != '') {
+                    $('#watch-list-selections-label').show();
+                    $('#watch-list-selections').show();
+                    $('#watch-list-selections-text').text(returnData.WatchListSelections);
+                } else {
+                    $('#watch-list-selections-label').hide();
+                    $('#watch-list-selections').hide();
+                    $('#watch-list-selections-text').text('');
+                }
+            }).fail(function() {
+                alert('Error');
+            });
+        });
+
+        // stops the form from posting back to the server
+        $('form').submit(function(event) {
+            event.preventDefault();
+        });
+    </script>
+}

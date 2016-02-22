@@ -1,0 +1,26 @@
+﻿@using EdFi.Dashboards.Presentation.Core.Models.Shared
+@using EdFi.Dashboards.Resources.Navigation
+@model ExpandCollapseModel
+           
+<a class="accordion-toggle" href="#" id="@(Model.DivId)Toggle">
+    <i class="icon icon-expand" style="display:none;"><span>See</span></i>
+    @*<i class="icon icon-collapse"><span>Hide</span></i>*@
+    @Model.Title
+</a>
+
+@*<table cellpadding="0" cellspacing="0" border="0" style="cursor:pointer;" onclick="ExpandCollapseToggleDiv('#@(Model.DivId)ImageBullet', '#@Model.DivId');">
+    <tr>
+        <td style="vertical-align:middle; padding-left:5px; padding-right:2px; cursor:pointer;">
+            <img id="@(Model.DivId)ImageBullet" src="@(EdFiWebFormsDashboards.Site.Common.ThemeImage("BulletMinus.gif").Resolve())" style="vertical-align:middle; cursor:pointer;" title="@Model.Tooltip" />
+        </td>
+        <td class="@Model.TitleCSS">
+            @Model.Title
+        </td>
+    </tr>
+</table>*@
+@*@if (Model.CollapseExpandInitialState == ExpandCollapseModel.InitialState.Collapsed)
+{
+	<script>
+		$(function () { CollapseToggleDiv('#@(Model.DivId)Toggle', '#@(Model.DivId)'); });
+	</script>
+}*@

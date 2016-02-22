@@ -1,0 +1,64 @@
+﻿#ContainerTable 
+{
+    padding: 9px;
+	background-color: #e0e0e0;
+	width: 460px; 
+	display: none;
+	-moz-border-radius: 8px;
+    -webkit-border-radius: 8px;
+    -khtml-border-radius: 8px;
+    border-radius: 8px;
+}
+
+.edge
+{
+    background-color: #e0e0e0;  
+}
+
+.label 
+{ 
+	padding-top: 10px; 
+	text-transform: uppercase; 
+	vertical-align: bottom; 
+	font-family: Arial; 
+	font-size: 8pt; 
+	font-weight: bold; 
+}
+
+.tinyLabel 
+{ 
+	padding: 5px 5px 0px 0px; 
+	font-family: Arial; 
+	font-size: 8pt; 
+}
+
+.bigLabel
+{
+    color: Black;
+    font-size: 10pt;
+    font-weight: bold;
+    text-align: left;
+}
+
+.entry 
+{ 
+	border: 1px solid gray; 
+	font-size: 13pt; 
+	width: 225px; 
+}
+
+.error 
+{ 
+	font-family: Arial; 
+	font-size: 10pt; 
+	color:Red; 
+	font-weight: bold;
+}
+
+.footnote 
+{ 
+	padding: 10px 0px 25px 0px; 
+	font-family: Arial; 
+	color: #808080; 
+	font-size: 9pt; 
+}

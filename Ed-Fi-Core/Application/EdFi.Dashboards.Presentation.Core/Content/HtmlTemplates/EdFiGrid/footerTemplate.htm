@@ -1,0 +1,21 @@
+﻿    <tbody>
+        <tr>
+            <td style='text-align:left; padding-left:10px;'>
+                <a href="#" onclick='${tsdsGridObject}.setGridPage(1); (event.preventDefault) ? event.preventDefault() : event.returnValue = false;' title='Click to go to first page' ><strong>|&lt;</strong></a> 
+                <a href="#" onclick='${tsdsGridObject}.setGridPage(${previousPage}); (event.preventDefault) ? event.preventDefault() : event.returnValue = false;' title='Click to go to previous page' ><strong>&lt;</strong></a>
+                Page ${currentPage} of ${pageCount}
+                <a href="#" onclick='${tsdsGridObject}.setGridPage(${nextPage}); (event.preventDefault) ? event.preventDefault() : event.returnValue = false;' title='Click to go to next page' ><strong>&gt;</strong></a>
+                <a href="#" onclick='${tsdsGridObject}.setGridPage(${pageCount}); (event.preventDefault) ? event.preventDefault() : event.returnValue = false;' title='Click to go to last page' ><strong>&gt;|</strong></a>
+            </td>
+            <td style='text-align:center;'>
+                Rows per page: 
+                <a href="#" onclick='${tsdsGridObject}.setGridRowsPerPage(10); (event.preventDefault) ? event.preventDefault() : event.returnValue = false;'>10</a> 
+                <a href="#" onclick='${tsdsGridObject}.setGridRowsPerPage(20); (event.preventDefault) ? event.preventDefault() : event.returnValue = false;'>20</a> 
+                <a href="#" onclick='${tsdsGridObject}.setGridRowsPerPage(50); (event.preventDefault) ? event.preventDefault() : event.returnValue = false;'>50</a> 
+                <a href="#" onclick='${tsdsGridObject}.setGridRowsPerPage(100); (event.preventDefault) ? event.preventDefault() : event.returnValue = false;'>100</a>
+            </td>
+            <td style='text-align:right;padding-right:10px;'>
+                Total rows: ${totalRowCount}
+            </td>
+        </tr>
+    </tbody>

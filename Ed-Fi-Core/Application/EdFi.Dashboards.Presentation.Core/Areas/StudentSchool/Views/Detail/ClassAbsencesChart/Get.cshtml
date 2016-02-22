@@ -1,0 +1,138 @@
+﻿@using EdFi.Dashboards.Core.Providers.Context
+@using EdFi.Dashboards.Presentation.Core.Areas.StudentSchool.Controllers.Detail
+@model EdFi.Dashboards.Resources.Models.Student.Detail.ClassAbsencesModel
+
+@{
+    var studentUSI = EdFiDashboardContext.Current.StudentUSI.GetValueOrDefault();
+    var metricVariantId = EdFiDashboardContext.Current.MetricVariantId.GetValueOrDefault();
+
+    int weeksPerRow = 4;
+    int weekCount = 0;
+
+    if (Model != null && Model.Classes.Any())
+    {
+        weekCount = Model.Classes.First().Weeks.Count();
+        // this helps balance the distribution of weeks better
+        //  we don't want this             instead do this
+        //    W W W W                          W W W
+        //    W W                              W W W
+        if (weekCount == 5 || weekCount == 6 || weekCount == 9)
+        {
+            weeksPerRow = 3;
+        }
+    }
+    int rowCount = Convert.ToInt32(Math.Ceiling(weekCount / Convert.ToDouble(weeksPerRow)));
+}
+<script>
+    analyticsManager.trackDrilldown('StudentClassAbsencesChart', '@(metricVariantId)', '@(studentUSI)');
+</script>
+
+@if (Model != null && Model.Classes.Any())
+{ 
+
+    <style>
+        
+
+    </style>
+
+    <table class="class-absences-chart" id="class-absences-chart-@(metricVariantId)" summary="This table displays the attendance record of a student for all classes">
+        <tfoot>
+            <tr>
+                <th id="icon-meanings@(metricVariantId)"></th>
+                <td headers="icon-meanings@(metricVariantId)" colspan="20">
+                    <span class="attendance"><span class="attendance-footer-box attendance-type attendance-type-Present"></span></span>
+                    <span class="attendance">In Attendance</span>
+                    <span class="attendance"></span>
+                    <span class="attendance"><span style="position: relative; top: -5px;" class="attendance-footer-box attendance-type attendance-type-Unexcused"></span></span>
+                    <span class="attendance">Unexcused Absence</span>
+                    <span class="attendance"></span>
+                    <span class="attendance"><span class="attendance-footer-box attendance-type attendance-type-Excused"></span></span>
+                    <span class="attendance">Excused</span>
+                    <span class="attendance"></span>
+                    <span class="attendance"><span style="position: relative; top: -5px;" class="attendance-footer-box attendance-type attendance-type-Tardy"></span></span>
+                    <span class="attendance">Tardy</span>
+                    <span class="attendance"></span>
+                </td>
+            </tr>
+            <tr>
+                <th id="footerDisclaimer@(metricVariantId)"></th>
+                <td headers="footerDisclaimer@(metricVariantId)" colspan="20">
+                    <ul>
+                        <li>Does not account for missing roll occurrences</li>
+                        <li>Not all courses meet daily</li>
+                    </ul>
+                </td>
+            </tr>
+        </tfoot>
+        <tbody>
+            @for (var i = 0; i < rowCount; i++){
+                int currentRow = i;
+
+                var classes = Model.Classes.First().Weeks.Skip(currentRow * weeksPerRow).Take(weeksPerRow);
+
+                <tr>
+                    <th id="emptyCell@(i)@(metricVariantId)"></th>
+                    @foreach (var theClass in classes)
+                    {
+                        <th colspan="5" id="week@(theClass.StartDate)-@(theClass.EndDate)">@(theClass.StartDate.ToString("MM/dd")) - @(theClass.EndDate.ToString("MM/dd"))</th>
+                    }
+                </tr>
+                <tr class="day-headers">
+                    <th id="otherEmptyCell@(i)@(metricVariantId)"></th>
+                    @foreach (var theClass2 in classes)
+                    {
+                        <th class="day-header day-header-monday" id="Monday@(theClass2.StartDate.ToString("MM-dd-yy"))_@(theClass2.EndDate.ToString("MM-dd-yy"))">
+                            <span class="hidden">Monday</span>
+                        </th>
+                        <th class="day-header day-header-tuesday" id="Tuesday@(theClass2.StartDate.ToString("MM-dd-yy"))_@(theClass2.EndDate.ToString("MM-dd-yy"))">
+                            <span class="hidden">Tuesday</span>
+                        </th>
+                        <th class="day-header day-header-wednesday" id="Wednesday@(theClass2.StartDate.ToString("MM-dd-yy"))_@(theClass2.EndDate.ToString("MM-dd-yy"))">
+                            <span class="hidden">Wednesday</span>
+                        </th>
+                        <th class="day-header day-header-thursday" id="Thursday@(theClass2.StartDate.ToString("MM-dd-yy"))_@(theClass2.EndDate.ToString("MM-dd-yy"))">
+                            <span class="hidden">Thursday</span>
+                        </th>
+                        <th class="day-header day-header-friday" id="Friday@(theClass2.StartDate.ToString("MM-dd-yy"))_@(theClass2.EndDate.ToString("MM-dd-yy"))">
+                            <span class="hidden">Friday</span>
+                        </th>
+                    }
+                </tr>
+                foreach(var theClass3 in Model.Classes){
+                    <tr>
+                        <th class="class-label" id="absence-metric@(metricVariantId)-class-@(theClass3.Name.Replace(" ", "-"))@(i)">@(theClass3.Name)</th>
+                        @foreach (var week in theClass3.Weeks.Skip(currentRow * weeksPerRow).Take(weeksPerRow))
+                        {
+                            foreach (var theEvent in week.WeekDayEvents)
+                            {
+                                <td class="attendance" headers="absence-metric@(metricVariantId)-class-@(theClass3.Name.Replace(" ", "-"))@(i)" title="@(ClassAbsencesChartController.GetDayTooltip(theEvent.AttendanceEventType, theEvent.Date, theEvent.Reason))">
+                                    <div class="attendance-type attendance-type-@(theEvent.AttendanceEventType)">
+                                        <span class="hidden">@(ClassAbsencesChartController.GetDayText(theEvent.AttendanceEventType))</span>
+                                    </div>
+                                </td>
+                            }
+                        } 
+                    </tr>
+                }
+            }
+        </tbody>
+    </table>
+
+    <div class="metric-footnote-tooltip" id="divToolTipForCalendar"></div>
+    <script>
+      $(document).ready(function () {
+        $('td[title]').not('[title=""]').tooltip({
+          tip: '#divToolTipForCalendar',
+          effect: 'fade',
+          position: 'bottom center',
+          bounce: true,
+          offset: [0, 0],
+          delay: 0
+        });
+      });
+    </script> 
+}
+else
+{
+    <p class="metric-no-data">No data available.</p>
+}

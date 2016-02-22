@@ -1,0 +1,34 @@
+﻿@model IGranularMetric
+<tr id="vMetric@(Model.MetricVariantId)" class="container" data-metric-id="@(Model.MetricId)" data-metric-variant-id="@(Model.MetricVariantId)">
+    <td headers="MetricName@(this.GetMetricRenderingContextValue("ParentContainerMetricId"))" data-item-type="DisplayName" title="@Model.ToolTip">
+        <p class="title">
+            <span class="metricId">@(Model.MetricId)-@(Model.MetricVariantType)</span>
+            @(Model.DisplayName)
+            @if (!String.IsNullOrWhiteSpace(Model.Context))
+            {
+                <span>&nbsp;(@Model.Context)</span>
+            }
+            @Html.Partial("MetricFootnoteLabelSuperText", Model.Footnotes)
+            <a name="m@(Model.MetricVariantId)">&nbsp;</a>
+        </p>
+        <p class="description"><span>@Model.Description</span></p>
+    </td>
+    <td headers="MetricValue@(this.GetMetricRenderingContextValue("ParentContainerMetricId"))" data-item-type="State">
+        @Html.Partial("StatusLabel", Model.State, new ViewDataDictionary { { "DisplayText", Model.DisplayValue } })
+    </td>
+    <td headers="MetricTrend@(this.GetMetricRenderingContextValue("ParentContainerMetricId"))" data-item-type="Trend">
+        @Html.Partial("Trend", Model.Trend)
+    </td>
+    <td headers="MetricGoal@(this.GetMetricRenderingContextValue("ParentContainerMetricId"))" data-item-type="CampusGoal">
+        @if (Model.Value != null)
+        {
+            @Model.Values["DisplayGoal"]
+        }
+    </td>
+    <td headers="MetricDifferenceFromGoal@(this.GetMetricRenderingContextValue("ParentContainerMetricId"))" data-item-type="DifferenceFromGoal" class="@(Legacy.DifferenceFromGoalClass(Model.Values["GoalDifference"]))">
+        @Model.Values["DisplayGoalDifference"]
+    </td>
+    <td headers="MetricDetails@(this.GetMetricRenderingContextValue("ParentContainerMetricId"))" data-item-type="ContextMenu">
+        @Html.Partial("ContextMenu", (MetricBase)Model) 
+    </td>
+</tr>

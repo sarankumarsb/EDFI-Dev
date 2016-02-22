@@ -1,0 +1,39 @@
+﻿@using EdFi.Dashboards.Core.Providers.Context
+@model IList<EdFi.Dashboards.Resources.Models.Student.Detail.DisciplineReferralModel>
+  
+  
+@{
+  var studentUSI = EdFiDashboardContext.Current.StudentUSI.GetValueOrDefault();
+  var metricVariantId = EdFiDashboardContext.Current.MetricVariantId.GetValueOrDefault();
+}
+     
+<script>
+    analyticsManager.trackDrilldown('StudentDisciplineReferralList', '@(metricVariantId)', '@(studentUSI)');
+</script>
+@if (Model.Any())
+{
+    <table class="standard-table standard-table-compressed" summary="Table displays data realted to discipline referral.">
+        <thead>
+            <tr>
+                <th>Date</th>
+                <th>Incident Code</th>
+                <th>Incident Description</th>
+                <th>Action</th>
+            </tr>
+        </thead>
+        @for (int i = 0; i < Model.Count(); i++)
+        {
+        var referral = Model[i];
+            <tr class="@((i % 2 ==0) ? "alt": "")">
+                <td>@(referral.Date.ToShortDateString())</td>
+                <td>@(referral.IncidentCode)</td>
+                <td>@(referral.IncidentDescription)</td>
+                <td>@(referral.Action)</td>
+            </tr>
+        }
+    </table>
+}
+else
+{
+    <span class="MetricNoData">No data available.</span>
+}

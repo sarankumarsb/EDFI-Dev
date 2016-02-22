@@ -1,0 +1,58 @@
+﻿@using EdFi.Dashboards.Common.Utilities
+@using EdFi.Dashboards.Core.Providers.Context
+@using EdFi.Dashboards.Presentation.Core.Models.Shared
+@using EdFi.Dashboards.Presentation.Core.Providers.Models
+@using EdFi.Dashboards.Resources.Navigation.Mvc
+@using EdFi.Dashboards.SecurityTokenService.Authentication
+@model EdFi.Dashboards.Resources.Models.CustomGrid.GridDataWithFootnotes
+
+@{
+    var localEducationAgencyId = EdFiDashboardContext.Current.LocalEducationAgencyId.GetValueOrDefault();
+    var schoolId = EdFiDashboardContext.Current.SchoolId.GetValueOrDefault();
+    var staffUSI = UserInformation.Current.StaffUSI;
+    var metricVariantId = EdFiDashboardContext.Current.MetricVariantId.GetValueOrDefault();
+    var callbackUrl = EdFiDashboardContext.Current.RoutedUrl;
+
+    var edFiGridModelProvider = IoC.Resolve<IEdFiGridModelProvider>();
+
+    var edfiGridModel = edFiGridModelProvider.GetEdFiGridModel(true, true, 10, "Metric" + metricVariantId,
+        metricVariantId, Model, Model.MetricFootnotes, Model.GetDefaultNonPersistedSettings("Metric" + metricVariantId + "EdFiGrid"), 
+        false, "StudentList", new List<string> { "Default" }, "metricContext", true, callbackUrl, false);
+
+    var customStudentListModel = new CustomStudentListModel
+                                        {
+                                            ControlId = "Metric" + metricVariantId,
+                                            IsCustomStudentList = false,
+                                            LinkParentIdentifier = "#Metric" + metricVariantId + "-EdFiGrid-interaction-custom",
+                                            CheckboxParentIentifier = "#Metric" + metricVariantId + "-EdFiGrid-fixed-data-table",
+                                            SelectAllCheckboxParentIentifier = "#Metric" + metricVariantId + "-EdFiGrid-fixed-header-table",
+                                            CustomStudentListId = null,
+                                            LocalEducationAgencyId = localEducationAgencyId,
+                                            SchoolId = schoolId,
+                                            StaffUSI = staffUSI,
+                                            CustomStudentListUrl = EdFiDashboards.Site.Staff.CustomStudentList(schoolId, staffUSI, null, new {format = "json"}),
+                                            UniqueId = metricVariantId
+                                        };
+}
+
+<div id="StudentMetricTable@(metricVariantId)">
+    <script>
+        analyticsManager.trackDrilldown('SchoolStudentMetricTable', '@(metricVariantId)', '@(schoolId)');
+
+        $(document).ready(function () {
+            $('#Metric@(metricVariantId)-EdFiGrid-interaction-custom').append($('#buttonExportAll@(metricVariantId)'));
+            $('#buttonExportAll@(metricVariantId)').show();
+            
+            $('#Metric@(metricVariantId)-EdFiGrid').bind('afterDrawEvent', function(e, table) {
+                Metric@(metricVariantId)CustomStudentList.redrawCheckboxes();
+            });
+        });
+    </script>
+    <a id="buttonExportAll@(metricVariantId)" class="btn" style="display:none;" onclick="Metric@(metricVariantId)EdFiGrid.hideInteractionMenu(null);ExportSchoolStudentList(@(metricVariantId), '@(EdFiDashboards.Site.School.ExportMetricList(schoolId, metricVariantId, new { format = "csv" }))');"><i class="icon-floppy"></i> EXPORT ALL</a>
+
+    @{
+        Html.RenderPartial("EdFiGrid", model: edfiGridModel);
+
+        Html.RenderPartial("CustomStudentList", model: customStudentListModel);
+    }
+</div>

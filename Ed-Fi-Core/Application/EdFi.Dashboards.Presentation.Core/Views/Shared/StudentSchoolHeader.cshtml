@@ -1,0 +1,41 @@
+﻿@using EdFi.Dashboards.Common
+@using EdFi.Dashboards.Presentation.Core.Areas.StudentSchool.Controllers
+@using EdFi.Dashboards.Presentation.Core.Controllers
+@using EdFi.Dashboards.Resources.Models.Student
+@model BriefModel
+@{
+    Layout = null;
+}
+<header class="l-selected-entity-header">
+    @{ Html.RenderAction("PreviousNext", typeof(PreviousNextController).GetControllerName()); }
+    @*<img alt="Small photograph of @Model.FullName" src="@(Model.ProfileThumbnail)" />
+    <div>
+        <h1>
+            @Model.FullName
+        </h1>
+    </div>
+    <div class="class-details">
+        @if (!String.IsNullOrWhiteSpace(Model.Homeroom))
+        {
+            if (Model.Homeroom.EndsWith("s", StringComparison.CurrentCultureIgnoreCase))
+            {
+                <span>@Model.Homeroom' Homeroom</span>
+            }
+            else
+            {
+                <span>@Model.Homeroom's Homeroom</span>
+            }
+        }
+    </div>
+    <div class="accomodation">
+        @if(Model.Accommodations.Any())
+        {
+            <span>
+                @foreach (StudentSchoolLayoutController.UiAccommodation accommodation in ViewBag.StudentUiAccommodations)
+                {
+                    <i class="icon-@accommodation.IconClass" title="@accommodation.Name"><span class="hidden">@accommodation.Name</span></i>
+                }
+            </span>
+        }
+    </div>*@
+</header>

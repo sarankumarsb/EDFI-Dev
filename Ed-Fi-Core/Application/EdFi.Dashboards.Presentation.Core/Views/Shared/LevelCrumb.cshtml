@@ -1,0 +1,50 @@
+﻿@using EdFi.Dashboards.Resources.Navigation
+@using EdFi.Dashboards.Resources.Navigation.Mvc
+@model EdFi.Dashboards.Presentation.Core.Models.Shared.LevelCrumbModel
+
+@{
+    ViewBag.Title = "LevelCrumb";
+    Layout = null;
+}
+
+<ol class="l-level-crumb">
+    @if (!String.IsNullOrWhiteSpace(Model.HomeHref))
+    {
+        <li class="first"><a href="@Model.HomeHref"><i class="icon-home"></i><span class="hidden">Home</span></a></li>
+    }
+    @if (!String.IsNullOrWhiteSpace(Model.LocalEducationAgencyName))
+    {
+        <li>
+            <a @if (!String.IsNullOrWhiteSpace(Model.LocalEducationAgencyHref))
+               {
+                   @:href = "@Model.LocalEducationAgencyHref"
+               }>
+                @Model.LocalEducationAgencyName
+            </a>
+        </li>
+    }
+    @if (!String.IsNullOrWhiteSpace(Model.SchoolName))
+    { 
+        <li>
+            <a 
+                @if (!String.IsNullOrWhiteSpace(Model.SchoolHref))
+                {
+                    @:href = "@Model.SchoolHref"
+                }>
+                @Model.SchoolName
+            </a>
+        </li>
+    }
+    @if (!String.IsNullOrWhiteSpace(Model.StaffName))
+    { 
+        <li>
+            <a 
+                @if (!String.IsNullOrWhiteSpace(Model.StaffHref))
+                {
+                    @:href = "@Model.StaffHref"
+                }>
+                @Model.StaffName
+            </a>
+        </li>
+    }
+</ol>

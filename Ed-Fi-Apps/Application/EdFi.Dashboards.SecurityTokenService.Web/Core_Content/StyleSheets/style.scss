@@ -1,0 +1,134 @@
+@import "appearance";
+@import "layout";
+@import "typography";
+
+.l-right{
+	padding-top: 10px; 
+	width: 225px;
+
+	p{
+		margin-bottom:20px;
+
+		color: Black;
+		font-size: 10pt;
+		font-weight: bold;
+		text-align: left;
+	}
+}
+
+.uppercase{
+		text-transform: uppercase;
+	}
+
+.buttonImage {
+	display: block;
+	cursor:pointer;
+	color:#ffffff;
+	font-size:7pt;
+	font-weight:bold;
+	text-align:left;
+	vertical-align:top;
+    text-decoration: none;
+    height: 20px;
+	background-repeat:no-repeat;
+    background-position:top left;
+    padding-left:20px;
+    padding-top:3px; 
+	float: left;}
+
+#buttonErrorBack {
+    width:50px;
+	background-image:url('../Images/BackWide.png');
+    padding-top:4px; }
+
+#buttonErrorFeedback {
+    height: 23px;
+    width:57px;
+	background-image:url('../Images/FeedBackWideBlue.png');
+    padding-left:22px;
+    padding-top:4px; }
+
+#ContainerTable {
+    /* background-color: #ff0000; / * #e0e0e0;  */
+    width: 600px;
+    display: none; }
+
+.poweredBy {
+    font-size: 11px;
+    font-weight: bolder;
+    font-style: italic; }
+
+.edge {
+    border-color: #0193D5;
+    border-width: 20px;
+    border-style: solid;
+    height: 260px;
+    -moz-border-radius: 20px 20px 20px 20px;
+    -webkit-border-radius: 20px 20px 20px 20px;
+    -khtml-border-radius: 20px 20px 20px 20px;
+    border-radius: 20px 20px 20px 20px; }
+
+.label {
+    padding-top: 10px;
+    padding-bottom: 2px;
+    text-transform: uppercase;
+    vertical-align: bottom;
+    font-family: Arial;
+    font-size: 8pt;
+    font-weight: bold; }
+
+.tinyLabel {
+	clear: both;
+    padding: 10px 5px 0px 0px;
+    font-family: Arial;
+    font-size: 8pt; }
+
+.entry {
+    border: 1px solid gray;
+    font-size: 13pt;
+    width: 225px; }
+
+.error {
+    font-family: Arial;
+    font-size: 10pt;
+    color:Red;
+    font-weight: bold; }
+
+.footnote {
+    padding: 10px 0px 25px 0px;
+    font-family: Arial;
+    color: #808080;
+    font-size: 8pt; }
+
+
+// Feedback form
+.feedback-form {
+
+    label {
+        float: left;
+        width: 25%;
+        *width: 22%;
+    }
+
+    input {
+        margin: 0;
+        width: 73%;
+		float: left;
+    }
+
+    select {
+        width: 70%;
+		float: left;
+    }
+
+    p {
+        margin-bottom: 2px;
+		padding-bottom: 10px;
+    }
+
+    textarea.defaultTextActive {
+        color: #a1a1a1;
+        font-style: italic;
+		width: 90%;
+    }
+}

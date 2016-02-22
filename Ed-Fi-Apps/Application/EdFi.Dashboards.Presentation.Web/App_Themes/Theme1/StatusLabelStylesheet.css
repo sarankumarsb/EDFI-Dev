@@ -1,0 +1,122 @@
+﻿.StateGreen, .StateVeryGood, .StateGood,
+.StateYellow, .StateAcceptable,
+.StateRed, .StateLow, .StateVeryLow,
+.StateNA, .StateNa, /* C# enum has lower case "a", and CSS is case sensitive */
+.StateNeutral,
+.StateGray, .StateNone
+{
+	text-align:center;
+    vertical-align:middle;
+	font-size:8pt;
+    font-weight:bold;
+	background-repeat:no-repeat;
+	width:70px;
+	height:17px;
+	color:White;
+    white-space: nowrap;
+}
+
+.StateGreen, .StateVeryGood, .StateGood
+{
+	background-image:url('img/StatusLabel/Green.gif');
+}
+
+.StateYellow, .StateAcceptable
+{
+	background-image:url('img/StatusLabel/Yellow.gif');
+}
+
+.StateRed, .StateLow, .StateVeryLow
+{	
+	background-image:url('img/StatusLabel/Red.gif');
+}
+
+.StateGray, .StateNone
+{
+	background-image:url('img/StatusLabel/Gray.gif');
+}
+
+.AlternatingEvenRowStyle .StateNA {
+    color: black;
+    background-image: none;
+}
+
+.StateNA, .StateNa /* C# enum has lower case "a", and CSS is case sensitive */
+{
+	color:Black;
+	background-image:url('img/StatusLabel/DarkGray.gif');
+    
+}
+ 
+.StateNeutral, .StateNone
+{
+	color:Black;
+	font-weight:normal;
+}
+
+.StateGray, .StateNone
+{
+    color:Black;
+}
+
+/*For the State Text CTL*/
+.StateTextVeryGreen,
+.StateTextGreen,
+.StateTextYellow,
+.StateTextRed,
+.StateTextVeryRed,
+.StateTextNA,
+.StateTextNeutral,
+.StateTextGray
+{
+	text-align:center;
+    vertical-align:middle;
+	font-size:8pt;    
+	background-repeat:no-repeat;
+	width:60px;
+	height:17px;
+	color:Black;
+}
+.StateTextVeryGreen
+{
+	color:Green;
+	font-weight:bold;
+}
+.StateTextRed, .StateTextVeryRed
+{	
+	color:Red;
+	font-weight:bold;
+}
+
+.StateTextGray
+{
+    color:Gray;
+	font-weight:bold;
+}
+
+/*For the Round States used in the Teacher view*/
+.RoundStateVeryGood,
+.RoundStateGood,
+.RoundStateLow,
+.RoundStateNone
+{
+    margin:0px auto;
+    width:16px;
+	height:16px;
+}
+
+.RoundStateVeryGood
+{
+    background-image:url('img/StatusLabel/RoundVeryGood.png');    
+}
+
+.RoundStateGood
+{
+    background-image:url('img/StatusLabel/RoundGood.png');
+}
+
+.RoundStateLow
+{
+    background-image:url('img/StatusLabel/RoundLow.png');
+}
+

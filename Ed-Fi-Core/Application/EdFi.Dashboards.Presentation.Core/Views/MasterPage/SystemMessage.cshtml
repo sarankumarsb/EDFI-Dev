@@ -1,0 +1,9 @@
+﻿@model System.String
+@{
+	Layout = null;
+}
+@if (!string.IsNullOrWhiteSpace(Model)) {
+            <div class="system-message constrained">
+                @Model
+            </div>
+}

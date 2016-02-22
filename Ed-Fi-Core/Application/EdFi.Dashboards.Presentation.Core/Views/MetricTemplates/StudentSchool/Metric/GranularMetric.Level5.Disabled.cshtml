@@ -1,0 +1,13 @@
+﻿@model IGranularMetric
+<t id="vMetric@(Model.MetricVariantId)"  data-metric-id="@(Model.MetricId)" data-metric-variant-id="@(Model.MetricVariantId)">
+    <td headers="MetricName@(this.GetMetricRenderingContextValue("ParentContainerMetricId"))" data-item-type="DisplayName" title="@Model.ToolTip">
+        <p class="arrow `">
+            <i class="icon-blank deemphasized"></i>
+            <a name="m@(Model.MetricVariantId)"></a>
+            <span class="metricId">@(Model.MetricId)-@(Model.MetricVariantType)</span>
+            @(Model.DisplayName)
+        </p>
+    </td>
+    <td colspan="5" headers="MetricDetails@(this.GetMetricRenderingContextValue("ParentContainerMetricId"))" data-item-type="ContextMenu">
+    </td>
+</t

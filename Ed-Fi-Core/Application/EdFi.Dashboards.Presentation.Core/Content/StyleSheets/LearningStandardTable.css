@@ -1,0 +1,160 @@
+﻿.learning-standards-table {
+  width: 100%;
+  font-size: 8pt;
+  line-height: 16px;
+  margin: 10px;
+  /* Level Styles */
+  /* Tiles */ }
+  .learning-standards-table .leftPane, .learning-standards-table .rightPane, .learning-standards-table .leftPaneHeaders, .learning-standards-table .rightPaneHeaders {
+    width: 50%;
+    float: left;
+    overflow: hidden; }
+  .learning-standards-table .rightPaneHeaders th {
+    min-width: 71px;
+    /*Plus one for the borders.*/
+    width: 71px; }
+  .learning-standards-table .rightPane {
+    min-height: 400px;
+    height: 400px;
+    overflow-y: scroll;
+    overflow-x: scroll; }
+  .learning-standards-table .leftPane {
+    min-height: 380px;
+    height: 380px;
+    width: 350px;
+    padding-right: 0px; }
+  .learning-standards-table .leftPaneHeaders {
+    width: 350px; }
+  .learning-standards-table .leftPane-content {
+    width: 350px; }
+  .learning-standards-table .rightPane th, .learning-standards-table .rightPane td {
+    min-width: 70px; }
+  .learning-standards-table table {
+    border-collapse: collapse;
+    width: auto;
+    /* Header Styles */
+    /* Body Styles */ }
+    .learning-standards-table table th, .learning-standards-table table td {
+      padding: 4px;
+      height: 32px; }
+    .learning-standards-table table .highlighted th, .learning-standards-table table .highlighted td {
+      background: #e6e6e6; }
+    .learning-standards-table table thead th {
+      border-bottom: 1px solid #393a3b;
+      color: #fff;
+      font-weight: normal;
+      height: 40px; }
+    .learning-standards-table table tbody th, .learning-standards-table table tbody td {
+      border-bottom: 1px solid #e0dfdf;
+      padding-bottom: 4px; }
+    .learning-standards-table table tbody th {
+      text-align: left; }
+      .learning-standards-table table tbody th a:before {
+        content: " ";
+        background-image: url('../Images/BulletPlus.gif');
+        display: inline-block;
+        height: 12px;
+        width: 12px;
+        text-align: center;
+        margin-right: 4px; }
+    .learning-standards-table table tbody td {
+      border-left: 1px solid #393a3b; }
+    .learning-standards-table table tbody a {
+      color: black; }
+    .learning-standards-table table tbody tr.collapsed th a:before {
+      background-image: url('../Images/BulletMinus.gif'); }
+  .learning-standards-table .group-0 {
+    background: #a4a4a4;
+    width: 500px; }
+  .learning-standards-table .group-1 {
+    background-color: #d6ac4b;
+    width: 100px;
+    background-image: none; }
+  .learning-standards-table .level-1 th {
+    font-weight: normal;
+    padding-left: 20px; }
+  .learning-standards-table .level-2 th {
+    font-weight: normal;
+    padding-left: 40px; }
+  .learning-standards-table .learning-standards-table-header, .learning-standards-table .learning-standards-table-content {
+    border: 1px solid #000; }
+  .learning-standards-table .learning-standards-table-header {
+    display: block;
+    float: left;
+    width: 40%; }
+  .learning-standards-table .learning-standards-table-content {
+    display: block;
+    float: left;
+    width: 58%;
+    overflow-x: scroll; }
+
+.scroller {
+  min-height: 380px;
+  height: 380px;
+  width: 365px;
+  overflow-y: scroll;
+  overflow-x: hidden; }
+
+.leftPane-headers {
+  width: 350px; }
+
+.leftPane-content {
+  width: 350px; }
+
+.maximize-button {
+  display: block;
+  width: 100px;
+  height: 18px;
+  color: white;
+  padding-left: 20px;
+  padding-top: 2px;
+  background-image: url('../Images/GridSlidingMenuOpenButton.png');
+  background-repeat: no-repeat;
+  cursor: pointer;
+  margin-bottom: 10px;
+  font-size: 8pt;
+  line-height: 16px; }
+  .maximize-button a {
+    text-transform: uppercase;
+    text-decoration: none;
+    color: #fff; }
+
+.fullscreen {
+  background-color: #fff;
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 95%;
+  height: 100%;
+  margin: 0;
+  -moz-box-sizing: border-box;
+  box-sizing: border-box;
+  z-index: 100; }
+
+/*Sets the Default text value to "Maximize View"*/
+.maximize {
+  display: block; }
+
+.restore {
+  display: none; }
+
+/*Switches the text value to "Retore view" when the fullscreen class is toggled on*/
+.learning-standard.fullscreen .maximize {
+  display: none; }
+.learning-standard.fullscreen .restore {
+  display: block; }
+.learning-standard.fullscreen .leftPane {
+  background-color: #fff;
+  height: 680px;
+  clear: left; }
+.learning-standard.fullscreen .rightPane {
+  background-color: #fff;
+  height: 700px; }
+.learning-standard.fullscreen .scroller {
+  background-color: #fff;
+  height: 680px; }
+
+.learning-standards-legend {
+  clear: left; }
+
+/*# sourceMappingURL=LearningStandardTable.css.map */

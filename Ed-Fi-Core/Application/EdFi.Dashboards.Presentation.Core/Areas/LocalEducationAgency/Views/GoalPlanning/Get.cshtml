@@ -1,0 +1,52 @@
+﻿@model EdFi.Dashboards.Application.Resources.Models.LocalEducationAgency.GoalPlanningModel
+@using System.Web.Script.Serialization
+@using EdFi.Dashboards.Common
+@using EdFi.Dashboards.Core.Providers.Context
+@using EdFi.Dashboards.Metric.Rendering
+@using EdFi.Dashboards.Presentation.Core.Areas.LocalEducationAgency.Controllers
+@using EdFi.Dashboards.Resources.Navigation.Mvc
+
+@{
+    var jss = new JavaScriptSerializer { MaxJsonLength = 50000000 };
+    var jsonGoalData = jss.Serialize(Model);
+
+    var localEducationAgencyId = EdFiDashboardContext.Current.LocalEducationAgencyId.GetValueOrDefault();
+    var metricVariantId = EdFiDashboardContext.Current.MetricVariantId.GetValueOrDefault();
+    ViewBag.Title = "Local Education Agency Goal Planning";
+}
+
+@section ContentPlaceHolderHead {
+    <title>@(Html.Action("Title", typeof(LocalEducationAgencyLayoutController).GetControllerName(), new { subTitle = "Goal Planning" }))</title>
+    <script>
+        var pageArea = { Area: 'local education agency', Page: 'Goal Planning' };
+        
+        var goalPlanningPost = '@(EdFiDashboards.Site.LocalEducationAgency.GoalPlanning(localEducationAgencyId, metricVariantId, new{format="json"}))';
+        var goalPublishPost = '@(EdFiDashboards.Site.LocalEducationAgency.PublishGoals(localEducationAgencyId, new{format="json"}))';
+        var goalPlanningSchoolListPost = '@(EdFiDashboards.Site.LocalEducationAgency.Resource(localEducationAgencyId, "GoalPlanningSchoolList", new{format="json"}))';
+        jQuery['goalData'] = @(Html.Raw(jsonGoalData));
+        var goals = new goalPlanning(@localEducationAgencyId, 'goalData', goalPlanningPost, goalPublishPost, goalPlanningSchoolListPost);
+        $(function () {
+            $('a[id|="mainmoreActions"]').on("click keypress focus", openMoreMenu);
+
+            goals.initialize(true);
+            
+            var tdId = requestQuerystring("tdId");
+            if (tdId != null) {
+                $("[data-tdid='" + tdId + "']").click();
+            }
+
+            var jump = requestQuerystring("jump");
+            if (jump != null && jump != '') {
+                window.location.hash = "#" + jump;
+            }
+            
+            highlightMetric();
+        });
+    </script>
+}
+
+@section ContentPlaceHolder1 {
+<div class="l-metrics">
+    @{ Html.RenderAction("Get", "Metrics", RenderingMode.GoalPlanning); }
+</div>
+}

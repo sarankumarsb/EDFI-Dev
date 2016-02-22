@@ -1,0 +1,51 @@
+@using EdFi.Dashboards.Core.Providers.Context
+@using EdFi.Dashboards.Resources.Navigation.Mvc
+@{
+    //ViewBag.Title = "_Layout";
+	Layout = this.GetLayout("_SiteLayout");
+}
+
+@section head {
+	@RenderSection("ContentPlaceHolderHead", required: false)
+}
+
+@section ContentDataHeader {
+    @{Html.RenderAction("EducationOrganizationHeader", "SchoolLayout");}
+}
+
+@section ContentPlaceHolderTopMost {
+    <table id="SchoolMainContent" border="0" cellpadding="0" cellspacing="0" style="width:754px; margin:0px auto;">
+        <tr>
+            <td style="vertical-align:top; text-align:left;">
+                @RenderSection("ContentPlaceHolder1", required: false)
+            </td>
+        </tr>
+    </table>
+
+	<!-- PageContext hidden field -->
+	<input type="hidden" name="PageContext" value="School" />
+
+	<!-- The ToolTip -->
+	<div id="JQToolTip"></div>
+
+	<script type="text/javascript">
+	    analyticsManager.trackDataView('@EdFiDashboardContext.Current.SchoolId');
+
+	    function exportAll_Click() {
+	        analyticsManager.trackExport('School', 'All');
+	        
+	        window.location = '@(new HtmlString(EdFiDashboards.Site.School.ExportAllMetrics(EdFiDashboardContext.Current.SchoolId.GetValueOrDefault(), new{format="csv"})))';
+	    }
+
+	    $(document).ready(function () {
+	        $(".JQToolTipTarget").tooltip({
+	            tip: '#JQToolTip',
+	            effect: 'slide',
+	            position: 'bottom center',
+	            bounce: true,
+	            offset: [5, 0]
+
+	        });
+	    });
+	</script>
+}

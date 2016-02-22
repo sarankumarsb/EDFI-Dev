@@ -1,0 +1,45 @@
+﻿@model EdFi.Dashboards.Application.Resources.Models.School.GoalPlanningModel
+@using System.Web.Script.Serialization
+@using EdFi.Dashboards.Presentation.Core.Areas.School.Controllers
+@using EdFi.Dashboards.Resources.Navigation.Mvc
+@using EdFi.Dashboards.Common
+@using EdFi.Dashboards.Core.Providers.Context
+@using EdFi.Dashboards.Metric.Rendering
+
+@{
+    var jss = new JavaScriptSerializer { MaxJsonLength = 50000000 };
+    var jsonGoalData = jss.Serialize(Model);
+
+    var schoolId = EdFiDashboardContext.Current.SchoolId.GetValueOrDefault();
+    var metricVariantId = EdFiDashboardContext.Current.MetricVariantId.GetValueOrDefault();
+    ViewBag.Title = "School Goal Planning";
+}
+
+@section ContentPlaceHolderHead {
+    <title>@(Html.Action("Title", typeof(SchoolLayoutController).GetControllerName(), new { subTitle = "Goal Planning" }))</title>
+    <script>
+        var pageArea = { Area: 'school', Page: 'Goal Planning' };
+        
+        var goalPlanningPost = '@(EdFiDashboards.Site.School.GoalPlanning(schoolId, metricVariantId, null, new{format="json"}))';
+        var goalPublishPost = '@(EdFiDashboards.Site.School.PublishGoals(schoolId, null, new{format="json"}))';
+        jQuery['goalData'] = @(Html.Raw(jsonGoalData));
+        var goals = new goalPlanning(@schoolId, 'goalData', goalPlanningPost, goalPublishPost);
+        $(function () {
+            goals.initialize(false);
+            
+            var jump = requestQuerystring("jump");
+            if (jump != null && jump != '') {
+                window.location.hash = "#" + jump;
+            }
+            
+            highlightMetric();
+        });
+    </script>
+}
+
+@section ContentPlaceHolder1 {
+
+<div class="l-metrics">
+    @{ Html.RenderAction("Get", "Metrics", RenderingMode.GoalPlanning); }
+</div>
+}

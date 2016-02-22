@@ -1,0 +1,59 @@
+﻿@model IEnumerable<MetricFootnote>
+@if (Model.Any())
+{
+    var uniqueId = Guid.NewGuid().ToString();
+
+    if (ViewData["FootnoteVisible"] as bool? == true)
+    {
+        <div class="metric-footnote-container">
+            <i class="icon-asterisk"></i>
+            <ul>
+                @foreach (var footnote in Model)
+                {
+                    <li>@footnote.FootnoteText</li>
+                }
+            </ul>
+            <div style="clear:both;"></div>
+        </div>
+    }
+    else
+    {
+        <a id="@(uniqueId)_a" class="metric-footnote-indicator" href="#@(uniqueId)_div" onclick="return false;" aria-hidden="true"><i class="icon-asterisk"></i></a>
+        <div id="@(uniqueId)_div" class="metric-footnote-tooltip">
+            <ul>
+                @foreach (var footnote in Model)
+                {
+                    <li>@footnote.FootnoteText</li>
+                }
+            </ul>
+        </div>
+        <span class="hidden" style="display:inline-block">The following are applicable footnotes. </span>
+        <ul id="@(uniqueId)_ul_forScreenReader" class="hidden" style="display:inline-block">
+            @foreach (var footnote in Model)
+            {
+                <li>@footnote.FootnoteText</li>
+            }
+        </ul>
+
+        <script type="text/javascript">
+            $(function() {
+                $('#@(uniqueId)_a').tooltip({
+                    tip: '#@(uniqueId)_div',
+                    effect: 'fade',
+                    position: 'bottom center',
+                    bounce: true,
+                    offset: [8, 0],
+                    delay: 500
+                })
+                .on("focus", function () {
+                    // Opens tooltip when tabbing through metric statuses
+                    $(this).trigger("mouseover");
+                })
+                .on("blur", function () {
+                    // Closes tooltip
+                    $(this).trigger("mouseout");
+                });
+            });
+        </script>
+    }
+}

@@ -1,0 +1,209 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProductVersion>8.0.30703</ProductVersion>
+    <SchemaVersion>2.0</SchemaVersion>
+    <ProjectGuid>{AE467D07-7BE8-43F4-8D69-02D7BCF9C021}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>EdFi.Dashboards.Resources.Security.Tests</RootNamespace>
+    <AssemblyName>EdFi.Dashboards.Resources.Security.Tests</AssemblyName>
+    <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+    <SolutionDir Condition="$(SolutionDir) == '' Or $(SolutionDir) == '*Undefined*'">..\..\..\Ed-Fi-Apps\Application\</SolutionDir>
+    <RestorePackages>true</RestorePackages>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="Castle.Core">
+      <HintPath>..\..\..\Ed-Fi-Apps\Application\packages\Castle.Core.3.3.1\lib\net40-client\Castle.Core.dll</HintPath>
+    </Reference>
+    <Reference Include="Castle.Facilities.Logging">
+      <HintPath>..\..\..\Ed-Fi-Apps\Application\packages\Castle.LoggingFacility.3.3.0\lib\net40\Castle.Facilities.Logging.dll</HintPath>
+    </Reference>
+    <Reference Include="Castle.Windsor">
+      <HintPath>..\..\..\Ed-Fi-Apps\Application\packages\Castle.Windsor.3.3.0\lib\net40\Castle.Windsor.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Microsoft.IdentityModel, Version=3.5.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>C:\Program Files\Reference Assemblies\Microsoft\Windows Identity Foundation\v3.5\Microsoft.IdentityModel.dll</HintPath>
+    </Reference>
+    <Reference Include="Newtonsoft.Json, Version=4.5.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\..\Ed-Fi-Apps\Application\packages\Newtonsoft.Json.4.5.11\lib\net40\Newtonsoft.Json.dll</HintPath>
+    </Reference>
+    <Reference Include="nunit.framework, Version=2.6.2.12296, Culture=neutral, PublicKeyToken=96d09a1eb7f44a77, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\..\Ed-Fi-Apps\Application\packages\NUnit.2.6.2\lib\nunit.framework.dll</HintPath>
+    </Reference>
+    <Reference Include="Rhino.Mocks">
+      <HintPath>..\..\..\Ed-Fi-Apps\Application\packages\RhinoMocks.3.6\lib\Rhino.Mocks.dll</HintPath>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.IdentityModel" />
+    <Reference Include="System.ServiceModel" />
+    <Reference Include="System.Web" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="ApplyViewPermissionsInterceptorContext\ApplyViewPermissionsByClaimInterceptorFixture.cs" />
+    <Compile Include="AuthorizationDelegates\LevelCrumbAuthorizationDelegateFixture.cs" />
+    <Compile Include="AuthorizationDelegates\OrganizationContextAuthorizationDelegateFixtures.cs" />
+    <Compile Include="AuthorizationDelegates\SearchAuthorizationDelegateFixture.cs" />
+    <Compile Include="ClaimValidators\AccessOrganizationClaimValidatorFixture.cs" />
+    <Compile Include="ClaimValidators\AdministerDashboardClaimValidatorFixture.cs" />
+    <Compile Include="ClaimValidators\AuthorizationFixtureBase.cs" />
+    <Compile Include="ClaimValidators\ClaimValidatorFixturesBase.cs" />
+    <Compile Include="ClaimValidators\ManageGoalsClaimValidatorFixture.cs" />
+    <Compile Include="ClaimValidators\ManageWatchListClaimValidatorFixture.cs" />
+    <Compile Include="ClaimValidators\ViewAllMetricsClaimValidatorFixture.cs" />
+    <Compile Include="ClaimValidators\ViewAllStudentsClaimValidatorFixture.cs" />
+    <Compile Include="ClaimValidators\ViewAllTeachersClaimValidatorFixture.cs" />
+    <Compile Include="ClaimValidators\ViewMyMetricsClaimValidatorFixture.cs" />
+    <Compile Include="ClaimValidators\ViewMyStudentsClaimValidatorFixture.cs" />
+    <Compile Include="ClaimValidators\ViewOperationalDashboardClaimValidatorFixture.cs" />
+    <Compile Include="CurrentUserClaimInterrogatorFixture\CurrentUserClaimInterrogatorFixtureBase.cs" />
+    <Compile Include="ExplicitServiceLayerSecurityClaimAuthorizationFixtures.cs" />
+    <Compile Include="CastleWindsorHelper.cs" />
+    <Compile Include="CustomClaimsAuthenticationManagerFixture.cs" />
+    <Compile Include="ExtensionsResourcesSecurityTestsBaseWithClaims.cs" />
+    <Compile Include="Implementations\AzureClaimsAuthenticationManagerProviderFixture.cs" />
+    <Compile Include="Implementations\Base64WctxWimpProviderFixture.cs" />
+    <Compile Include="Implementations\DashaboardClaimsAuthenticationManagerProviderFixture.cs" />
+    <Compile Include="Implementations\PassThroughClaimsAuthenticationManagerProviderFixture.cs" />
+    <Compile Include="Implementations\SecurityTokenServiceSignInRequestMessageProviderFixture.cs" />
+    <Compile Include="Implementations\StaffInformationLookupKeyProviderFixture.cs" />
+    <Compile Include="MetricFilter\MetricFilterFixture.cs" />
+    <Compile Include="MetricFilter\TestService.cs" />
+    <Compile Include="Implementations\WctxWimpProviderFixture.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Providers\ClaimSetBasedClaimsProviderFixtures.cs" />
+    <Compile Include="SafeMethodOnlySecurityAssertionProvider.cs" />
+    <Compile Include="SecurityInstallerFixtures.cs" />
+    <Compile Include="SerializableModelFixture.cs" />
+    <Compile Include="SignInRequestAdornUtilityExtensionsFixture.cs" />
+    <Compile Include="StaffInformationFromEmailProviderFixture.cs" />
+    <Compile Include="StudentFilterFixture.cs" />
+    <Compile Include="StudentFilter\CurrentUserAccessibleStudentsProviderFixture.cs" />
+    <Compile Include="StudentFilter\StudentFilterFixture.cs" />
+    <Compile Include="StudentFilter\TestService.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="app.config" />
+    <None Include="packages.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\EdFi.Dashboards.Application.Data\EdFi.Dashboards.Application.Data.csproj">
+      <Project>{D930AEAF-1B9B-446E-847F-EC19E34027F3}</Project>
+      <Name>EdFi.Dashboards.Application.Data</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\EdFi.Dashboards.Common\EdFi.Dashboards.Common.csproj">
+      <Project>{5138F45D-EB07-4733-97E7-C761832BDC07}</Project>
+      <Name>EdFi.Dashboards.Common</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\EdFi.Dashboards.Core\EdFi.Dashboards.Core.csproj">
+      <Project>{6492B293-E115-4E1D-9B08-D7C798673F40}</Project>
+      <Name>EdFi.Dashboards.Core</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\EdFi.Dashboards.Data\EdFi.Dashboards.Data.csproj">
+      <Project>{2D634E95-52F6-404D-89AF-CA13C7C995D1}</Project>
+      <Name>EdFi.Dashboards.Data</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\EdFi.Dashboards.Infrastructure\EdFi.Dashboards.Infrastructure.csproj">
+      <Project>{0C2CFA02-99C5-4BC1-8EBF-AA9EB75EEB3A}</Project>
+      <Name>EdFi.Dashboards.Infrastructure</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\EdFi.Dashboards.Metric.Data.Entities\EdFi.Dashboards.Metric.Data.Entities.csproj">
+      <Project>{a04d62af-f76d-4c15-aeab-df022beeb1a8}</Project>
+      <Name>EdFi.Dashboards.Metric.Data.Entities</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\EdFi.Dashboards.Metric.Resources.Models\EdFi.Dashboards.Metric.Resources.Models.csproj">
+      <Project>{d6e84ca6-8494-4f3c-90b5-2b868dde7a6c}</Project>
+      <Name>EdFi.Dashboards.Metric.Resources.Models</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\EdFi.Dashboards.Metric.Resources\EdFi.Dashboards.Metric.Resources.csproj">
+      <Project>{83928965-af03-4518-9940-12bef4bc079d}</Project>
+      <Name>EdFi.Dashboards.Metric.Resources</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\EdFi.Dashboards.Presentation.Core\EdFi.Dashboards.Presentation.Core.csproj">
+      <Project>{08ebf714-4e5a-4655-ade5-8a16e5665c5a}</Project>
+      <Name>EdFi.Dashboards.Presentation.Core</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\EdFi.Dashboards.Resource.Models.Common\EdFi.Dashboards.Resource.Models.Common.csproj">
+      <Project>{b9977f25-9c76-4585-b52b-0826255f3318}</Project>
+      <Name>EdFi.Dashboards.Resource.Models.Common</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\EdFi.Dashboards.Resources.Models\EdFi.Dashboards.Resources.Models.csproj">
+      <Project>{3C848D33-B28B-4690-BE41-84EDDF1BBB23}</Project>
+      <Name>EdFi.Dashboards.Resources.Models</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\EdFi.Dashboards.Resources.Security.Common\EdFi.Dashboards.Resources.Security.Common.csproj">
+      <Project>{a8af4718-41c9-4307-97b5-33f63111c76b}</Project>
+      <Name>EdFi.Dashboards.Resources.Security.Common</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\EdFi.Dashboards.Resources.Security\EdFi.Dashboards.Resources.Security.csproj">
+      <Project>{9D65E63A-9B33-497B-A583-E95DA11D9DA2}</Project>
+      <Name>EdFi.Dashboards.Resources.Security</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\EdFi.Dashboards.Resources.Tests\EdFi.Dashboards.Resources.Tests.csproj">
+      <Project>{C81E9207-0215-4941-9B71-2A47DA0C9580}</Project>
+      <Name>EdFi.Dashboards.Resources.Tests</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\EdFi.Dashboards.Resources\EdFi.Dashboards.Resources.csproj">
+      <Project>{6EA4750A-8C3C-4111-B9A4-F35F5EF436ED}</Project>
+      <Name>EdFi.Dashboards.Resources</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\EdFi.Dashboards.SecurityTokenService.Authentication\EdFi.Dashboards.SecurityTokenService.Authentication.csproj">
+      <Project>{DBA5BFC2-B479-418E-84E9-44D39E1651D9}</Project>
+      <Name>EdFi.Dashboards.SecurityTokenService.Authentication</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\EdFi.Dashboards.Testing\EdFi.Dashboards.Testing.csproj">
+      <Project>{94AD2E43-23A6-42AA-93E9-15D1ECEB2D4B}</Project>
+      <Name>EdFi.Dashboards.Testing</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\EdFi.Dashboards.Warehouse.Data\EdFi.Dashboards.Warehouse.Data.csproj">
+      <Project>{7dc15bbe-3df1-4e17-aed5-05494775903e}</Project>
+      <Name>EdFi.Dashboards.Warehouse.Data</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\EdFi.Dashboards.Warehouse.Resources\EdFi.Dashboards.Warehouse.Resources.csproj">
+      <Project>{A92C6250-2E75-4F8E-9275-BEB7B9E1C9E2}</Project>
+      <Name>EdFi.Dashboards.Warehouse.Resources</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <Service Include="{82A7F48D-3B50-4B1E-B82E-3ADA8210C358}" />
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <Import Project="$(SolutionDir)\.nuget\nuget.targets" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>

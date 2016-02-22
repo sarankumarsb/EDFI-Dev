@@ -1,0 +1,17 @@
+﻿@model ContainerMetric
+<!-- Inline Style is left intentionally in the MetricTemplate to provide a easyer way to override.-->
+<table summary="This table displays metrics regarding @(Model.DisplayName).">
+<thead>
+<tr id="vMetric@(Model.MetricVariantId)">
+    <th title="@Model.ToolTip" style="width:45%">
+        Metric Category
+    </th>
+    <th  style="width:30%">
+        Performance Summary
+    </th>
+    <th style="text-align:left">
+        Metric Status
+    </th>
+</tr>
+</thead>
+<tbody>

@@ -1,0 +1,83 @@
+﻿@using EdFi.Dashboards.Presentation.Architecture.Mvc.Extensions
+@using EdFi.Dashboards.Presentation.Core.Models.Shared
+@using EdFi.Dashboards.Resources.Navigation
+@model EdFi.Dashboards.Presentation.Web.Areas.Error.Models.ErrorModel
+
+@{
+    ViewBag.Title = "Ed-Fi Powered Dashboards Error";
+    Layout = "~/Views/Shared/_Dialog.cshtml";
+}
+@section HeadContent{
+
+        @if(Model.ShowExceptionDetails)
+        {
+            <script type='text/javascript'>
+                $(function() {
+                    var $exDialog = $('#exception-dialog')
+                        .dialog({
+                            autoOpen: false,
+                            height: 600,
+                            width: 800,
+                            title: 'Exception Details',
+                            modal: true,
+                            buttons: {
+                                'Close': function() {
+                                    $(this).dialog('close');
+                                }
+                            }
+                        });
+
+                    $('#ExceptionDetailsLink').show();
+
+                    $('#ExceptionDetailsLink').click(function() {
+                        $exDialog.dialog('open');
+                        // prevent the default action, e.g., following a link
+                        return false;
+                    });
+                });
+            </script>
+        }
+}
+<table style="padding-top: 10px; width: 225px;">
+    <tr>
+        <td class="bigLabel" colspan="3">There was a problem with the web page you were trying to view.</td>
+    </tr>
+    <tr>
+        <td style="height:10px;">&nbsp;</td>
+    </tr>
+    <tr>
+        <td id="buttonErrorBack" class="buttonImage" onclick="history.back()">BACK</td>
+        <td id="buttonErrorFeedback" class="buttonImage feedback">SUPPORT</td>
+        <td id="buttonErrorLogout" class="buttonImage" onclick="window.location= '@EdFiDashboardsSite.Common.Logout().Resolve()'">LOGOUT</td>
+    </tr>
+    <tr>
+        <td colspan="3">
+            <div class="tinyLabel" style="padding-top: 10px;"><a id="ExceptionDetailsLink" style="color:#255b80; display: none;" href="#">More Details</a></div>
+        </td>
+    </tr>
+</table>
+
+@section FooterMessage {
+    <label ID="ErrorMessageLabel" class="error" ></label>
+}
+@section AdditionalContent {
+        @{Html.RenderPartial("Feedback", new FeedbackModel { SupportLinkControlId = "#buttonErrorFeedback",
+              AllowNameEdit = true,
+              UserName = (Model.UserInformation != null) ? Model.UserInformation.FullName : "",
+              Email = (Model.UserInformation != null) ? Model.UserInformation.EmailAddress : ""
+          });}
+    <div id="exception-dialog" style="display: none;">
+        <fieldset>
+            <label for="name">Contents:</label>
+            <div style="font-family: Consolas, Courier New; font-size: 8pt; overflow: auto;">
+                @if (Model.ShowExceptionDetails)
+                {
+                    @(Html.Raw(Model.ErrorMessage
+                    .Replace(Environment.NewLine, "<br />")
+                    .Replace("   ", "&nbsp;&nbsp;&nbsp;")))
+                }
+            </div>
+        </fieldset>
+    </div>
+}
+

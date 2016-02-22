@@ -1,0 +1,819 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProductVersion>
+    </ProductVersion>
+    <SchemaVersion>2.0</SchemaVersion>
+    <ProjectGuid>{08201F50-2B97-4567-85DF-58B6FEFF7CC9}</ProjectGuid>
+    <ProjectTypeGuids>{E53F8FEA-EAE0-44A6-8774-FFD645390401};{349c5851-65df-11da-9384-00065b846f21};{fae04ec0-301f-11d3-bf4b-00c04f79efbc}</ProjectTypeGuids>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>EdFi.Dashboards.Presentation.Web</RootNamespace>
+    <AssemblyName>EdFi.Dashboards.Presentation.Web</AssemblyName>
+    <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
+    <UseIISExpress>false</UseIISExpress>
+    <SolutionDir Condition="$(SolutionDir) == '' Or $(SolutionDir) == '*Undefined*'">..\</SolutionDir>
+    <RestorePackages>true</RestorePackages>
+    <FileUpgradeFlags>
+    </FileUpgradeFlags>
+    <UpgradeBackupLocation>
+    </UpgradeBackupLocation>
+    <OldToolsVersion>4.0</OldToolsVersion>
+    <IISExpressSSLPort />
+    <IISExpressAnonymousAuthentication />
+    <IISExpressWindowsAuthentication />
+    <IISExpressUseClassicPipelineMode />
+    <MvcProjectUpgradeChecked>true</MvcProjectUpgradeChecked>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\</OutputPath>
+    <DefineConstants>TRACE;DEBUG</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <CodeAnalysisRuleSet>..\EdFi.ruleset</CodeAnalysisRuleSet>
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <TreatWarningsAsErrors>true</TreatWarningsAsErrors>
+    <RunCodeAnalysis>false</RunCodeAnalysis>
+    <WarningsNotAsErrors>618,1030,1701,1702</WarningsNotAsErrors>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <DebugSymbols>true</DebugSymbols>
+    <CodeAnalysisRuleSet>..\EdFi.ruleset</CodeAnalysisRuleSet>
+    <RunCodeAnalysis>true</RunCodeAnalysis>
+    <TreatWarningsAsErrors>true</TreatWarningsAsErrors>
+    <WarningsNotAsErrors>618,1030,1701,1702</WarningsNotAsErrors>
+    <MvcBuildViews>true</MvcBuildViews>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'WebUITesting|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <OutputPath>bin\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <DebugType>full</DebugType>
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <ErrorReport>prompt</ErrorReport>
+    <CodeAnalysisRuleSet>..\EdFi.ruleset</CodeAnalysisRuleSet>
+    <Optimize>true</Optimize>
+    <RunCodeAnalysis>true</RunCodeAnalysis>
+    <TreatWarningsAsErrors>true</TreatWarningsAsErrors>
+    <WarningsNotAsErrors>618,1030,1701,1702</WarningsNotAsErrors>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="AjaxMin">
+      <HintPath>..\packages\AjaxMin.4.84.4790.14417\lib\net40\AjaxMin.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Cassette">
+      <HintPath>..\packages\Cassette.2.2.2\lib\net40-client\Cassette.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Cassette.Aspnet">
+      <HintPath>..\packages\Cassette.Aspnet.2.2.2\lib\net40\Cassette.Aspnet.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Cassette.JQueryTmpl">
+      <HintPath>..\packages\Cassette.JQueryTmpl.2.2.2\lib\net40-client\Cassette.JQueryTmpl.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Cassette.Sass">
+      <HintPath>..\packages\Cassette.Sass.2.2.2\lib\net40-client\Cassette.Sass.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Cassette.Views">
+      <HintPath>..\packages\Cassette.Views.2.2.2\lib\net40\Cassette.Views.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Castle.Core, Version=3.3.0.0, Culture=neutral, PublicKeyToken=407dd0808d44fbdc, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\packages\Castle.Core.3.3.1\lib\net40-client\Castle.Core.dll</HintPath>
+    </Reference>
+    <Reference Include="Castle.Facilities.Logging">
+      <HintPath>..\packages\Castle.LoggingFacility.3.3.0\lib\net40\Castle.Facilities.Logging.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Castle.Services.Logging.Log4netIntegration">
+      <HintPath>..\packages\Castle.Core-log4net.3.3.0\lib\net40\Castle.Services.Logging.Log4netIntegration.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Castle.Windsor">
+      <HintPath>..\packages\Castle.Windsor.3.3.0\lib\net40\Castle.Windsor.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Intelligencia.UrlRewriter">
+      <HintPath>..\lib\UrlRewriter\Intelligencia.UrlRewriter.dll</HintPath>
+      <HintPath>..\..\..\Ed-Fi-Core\Application\lib\UrlRewriter\Intelligencia.UrlRewriter.dll</HintPath>
+    </Reference>
+    <Reference Include="IronRuby, Version=1.1.3.0, Culture=neutral, PublicKeyToken=7f709c5b713576e1, processorArchitecture=MSIL">
+      <HintPath>..\packages\IronRuby.1.1.3\lib\IronRuby.dll</HintPath>
+    </Reference>
+    <Reference Include="IronRuby.Libraries, Version=1.1.3.0, Culture=neutral, PublicKeyToken=7f709c5b713576e1, processorArchitecture=MSIL">
+      <HintPath>..\packages\IronRuby.1.1.3\lib\IronRuby.Libraries.dll</HintPath>
+    </Reference>
+    <Reference Include="IronRuby.Libraries.Yaml, Version=1.1.3.0, Culture=neutral, PublicKeyToken=7f709c5b713576e1, processorArchitecture=MSIL">
+      <HintPath>..\packages\IronRuby.1.1.3\lib\IronRuby.Libraries.Yaml.dll</HintPath>
+    </Reference>
+    <Reference Include="Jurassic, Version=2.1.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\Jurassic.2.1.1\lib\Jurassic.dll</HintPath>
+    </Reference>
+    <Reference Include="log4net">
+      <HintPath>..\packages\log4net.1.2.10\lib\2.0\log4net.dll</HintPath>
+    </Reference>
+    <Reference Include="log4net.GmailAppender">
+      <HintPath>..\lib\log4net.GmailAppender\log4net.GmailAppender.dll</HintPath>
+      <HintPath>..\..\..\Ed-Fi-Core\Application\lib\log4net.GmailAppender\log4net.GmailAppender.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="Microsoft.Dynamic, Version=1.1.0.20, Culture=neutral, PublicKeyToken=7f709c5b713576e1, processorArchitecture=MSIL">
+      <HintPath>..\packages\IronRuby.1.1.3\lib\Microsoft.Dynamic.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.IdentityModel, Version=3.5.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL" />
+    <Reference Include="Microsoft.Practices.ServiceLocation, Version=1.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\CommonServiceLocator.1.0\lib\NET35\Microsoft.Practices.ServiceLocation.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Scripting, Version=1.1.0.20, Culture=neutral, PublicKeyToken=7f709c5b713576e1, processorArchitecture=MSIL">
+      <HintPath>..\packages\IronRuby.1.1.3\lib\Microsoft.Scripting.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Scripting.Metadata, Version=1.1.0.20, Culture=neutral, PublicKeyToken=7f709c5b713576e1, processorArchitecture=MSIL">
+      <HintPath>..\packages\IronRuby.1.1.3\lib\Microsoft.Scripting.Metadata.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Web.Infrastructure, Version=1.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <Private>True</Private>
+      <HintPath>..\packages\Microsoft.Web.Infrastructure.1.0.0.0\lib\net40\Microsoft.Web.Infrastructure.dll</HintPath>
+    </Reference>
+    <Reference Include="Newtonsoft.Json, Version=4.5.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\packages\Newtonsoft.Json.4.5.11\lib\net40\Newtonsoft.Json.dll</HintPath>
+    </Reference>
+    <Reference Include="RazorGenerator.Mvc, Version=1.4.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\RazorGenerator.Mvc.1.4.0.0\lib\net40\RazorGenerator.Mvc.dll</HintPath>
+    </Reference>
+    <Reference Include="SassAndCoffee.Core, Version=2.0.2.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\SassAndCoffee.Core.2.0.2.0\lib\net40-Client\SassAndCoffee.Core.dll</HintPath>
+    </Reference>
+    <Reference Include="SassAndCoffee.Ruby, Version=2.0.2.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\SassAndCoffee.Ruby.2.0.2.0\lib\net40-Client\SassAndCoffee.Ruby.dll</HintPath>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.ComponentModel.DataAnnotations" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="System.DirectoryServices" />
+    <Reference Include="System.IdentityModel" />
+    <Reference Include="System.ServiceModel" />
+    <Reference Include="System.Web.Abstractions" />
+    <Reference Include="System.Web.ApplicationServices" />
+    <Reference Include="System.Web.DataVisualization" />
+    <Reference Include="System.Web.DynamicData" />
+    <Reference Include="System.Web.Entity" />
+    <Reference Include="System.Web.Extensions" />
+    <Reference Include="System.Web.Helpers">
+      <HintPath>..\packages\Microsoft.AspNet.WebPages.1.0.20105.408\lib\net40\System.Web.Helpers.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="System.Web.Mvc">
+      <HintPath>..\packages\Microsoft.AspNet.Mvc.3.0.50813.1\lib\net40\System.Web.Mvc.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="System.Web.Razor">
+      <HintPath>..\packages\Microsoft.AspNet.Razor.1.0.20105.408\lib\net40\System.Web.Razor.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="System.Web.Routing" />
+    <Reference Include="System.Web.WebPages">
+      <HintPath>..\packages\Microsoft.AspNet.WebPages.1.0.20105.408\lib\net40\System.Web.WebPages.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="System.Web.WebPages.Deployment">
+      <HintPath>..\packages\Microsoft.AspNet.WebPages.1.0.20105.408\lib\net40\System.Web.WebPages.Deployment.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="System.Web.WebPages.Razor">
+      <HintPath>..\packages\Microsoft.AspNet.WebPages.1.0.20105.408\lib\net40\System.Web.WebPages.Razor.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="System.Windows.Forms" />
+    <Reference Include="System.Drawing" />
+    <Reference Include="System.Web" />
+    <Reference Include="System.Xml" />
+    <Reference Include="System.Configuration" />
+    <Reference Include="System.Web.Services" />
+    <Reference Include="System.EnterpriseServices" />
+    <Reference Include="System.Web.Mobile" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="WebActivator, Version=1.5.1.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\packages\WebActivator.1.5.1\lib\net40\WebActivator.dll</HintPath>
+    </Reference>
+  </ItemGroup>
+  <ItemGroup>
+    <CodeAnalysisDictionary Include="..\CustomDictionary.xml">
+      <Link>CustomDictionary.xml</Link>
+    </CodeAnalysisDictionary>
+    <Content Include="App_Themes\Ed-Fi\bundle.txt" />
+    <Content Include="App_Themes\Ed-Fi\img\EdFi-logo-Powered-RGB-TM.png" />
+    <Content Include="App_Themes\Theme1\BlueBox.css" />
+    <Content Include="App_Themes\Theme1\img\BGHeadEdFi.gif" />
+    <Content Include="App_Themes\Theme1\img\BGHeadLightGray.gif" />
+    <Content Include="App_Themes\Theme1\img\BulletArrowGrayOut.gif" />
+    <Content Include="App_Themes\Theme1\img\ButtonCancelColumns.png" />
+    <Content Include="App_Themes\Theme1\img\ButtonChangeColumns.png" />
+    <Content Include="App_Themes\Theme1\img\ButtonMaximizeGrid.png" />
+    <Content Include="App_Themes\Theme1\img\ButtonPriorYear.png" />
+    <Content Include="App_Themes\Theme1\img\ButtonResetColumns.png" />
+    <Content Include="App_Themes\Theme1\img\ButtonRestoreGrid.png" />
+    <Content Include="App_Themes\Theme1\img\ButtonSaveColumns.png" />
+    <Content Include="App_Themes\Theme1\img\ButtonStudentList.png" />
+    <Content Include="App_Themes\Theme1\img\ButtonStudentListCreate.png" />
+    <Content Include="App_Themes\Theme1\img\ButtonStudentListDelete.png" />
+    <Content Include="App_Themes\Theme1\img\ButtonStudentListFinish.png" />
+    <Content Include="App_Themes\Theme1\img\ButtonStudentListRemove.png" />
+    <Content Include="App_Themes\Theme1\img\Ed-Fi-Logo-TM-148x74.png" />
+    <Content Include="App_Themes\Theme1\img\EdFi-logo-Powered-RGB-TM-150x77.png" />
+    <Content Include="App_Themes\Theme1\img\EdFi-logo-RGB-TM-203x100.png" />
+    <Content Include="App_Themes\Theme1\img\EdFi-logo-RGB-TM-78x36.png" />
+    <Content Include="App_Themes\Theme1\img\GridSlidingMenuCloseButton.png" />
+    <Content Include="App_Themes\Theme1\img\GridSlidingMenuOpenButton.png" />
+    <Content Include="App_Themes\Theme1\img\BulletArrow.gif" />
+    <Content Include="App_Themes\Theme1\img\MetricActions\arrow_down.png" />
+    <Content Include="App_Themes\Theme1\img\MetricActions\BarChart.png" />
+    <Content Include="App_Themes\Theme1\img\MetricActions\BarChartInverse.png" />
+    <Content Include="App_Themes\Theme1\img\MetricActions\Calendar.png" />
+    <Content Include="App_Themes\Theme1\img\MetricActions\CalendarInverse.png" />
+    <Content Include="App_Themes\Theme1\img\MetricActions\HistoricalChart.png" />
+    <Content Include="App_Themes\Theme1\img\MetricActions\HistoricalChartInverse.png" />
+    <Content Include="App_Themes\Theme1\img\MetricActions\MultiTable.png" />
+    <Content Include="App_Themes\Theme1\img\MetricActions\MultiTableInverse.png" />
+    <Content Include="App_Themes\Theme1\img\MetricActions\Table.png" />
+    <Content Include="App_Themes\Theme1\img\MetricActions\TableInverse.png" />
+    <Content Include="App_Themes\Theme1\img\MetricIndicator\Designation.png" />
+    <Content Include="App_Themes\Theme1\img\MetricIndicator\SpecialServices-1.png" />
+    <Content Include="App_Themes\Theme1\img\Note32.png" />
+    <Content Include="App_Themes\Theme1\img\StaffSlidingMenuCloseButton.png" />
+    <Content Include="App_Themes\Theme1\img\StaffSlidingMenuOpenButton.png" />
+    <Content Include="App_Themes\Theme1\img\StatusLabel\DarkGray.gif" />
+    <Content Include="App_Themes\Theme1\img\studentGPS.png" />
+    <Content Include="App_Themes\Theme1\jQueryLightness\jquery-ui.custom.css" />
+    <Content Include="App_Themes\Theme1\StudentListManagement.css" />
+    <Content Include="App_Themes\Theme1\EdFiGrid.css" />
+    <Content Include="App_Themes\Theme1\img\BackLogout.png" />
+    <Content Include="App_Themes\Theme1\img\ButtonPublishAllGoals.png" />
+    <Content Include="App_Themes\Theme1\img\ButtonPublishLEAGoals.png" />
+    <Content Include="App_Themes\Theme1\img\ButtonPublishSchoolGoals.png" />
+    <Content Include="App_Themes\Theme1\img\ButtonReplicate.png" />
+    <Content Include="App_Themes\Theme1\img\FlagSpaceSaver.gif" />
+    <Content Include="App_Themes\Theme1\img\Profile\Thumb\NoEducationOrganizationImage.jpg" />
+    <Content Include="App_Themes\Theme1\img\snowflake.jpg" />
+    <Content Include="App_Themes\Theme1\img\ToolTipBox.png" />
+    <Content Include="App_Themes\Theme1\img\WhiteToolTipBox.png" />
+    <Content Include="App_Themes\Theme1\SchoolCategoryList.css" />
+    <Content Include="App_Themes\Theme1\img\Attendance\BGBlue.gif" />
+    <Content Include="App_Themes\Theme1\img\Attendance\BGGray.gif" />
+    <Content Include="App_Themes\Theme1\img\Attendance\BGRed.gif" />
+    <Content Include="App_Themes\Theme1\img\BGHead.gif" />
+    <Content Include="App_Themes\Theme1\img\BGLightGrayArrow.gif" />
+    <Content Include="App_Themes\Theme1\img\BGSubHead.gif" />
+    <Content Include="App_Themes\Theme1\img\BlueBox\BG.gif" />
+    <Content Include="App_Themes\Theme1\img\BlueBox\C2.gif" />
+    <Content Include="App_Themes\Theme1\img\BlueBox\C3.gif" />
+    <Content Include="App_Themes\Theme1\img\BlueBox\C4.gif" />
+    <Content Include="App_Themes\Theme1\img\BlueBox\C5.gif" />
+    <Content Include="App_Themes\Theme1\img\BlueHeader\BG.gif" />
+    <Content Include="App_Themes\Theme1\img\BlueHeader\C1.gif" />
+    <Content Include="App_Themes\Theme1\img\BlueHeader\C2.gif" />
+    <Content Include="App_Themes\Theme1\img\BorderExt.gif" />
+    <Content Include="App_Themes\Theme1\img\Breadcrumb\Separator.gif" />
+    <Content Include="App_Themes\Theme1\img\BulletBlackSquare.gif" />
+    <Content Include="App_Themes\Theme1\img\BulletPlus.gif" />
+    <Content Include="App_Themes\Theme1\img\BulletBlueArrow.gif" />
+    <Content Include="App_Themes\Theme1\img\BulletBlueArrowBack.gif" />
+    <Content Include="App_Themes\Theme1\img\BulletBlueArrowDown.gif" />
+    <Content Include="App_Themes\Theme1\img\BulletBlueSquare.gif" />
+    <Content Include="App_Themes\Theme1\img\BulletWhiteArrowBlueBG.gif" />
+    <Content Include="App_Themes\Theme1\img\ButtonLogin.png" />
+    <Content Include="App_Themes\Theme1\img\campusListArrow.png" />
+    <Content Include="App_Themes\Theme1\img\CampusPicker.png" />
+    <Content Include="App_Themes\Theme1\img\DialogBottomLeft.png" />
+    <Content Include="App_Themes\Theme1\img\DialogBottomRight.png" />
+    <Content Include="App_Themes\Theme1\img\DialogTopLeft.png" />
+    <Content Include="App_Themes\Theme1\img\DialogTopRight.png" />
+    <Content Include="App_Themes\Theme1\img\DropDownArrowButton.png" />
+    <Content Include="App_Themes\Theme1\img\FilterSearchButtonBlue.png" />
+    <Content Include="App_Themes\Theme1\img\FilterSearchButtonGray.png" />
+    <Content Include="App_Themes\Theme1\img\FlagRed.gif" />
+    <Content Include="App_Themes\Theme1\img\FlagWhite.gif" />
+    <Content Include="App_Themes\Theme1\img\GradientLine.png" />
+    <Content Include="App_Themes\Theme1\img\GrayHeader\BG.gif" />
+    <Content Include="App_Themes\Theme1\img\GrayHeader\C1.gif" />
+    <Content Include="App_Themes\Theme1\img\GrayHeader\C2.gif" />
+    <Content Include="App_Themes\Theme1\img\GrayHeader\RightGrayCorner.png" />
+    <Content Include="App_Themes\Theme1\img\HelpSmallWhite.gif" />
+    <Content Include="App_Themes\Theme1\img\LoginButton.png" />
+    <Content Include="App_Themes\Theme1\img\Menu\ActiveLink.jpg" />
+    <Content Include="App_Themes\Theme1\img\Menu\BGLine.gif" />
+    <Content Include="App_Themes\Theme1\img\Menu\Separator.jpg" />
+    <Content Include="App_Themes\Theme1\img\Menu\UnActiveLink.jpg" />
+    <Content Include="App_Themes\Theme1\img\PeerComparison\14.gif" />
+    <Content Include="App_Themes\Theme1\img\PeerComparison\24.gif" />
+    <Content Include="App_Themes\Theme1\img\PeerComparison\34.gif" />
+    <Content Include="App_Themes\Theme1\img\PeerComparison\44.gif" />
+    <Content Include="App_Themes\Theme1\img\Profile\List\NoCampusImage.jpg" />
+    <Content Include="App_Themes\Theme1\img\Profile\List\NoImage.jpg" />
+    <Content Include="App_Themes\Theme1\img\Profile\NoEducationOrganizationImage.jpg" />
+    <Content Include="App_Themes\Theme1\img\Profile\NoImage.jpg" />
+    <Content Include="App_Themes\Theme1\img\Profile\Thumb\NoCampusImage.jpg" />
+    <Content Include="App_Themes\Theme1\img\Profile\Thumb\NoImage.jpg" />
+    <Content Include="App_Themes\Theme1\img\SaveButton.png" />
+    <Content Include="App_Themes\Theme1\img\SeparatorGrayThick.gif" />
+    <Content Include="App_Themes\Theme1\img\SeparatorGrayThin.gif" />
+    <Content Include="App_Themes\Theme1\img\Slider\LeftArrow.png" />
+    <Content Include="App_Themes\Theme1\img\Slider\LeftEndSlider.png" />
+    <Content Include="App_Themes\Theme1\img\Slider\RangeSelector.png" />
+    <Content Include="App_Themes\Theme1\img\Slider\RangeSelectorActive.png" />
+    <Content Include="App_Themes\Theme1\img\Slider\RightArrow.png" />
+    <Content Include="App_Themes\Theme1\img\Slider\RightEndSlider.png" />
+    <Content Include="App_Themes\Theme1\img\Slider\SliderBackground.png" />
+    <Content Include="App_Themes\Theme1\img\Slider\SliderCenterPiece.png" />
+    <Content Include="App_Themes\Theme1\img\StatusLabel\Gray.gif" />
+    <Content Include="App_Themes\Theme1\img\StatusLabel\Green.gif" />
+    <Content Include="App_Themes\Theme1\img\StatusLabel\LightGreen.gif" />
+    <Content Include="App_Themes\Theme1\img\StatusLabel\Red.gif" />
+    <Content Include="App_Themes\Theme1\img\StatusLabel\Yellow.gif" />
+    <Content Include="App_Themes\Theme1\img\Trend\NoTrend.png" />
+    <Content Include="App_Themes\Theme1\img\Trend\TrendPlaceholder.png" />
+    <Content Include="App_Themes\Theme1\img\UnderConstructionIcon.png" />
+    <Content Include="App_Themes\Theme1\img\UnderConstructionLongIcon.png" />
+    <Content Include="App_Themes\Theme1\jQueryLightness\jquery-ui.css" />
+    <Content Include="App_Themes\Theme1\Slider.css" />
+    <Content Include="App_Themes\Theme1\jQueryLightness\images\ui-bg_diagonals-thick_18_b81900_40x40.png" />
+    <Content Include="App_Themes\Theme1\jQueryLightness\images\ui-bg_diagonals-thick_20_666666_40x40.png" />
+    <Content Include="App_Themes\Theme1\jQueryLightness\images\ui-bg_flat_100_5f8aaa_40x100.png" />
+    <Content Include="App_Themes\Theme1\jQueryLightness\images\ui-bg_flat_100_dae6f1_40x100.png" />
+    <Content Include="App_Themes\Theme1\jQueryLightness\images\ui-bg_flat_100_ffffff_40x100.png" />
+    <Content Include="App_Themes\Theme1\jQueryLightness\images\ui-bg_flat_10_000000_40x100.png" />
+    <Content Include="App_Themes\Theme1\jQueryLightness\images\ui-bg_glass_100_d2e4ef_1x400.png" />
+    <Content Include="App_Themes\Theme1\jQueryLightness\images\ui-bg_glass_100_f6f6f6_1x400.png" />
+    <Content Include="App_Themes\Theme1\jQueryLightness\images\ui-bg_glass_65_ffffff_1x400.png" />
+    <Content Include="App_Themes\Theme1\jQueryLightness\images\ui-bg_gloss-wave_35_6a92b0_500x100.png" />
+    <Content Include="App_Themes\Theme1\jQueryLightness\images\ui-bg_gloss-wave_35_f6a828_500x100.png" />
+    <Content Include="App_Themes\Theme1\jQueryLightness\images\ui-bg_highlight-soft_100_eeeeee_1x100.png" />
+    <Content Include="App_Themes\Theme1\jQueryLightness\images\ui-bg_highlight-soft_75_ffe45c_1x100.png" />
+    <Content Include="App_Themes\Theme1\jQueryLightness\images\ui-icons_000000_256x240.png" />
+    <Content Include="App_Themes\Theme1\jQueryLightness\images\ui-icons_222222_256x240.png" />
+    <Content Include="App_Themes\Theme1\jQueryLightness\images\ui-icons_228ef1_256x240.png" />
+    <Content Include="App_Themes\Theme1\jQueryLightness\images\ui-icons_255b80_256x240.png" />
+    <Content Include="App_Themes\Theme1\jQueryLightness\images\ui-icons_ef8c08_256x240.png" />
+    <Content Include="App_Themes\Theme1\jQueryLightness\images\ui-icons_ffd27a_256x240.png" />
+    <Content Include="App_Themes\Theme1\jQueryLightness\images\ui-icons_ffffff_256x240.png" />
+    <Content Include="App_Themes\Theme1\jQueryLightness\jquery-ui-1.8.15.custom.css" />
+    <Content Include="App_Themes\Theme1\StyleSheet.css" />
+    <Content Include="App_Themes\Ed-Fi\all.css" />
+    <Content Include="App_Themes\Ed-Fi\bootstrap-responsive.css" />
+    <Content Include="App_Themes\Ed-Fi\bootstrap.css" />
+    <Content Include="App_Themes\Dashboards\bundle.txt" />
+    <Content Include="App_Themes\Dashboards\dashboards.css" />
+    <Content Include="App_Themes\Theme2\img\ArrowRightOrange.png" />
+    <Content Include="App_Themes\Theme2\img\bground.png" />
+    <Content Include="App_Themes\Theme2\img\dashboard.png" />
+    <Content Include="App_Themes\Theme2\img\dload-arrow.png" />
+    <Content Include="App_Themes\Ed-Fi\img\EdFi-logo-RGB-TM-203x100.png" />
+    <Content Include="App_Themes\Ed-Fi\img\EdFi-logo-RGB-TM-78x36.png" />
+    <Content Include="App_Themes\Theme2\img\GeneralInformation.png" />
+    <Content Include="App_Themes\Theme2\img\offsite-link.png" />
+    <Content Include="App_Themes\Theme2\img\snowflake.jpg" />
+    <Content Include="App_Themes\Theme2\img\studentGPS.png" />
+    <Content Include="App_Themes\Theme2\img\support.png" />
+    <Content Include="App_Themes\Theme2\img\training.png" />
+    <Content Include="App_Themes\Theme2\jQueryLightness\images\ui-bg_diagonals-thick_18_b81900_40x40.png" />
+    <Content Include="App_Themes\Theme2\jQueryLightness\images\ui-bg_diagonals-thick_70_626262_40x40.png" />
+    <Content Include="App_Themes\Theme2\jQueryLightness\images\ui-bg_flat_100_dbeef4_40x100.png" />
+    <Content Include="App_Themes\Theme2\jQueryLightness\images\ui-bg_flat_100_ffffff_40x100.png" />
+    <Content Include="App_Themes\Theme2\jQueryLightness\images\ui-bg_flat_10_000000_40x100.png" />
+    <Content Include="App_Themes\Theme2\jQueryLightness\images\ui-bg_flat_20_626262_40x100.png" />
+    <Content Include="App_Themes\Theme2\jQueryLightness\images\ui-bg_flat_65_dbeef4_40x100.png" />
+    <Content Include="App_Themes\Theme2\jQueryLightness\images\ui-bg_gloss-wave_35_009aa6_500x100.png" />
+    <Content Include="App_Themes\Theme2\jQueryLightness\images\ui-bg_highlight-soft_75_ffe45c_1x100.png" />
+    <Content Include="App_Themes\Theme2\jQueryLightness\images\ui-icons_009aa6_256x240.png" />
+    <Content Include="App_Themes\Theme2\jQueryLightness\images\ui-icons_228ef1_256x240.png" />
+    <Content Include="App_Themes\Theme2\jQueryLightness\images\ui-icons_626262_256x240.png" />
+    <Content Include="App_Themes\Theme2\jQueryLightness\images\ui-icons_ffd27a_256x240.png" />
+    <Content Include="App_Themes\Theme2\jQueryLightness\images\ui-icons_ffffff_256x240.png" />
+    <Content Include="App_Themes\Theme2\jQueryLightness\jquery-ui-1.8.15.custom.css" />
+    <Content Include="App_Themes\Theme2\jQueryLightness\jquery-ui.css" />
+    <Content Include="App_Themes\Theme2\StyleSheet.css" />
+    <Content Include="App_Themes\Ed-Fi\ico\favicon.ico" />
+    <Content Include="FederationMetadata\2007-06\FederationMetadata.xml">
+      <SubType>Designer</SubType>
+    </Content>
+    <Content Include="Global.asax" />
+    <Content Include="HttpRedirect.htm" />
+    <Content Include="NotFound.htm" />
+    <Content Include="robots.txt" />
+    <Content Include="Web.config">
+      <SubType>Designer</SubType>
+    </Content>
+    <Content Include="log4net-logger.Production.ErrorReporter.config" />
+    <Content Include="log4net-logger.Production.FeedbackReporter.config" />
+    <Content Include="log4net-logger.Staging.FeedbackReporter.config" />
+    <Content Include="log4net-logger.Staging.ErrorReporter.config" />
+    <Content Include="Web.PublicDemo.appSettings.config" />
+    <Content Include="Web.PublicDemo.connectionStrings.config" />
+    <Content Include="Web.PublicDemo.microsoft.identityModel.config" />
+    <Content Include="packages.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="..\SolutionAssemblyInfo.cs">
+      <Link>SolutionAssemblyInfo.cs</Link>
+    </Compile>
+    <Compile Include="CassetteConfiguration.cs" />
+    <Compile Include="Controllers\CacheController.cs" />
+    <Compile Include="GlobalSuppressions.cs" />
+    <Compile Include="Utilities\CastleWindsor\ConfigurationSpecificInstallerBase.cs" />
+    <Compile Include="Utilities\CastleWindsor\Demo\ConfigurationSpecificInstaller.cs" />
+    <Compile Include="Marker_EdFi_Dashboards_Presentation_Web.cs" />
+    <Compile Include="Global.asax.cs">
+      <DependentUpon>Global.asax</DependentUpon>
+    </Compile>
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Utilities\CastleWindsor\Development\ConfigurationSpecificInstaller.cs" />
+    <Compile Include="Utilities\CastleWindsor\Integration\ConfigurationSpecificInstaller.cs" />
+    <Compile Include="Utilities\CastleWindsor\Production\ConfigurationSpecificInstaller.cs" />
+    <Compile Include="Utilities\CastleWindsor\Staging\ConfigurationSpecificInstaller.cs" />
+    <Compile Include="Utilities\MetricRendering\RazorGeneratorMetricTemplatesPathProvider.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\..\..\Ed-Fi-Core\Application\EdFi.Dashboards.Application.Resources.Models\EdFi.Dashboards.Application.Resources.Models.csproj">
+      <Project>{447A7F2C-065B-4B19-B19B-4E7AA07AE04C}</Project>
+      <Name>EdFi.Dashboards.Application.Resources.Models</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\..\Ed-Fi-Core\Application\EdFi.Dashboards.Application.Resources\EdFi.Dashboards.Application.Resources.csproj">
+      <Project>{78F169F7-875D-4A54-B44E-373FEA53434B}</Project>
+      <Name>EdFi.Dashboards.Application.Resources</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\..\Ed-Fi-Core\Application\EdFi.Dashboards.Metric.Rendering\EdFi.Dashboards.Metric.Rendering.csproj">
+      <Project>{1E4E9E74-89AA-4053-83F1-F2A53C31D749}</Project>
+      <Name>EdFi.Dashboards.Metric.Rendering</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\..\Ed-Fi-Core\Application\EdFi.Dashboards.Metric.Resources.Models\EdFi.Dashboards.Metric.Resources.Models.csproj">
+      <Project>{D6E84CA6-8494-4F3C-90B5-2B868DDE7A6C}</Project>
+      <Name>EdFi.Dashboards.Metric.Resources.Models</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\..\Ed-Fi-Core\Application\EdFi.Dashboards.Metric.Resources\EdFi.Dashboards.Metric.Resources.csproj">
+      <Project>{83928965-AF03-4518-9940-12BEF4BC079D}</Project>
+      <Name>EdFi.Dashboards.Metric.Resources</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\..\Ed-Fi-Core\Application\EdFi.Dashboards.Common\EdFi.Dashboards.Common.csproj">
+      <Project>{5138F45D-EB07-4733-97E7-C761832BDC07}</Project>
+      <Name>EdFi.Dashboards.Common</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\..\Ed-Fi-Core\Application\EdFi.Dashboards.Core\EdFi.Dashboards.Core.csproj">
+      <Project>{6492B293-E115-4E1D-9B08-D7C798673F40}</Project>
+      <Name>EdFi.Dashboards.Core</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\..\Ed-Fi-Core\Application\EdFi.Dashboards.Infrastructure\EdFi.Dashboards.Infrastructure.csproj">
+      <Project>{0C2CFA02-99C5-4BC1-8EBF-AA9EB75EEB3A}</Project>
+      <Name>EdFi.Dashboards.Infrastructure</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\..\Ed-Fi-Core\Application\EdFi.Dashboards.Presentation.Architecture\EdFi.Dashboards.Presentation.Architecture.csproj">
+      <Project>{41A9C660-FCFE-4920-BFF1-3019C434AF91}</Project>
+      <Name>EdFi.Dashboards.Presentation.Architecture</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\..\Ed-Fi-Core\Application\EdFi.Dashboards.Presentation.Core\EdFi.Dashboards.Presentation.Core.csproj">
+      <Project>{08EBF714-4E5A-4655-ADE5-8A16E5665C5A}</Project>
+      <Name>EdFi.Dashboards.Presentation.Core</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\..\Ed-Fi-Core\Application\EdFi.Dashboards.Resource.Models.Common\EdFi.Dashboards.Resource.Models.Common.csproj">
+      <Project>{B9977F25-9C76-4585-B52B-0826255F3318}</Project>
+      <Name>EdFi.Dashboards.Resource.Models.Common</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\..\Ed-Fi-Core\Application\EdFi.Dashboards.Resources.Security.Common\EdFi.Dashboards.Resources.Security.Common.csproj">
+      <Project>{A8AF4718-41C9-4307-97B5-33F63111C76B}</Project>
+      <Name>EdFi.Dashboards.Resources.Security.Common</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\..\Ed-Fi-Core\Application\EdFi.Dashboards.Resources.Security\EdFi.Dashboards.Resources.Security.csproj">
+      <Project>{9D65E63A-9B33-497B-A583-E95DA11D9DA2}</Project>
+      <Name>EdFi.Dashboards.Resources.Security</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\..\Ed-Fi-Core\Application\EdFi.Dashboards.SecurityTokenService.Authentication\EdFi.Dashboards.SecurityTokenService.Authentication.csproj">
+      <Project>{DBA5BFC2-B479-418E-84E9-44D39E1651D9}</Project>
+      <Name>EdFi.Dashboards.SecurityTokenService.Authentication</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\..\Ed-Fi-Core\Application\EdFi.Dashboards.Resources.Models\EdFi.Dashboards.Resources.Models.csproj">
+      <Project>{3C848D33-B28B-4690-BE41-84EDDF1BBB23}</Project>
+      <Name>EdFi.Dashboards.Resources.Models</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\..\Ed-Fi-Core\Application\EdFi.Dashboards.Resources\EdFi.Dashboards.Resources.csproj">
+      <Project>{6EA4750A-8C3C-4111-B9A4-F35F5EF436ED}</Project>
+      <Name>EdFi.Dashboards.Resources</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\..\Ed-Fi-Core\Application\EdFi.Dashboards.Warehouse.Data\EdFi.Dashboards.Warehouse.Data.csproj">
+      <Project>{7DC15BBE-3DF1-4E17-AED5-05494775903E}</Project>
+      <Name>EdFi.Dashboards.Warehouse.Data</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\..\Ed-Fi-Core\Application\EdFi.Dashboards.Warehouse.Resources\EdFi.Dashboards.Warehouse.Resources.csproj">
+      <Project>{A92C6250-2E75-4F8E-9275-BEB7B9E1C9E2}</Project>
+      <Name>EdFi.Dashboards.Warehouse.Resources</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\EdFi.Dashboards.Extensions.Resources.Models\EdFi.Dashboards.Extensions.Resources.Models.csproj">
+      <Project>{37716E17-8EFD-449C-9A39-0BE80C4CB914}</Project>
+      <Name>EdFi.Dashboards.Extensions.Resources.Models</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\EdFi.Dashboards.Extensions.Resources\EdFi.Dashboards.Extensions.Resources.csproj">
+      <Project>{969C08CB-590E-49EB-8C98-5BB4CC17A501}</Project>
+      <Name>EdFi.Dashboards.Extensions.Resources</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="App_Themes\Theme1\AutoComplete.css" />
+    <Content Include="App_Themes\Theme1\BackToListPreviousNextStudentBar.css" />
+    <Content Include="App_Themes\Theme1\img\ArrowBack.png" />
+    <Content Include="App_Themes\Theme1\img\ArrowLeft.png" />
+    <Content Include="App_Themes\Theme1\img\ArrowLeftGrayOut.png" />
+    <Content Include="App_Themes\Theme1\img\ArrowRight.png" />
+    <Content Include="App_Themes\Theme1\img\ArrowRightGrayOut.png" />
+    <Content Include="App_Themes\Theme1\img\Attendance\BGYellow.gif" />
+    <Content Include="App_Themes\Theme1\img\BackWide.png" />
+    <Content Include="App_Themes\Theme1\img\BGSubHeader.png" />
+    <Content Include="App_Themes\Theme1\img\BlueHeader\x.gif" />
+    <Content Include="App_Themes\Theme1\img\Breadcrumb\Home.gif" />
+    <Content Include="App_Themes\Theme1\img\BulletBlueArrowLeft.gif" />
+    <Content Include="App_Themes\Theme1\img\ButtonExportAll.png" />
+    <Content Include="App_Themes\Theme1\img\ButtonPrint.png" />
+    <Content Include="App_Themes\Theme1\img\ButtonSearchAgain.png" />
+    <Content Include="App_Themes\Theme1\img\FeedBack.png" />
+    <Content Include="App_Themes\Theme1\img\FeedBackWide.png" />
+    <Content Include="App_Themes\Theme1\AggregateStatus.css" />
+    <Content Include="App_Themes\Theme1\img\alert.gif" />
+    <Content Include="App_Themes\Theme1\img\alert.png" />
+    <Content Include="App_Themes\Theme1\img\BlueHeader\Line.gif" />
+    <Content Include="App_Themes\Theme1\img\BulletBlueArrowDownGrayOut.gif" />
+    <Content Include="App_Themes\Theme1\img\BulletBlueArrowGrayOut.gif" />
+    <Content Include="App_Themes\Theme1\img\BulletBlueArrowUp.gif" />
+    <Content Include="App_Themes\Theme1\img\BulletBlueSquareGrayOut.gif" />
+    <Content Include="App_Themes\Theme1\img\BulletMinus.gif" />
+    <Content Include="App_Themes\Theme1\img\BulletPlusGrayOut.gif" />
+    <Content Include="App_Themes\Theme1\img\CheckBox\Checked.gif" />
+    <Content Include="App_Themes\Theme1\img\CheckBox\UnChecked.gif" />
+    <Content Include="App_Themes\Theme1\img\FeedbackWideBlue.png" />
+    <Content Include="App_Themes\Theme1\img\Footnote.png" />
+    <Content Include="App_Themes\Theme1\img\Graph\CreditAccumulation\BlackArrow.png" />
+    <Content Include="App_Themes\Theme1\img\Graph\CreditAccumulation\BlueSquare.png" />
+    <Content Include="App_Themes\Theme1\img\Graph\CreditAccumulation\GreenArrow.png" />
+    <Content Include="App_Themes\Theme1\img\Graph\CreditAccumulation\RedArrow.png" />
+    <Content Include="App_Themes\Theme1\img\Graph\CreditAccumulation\RedSquare.png" />
+    <Content Include="App_Themes\Theme1\img\GrayHeader\00MultiColorHeaderLine.gif" />
+    <Content Include="App_Themes\Theme1\img\GrayHeader\01MultiColorHeader.gif" />
+    <Content Include="App_Themes\Theme1\img\GrayHeader\02MultiColorHeaderGrayBG.gif" />
+    <Content Include="App_Themes\Theme1\img\GrayHeader\03MultiColorHeaderTab01LeftCorner.gif" />
+    <Content Include="App_Themes\Theme1\img\GrayHeader\04MultiColorHeaderTab01BG.gif" />
+    <Content Include="App_Themes\Theme1\img\GrayHeader\05MultiColorHeaderTab01RightCorner.gif" />
+    <Content Include="App_Themes\Theme1\img\GrayHeader\06MultiColorHeaderTab02LeftCorner.gif" />
+    <Content Include="App_Themes\Theme1\img\GrayHeader\07MultiColorHeaderTab02BG.gif" />
+    <Content Include="App_Themes\Theme1\img\GrayHeader\08MultiColorHeaderTab02RightCorner.gif" />
+    <Content Include="App_Themes\Theme1\img\GrayHeader\09MultiColorHeaderTab03LeftCorner.gif" />
+    <Content Include="App_Themes\Theme1\img\GrayHeader\10MultiColorHeaderTab03BG.gif" />
+    <Content Include="App_Themes\Theme1\img\GrayHeader\11MultiColorHeaderTab03RightCorner.gif" />
+    <Content Include="App_Themes\Theme1\img\GrayHeader\arowAsc.gif" />
+    <Content Include="App_Themes\Theme1\img\GrayHeader\arowDesc.gif" />
+    <Content Include="App_Themes\Theme1\img\GrayHeader\AscArrow.png" />
+    <Content Include="App_Themes\Theme1\img\GrayHeader\AscArrowLightBlue.png" />
+    <Content Include="App_Themes\Theme1\img\GrayHeader\AscArrowWhite.png" />
+    <Content Include="App_Themes\Theme1\img\GrayHeader\BGBig.gif" />
+    <Content Include="App_Themes\Theme1\img\GrayHeader\C1Big.gif" />
+    <Content Include="App_Themes\Theme1\img\GrayHeader\C2Big.gif" />
+    <Content Include="App_Themes\Theme1\img\GrayHeader\DescArrow.png" />
+    <Content Include="App_Themes\Theme1\img\GrayHeader\DescArrowLightBlue.png" />
+    <Content Include="App_Themes\Theme1\img\GrayHeader\DescArrowWhite.png" />
+    <Content Include="App_Themes\Theme1\img\GrayHeader\Divider.gif" />
+    <Content Include="App_Themes\Theme1\img\GrayHeader\LeftGrayCorner.png" />
+    <Content Include="App_Themes\Theme1\img\GridIcons\ESL.gif" />
+    <Content Include="App_Themes\Theme1\img\GridIcons\GiftedAndTalented.gif" />
+    <Content Include="App_Themes\Theme1\img\GridIcons\OverAge.gif" />
+    <Content Include="App_Themes\Theme1\img\GridIcons\SpecialEd.gif" />
+    <Content Include="App_Themes\Theme1\img\loadingSmall.gif" />
+    <Content Include="App_Themes\Theme1\img\MetricIndicator\Accomodation.png" />
+    <Content Include="App_Themes\Theme1\img\MetricIndicator\AccomodationSpaceSaver.png" />
+    <Content Include="App_Themes\Theme1\img\MetricIndicator\GiftedAndTalented.png" />
+    <Content Include="App_Themes\Theme1\img\MetricIndicator\Language.png" />
+    <Content Include="App_Themes\Theme1\img\MetricIndicator\LateEnrollment.png" />
+    <Content Include="App_Themes\Theme1\img\MetricIndicator\PartialTranscript.png" />
+    <Content Include="App_Themes\Theme1\img\MetricIndicator\Repeater.png" />
+    <Content Include="App_Themes\Theme1\img\MetricIndicator\SpecialServices.png" />
+    <Content Include="App_Themes\Theme1\img\Metric\BGArrowBig.gif" />
+    <Content Include="App_Themes\Theme1\img\offpage-link-inverse.png" />
+    <Content Include="App_Themes\Theme1\img\offpage-link.png" />
+    <Content Include="App_Themes\Theme1\img\OverviewStatus\Green.png" />
+    <Content Include="App_Themes\Theme1\img\OverviewStatus\Red.png" />
+    <Content Include="App_Themes\Theme1\img\OverviewStatus\ToolTipArrow.png" />
+    <Content Include="App_Themes\Theme1\img\OverviewStatus\Yellow.png" />
+    <Content Include="App_Themes\Theme1\img\PeerComparison\04.gif" />
+    <Content Include="App_Themes\Theme1\img\searchArrow.png" />
+    <Content Include="App_Themes\Theme1\img\SearchIcon.png" />
+    <Content Include="App_Themes\Theme1\img\StatusLabel\RoundGood.png" />
+    <Content Include="App_Themes\Theme1\img\StatusLabel\RoundLow.png" />
+    <Content Include="App_Themes\Theme1\img\StatusLabel\RoundVeryGood.png" />
+    <Content Include="App_Themes\Theme1\img\Trend\GraphDownGray.png" />
+    <Content Include="App_Themes\Theme1\img\Trend\GraphDownGreen.png" />
+    <Content Include="App_Themes\Theme1\img\Trend\GraphDownRed.png" />
+    <Content Include="App_Themes\Theme1\img\Trend\GraphSameGray.png" />
+    <Content Include="App_Themes\Theme1\img\Trend\GraphSameGreen.png" />
+    <Content Include="App_Themes\Theme1\img\Trend\GraphSameRed.png" />
+    <Content Include="App_Themes\Theme1\img\Trend\GraphUpGray.png" />
+    <Content Include="App_Themes\Theme1\img\Trend\GraphUpGreen.png" />
+    <Content Include="App_Themes\Theme1\img\Trend\GraphUpRed.png" />
+    <Content Include="App_Themes\Theme1\ContextMenu.css" />
+    <Content Include="App_Themes\Theme1\TablesStyleSheet.css" />
+    <Content Include="App_Themes\Theme1\Dialog.css" />
+    <Content Include="Web.Integration.appSettings.config">
+      <SubType>Designer</SubType>
+    </Content>
+    <Content Include="Web.Demo.appSettings.config">
+      <SubType>Designer</SubType>
+    </Content>
+    <Content Include="App_Themes\Theme1\AutoCompleteStylesheet.css" />
+    <Content Include="App_Themes\Theme1\BreadcrumbStylesheet.css" />
+    <Content Include="App_Themes\Theme1\img\BlueBox\C1.gif" />
+    <Content Include="App_Themes\Theme1\img\Delta.png" />
+    <Content Include="App_Themes\Theme1\img\Menu\BGSelectedSubMenu.gif" />
+    <Content Include="App_Themes\Theme1\img\Metric\BGArrow.gif" />
+    <Content Include="App_Themes\Theme1\img\SeparatorBlackThin.gif" />
+    <Content Include="App_Themes\Theme1\img\Trend\DownGray.png" />
+    <Content Include="App_Themes\Theme1\img\Trend\DownGreen.png" />
+    <Content Include="App_Themes\Theme1\img\Trend\DownRed.png" />
+    <Content Include="App_Themes\Theme1\img\Trend\SameGray.png" />
+    <Content Include="App_Themes\Theme1\img\Trend\SameGreen.png" />
+    <Content Include="App_Themes\Theme1\img\Trend\SameRed.png" />
+    <Content Include="App_Themes\Theme1\img\Trend\UpGray.png" />
+    <Content Include="App_Themes\Theme1\img\Trend\UpGreen.png" />
+    <Content Include="App_Themes\Theme1\img\Trend\UpRed.png" />
+    <Content Include="App_Themes\Theme1\MenuStylesheet.css" />
+    <Content Include="App_Themes\Theme1\MetricStylesheet.css" />
+    <Content Include="App_Themes\Theme1\StatusLabelStylesheet.css" />
+    <Content Include="App_Themes\Theme1\jQueryLightness\images\ui-bg_gloss-wave_35_f6a828_500x100.pdn" />
+    <Content Include="log4net.config">
+      <SubType>Designer</SubType>
+    </Content>
+    <Content Include="Web.Production.appSettings.config" />
+    <Content Include="Web.Staging.appSettings.config" />
+    <Content Include="log4net-appender.Production.error_appender.config" />
+    <Content Include="log4net-appender.Production.feedback_appender.config" />
+    <Content Include="log4net-appender.Staging.error_appender.config" />
+    <Content Include="log4net-appender.Staging.feedback_appender.config" />
+    <Content Include="Web.connectionStrings.config" />
+    <Content Include="Web.Production.microsoft.identityModel.config" />
+    <Content Include="Web.Staging.microsoft.identityModel.config" />
+    <Content Include="Views\Web.config">
+      <SubType>Designer</SubType>
+    </Content>
+    <Content Include="Views\Cache\Get.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Areas\Admin\Controllers\" />
+    <Folder Include="Areas\Admin\Models\" />
+    <Folder Include="Areas\Admin\Views\Shared\" />
+    <Folder Include="Areas\Application\Controllers\" />
+    <Folder Include="Areas\Application\Models\" />
+    <Folder Include="Areas\Application\Views\" />
+    <Folder Include="Areas\Common\Controllers\" />
+    <Folder Include="Areas\Common\Models\" />
+    <Folder Include="Areas\Common\Views\Shared\" />
+    <Folder Include="Areas\Error\Controllers\" />
+    <Folder Include="Areas\Error\Models\" />
+    <Folder Include="Areas\Error\Views\Shared\" />
+    <Folder Include="Areas\LocalEducationAgency\Controllers\" />
+    <Folder Include="Areas\LocalEducationAgency\Models\" />
+    <Folder Include="Areas\LocalEducationAgency\Views\Detail\" />
+    <Folder Include="Areas\LocalEducationAgency\Views\Shared\" />
+    <Folder Include="Areas\School\Controllers\" />
+    <Folder Include="Areas\School\Models\" />
+    <Folder Include="Areas\School\Views\Detail\" />
+    <Folder Include="Areas\School\Views\Shared\" />
+    <Folder Include="Areas\School\Views\StudentDemographicList\" />
+    <Folder Include="Areas\Search\Controllers\" />
+    <Folder Include="Areas\Search\Models\" />
+    <Folder Include="Areas\Search\Views\Shared\" />
+    <Folder Include="Areas\Staff\Controllers\" />
+    <Folder Include="Areas\Staff\Models\" />
+    <Folder Include="Areas\Staff\Views\Shared\" />
+    <Folder Include="Areas\StudentSchool\Controllers\Detail\" />
+    <Folder Include="Areas\StudentSchool\Models\" />
+    <Folder Include="Areas\StudentSchool\Views\Detail\" />
+    <Folder Include="Areas\StudentSchool\Views\Shared\" />
+    <Folder Include="Plugins\" />
+    <Folder Include="Providers\Context\" />
+    <Folder Include="Providers\Metric\" />
+    <Folder Include="Views\Detail\" />
+    <Folder Include="Views\Home\" />
+    <Folder Include="Views\MasterPage\" />
+    <Folder Include="Views\Metrics\" />
+    <Folder Include="Views\MetricTemplates\LocalEducationAgency\GoalPlanning\" />
+    <Folder Include="Views\MetricTemplates\LocalEducationAgency\Metric\" />
+    <Folder Include="Views\MetricTemplates\LocalEducationAgency\Overview\" />
+    <Folder Include="Views\MetricTemplates\School\GoalPlanning\" />
+    <Folder Include="Views\MetricTemplates\School\Metric\" />
+    <Folder Include="Views\MetricTemplates\School\Overview\" />
+    <Folder Include="Views\MetricTemplates\Shared\" />
+    <Folder Include="Views\MetricTemplates\StudentSchool\Metric\" />
+    <Folder Include="Views\MetricTemplates\StudentSchool\Overview\" />
+    <Folder Include="Views\Shared\" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Areas\Web.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Content\StyleSheets\appearance.scss" />
+    <Content Include="Properties\packages.config" />
+    <Content Include="Web.cassette.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Web.Integration.microsoft.identityModel.config" />
+  </ItemGroup>
+  <PropertyGroup>
+    <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
+    <VSToolsPath Condition="'$(VSToolsPath)' == ''">$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)</VSToolsPath>
+  </PropertyGroup>
+  <PropertyGroup>
+    <RunPostBuildEvent>OnOutputUpdated</RunPostBuildEvent>
+  </PropertyGroup>
+  <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
+  <Import Project="$(VSToolsPath)\WebApplications\Microsoft.WebApplication.targets" Condition="'$(VSToolsPath)' != ''" />
+  <Import Project="$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v10.0\WebApplications\Microsoft.WebApplication.targets" Condition="false" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+  <Target Name="MvcBuildViews" AfterTargets="AfterBuild" Condition="'$(MvcBuildViews)'=='true'">
+    <AspNetCompiler VirtualPath="temp" PhysicalPath="$(WebProjectOutputDir)" />
+  </Target>
+  <ProjectExtensions>
+    <VisualStudio>
+      <FlavorProperties GUID="{349c5851-65df-11da-9384-00065b846f21}">
+        <WebProjectProperties>
+          <UseIIS>True</UseIIS>
+          <AutoAssignPort>True</AutoAssignPort>
+          <DevelopmentServerPort>59051</DevelopmentServerPort>
+          <DevelopmentServerVPath>/</DevelopmentServerVPath>
+          <IISUrl>https://localhost/EdFiDashboardDev</IISUrl>
+          <NTLMAuthentication>False</NTLMAuthentication>
+          <UseCustomServer>False</UseCustomServer>
+          <CustomServerUrl>
+          </CustomServerUrl>
+          <SaveServerSettingsInUserFile>False</SaveServerSettingsInUserFile>
+        </WebProjectProperties>
+      </FlavorProperties>
+    </VisualStudio>
+  </ProjectExtensions>
+  <PropertyGroup>
+    <PostBuildEvent>
+REM We run this twice intentionally.  The second pass is here so that if you only change a core file, and you build, this will get executed, and you'll see the new file.
+REM Pre-builds only run if the web project changes, so running it here as a post-build will force it to always execute.
+REM If the data is up to date, this runs almost instantly, so there's no penlty in doing this twice.
+echo Deploying files from Core project to Core_Content from Post-Build Event.
+robocopy /MIR "$(SolutionDir)..\..\Ed-Fi-Core\Application\EdFi.Dashboards.Presentation.Core\Content" "$(SolutionDir)EdFi.Dashboards.Presentation.Web\Core_Content"
+REM Supress error states 1-3, which are really success messages
+IF %25ERRORLEVEL%25 LEQ 3 cmd /c "exit /b 0"
+
+if exist "$(OutDir)_PublishedWebsites\$(MSBuildProjectName)" (
+	xcopy /i /y /e /q "$(SolutionDir)\..\..\Ed-Fi-Core\Application\EdFi.Dashboards.Presentation.Core\Content" "$(OutDir)_PublishedWebsites\$(MSBuildProjectName)\Core_Content"
+	echo Copied Content to Published Websites directory
+) ELSE (
+	echo Could not find Published Websites directory
+)
+</PostBuildEvent>
+    <PreBuildEvent>@echo off
+set config=$(ConfigurationName)
+if %25config%25==Debug GOTO initAspNetCharting
+
+GOTO afterCharting
+
+:initAspNetCharting
+echo Creating temp directory for ASP.NET Charting...
+mkdir "c:\Temp\AspNetCharting"
+if ERRORLEVEL 1 set ERRORLEVEL=0
+:afterCharting
+
+@echo on
+
+REM We run this twice intentionally.  We run it here so that we're sure the Core_Content directory exists before the application is launched
+REM Ignore all error codes below 
+echo Deploying files from Core project to Core_Content from Pre-Build Event.
+robocopy /MIR "$(SolutionDir)..\..\Ed-Fi-Core\Application\EdFi.Dashboards.Presentation.Core\Content" "$(SolutionDir)EdFi.Dashboards.Presentation.Web\Core_Content"
+REM Supress error states 1-3, which are really success messages
+IF %25ERRORLEVEL%25 LEQ 3 cmd /c "exit /b 0"
+</PreBuildEvent>
+  </PropertyGroup>
+  <Import Project="$(SolutionDir)\.nuget\nuget.targets" />
+</Project>

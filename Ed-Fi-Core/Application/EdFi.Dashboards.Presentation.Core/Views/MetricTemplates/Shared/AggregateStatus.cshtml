@@ -1,0 +1,111 @@
+﻿@model AggregateMetric
+@{
+    var includedStates = new[] {
+                                 MetricStateType.VeryGood,
+                                 MetricStateType.Good,
+                                 MetricStateType.Acceptable,
+                                 MetricStateType.Low,
+                                 MetricStateType.VeryLow
+                             };
+    var granularMetrics =
+    (from m in Model.Descendants
+     where m.MetricType == MetricType.GranularMetric
+     let gm = m as IGranularMetric
+     where includedStates.Contains(gm.State.StateType)
+            && gm.MetricVariantType == MetricVariantType.CurrentYear
+     select gm)
+    .ToList();
+}
+
+<script type="text/javascript">
+    function addTooltip(metricVariantId) {
+        $('#agm'+ metricVariantId).tooltip({
+            tip: '#agm'+ metricVariantId +'_div',
+            position: 'bottom center',
+            bounce: false,
+            offset: [8, 0],
+            relative:true})
+        .on("focus", function () {
+            // Opens tooltip when tabbing through metric statuses
+            $(this).trigger("mouseover");
+        })
+        .on("blur", function () {
+            // Closes tooltip
+            $(this).trigger("mouseout");
+        });
+    }
+	
+    $(document).ready(function() {
+        @foreach (var granularMetric in granularMetrics)
+        {
+            @:addTooltip(@granularMetric.MetricVariantId)
+        }
+    });
+</script>
+
+@helper MetricContextText(IGranularMetric granularMetric)
+    {
+    
+    if (Model.DomainEntityType.Replace(" ", "").Equals("LocalEducationAgency", StringComparison.OrdinalIgnoreCase))
+    {
+        @granularMetric.Values["SchoolAttainment"]
+        if (granularMetric.Values["SchoolAttainment"] != null)
+        {
+            @:of
+        }   
+        @granularMetric.Values["SchoolTotal"]
+    }
+    else if (Model.DomainEntityType.Replace(" ", "").Equals("School", StringComparison.OrdinalIgnoreCase))
+    {
+        @granularMetric.Values["Subpopulation"]
+        if (granularMetric.Values["Subpopulation"] != null)
+        { 
+            @:of
+        }
+        @granularMetric.Values["TotalPopulation"]
+    }
+}
+
+<ol class="aggregate-status-tictacs">
+    @foreach (var granularMetric in granularMetrics)
+    {
+        <li>
+            <a id="agm@(granularMetric.MetricVariantId)" href="#" class="@Legacy.StatusClass(granularMetric.State.StateType)" onclick="location.href='@granularMetric.Url';">
+                <em class="hidden">
+                    @if (!string.IsNullOrEmpty(granularMetric.Parent.DisplayName))
+                    {
+                        @granularMetric.Parent.DisplayName<text>.</text>
+                    }
+                    @granularMetric.DisplayName. 
+                </em>
+            </a>
+            <em class="hidden">
+                @Html.Partial("StatusLabel", granularMetric.State, new ViewDataDictionary{{"DisplayText", (granularMetric.Value != null ? granularMetric.DisplayValue : granularMetric.State.StateText)}}) @MetricContextText(granularMetric)
+            </em>
+        </li>
+    }
+</ol>
+
+@foreach (var granularMetric in granularMetrics)
+{
+    <div class="aggregate-status-details" id="agm@(granularMetric.MetricVariantId)_div" aria-hidden="true">
+        <div class="tooltip-arrow-container"><span class="tooltip-arrow"></span></div>
+
+        @if (!string.IsNullOrEmpty(granularMetric.Parent.DisplayName))
+        {
+            <div class="title">@granularMetric.Parent.DisplayName</div>
+        }
+        @if (!string.IsNullOrEmpty(granularMetric.Parent.Description))
+        {
+            <div class="subtitle">@granularMetric.Parent.Description</div>
+        }
+        
+        <div class="aggregate-status-summary">
+            <span class="bullet-title">&nbsp;&nbsp;&nbsp;&nbsp;@granularMetric.DisplayName</span>
+            <span class="status-goal-container">@Html.Partial("StatusLabel", granularMetric.State, new ViewDataDictionary{{"DisplayText", (granularMetric.Value != null ? granularMetric.DisplayValue : granularMetric.State.StateText)}})</span>
+            <span class="metric-context-text">
+                @MetricContextText(granularMetric)
+            </span>
+        </div>
+    </div>
+}

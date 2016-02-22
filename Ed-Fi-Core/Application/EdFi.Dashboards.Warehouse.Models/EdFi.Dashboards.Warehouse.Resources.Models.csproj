@@ -1,0 +1,102 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProductVersion>8.0.30703</ProductVersion>
+    <SchemaVersion>2.0</SchemaVersion>
+    <ProjectGuid>{BFA61DC3-9840-43F9-893C-43D540C02BC3}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>EdFi.Dashboards.Warehouse.Resource.Models</RootNamespace>
+    <AssemblyName>EdFi.Dashboards.Warehouse.Resource.Models</AssemblyName>
+    <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <TreatWarningsAsErrors>true</TreatWarningsAsErrors>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <TreatWarningsAsErrors>true</TreatWarningsAsErrors>
+    <CodeAnalysisRuleSet>..\EdFi.ruleset</CodeAnalysisRuleSet>
+    <RunCodeAnalysis>true</RunCodeAnalysis>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="System" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="..\SolutionAssemblyInfo.cs">
+      <Link>SolutionAssemblyInfo.cs</Link>
+    </Compile>
+    <Compile Include="LocalEducationAgency\Detail\SchoolPriorYearMetricModel.cs" />
+    <Compile Include="Marker_EdFi_Dashboards_Warehouse_Resources_Models.cs" />
+    <Compile Include="Metric\PriorYearMetricData.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="School\Detail\StudentPriorYearMetricListModel.cs" />
+    <Compile Include="School\Detail\StaffPriorYearMetricListModel.cs" />
+    <Compile Include="Staff\PriorYearModel.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <CodeAnalysisDictionary Include="..\CustomDictionary.xml">
+      <Link>CustomDictionary.xml</Link>
+    </CodeAnalysisDictionary>
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\EdFi.Dashboards.Common\EdFi.Dashboards.Common.csproj">
+      <Project>{5138F45D-EB07-4733-97E7-C761832BDC07}</Project>
+      <Name>EdFi.Dashboards.Common</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\EdFi.Dashboards.Core\EdFi.Dashboards.Core.csproj">
+      <Project>{6492B293-E115-4E1D-9B08-D7C798673F40}</Project>
+      <Name>EdFi.Dashboards.Core</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\EdFi.Dashboards.Metric.Resources.Models\EdFi.Dashboards.Metric.Resources.Models.csproj">
+      <Project>{D6E84CA6-8494-4F3C-90B5-2B868DDE7A6C}</Project>
+      <Name>EdFi.Dashboards.Metric.Resources.Models</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\EdFi.Dashboards.Metric.Resources\EdFi.Dashboards.Metric.Resources.csproj">
+      <Project>{83928965-AF03-4518-9940-12BEF4BC079D}</Project>
+      <Name>EdFi.Dashboards.Metric.Resources</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\EdFi.Dashboards.Resource.Models.Common\EdFi.Dashboards.Resource.Models.Common.csproj">
+      <Project>{B9977F25-9C76-4585-B52B-0826255F3318}</Project>
+      <Name>EdFi.Dashboards.Resource.Models.Common</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\EdFi.Dashboards.Resources.Models\EdFi.Dashboards.Resources.Models.csproj">
+      <Project>{3C848D33-B28B-4690-BE41-84EDDF1BBB23}</Project>
+      <Name>EdFi.Dashboards.Resources.Models</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\EdFi.Dashboards.Warehouse.Data\EdFi.Dashboards.Warehouse.Data.csproj">
+      <Project>{7DC15BBE-3DF1-4E17-AED5-05494775903E}</Project>
+      <Name>EdFi.Dashboards.Warehouse.Data</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <ItemGroup />
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>

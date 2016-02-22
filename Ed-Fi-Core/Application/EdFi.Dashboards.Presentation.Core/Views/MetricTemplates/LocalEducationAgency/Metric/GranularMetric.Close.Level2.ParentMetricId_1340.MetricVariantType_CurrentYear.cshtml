@@ -1,0 +1,6 @@
+﻿@using EdFi.Dashboards.Metric.Resources.Models
+@model IGranularMetric
+@if (((ContainerMetric)Model.Parent).Descendants.Count(x => x.MetricId == Model.MetricId && x.MetricType == MetricType.GranularMetric && ((IGranularMetric)x).Value != null) > 0)
+{
+    @Html.Partial("DynamicContentDiv", Model)
+}

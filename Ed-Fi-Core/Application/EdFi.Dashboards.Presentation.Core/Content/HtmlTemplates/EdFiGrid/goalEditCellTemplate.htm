@@ -1,0 +1,4 @@
+﻿<div class="EdFiGrid-value EdFiGrid-value-center">
+    <label class="hidden" for="newGoal-${listArray(MIds)}-${EId}">Goal</label>
+    <input required aria-required="true" id="newGoal-${listArray(MIds)}-${EId}" class="childNewGoal" type="text" value="${G}" data-metricId="${listArray(MIds)}" data-currentGoal="${G}" educationOrganiziationId="${EId}"/>{{if (MIds.length > 1)}}<span id="mixedSettings-${listArray(MIds)}-${EId}" style="display:none;">See school</span><img class="goalPlanningMultiMetric" src="${$.global.siteBasePath}/App_Themes/Theme1/img/BulletBluesquare.gif" alt="Bullet">{{/if}}
+</div>

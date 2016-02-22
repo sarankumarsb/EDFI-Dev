@@ -1,0 +1,156 @@
+@using EdFi.Dashboards.Common
+@using EdFi.Dashboards.Common.Utilities
+@using EdFi.Dashboards.Core.Providers.Context
+@using EdFi.Dashboards.Presentation.Core.Areas.LocalEducationAgency.Controllers
+@using EdFi.Dashboards.Presentation.Core.Models.Shared
+@using EdFi.Dashboards.Presentation.Core.Areas.LocalEducationAgency.Models.StudentDemographicList;
+@using EdFi.Dashboards.Presentation.Core.Providers.Models
+@using EdFi.Dashboards.Resources
+@using EdFi.Dashboards.Resources.Navigation.Mvc
+@using EdFi.Dashboards.SecurityTokenService.Authentication
+
+@model StudentDemographicListModel
+           
+@{
+    //ViewBag.Title = "Demographic";
+
+    var safeDemographicName = Model.Demographic.Replace(" ", "").Replace("/", "").Replace("-", "").Replace(")", "").Replace("(", "");
+    var localEducationAgencyId = EdFiDashboardContext.Current.LocalEducationAgencyId.GetValueOrDefault();
+    var staffUSI = UserInformation.Current.StaffUSI;
+}
+
+@section ContentPlaceHolderHead {
+    <title>@(Html.Action("Title", typeof(LocalEducationAgencyLayoutController).GetControllerName(), new { subTitle = Model.Demographic }))</title>
+    <script>
+        var pageArea = { Area: 'local education agency', Page: 'Students by Demographic' };
+    </script>
+}
+
+@section ContentPlaceHolder1 {
+    <div id="demographicSelector" class="student-drop-down">
+        <h2>Students by Demographic</h2>
+        <label class="content-label" for="demographicSelect">Select demographic to show:</label>
+        <select id="demographicSelect" class="drop-down">
+            @if(Model.Demographic.ToLower() == "select demographic")
+            {
+                <option selected="selected">@Model.Demographic.ToUpper()</option>
+            }
+            <optgroup label="Gender">
+                @foreach (var gender in Model.MenuModel.Gender)
+                {
+                    <option value="@gender.Url"
+                        @if (Request.Url != null && gender.Selected)
+                        {
+                            @:selected='selected'
+                        }>
+                        @gender.Attribute
+                    </option>
+                }
+            </optgroup>
+            <optgroup label="Ethnicity">
+                @foreach (var ethnicity in Model.MenuModel.Ethnicity)
+                {
+                    <option value="@ethnicity.Url"
+                        @if (Request.Url != null && ethnicity.Selected)
+                        {
+                            @:selected='selected'
+                        }>
+                        @ethnicity.Attribute
+                    </option>
+                }
+            </optgroup>
+            <optgroup label="Race">
+                @foreach (var race in Model.MenuModel.Race)
+                {
+                    <option value="@race.Url"
+                        @if (Request.Url != null && race.Selected)
+                        {
+                            @:selected='selected'
+                        }>
+                        @race.Attribute
+                    </option>
+                }
+            </optgroup>
+            <optgroup label="Program">
+                @foreach (var program in Model.MenuModel.Program)
+                {
+                    <option value="@program.Url"
+                        @if (Request.Url != null && program.Selected)
+                        {
+                            @:selected='selected'
+                        }>
+                        @program.Attribute
+                    </option>
+                }
+            </optgroup>
+            <optgroup label="Indicator">
+                @foreach (var indicator in Model.MenuModel.Indicator)
+                {
+                    <option value="@indicator.Url"
+                        @if (Request.Url != null && indicator.Selected)
+                        {
+                            @:selected='selected'
+                        }>
+                        @indicator.Attribute
+                    </option>
+                }
+            </optgroup>
+			<optgroup label="Dynamic Lists">
+				@foreach (var watchList in Model.MenuModel.WatchLists)
+				{
+					<option value="@watchList.Url"
+						@if (Request.Url != null && watchList.Selected)
+						{ 
+							@: selected='selected'
+						}>
+						@watchList.Attribute
+					</option>
+				}
+			</optgroup>
+        </select>
+    </div>
+
+    <script>
+        $(document).ready(function () {
+            $("#demographicSelect").navigateOnChange();
+            $('#Demographic@(safeDemographicName)-EdFiGrid-interaction-custom').append($('#buttonExportAll@(safeDemographicName)'));
+            $('#buttonExportAll@(safeDemographicName)').show();
+            $('#Demographic@(safeDemographicName)-EdFiGrid').bind('afterDrawEvent', function(e, table) {
+                        Demographic@(safeDemographicName)CustomStudentList.redrawCheckboxes();
+                        });
+        });
+    </script>
+    
+
+    @{
+        if (Model.GridData != null)
+        {
+            var callbackUrl = EdFiDashboardContext.Current.RoutedUrl;
+
+            var edFiGridModelProvider = IoC.Resolve<IEdFiGridModelProvider>();
+            
+            var edfiGridModel = edFiGridModelProvider.GetEdFiGridModel(true, true, 0, "Demographic" + safeDemographicName, null,
+                Model.GridData, null, null, true, "StudentList", new List<string> { "Default" }, null, true, callbackUrl, true, Model.GridData.WatchList,
+                Model.Demographic, null, null, Model.PreviousNextSessionPage, Model.ExportGridDataUrl, Model.ListType);
+
+            var customStudentListModel = new CustomStudentListModel
+            {
+                ControlId = "Demographic" + safeDemographicName,
+                IsCustomStudentList = false,
+                LinkParentIdentifier = "#Demographic" + safeDemographicName + "-EdFiGrid-interaction-custom",
+                CheckboxParentIentifier = "#Demographic" + safeDemographicName + "-EdFiGrid-fixed-data-table",
+                SelectAllCheckboxParentIentifier = "#Demographic" + safeDemographicName + "-EdFiGrid-fixed-header-table",
+                CustomStudentListId = null,
+                LocalEducationAgencyId = localEducationAgencyId,
+                SchoolId = null,
+                StaffUSI = staffUSI,
+                CustomStudentListUrl = EdFiDashboards.Site.Staff.LocalEducationAgencyCustomStudentList(localEducationAgencyId, staffUSI, null, new { format = "json" }),
+                UniqueId = localEducationAgencyId
+            };
+
+            <a id="buttonExportAll@(safeDemographicName)" class="btn" style="display:none;" onclick="Demographic@(safeDemographicName)EdFiGrid.exportGrid();"><i class="icon-floppy"></i> EXPORT ALL</a>
+            Html.RenderPartial("EdFiGrid", edfiGridModel);
+            Html.RenderPartial("CustomStudentList", model: customStudentListModel);
+        }
+    }
+}

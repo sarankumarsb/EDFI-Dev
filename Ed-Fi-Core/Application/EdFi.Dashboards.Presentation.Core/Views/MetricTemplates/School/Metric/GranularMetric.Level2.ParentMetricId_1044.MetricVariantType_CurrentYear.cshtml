@@ -1,0 +1,47 @@
+﻿@using EdFi.Dashboards.Metric.Resources.Models
+@model IGranularMetric
+@if (((ContainerMetric)Model.Parent).Descendants.Count(x => x.MetricId == Model.MetricId && x.MetricType == MetricType.GranularMetric && ((IGranularMetric)x).Value != null) > 0)
+{
+    <tr id="vMetric@(Model.MetricVariantId)">
+        <td headers="MetricName@(this.GetMetricRenderingContextValue("ParentContainerMetricId"))" data-item-type="DisplayName" title="@Model.ToolTip">
+            <p class="title">
+                <span class="metricId">@(Model.MetricId)-@(Model.MetricVariantType)</span>
+                @Model.DisplayName
+                @if (!String.IsNullOrWhiteSpace(Model.Context))
+                {
+                    @:&nbsp;@Model.Context
+                }
+                @Html.Partial("MetricFootnoteLabelSuperText", Model.Footnotes)
+                <a name="m@(Model.MetricVariantId)">&nbsp;</a>
+            </p>
+            <p class="description">@Model.Description</p>
+            @Html.Partial("UnderConstruction", (MetricBase)Model)
+        </td>
+        <td headers="MetricValue@(this.GetMetricRenderingContextValue("ParentContainerMetricId"))" data-item-type="State">
+            @Html.Partial("StatusLabel", Model.State)
+        </td>
+        <td headers="MetricTrend@(this.GetMetricRenderingContextValue("ParentContainerMetricId"))" data-item-type="Trend">
+            @Html.Partial("Trend", Model.Trend)
+        </td>
+        <td headers="MetricGoal@(this.GetMetricRenderingContextValue("ParentContainerMetricId"))" data-item-type="CampusGoal">
+            @if (Model.Value != null)
+            {
+                @Model.Values["DisplayGoal"]
+            }
+        </td>
+        <td headers="MetricDifferenceFromGoal@(this.GetMetricRenderingContextValue("ParentContainerMetricId"))" data-item-type="DifferenceFromGoal" class="@(Legacy.DifferenceFromGoalClass(Model.Values["GoalDifference"]))">
+            @Model.Values["DisplayGoalDifference"]
+        </td>
+        <td headers="MetricStudentAttainment@(this.GetMetricRenderingContextValue("ParentContainerMetricId"))" data-item-type="Population" id="vValue@(Model.MetricVariantId)">
+            @Model.Values["Subpopulation"]
+            @if (Model.Values["Subpopulation"] != null)
+            {
+                <span>of </span>
+            }
+            @Model.Values["TotalPopulation"]
+        </td>
+        <td headers="MetricDetails@(this.GetMetricRenderingContextValue("ParentContainerMetricId"))" data-item-type="ContextMenu">
+            @Html.Partial("ContextMenu", (MetricBase)Model)
+        </td>
+    </tr>
+}

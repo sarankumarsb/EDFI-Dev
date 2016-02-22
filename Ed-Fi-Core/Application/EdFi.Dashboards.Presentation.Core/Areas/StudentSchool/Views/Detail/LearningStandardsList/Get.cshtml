@@ -1,0 +1,215 @@
+﻿@using System.Web.Script.Serialization
+@using EdFi.Dashboards.Presentation.Core.Areas.StudentSchool.Models.Detail.LearningStandardsList;
+@using IronRuby.Compiler.Ast
+@model Areas.StudentSchool.Models.Detail.LearningStandardsList.LearningStandardsModel
+@{
+    // TODO: should replace this with a better uniqueness generator for the id
+    var generatedId = (new Random(BitConverter.ToInt32(Guid.NewGuid().ToByteArray(), 0))).Next();
+
+}
+<!-- TODO: Relocate after UI refactor. -->
+@if (Model.data == null)
+{
+                <span class="MetricNoData">No data available.</span>
+}
+else
+{
+@helper RenderLeftRow(int visibleRows, LearningStandardsDataItem item, int generatedId)
+    {
+    if (null == item)
+    {
+        return;
+    }
+    
+    var highlight = (visibleRows % 2 == 1 && item.level <= 0) ? "highlighted" : "";
+    var nameColumnId = null != item.name ? item.name.Replace(@"[^a-z0-9]", "") : string.Empty;
+    
+        <tr class="level-@item.level @highlight" data-tag="@item.tag" data-linktoheaders="@(item.linkToHeaders ?? "")">
+            <th id="LearningStandardsTable_@(generatedId)_@(nameColumnId)">
+                @if (item.children != null && item.children.Any())
+                {
+                    <a href="#">@item.name</a>
+                }
+                else
+                {
+                    <text>@item.name</text>
+                }
+            </th>
+        </tr>
+
+    if (item.children != null)
+    {
+        for (var i = 0; i < item.children.Count(); i++)
+        {
+            <text>
+                @RenderLeftRow(visibleRows, item.children.ElementAt(i), generatedId)
+            </text>
+        }
+    }
+}
+
+@helper RenderRightRow(int visibleRows, LearningStandardsDataItem item, int generatedId)
+    {
+    if (null == item)
+    {
+        return;
+    }
+
+    var highlight = (visibleRows % 2 == 1 && item.level <= 0) ? "highlighted" : "";
+    var nameColumnId = null != item.name ? item.name.Replace(@"[^a-z0-9]", "") : string.Empty;
+    
+        <tr class="level-@item.level @highlight" data-tag="@item.tag" data-linktoheaders="@(item.linkToHeaders ?? "")">
+            @foreach (var col in Model.schema)
+            {
+                var displayValue = string.Empty;
+                LearningStandardsDataItemValue dataItem;
+
+                if (item.values != null && item.values.Any() && item.values.TryGetValue(col.Key, out dataItem))
+                {
+                    displayValue = dataItem.displayValue;
+                    if (dataItem.type == "template")
+                    {
+                        var className = "";
+                        switch (dataItem.displayValue)
+                        {
+                            case "high":
+                                className = "RoundVeryGood";
+                                break;
+                            case "med":
+                                className = "RoundGood";
+                                break;
+                            case "low":
+                                className = "RoundLow";
+                                break;
+                            case "none":
+                                className = "RoundNone";
+                                break;
+                        }
+
+                        displayValue = string.Format("<div class=\"{0}\"></div>", className);
+                    }
+                }
+
+                if (!String.IsNullOrWhiteSpace(displayValue))
+                {
+
+                    <td data-tag="@col.Key" aria-labeledby="LearningStandardsTable_@(generatedId)_@(nameColumnId)">@Html.Raw(displayValue)</td>
+                }
+                else
+                {
+                    <td data-tag="@col.Key" aria-labeledby="LearningStandardsTable_@(generatedId)_@(nameColumnId)"></td>
+                }
+            }
+        </tr>
+
+    if (item.children != null)
+    {
+        for (var i = 0; i < item.children.Count(); i++)
+        {
+                <text>
+                    @RenderRightRow(visibleRows, item.children.ElementAt(i), generatedId)
+                </text>
+        }
+    }
+}
+
+<!--<div class="temp-style-header">(Left)</div>
+    <div class="temp-style-content">-->
+<div id="LearningStandardsTable_@(generatedId)" class="learning-standard">
+    <div class="maximize-button">
+        <a href="#">
+            <span class="maximize">Maximize View</span>
+            <span class="restore">Restore View</span>
+        </a>    
+
+    </div>
+    <div class="learning-standards-table">
+        <div class="leftPaneHeaders">
+            <table class="leftPane-headers">
+                <thead><tr><th class="group-0">Learning Standards</th></tr></thead>
+            </table>
+        </div>
+        <div class="rightPaneHeaders">
+            <table class="rightPane-headers">
+                <thead>
+                    <tr>
+                        @foreach (var column in Model.schema)
+                        {
+                            <th class="group-1" data-tag="@column.Key">@column.Value</th>
+                        }
+                    </tr>
+                </thead>
+            </table>
+        </div>
+        <div class="leftPane">
+            <div class="scroller">
+                <table class="leftPane-content">
+                    <tbody>
+                        @{
+                            for (int i = 1; i < Model.data.Count(); i++)
+                            {
+                                <text>
+                                    @RenderLeftRow(i, Model.data.ElementAt(i), generatedId)
+                                </text>
+                            }
+                        }
+                    </tbody>
+                </table>
+            </div>
+        </div>
+        <div class="rightPane">
+            <table class="rightPane-content">
+                <tbody>
+                    @{
+                        for (int i = 1; i < Model.data.Count(); i++)
+                        {
+                            <text>
+                                @RenderRightRow(i, Model.data.ElementAt(i), generatedId)
+                            </text>
+                        }
+                    }
+                </tbody>
+            </table>
+        </div>
+    </div>
+    <div class="learning-standards-legend">
+        <table class="EdFiGrid-legend">
+            <tr>
+                <td style="width: 100%">
+                    <table id="EdFiGrid-legend-table_@(generatedId)" class="EdFiGrid-legend-table" cellpadding="0px" style="background-color: #E0DFDF;" cellspacing="0px" border="0px">
+                        <tbody>
+                            <tr>
+                                <td class="EdFiGrid-legend-table-image">
+                                    <img src="@EdFiWebFormsDashboards.Site.Common.ThemeImage("StatusLabel/RoundVeryGood.png").Resolve()" alt="Star" />
+                                </td><td class="EdFiGrid-legend-table-text">
+                                         Advanced
+                                     </td><td class="EdFiGrid-legend-table-image">
+                                              <img src="@EdFiWebFormsDashboards.Site.Common.ThemeImage("StatusLabel/RoundGood.png").Resolve()" alt="Green" />
+                                          </td><td class="EdFiGrid-legend-table-text">
+                                                   Met Standard
+                                               </td><td class="EdFiGrid-legend-table-image">
+                                                        <img src="@EdFiWebFormsDashboards.Site.Common.ThemeImage("StatusLabel/RoundLow.png").Resolve()" alt="Red" />
+                                                    </td><td class="EdFiGrid-legend-table-text">
+                                                             Not Mastered
+                                                         </td><td class="EdFiGrid-legend-table-image">
+                                                                  <img src="@EdFiWebFormsDashboards.Site.Common.ThemeImage("StatusLabel/RoundNone.png").Resolve()" alt="Red" />
+                                                              </td><td class="EdFiGrid-legend-table-text">
+                                                                       Not Tested
+                                                                   </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </td>
+            </tr>
+        </table>
+    </div>
+    
+    <!-- added style of display: inline-block; for firefox specifically -->
+
+</div>
+}
+<!--</div>-->
+<script type="text/javascript" src="@Url.Content("~/Content/Scripts/Application/LearningStandards.js")"></script>
+<script type="text/javascript">
+    $('#LearningStandardsTable_@(generatedId)').learningStandards();
+</script>

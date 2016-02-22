@@ -1,0 +1,21 @@
+﻿{{each(key,dataItem) $data}}
+{{if ( key!="__type" && $data[key].length>0 )}}
+<h2 id="captionFor${key}">${key} (${$data[key].length}{{if $data['Absolute' + key + 'Count'] != $data[key].length }} of  ${$data['Absolute' + key + 'Count']} displayed. Please refine your search for fewer results. {{/if}})</h2>
+<div style="width:100%" id="${key}Results">
+	<table role="grid" aria-labelledby="captionFor${key}"  id="headerFor${key}" class="standard-table standard-table-full">
+		<thead role="rowgroup">
+			<tr role="row">
+			    {{tmpl(key,{rowCount:$data[key].length, absRowCount: $data['Absolute' + key + 'Count'], entityName:key}) selectHeaderTemplateNumeric(key)}}
+			</tr>
+		</thead>
+	</table>
+	<div class="results-container" style="${searchGetHeightForScrollDiv($data[key].length)}">
+		<table role="presentation" id="dataResultsFor${key}" class="standard-table standard-table-full">
+		<tbody role="rowgroup">
+			{{tmpl($data[key],{objType:key}) selectBaseNumericRowTemplate()}}
+		</tbody>
+		</table>
+	</div>
+</div>
+{{/if}}
+{{/each}}

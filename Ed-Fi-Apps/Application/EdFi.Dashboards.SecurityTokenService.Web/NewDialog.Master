@@ -1,0 +1,102 @@
+﻿<%@ Master Language="C#" AutoEventWireup="true" CodeBehind="NewDialog.master.cs" Inherits="EdFi.Dashboards.SecurityTokenService.Web.NewDialog" %>
+<%@ Import Namespace="EdFi.Dashboards.Resources.Navigation" %>
+
+<!DOCTYPE html>
+<!--[if lt IE 7]> <html class="no-js lt-ie9 lt-ie8 lt-ie7" lang="en"> <![endif]-->
+<!--[if IE 7]>    <html class="no-js lt-ie9 lt-ie8" lang="en"> <![endif]-->
+<!--[if IE 8]>    <html class="no-js lt-ie9" lang="en"> <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en"> <!--<![endif]-->
+<head id="Head1" runat="server">
+    <meta charset="utf-8"/>
+	<title>Log In | <%#DistrictName() + "|" %> Dashboards</title>
+	<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+	<meta name="description" content=""/>
+	<meta name="author" content=""/>
+
+    <script type='text/javascript' src="<%#ResolveUrl("~/Scripts/modernizr-2.6.2.js")%>"></script>
+
+	<!-- Le styles -->
+	<link href="<%#ResolveUrl("~/App_Themes/Ed-Fi/bootstrap.css")%>" rel="stylesheet"/>
+	<link href="<%#ResolveUrl("~/App_Themes/Ed-Fi/bootstrap-responsive.css")%>" rel="stylesheet"/>
+	<link href="<%#ResolveUrl("~/App_Themes/Ed-Fi/all.css")%>" rel="stylesheet"/>
+	<link href="<%#ResolveUrl("~/App_Themes/Dashboards/dashboards.css")%>" rel="stylesheet"/>
+
+	<!-- Le HTML5 shim, for IE6-8 support of HTML5 elements -->
+	<!--[if lt IE 9]>
+	<script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
+	<![endif]-->
+
+	<!-- Le fav and touch icons -->
+	<link rel="shortcut icon" href="<%#ResolveUrl("~/App_Themes/Ed-Fi/ico/favicon.ico")%>" />
+    <script type="text/javascript" src="<%#ResolveUrl("~/Scripts/jquery-1.6.1.js")%>"> </script>
+    <script type="text/javascript" src="<%#ResolveUrl("~/Scripts/jquery-ui-1.8.15.custom.min.js")%>"> </script>
+    <script type="text/javascript" src="<%#ResolveUrl("~/Scripts/jquery.tools.min.js")%>"> </script>
+    <script type="text/javascript" src="<%#ResolveUrl("~/Scripts/jquery.cookie.js")%>"> </script>
+    <script type="text/javascript" src="<%#ResolveUrl("~/Scripts/jquery.json2.js")%>"> </script>
+    <script type="text/javascript" src="<%#ResolveUrl("~/Scripts/jquery.tmpl.js")%>"> </script>
+    <script type="text/javascript" src="<%#ResolveUrl("~/Scripts/jquery.base64.js")%>"> </script>
+    <link href="<%#ResolveUrl("~/App_Themes/Theme1/jQueryLightness/jquery-ui.css")%>" type="text/css" rel="stylesheet"/>
+    <link href="<%#ResolveUrl("~/App_Themes/Theme1/jQueryLightness/jquery-ui-1.8.15.custom.css")%>" type="text/css" rel="stylesheet"/>
+    <link href="<%#ResolveUrl("~/App_Themes/Theme1/Dialog.css")%>" type="text/css" rel="stylesheet"/>
+
+    <script type="text/javascript">
+        jQuery.fn.center = function () {
+            this.css("position", "absolute");
+            this.css("top", ($(window).height() - this.height()) / 2 + $(window).scrollTop() + "px");
+            this.css("left", ($(window).width() - this.width()) / 2 + $(window).scrollLeft() + "px");
+            return this;
+        };
+
+        $(window).resize(function () {
+            $("#ContainerTable").center();
+        });
+
+        $(document).ready(function () {
+            $("#ContainerTable").center();
+            $("#ContainerTable").show();
+        });
+
+    </script>
+    <asp:ContentPlaceHolder ID="HeadContent" runat="server"></asp:ContentPlaceHolder></head>
+<body>
+	<div class="container">
+		<div class="row">
+			<div class="span10 offset1" id="main">
+				<div class="hero-unit login-hero-unit Custom-divbackground">
+					<%--<div class="title">
+						<h1>Dashboards</h1>
+						<h2><%=DistrictName() %></h2>
+					</div>
+					<p id="hero-logo">
+						<img src="<%=ResolveUrl("~/App_Themes/Ed-Fi/img/EdFi-logo-Powered-RGB-TM.png")%>" alt="Ed-Fi Logo" width="237" height="121" />
+					</p>--%>
+                    <asp:ContentPlaceHolder ID="DialogContent" runat="server"></asp:ContentPlaceHolder>
+                    <asp:ContentPlaceHolder ID="FooterMessage" runat="server"></asp:ContentPlaceHolder>
+				</div><!--/hero-unit-->
+			</div>
+			<!--/span--> 
+		</div>
+		<!--/row-->
+
+        <EDFI:SupportForm ID="supportForm" runat="server" SupportLinkControlId="#feedbackLink" SupportLinkControlId2="#buttonErrorFeedback" AllowNameEdit="true"/>
+		<asp:ContentPlaceHolder ID="AdditionalContent" runat="server"></asp:ContentPlaceHolder>
+
+	<%--    <hr/>--%>
+
+		<footer>
+		<%--	<p>
+			    ©2013 Ed-Fi Alliance, LLC. All Rights Reserved.<br/>For the latest information about Ed-Fi visit our website at <a href="http://www.ed-fi.org/">Ed-Fi.org</a>.
+			</p>--%>
+		</footer>
+	</div>
+	<!--/.container--> 
+	<!-- Le javascript
+	================================================== --> 
+	<!-- Placed at the end of the document so the pages load faster --> 
+	
+<%--
+    <script type="text/javascript" src="//ajax.googleapis.com/ajax/libs/jquery/1.8.1/jquery.min.js"></script>
+	<script type="text/javascript" src="/js/bootstrap.min.js"></script>
+--%>
+</body>
+</html>

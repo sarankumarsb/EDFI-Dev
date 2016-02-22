@@ -1,0 +1,31 @@
+/* ---------------------------------------------------
+ * dashboards.css v0.5.0 (2012-09-17)
+ * 
+ * The default CSS file for all media types.
+ * ------------------------------------------------ */
+
+/**
+ * Dashboard styles
+ */
+
+body {
+	padding-top: 20px;
+	padding-bottom: 40px;
+}
+
+.login-hero-unit{
+	padding:20px 40px;
+}
+
+.login-hero-unit .title{float:left;}
+
+#hero-logo{float:right;margin: 0 0 0 10%;}
+
+#login-form-wrap{padding-top:30px;clear:both;}
+
+@media (max-width: 979px) { /* Portrait tablets */
+	.login-hero-unit .title{float:none;}
+	#hero-logo{float:none;margin:20px auto;}
+	
+	#login-form-wrap{padding-top:10px;}
+}

@@ -1,0 +1,37 @@
+﻿<ArrayOfLocalEducationAgency>
+  <LocalEducationAgency>
+    <Code>GrandBendISD</Code>
+    <UserProfiles>
+      <UserProfile>
+        <ProfileName>Superintendent</ProfileName>
+        <FullName>David Wilson</FullName>
+        <Username>DavidWilson</Username>
+        <Password>asdf</Password>
+        <HighSchoolId>255901001</HighSchoolId>
+        <StudentUSI>604822</StudentUSI>
+      </UserProfile>
+      <UserProfile>
+        <ProfileName>High School Principal</ProfileName>
+        <FullName>Cody West</FullName>
+        <Username>CodyWest</Username>
+        <Password>asdf</Password>
+        <HighSchoolId>255901001</HighSchoolId>
+        <StudentUSI>604822</StudentUSI>
+      </UserProfile>
+      <UserProfile>
+        <ProfileName>System Administrator</ProfileName>
+        <FullName>Kurt McCarthy</FullName>
+        <Username>KurtMcCarthy</Username>
+        <Password>asdf</Password>
+      </UserProfile>
+      <UserProfile>
+        <ProfileName>High School Teacher</ProfileName>
+        <FullName>Russell Gomez</FullName>
+        <Username>RussellGomez</Username>
+        <Password>asdfg</Password>
+        <HighSchoolId>255901001</HighSchoolId>
+        <StaffUSI>207272</StaffUSI>
+      </UserProfile>
+    </UserProfiles>
+  </LocalEducationAgency>
+</ArrayOfLocalEducationAgency>

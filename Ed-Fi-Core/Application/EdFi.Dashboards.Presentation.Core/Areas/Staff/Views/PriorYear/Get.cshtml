@@ -1,0 +1,73 @@
+﻿@using EdFi.Dashboards.Common
+@using EdFi.Dashboards.Common.Utilities
+@using EdFi.Dashboards.Core.Providers.Context
+@using EdFi.Dashboards.Presentation.Core.Areas.Staff.Controllers
+@using EdFi.Dashboards.Presentation.Core.Models.Shared
+@using EdFi.Dashboards.Presentation.Core.Providers.Models
+@using EdFi.Dashboards.Presentation.Web.Utilities
+@using EdFi.Dashboards.Resources.Navigation.Mvc
+
+@model EdFi.Dashboards.Presentation.Core.Areas.Staff.Models.Shared.StaffStudentListModel
+
+@{
+  var localEducationAgencyId = EdFiDashboardContext.Current.LocalEducationAgencyId.GetValueOrDefault();
+  var schoolId = EdFiDashboardContext.Current.SchoolId.GetValueOrDefault();
+  var staffUSI = EdFiDashboardContext.Current.StaffUSI.GetValueOrDefault();
+}
+
+@section ContentPlaceHolderHead {
+    <title>@(Html.Action("Title", typeof(StaffLayoutController).GetControllerName(), new { subTitle = "Prior Year" }))</title>
+    <script type="text/javascript">
+        var pageArea = { Area: 'classroom', Page: 'Prior Year' };
+    </script>
+}
+
+@section ContentPlaceHolder1 {
+   @{
+       var edFiGridModelProvider = IoC.Resolve<IEdFiGridModelProvider>();
+
+       var edfiGridModel = edFiGridModelProvider.GetEdFiGridModel(true, true, 0, "PriorYear", null,
+           Model.GridTable, null, Model.GetDefaultNonPersistedSettings("PriorYearEdFiGrid"),
+           true, "StudentList", Model.LegendViewNames, null, false, null, true);
+                               
+        Html.RenderPartial("EdFiGrid", model: edfiGridModel);
+
+        if (Model.IsCurrentUserListOwner)
+        {
+            var customStudentListModel = new CustomStudentListModel
+            {
+                ControlId = "PriorYear",
+                IsCustomStudentList = Model.IsCustomStudentList,
+                LinkParentIdentifier = "#PriorYear-EdFiGrid-interaction-custom",
+                CheckboxParentIentifier = "#PriorYear-EdFiGrid-fixed-data-table",
+                SelectAllCheckboxParentIentifier = "#PriorYear-EdFiGrid-fixed-header-table",
+                CustomStudentListId = Model.IsCustomStudentList ? Model.ListId : (long?)null,
+                LocalEducationAgencyId = localEducationAgencyId,
+                SchoolId = schoolId,
+                StaffUSI = staffUSI,
+                CustomStudentListUrl = EdFiDashboards.Site.Staff.CustomStudentList(schoolId, staffUSI, null, new { format = "json" })
+            };
+
+            Html.RenderPartial("CustomStudentList", model: customStudentListModel);
+        }
+    }
+
+    @if (Model.IsCurrentUserListOwner)
+    {
+        <script>
+            $('#PriorYear-EdFiGrid').bind('afterDrawEvent', function(e, table) {
+                PriorYearCustomStudentList.redrawCheckboxes();
+            });
+        </script>
+    }
+    
+    <script type="text/javascript">
+        $('#PriorYear-EdFiGrid').bind('afterMaximizeEvent', function (e, table) {
+            $('#PriorYear-EdFiGrid-interaction-custom2').append($('#StaffSlidingSubmenu'));
+        });
+
+        $('#PriorYear-EdFiGrid').bind('afterRestoreDownEvent', function (e, table) {
+            $('#StaffSlidingMenuHome').append($('#StaffSlidingSubmenu'));
+        });
+    </script>
+}

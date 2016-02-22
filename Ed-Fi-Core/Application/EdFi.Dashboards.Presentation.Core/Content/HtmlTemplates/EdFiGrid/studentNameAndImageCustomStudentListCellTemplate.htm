@@ -1,0 +1,13 @@
+﻿<div class="EdFiGrid-value EdFiGrid-value-left EdFiGrid-value-table">
+    <div class="EdFiGrid-value-table-row"> 
+        <span class="CustomStudentList-select EdFiGrid-value-table-cell" style="display:none;">
+            <label class="hidden" for="checkboxForEntity${StudentUSI}">Select student</label>
+            <input id="checkboxForEntity${StudentUSI}" type="checkbox" class="CustomStudentList-checkbox" style="display:none;" dataId="${StudentUSI}" title="Select ${DV}">
+            <input id="checkboxForEntity${StudentUniqueID}" type="checkbox" class="CustomStudentList-checkbox" style="display:none;" dataId="${StudentUniqueID}" title="Select ${DV}">
+        </span>
+        <span class="EdFiGrid-profile-image EdFiGrid-value-table-cell">
+            <span style="width:28px;"><a href="${getMainLink($item.hrefToUse, Url, Links)}"><img src="${I}" alt="profile image"/></a></span>
+        </span>
+        <span class="EdFiGrid-value-table-cell"><span class="dbId">${StudentUSI}</span><a href="${getMainLink($item.hrefToUse, Url, Links)}">${DV}</a></span>
+    </div>
+</div>

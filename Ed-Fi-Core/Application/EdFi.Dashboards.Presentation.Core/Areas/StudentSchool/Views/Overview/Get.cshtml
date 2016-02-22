@@ -1,0 +1,120 @@
+﻿@using EdFi.Dashboards.Common
+@using EdFi.Dashboards.Presentation.Architecture.Mvc.Extensions
+@using EdFi.Dashboards.Presentation.Core.Areas.StudentSchool.Controllers
+@using EdFi.Dashboards.Presentation.Core.Utilities.ExtensionMethods.HtmlHelper
+@using EdFi.Dashboards.Presentation.Web.Utilities
+
+@model EdFi.Dashboards.Resources.Models.Student.Overview.OverviewModel
+
+@{
+    ViewBag.Title = "Student Overview";
+}
+
+@section ContentPlaceHolderHead {
+    <title>@(Html.Action("Title", typeof(StudentSchoolLayoutController).GetControllerName(), new { subTitle = "Overview" }))</title>
+    <script type="text/javascript">
+        var pageArea = { Area: 'student', Page: 'Academic Dashboard - Overview' };
+    </script>
+}
+
+@section ContentPlaceHolder1 {
+    <div class="l-overview-metrics">
+        <div>
+            <div class="left">
+                <img id="Model.ProfileThumbnail" src="@(Model.ProfileThumbnail)" alt="Photograph of @(Model.FullName)" />
+            </div>
+            <div class="right">
+                <p class="entity-title">@(Model.FullName)</p>
+                <div>
+                    <ul class="two-column-info-list">
+                        <li>
+                            <span class="label">Grade Level</span>
+                            <span>@Model.GradeLevel</span>
+                        </li>
+                        <li>
+                            <span class="label">Current Age</span>
+                            <span>@Model.AgeAsOfToday</span>
+                        </li> 
+                        @if (!String.IsNullOrEmpty(Model.Language))
+                        {
+                            <li>
+                                <span class="label">Student Language</span>
+                                <span>@Model.Language</span>
+                            </li>
+                        }
+                        @if (!String.IsNullOrEmpty(Model.HomeLanguage))
+                        {
+                            <li>
+                                <span class="label">Home Language</span>
+                                <span>@Model.HomeLanguage</span>
+                            </li>
+                        }
+                        <li>
+                            <a href="@Model.ParentContactInfoLink">Parent Contact Info</a>
+                        </li>
+                    </ul>                    
+                </div>
+                <div class="last">
+                    <ul class="two-column-info-list">
+                        @if (Model.LimitedEnglishProficiency)
+                        {
+                            <li>
+                                <span class="label">Limited English Proficiency</span>
+                            </li>
+                        } 
+                        @if (Model.LimitedEnglishMonitoredFirstProficiency)
+                        {
+                            <li>
+                                <span class="label">Limited English Proficiency Monitored 1</span>
+                            </li>
+                        }
+                        @if (Model.LimitedEnglishMonitoredSecondProficiency)
+                        {
+                            <li>
+                                <span class="label">Limited English Proficiency Monitored 2</span>
+                            </li>
+                        }
+                        @if (Model.BilingualProgram)
+                        {
+                            <li>
+                                <span class="label">Bilingual Program</span>
+                            </li>
+                        }
+                        @if (Model.EnglishAsSecondLanguage)
+                        {
+                            <li>
+                                <span class="label">English as Second Language</span>
+                            </li>
+                        }
+                        @if (Model.GiftedAndTalented)
+                        {
+                            <li>
+                                <span class="label">Gifted/Talented</span>
+                            </li>
+                        }
+                        @if (Model.SpecialEducation)
+                        {
+                            <li>
+                                <span class="label">Special Education</span>
+                            </li>
+                        }
+                        @if (Model.Designation)
+                        {
+                            <li>
+                                <span class="label">504 Designation</span>
+                            </li>
+                        }
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="l-metrics">
+    @{ Html.RenderAction("Get", "Metrics", new
+                                          {
+                                              renderingMode = Model.RenderingMode,
+                                              studentUSI = Model.StudentUSI,
+                                              metricVariantId = Model.MetricVariantId
+                                          }); }
+    </div>
+}

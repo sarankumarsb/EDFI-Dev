@@ -1,0 +1,40 @@
+﻿@using EdFi.Dashboards.Presentation.Core.Models.Shared
+@{
+    var legendItems = new List<EdFiGridLegendModel>
+        {
+            new EdFiGridLegendModel
+                {
+                    CssClass = EdFiWebFormsDashboards.Site.Common.ThemeImage("MetricIndicator/StateAssessment-M.png").Resolve(),
+                    Text = "State Assessment-M",
+                    Alt = "M"
+                },
+            new EdFiGridLegendModel
+                {
+                    CssClass = EdFiWebFormsDashboards.Site.Common.ThemeImage("MetricIndicator/StateAssessment-Alt.png").Resolve(),
+                    Text = "State Assessment-Alt",
+                    Alt = "Alt"
+                },
+            new EdFiGridLegendModel
+                {
+                    CssClass = EdFiWebFormsDashboards.Site.Common.ThemeImage("MetricIndicator/TestAccommodation.png").Resolve(),
+                    Text = "Test Accommodation",
+                    Alt = "A"
+                },
+            new EdFiGridLegendModel
+                {
+                    CssClass = EdFiWebFormsDashboards.Site.Common.ThemeImage("MetricIndicator/Commended.png").Resolve(),
+                    Text = "State Assessment-Commended",
+                    Alt = "C"
+                }
+        };
+}
+
+@foreach (var entry in @legendItems)
+{
+    <td class="EdFiGrid-legend-table-image">
+        <img src="@entry.CssClass" alt="@entry.Alt" />
+    </td>
+    <td class="EdFiGrid-legend-table-text">
+        @entry.Text
+    </td>
+}

@@ -1,0 +1,121 @@
+﻿.CustomStudentList-button
+{
+    cursor:pointer;
+    color:#ffffff;
+    font-size:7pt;
+    font-weight:bold;
+    text-align:left;
+    vertical-align:top;
+    text-decoration: none;
+    background-repeat:no-repeat;
+    background-position:top left;
+    padding: 5px 10px 5px 10px;
+    margin-right: 10px;
+}
+
+
+.CustomStudentList-DeleteLink,
+.CustomStudentList-RenameLink
+{
+    background-image:url('img/ButtonStudentListDelete.png');
+    background-repeat: no-repeat;
+    padding: 5px 20px 5px 5px;
+}
+.CustomStudentList-RemoveLink
+{
+    background-image:url('img/ButtonStudentListRemove.png');
+    background-repeat: no-repeat;
+    padding: 5px 20px 5px 5px;
+}
+.CustomStudentList-CancelLink
+{
+    background-image:url('img/ButtonCancelColumns.png');
+    background-repeat: no-repeat;
+    padding-left: 5px;  
+}
+
+.CustomStudentList-FinishLink,
+.CustomStudentList-CloneLink
+{
+    background-image:url('img/ButtonStudentListFinish.png');
+    background-repeat: no-repeat;
+    padding: 5px 20px 5px 24px;
+}
+
+.CustomStudentList-StartLink
+{
+    background-image:url('img/ButtonStudentListCreate.png');
+    background-repeat: no-repeat;
+    padding: 5px 20px 5px 24px;
+}
+
+.CustomStudentList-ButtonDiv 
+{
+    display: inline-block;
+    zoom: 1;
+    *display: inline;
+}
+
+div.CustomStudentList-CreateDialog {
+    padding: 5px;
+    font-family: Arial;
+    color: #255B80;
+}
+div.CustomStudentList-CreateDialog > div {
+    display: inline-block;
+    zoom: 1;
+    *display: inline;
+}
+div.CustomStudentList-CreateDialog .NestedControl {
+    margin-left: 23px;
+    width: 275px;
+}
+div.CustomStudentList-CreateDialog select.NestedControl {
+    width: 279px !important;
+}
+div.CustomStudentList-CreateDialog-StudentList {
+    display: inline-block;
+    height:227px; 
+    overflow-y: auto;
+    float: right;
+    width:200px;
+    border: gray solid 1px;
+    zoom: 1;
+    *display: inline;
+}
+div.CustomStudentList-CreateDialog-StudentList table,
+div.CustomStudentList-RemoveDialog-StudentList table
+{
+    border-collapse: collapse;
+    width: 100%;
+}
+div.CustomStudentList-CreateDialog-StudentList tbody,
+div.CustomStudentList-RemoveDialog-StudentList tbody {
+    width: 100%;
+}
+div.CustomStudentList-CreateDialog-StudentList table tr.alternatingRow,
+div.CustomStudentList-RemoveDialog-StudentList table tr.alternatingRow {
+    background-color: #e0dfdf;
+}
+div.CustomStudentList-RemoveDialog {
+    padding: 5px;
+    font-family: Arial;
+    color: #255B80;
+}
+div.CustomStudentList-RemoveDialog-Label {
+    margin:10px 0 5px 0;
+}
+div.CustomStudentList-RemoveDialog-StudentList {
+    display: inline-block;
+    height:200px; 
+    overflow-y: auto;
+    float: right;
+    width:100%;
+    border: gray solid 1px;
+    zoom: 1;
+    *display: inline;
+}
+
+input.CustomStudentList-Rename-Input {
+    width: 275px;
+}

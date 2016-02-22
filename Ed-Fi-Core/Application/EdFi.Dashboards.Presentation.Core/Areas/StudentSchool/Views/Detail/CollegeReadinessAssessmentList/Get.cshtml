@@ -1,0 +1,41 @@
+﻿@using EdFi.Dashboards.Core.Providers.Context
+@model IList<EdFi.Dashboards.Resources.Models.Student.Detail.CollegeCareerReadinessAssessmentModel>
+
+@{
+    var studentUSI = EdFiDashboardContext.Current.StudentUSI.GetValueOrDefault();
+    var metricVariantId = EdFiDashboardContext.Current.MetricVariantId.GetValueOrDefault();
+}
+
+    <script>
+        analyticsManager.trackDrilldown('StudentCollegeReadinessAssessmentList', '@(metricVariantId)', '@(studentUSI)');
+    </script>
+    @if (Model.Any())
+    {
+        <table class="standard-table standard-table-compressed" summary="College Readiness Assessment">
+            <thead class="MetricHeaderTitle">
+                <tr>
+                    <th id="date@(metricVariantId)">Date</th>
+                    <th id="subject@(metricVariantId)">Subject</th>
+                    <th id="score@(metricVariantId)">Score</th>
+                    <th id="state-criteria-score@(metricVariantId)">State Criteria</th>
+                </tr>
+            </thead>
+            <tbody>
+            @{ int i = 0; }
+            @foreach (var assessment in Model)
+            {
+                i++;
+                <tr class="@((i % 2 == 0) ? "alt": "")">
+                    <td headers="date@(metricVariantId)">@(assessment.Date.ToShortDateString())</td>
+                    <td headers="subject@(metricVariantId)">@(assessment.Subject)</td>
+                    <td headers="score@(metricVariantId)">@(assessment.Score)</td>
+                    <td headers="state-criteria-score@(metricVariantId)">@(assessment.StateCriteria)</td>
+                </tr>
+            }
+             </tbody>
+        </table>
+    }
+    else
+    {
+        <span class="MetricNoData">No data available.</span>
+    }

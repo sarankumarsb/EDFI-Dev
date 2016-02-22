@@ -1,0 +1,185 @@
+﻿/*Menu*/
+
+.ButtonMenuSelected,
+.ButtonMenuNormal,
+.ButtonMenuDisabled
+{ 
+    border:0px;
+    color:Black;
+    vertical-align:middle; 
+    text-align:left;
+    font-weight:bold;
+    font-family:Arial;
+    font-size:14px;
+}
+
+.ButtonMenuSelected,
+.ButtonMenuNormal
+{
+    background-color: #CCDDEC;
+    -moz-border-radius: 5px 5px 0px 0px;
+    -webkit-border-radius: 5px 5px 0px 0px;
+    -khtml-border-radius: 5px 5px 0px 0px;
+    border-radius: 5px 5px 0px 0px;
+}
+
+.ButtonMenuSelected
+{
+    border-bottom: 0px;
+    background-color: #A3C0D9;
+}
+
+.ButtonMenuDisabled
+{
+    background-color:#8495A3;
+    cursor:text;
+    -moz-border-radius: 5px 5px 0px 0px;
+    -webkit-border-radius: 5px 5px 0px 0px;
+    -khtml-border-radius: 5px 5px 0px 0px;
+    border-radius: 5px 5px 0px 0px;
+    
+}
+
+td.MenuSeparator
+{
+    width: 1px;
+    height:24px;
+}
+
+.ButtonMenuSelected a,
+.ButtonMenuSelected a:hover,
+.ButtonMenuSelected a:active,
+.ButtonMenuNormal a,
+.ButtonMenuNormal a:active,
+.ButtonMenuDisabled a,
+.ButtonMenuDisabled a:hover,
+.ButtonMenuDisabled a:active,
+.ButtonMenuDisabled span
+{
+    color:Black;
+    text-decoration:none;
+    text-align:center;
+    cursor:pointer;
+    width:176px;
+    height:24px;  
+    display:block;
+    vertical-align:middle; 
+    padding-left:10px;
+    padding-top:10px;  
+}
+
+.ButtonMenuDisabled a,
+.ButtonMenuDisabled a:hover,
+.ButtonMenuDisabled a:active,
+.ButtonMenuDisabled span
+{
+    color:black;
+    cursor:text;
+    font-style: italic;
+    font-weight: lighter;
+}
+
+.SubMenu
+{
+    height:28px;
+    background-color: #A3C0D9;
+}
+
+.LinkMenuNormalBG,
+.LinkMenuDisabledBG,
+.LinkMenuDisabledBGLinkMenu
+{
+    border-bottom: 1px solid #A3C0D9;
+}
+
+.LinkMenuSelectedBG
+{
+    border-left: 1px solid #A3C0D9;
+    border-top: 1px solid #A3C0D9;
+    border-right: 1px solid #A3C0D9;
+    background-color: #FFFFFF;
+}
+.SubMenu > tbody > tr > td:first-child
+{
+    border-left: 1px solid #A3C0D9 !important;
+}
+
+.SubMenu > tbody > tr > td:last-child {
+    border-right: 1px solid #A3C0D9 !important;
+}
+.LinkMenuNormalBG a,
+.LinkMenuNormalBG a:hover,
+.LinkMenuNormalBG a:active,
+.LinkMenuSelectedBG a,
+.LinkMenuSelectedBG a:hover,
+.LinkMenuSelectedBG a:active,
+.LinkMenuDisabledBG a,
+.LinkMenuDisabledBG a:hover,
+.LinkMenuDisabledBG a:active,
+.LinkMenuDisabledBG span,
+a.LinkMenu,
+a.LinkMenu:hover,
+a.LinkMenu:active,
+a.LinkMenuDisabledBG,
+a.LinkMenuActive
+{
+    font-size:8pt;
+    font-weight:bold;
+    padding: 3px 0;
+    color: black;
+    text-decoration:none;
+    text-align:center;
+    vertical-align:middle;
+}
+
+.LinkMenuDisabledBG a,
+.LinkMenuDisabledBG a:hover,
+.LinkMenuDisabledBG a:active,
+.LinkMenuDisabledBG span
+{
+    color: #8495A3;
+    cursor:text;
+    font-weight: lighter;
+    font-style: italic;
+}
+
+.LinkMenuDisabledBG
+{
+    text-align:center;
+    background-color: #A3C0D9;
+}
+
+.LinkMenuNormalBG a:active,
+a.LinkMenu:hover
+{
+    font-weight:bolder;
+    color:Black;
+}
+
+.ButtonMenuNormal a:hover,
+.LinkMenuNormalBG a:hover,
+.LinkMenuSelectedBG a:active,
+a.LinkMenu:active
+{
+    font-weight:bolder;
+    color:white;
+}
+
+.LinkMenuSelectedBG
+{
+    text-align:center;
+    -moz-border-radius: 5px 5px 0px 0px;
+    -webkit-border-radius: 5px 5px 0px 0px;
+    -khtml-border-radius: 5px 5px 0px 0px;
+    border-radius: 5px 5px 0px 0px;
+}
+
+.LinkMenuNormalBG
+{
+    background-color: #A3C0D9;
+    text-align:center;
+}
+
+.BottomMenuDivider
+{
+}

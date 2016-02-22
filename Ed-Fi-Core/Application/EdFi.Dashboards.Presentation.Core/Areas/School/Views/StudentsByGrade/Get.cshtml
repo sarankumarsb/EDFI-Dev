@@ -1,0 +1,170 @@
+﻿@using EdFi.Dashboards.Common
+@using EdFi.Dashboards.Presentation.Architecture.Mvc.Extensions
+@using EdFi.Dashboards.Presentation.Core.Areas.School.Controllers
+@using EdFi.Dashboards.Resources.Navigation
+@using EdFi.Dashboards.Resources.Navigation.Mvc
+@model EdFi.Dashboards.Resources.Models.School.StudentsByGradeModel
+           
+@{
+    //ViewBag.Title = "Students By Grade";
+}
+
+@section ContentPlaceHolderHead {
+    <title>@(Html.Action("Title", typeof(SchoolLayoutController).GetControllerName(), new { subTitle = "Students By Grade" }))</title>
+    <script type="text/javascript">
+        var pageArea = { Area: 'school', Page: 'Students by Grade' };
+    </script>
+}
+
+@section ContentPlaceHolder1 {
+    @{
+        var squareBulletImageUrl = EdFiDashboards.Site.Common.ThemeImage("BulletBluesquare.gif").Resolve();
+    }
+    <table style="width: 100%" cellpadding="0" cellspacing="0" border="0">
+        <tr>
+            <td style="height: 23px;">
+                <table style="width: 100%;" cellpadding="0" cellspacing="0">
+                    <tr>
+                        <td style="width: 10px;"></td>
+                        <td>
+                            <label id="LabelPageTitle" class="PageTitleTextStyle">
+                                STUDENTS BY GRADE
+                            </label>
+                        </td>
+                        <td style="text-align: right;"></td>
+                    </tr>
+                    <tr class="doNotPrint">
+                        <td style="width: 10px;"></td>
+                        <td>
+                            <!-- Index links -->
+                            <table>
+                                <tr>
+                                    <td style="text-align: left;">
+                                        <a name="topAnchor"></a>
+                                        <span class="ContentBoldTextStyle" style="vertical-align: middle;">
+                                            Jump to grade: 
+                                        </span>
+                                        @{
+                                            var first = true;
+                                        }
+                                        @foreach (var grade in Model.Grades)
+                                        {
+                                            if (!first)
+                                            {
+                                                <span class="ContentBoldTextStyle" style="vertical-align: middle;">&nbsp;|&nbsp;</span>
+                                            }
+                                            <a class="LinkMenu" href="#@(grade.GradeLevel)">@grade.GradeLevel</a>
+                                            first = false;
+                                        }
+                                    </td>
+                                </tr>
+                            </table>
+                        </td>
+                    </tr>
+                </table>
+            </td>
+        </tr>
+        <tr style="height: 10px">
+            <td></td>
+        </tr>
+        <tr>
+            <td>
+                <!-- Content -->
+                <table id="tableContainer" cellpadding="0" cellspacing="0" width="100%">
+                    <tr>
+                        <td class="HeaderTabGray1"></td>
+                        <td class="HeaderTabGrayBG" align="left">
+                            <table style="width: 100%; height: 100%;" class="HeaderTabGrayText" border="0">
+                                <tr>
+                                    <td style="width: 330px; text-align: left;">
+                                        GRADES
+                                    </td>
+                                    <td align="right"></td>
+                                </tr>
+                            </table>
+                        </td>
+                        <td class="HeaderTabGray2"></td>
+                    </tr>
+                </table>
+                @foreach (var grade in Model.Grades)
+                {
+                    <table cellpadding="0" cellspacing="0" style="width: 100%; height: 100%;" border="0">
+                        <tr style="height: 10px;">
+                            <td colspan="2"></td>
+                        </tr>
+                        <tr>
+                            <td style="width: 15px; text-align: right;"></td>
+                            <td class="MetricSubTitle">
+                                <a name="@(grade.GradeLevel)">
+                                    <span class="MetricTitle" id='vGrade@(grade.GradeLevel)'>
+                                        @(grade.GradeLevel)
+                                    </span>
+                                </a>
+                                <a href="#topAnchor" title="Back to top.">
+                                    <img src='@(EdFiDashboards.Site.Common.ThemeImage("BulletBlueArrowUp.gif").Resolve())' style="border-width: 0px;" />
+                                </a>
+                            </td>
+                        </tr>
+                        <tr style="height: 10px;">
+                            <td colspan="2"></td>
+                        </tr>
+                        <tr>
+                            <td></td>
+                            <td>
+                                <table cellpadding="0" cellspacing="0" style="width: 100%" border="0">
+                                    @{
+                                        var studentCount = 0;
+                                    }
+                                    @foreach (var student in grade.Students)
+                                    {
+                                        if (studentCount % 2 == 0)
+                                        {
+                                            @:<tr style="height: 18px;">
+                                        }
+
+                                        <td class="BulletMetricBG">
+                                            <img src='@(squareBulletImageUrl)' style="vertical-align: middle;" /> 
+                                        </td>
+                                        <td class="SubMetricBG" style="width: 45%;">
+                                            <a href="@(student.Url)" class="LinkBullet">
+                                                @student.FullName 
+                                            </a> 
+                                        </td>
+                                        <td style="width:18px;"></td>
+
+                                        if (studentCount % 2 == 1)
+                                        {
+                                            @:</tr>
+                                            <tr style="height: 5px;">
+                                                <td colspan="6">
+                                                </td>
+                                            </tr>
+                                        }
+                                        studentCount++;
+                                    }
+                                    
+                                    @if (studentCount % 2 == 1)
+                                    {
+                                            <td style="width:20px;"></td>
+                                            <td style="width: 45%;"></td>
+                                            <td style="width:18px;"></td>
+                                        @:</tr>
+                                        <tr style="height: 5px;">
+                                            <td colspan="6">
+                                            </td>
+                                        </tr>
+                                    }
+                                </table>
+                            </td>
+                        </tr>
+                    </table>
+                }
+            </td>
+        </tr>
+        <tr>
+            <td>
+                <hr class="End" />
+            </td>
+        </tr>
+    </table>
+}

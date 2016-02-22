@@ -1,0 +1,16 @@
+﻿@model AggregateMetric
+<tr id="vMetric@(Model.MetricVariantId)" style="height: 35px;">
+    <td title="@Model.ToolTip" class="bulleted-metric bulleted-metric-indented">
+        <i class="icon-right-circled"></i>
+        <p class="title deemphasized">
+            <a href="@(Url.Content(Model.Url))" id="vName@(Model.MetricVariantId)">
+                @(Model.DisplayName)
+            </a>
+            <span id="vDescription@(Model.MetricVariantId)" class="description">
+                @Model.Description
+            </span>
+        </p>
+    </td>
+    <td></td>
+    <td></td>
+</tr>

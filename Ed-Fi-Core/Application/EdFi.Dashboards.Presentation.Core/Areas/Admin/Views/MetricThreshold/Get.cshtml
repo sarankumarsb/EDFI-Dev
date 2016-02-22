@@ -1,0 +1,154 @@
+﻿@model IEnumerable<EdFi.Dashboards.Presentation.Core.Areas.Admin.Models.MetricThresholdMetricModel>
+@using System.Web.Mvc.Html
+@using EdFi.Dashboards.Common
+@using EdFi.Dashboards.Presentation.Core.Areas.Admin.Controllers
+@section ContentPlaceHolderHead {
+    <title>@(Html.Action("Title", typeof(AdminLayoutController).GetControllerName(), new { subTitle = "Admin" }))
+    </title>
+}
+@section ContentPlaceHolder1 {
+    @using (@Html.BeginForm(new { id = "ThresholdForm" }))
+    {
+        <h2>METRIC THRESHOLD - Grades and Credits</h2>
+        <div id="actionMessage">
+        </div>
+        <div class="l-metrics">
+        <table summary="Table for setting new metric threshold.">
+        <thead>
+            <tr id="vMetric1447" class="MetricHeaderTitle">
+                <th class="HeaderTabGrayBGBig" title="" style="width: 450px; text-align: left;">
+                    <span id="vMetricVariantId1447" class="metricId">1447-CurrentYear </span><a name="Course Grades">
+                                                                                                 Course Grades</a> <a name="m1447"></a>
+                </th>
+                <th class="HeaderTabGrayBGBig" style="width: 100px; text-align: center;">
+                    <label for="Threshold">METRIC THRESHOLD</label>
+                </th>
+                <th class="HeaderTabGrayBGBig">
+                </th>
+                <th class="HeaderTabGrayBGBig">
+                </th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var metricThresholdGetModel in Model)
+            {
+            <tr class="container">
+                <td class="MetricSubTitle">
+                <h3 id="vName@(metricThresholdGetModel.MetricThresholdGetResponse.MetricId)" class="title">@metricThresholdGetModel.MetricTitle</h3>
+                <p id="vDescription@(metricThresholdGetModel.MetricThresholdGetResponse.MetricId)" class="description">
+                    @metricThresholdGetModel.Description
+                </p>
+                </td>
+                <td class="MetricContentText" style="text-align: center;">
+                    <input data-val="true" data-val-number="The field Threshold must be a number." id="Threshold@(metricThresholdGetModel.MetricThresholdGetResponse.MetricId)" name="Threshold" style="width:30px; text-align:right;" type="text" value="@Convert.ToInt32(metricThresholdGetModel.MetricThresholdGetResponse.Threshold / metricThresholdGetModel.Multiplier)">
+                </td>
+                <td class="MetricTitle">
+                    <a onclick="put(@metricThresholdGetModel.MetricThresholdGetResponse.MetricId, @metricThresholdGetModel.MetricThresholdGetResponse.IsInclusive.ToString().ToLowerInvariant(), @metricThresholdGetModel.Multiplier)" href="javascript:void(0);">Save</a>
+                </td>
+                <td class="MetricTitle">
+                    <a onclick="resetMetric(@metricThresholdGetModel.MetricThresholdGetResponse.MetricId, @Convert.ToInt32(metricThresholdGetModel.DefaultValue / metricThresholdGetModel.Multiplier))" href="javascript:void(0);">Reset to default : @Convert.ToInt32(metricThresholdGetModel.DefaultValue / metricThresholdGetModel.Multiplier)</a>
+                </td>
+            </tr>
+            }
+        </tbody>
+        </table>
+        </div>
+    }
+    <script language="javascript">
+
+        $(document).ready(function () {
+            $('#actionMessage').hide();
+
+        });
+
+        var successColor = '#DBFFDC';
+        var errorColor = '#FFA3A7';
+
+        function writeMessage(message, messageType) {
+
+            var highlightColor = '#FFFFFF';
+
+            if (messageType == 'success') {
+                highlightColor = successColor;
+            }
+            if (messageType == 'error') {
+                highlightColor = errorColor;
+            }
+
+            $('#actionMessage').html(message);
+            $('#actionMessage').animateHighlight(highlightColor, 6000);
+            $('#actionMessage').show();
+            setTimeout(function () {
+                if ($('#actionMessage').length > 0) {
+                    $('#actionMessage').hide('slow');
+                }
+            }, 6000);
+        }
+
+        function IsValidThreshold(metricId) {
+            var re = /^([1-9]|[1-9]\d|100)$/;
+            var thresholdInput = $('#Threshold' + metricId).val();
+            if (re.test(thresholdInput)) {
+                return true;
+            }
+            return false;
+        }
+
+        function put(metricId, isInclusive, multiplier) {
+
+            if (!IsValidThreshold(metricId)) {
+                $('#Threshold' + metricId).focus();
+                $('#Threshold' + metricId).select();
+                alert('Invalid value entered.');
+                return false;
+            }
+
+            var threshold = $('#Threshold' + metricId).val();
+            var postObj = {
+                MetricId: metricId,
+                Threshold: threshold * multiplier,
+                IsInclusive: isInclusive
+            };
+
+            $.ajax({
+                url: ' @Url.Action("Get", "MetricThreshold", null, "https")',
+                type: 'POST',
+                data: JSON.stringify(postObj),
+                contentType: 'application/json; charset=utf-8',
+                success: function (data) {
+                    writeMessage('Save successful - The change will display after the next build.', 'success');
+                },
+                error: function () {
+                    writeMessage('Error occured saving value', 'error');
+                }
+            });
+        }
+
+        function resetMetric(metricId, defaultValue) {
+
+            var postObj = { MetricId: metricId };
+
+            $.ajax({
+                url: ' @Url.Action("Delete", "MetricThreshold", null, "https")',
+                type: 'POST',
+                data: JSON.stringify(postObj),
+                contentType: 'application/json; charset=utf-8',
+                success: function (data) {
+                    $('#Threshold' + metricId).val(defaultValue);
+                    writeMessage('Reset to default successful - The change will display after the next build.', 'success');
+                },
+                error: function () {
+                    writeMessage('Error occured resetting to default value', 'error');
+                }
+            });
+        }
+
+        $.fn.animateHighlight = function (highlightColor, duration) {
+            var highlightBg = highlightColor || "#FFFF9C";
+            var animateMs = duration || 1500;
+            var originalBg = this.css("backgroundColor");
+            this.stop().css("background-color", highlightBg).animate({ backgroundColor: originalBg }, animateMs);
+        };
+
+    </script>
+}

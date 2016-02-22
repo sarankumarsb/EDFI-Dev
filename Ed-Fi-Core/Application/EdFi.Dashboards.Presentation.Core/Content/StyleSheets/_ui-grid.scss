@@ -1,0 +1,95 @@
+@import "shared";
+
+/* The ui-grid is a bootstrap-like twelve column 
+grid for laying out new features. It must be be 
+inside the l-area-layout and wrapped in a div with
+.ui-grid-container class. */
+.ui-grid-container{
+    overflow: hidden;
+
+	.grid-row{
+		float: left;
+		margin: 0 0 10px -20px;
+		display: block;
+		clear: left;  
+	}
+	[class*=span]{
+		float: left;
+		margin-left: 20px;
+		box-sizing: border-box;
+		-moz-box-sizing: border-box;
+	}
+	.span-1{
+		 width: 45px;
+	}
+	.span-2{
+		width: 110px;
+	}
+	.span-3{
+		width: 175px;
+	}
+	.span-4{
+		width: 240px;
+	}
+	.span-5{
+		width: 305px;
+	}
+	.span-6{
+		width: 370px;
+	}
+	.span-7{
+		width: 435px;
+	}
+	.span-8{
+		width: 500px;
+	}
+	.span-9{
+		width: 565px;
+	}
+	.span-10{
+		width: 630px;
+	}
+	.span-11{
+		width: 695px;
+	}
+	.span-12{
+		width: 760px;
+	}
+
+	.offset-1{
+		 margin-left: 85px;
+	}
+	.offset-2{
+		margin-left: 150px;
+	}
+	.offset-3{
+		margin-left: 215px;
+	}
+	.offset-4{
+		margin-left: 280px;
+	}
+	.offset-5{
+		margin-left: 345px;
+	}
+	.offset-6{
+		margin-left: 410px;
+	}
+	.offset-7{
+		margin-left: 475px;
+	}
+	.offset-8{
+		margin-left: 540px;
+	}
+	.offset-9{
+		margin-left: 605px;
+	}
+	.offset-10{
+		margin-left: 670px;
+	}
+	.offset-11{
+		margin-left: 735px;
+	}
+	.offset-12{
+		margin-left: 780px;
+	}
+}

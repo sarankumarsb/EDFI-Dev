@@ -1,0 +1,9 @@
+﻿@model IEnumerable<MetricIndicator>           
+@if (Model.Any())
+{
+    var toolTipsSeparatedByCommas = String.Join(",", Model.Select(metricIndicator => metricIndicator.Tooltip).ToArray());       
+    <i class="icon-test-ccommodation" title="Metric has @(toolTipsSeparatedByCommas)."><span class="hidden">Metric has @(toolTipsSeparatedByCommas).</span></i>
+}else
+{
+    <i class="icon-palceholder"></i>
+}

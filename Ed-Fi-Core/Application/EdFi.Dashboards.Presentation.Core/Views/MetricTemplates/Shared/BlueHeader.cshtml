@@ -1,0 +1,9 @@
+﻿@model MetricAction
+@{
+    var dynamicContentName = Legacy.GetDynamicContentNameFromAction(Model);
+}
+
+<div class="header-container">
+<p class="header-tab">@(Model.DrilldownHeader) <i class="icon-right-circled"></i></p>
+<a id="dynamicCloseLink-@(Model.GetTitleSafeForHtmlId())@(Model.MetricVariantId)" class="close" href="javascript:ToggleDrillDown('#DynamicContentDiv@(dynamicContentName)');"><span class="hidden">Close @(Model.DrilldownHeader)</span><i class="icon-cancel"></i></a>
+</div>

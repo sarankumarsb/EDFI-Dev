@@ -1,0 +1,41 @@
+﻿@model EdFi.Dashboards.Resources.Models.School.Overview.OverviewModel
+           
+@using EdFi.Dashboards.Common
+@using EdFi.Dashboards.Presentation.Architecture.Mvc.Extensions
+@using EdFi.Dashboards.Presentation.Core.Areas.School.Controllers
+@using EdFi.Dashboards.Presentation.Core.Utilities.ExtensionMethods.HtmlHelper
+@using EdFi.Dashboards.Presentation.Web.Utilities
+@using EdFi.Dashboards.Resources.Navigation
+
+@{
+    ViewBag.Title = "School Overview";
+}
+
+@section ContentPlaceHolderHead {
+    <title>@(Html.Action("Title", typeof(SchoolLayoutController).GetControllerName(), new { subTitle = "Overview" }))</title>
+    <script type="text/javascript">
+        var pageArea = { Area: 'school', Page: 'Academic Dashboard - Overview' };
+    </script>
+}
+
+@section ContentPlaceHolder1 {
+    <div class="l-metrics">
+
+        <div class="accountability-rating">
+            @foreach (var rating in Model.Accountability.AccountabilityRatings) 
+            {
+                <p>
+                    <span>@rating.Attribute:</span>
+                    <span>@rating.Value</span>
+                </p>
+            }
+        </div>
+        @{ Html.RenderAction("Get", "Metrics",
+                                      new
+                                          {
+                                              renderingMode = Model.RenderingMode,
+                                              schoolId = Model.Accountability.SchoolId,
+                                              metricVariantId = Model.MetricVariantId
+                                          }); }
+    </div>
+}

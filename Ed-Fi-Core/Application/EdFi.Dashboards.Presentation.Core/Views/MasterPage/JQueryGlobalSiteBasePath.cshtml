@@ -1,0 +1,7 @@
+﻿@using EdFi.Dashboards.Presentation.Core.Areas.Error.Controllers
+@using EdFi.Dashboards.Common
+@model System.String
+@{
+	Layout = null;
+}
+$.global = { siteBasePath: "@Model", errorPath: "@Url.Action("Get",typeof(ErrorController).GetControllerName() , new {area = "Error" })" };

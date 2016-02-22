@@ -1,0 +1,89 @@
+<#@ include file="SQLServer.ttinclude" #>
+using System;
+using System.Data.Linq.Mapping;
+using SubSonic.SqlGeneration.Schema;
+
+
+namespace <#=Namespace #>
+{
+<#
+    var tables = LoadTables();
+	var baseTables = LoadBaseTables();
+
+    foreach(Table tbl in tables)
+    {
+		//Dont process tables that are excluded
+		if(ExcludeTables.Contains(tbl.Name))
+			continue;
+
+		//If there is a view that contains the name of a table in the extended tables lets create it and inherit from the base core poco.
+		string objectToInheritFrom = "";
+		bool isExtension = false;
+		Table baseTableToCompare = null;
+		foreach(var baseTable in baseTables)
+			if((baseTable.Name==tbl.Name) && (tbl.TableType=="View"))
+			{
+				objectToInheritFrom = " : EdFi.Dashboards.Data.Entities." + tbl.Name;
+				isExtension = true;
+				baseTableToCompare = baseTable;
+				break;
+			}
+#>
+    
+    
+    /// <summary>
+    /// A class which represents the <#=tbl.Schema #>.<#=tbl.Name #> table in the <#=DatabaseName#> Database.
+    /// </summary>
+    [SubSonicUseSingularTableName]
+	[SubSonicTableNameOverride("<#=tbl.Schema#>].[<#=tbl.Name#>")]
+	[Table(Name = "[<#=tbl.Schema#>].[<#=tbl.Name#>]")]
+    public class <#=tbl.Name#> <#=objectToInheritFrom#>
+    {                          
+		<#if(!isExtension){#> 
+        public <#=tbl.Name#>() 
+        {
+        
+        }      
+        
+        public string KeyName()
+        {
+            return "<#=tbl.PK.CleanName #>";
+        }
+
+        public object KeyValue()
+        {
+			<#
+			if (tbl.ClassName == tbl.PK.CleanName)
+			{
+				tbl.PK.CleanName += "X";
+			}
+			#>
+            return this.<#=tbl.PK.CleanName#>;
+        }  
+        
+        public static string GetKeyColumn()
+        {
+            return "<#=tbl.PK.CleanName #>";
+        }         
+		<#}/*For the extension logic.*/#>
+	<#
+    foreach(Column col in tbl.Columns.Distinct())
+    {
+		if(baseTableToCompare!=null)
+			if(baseTableToCompare.Columns.Any(x=>x.CleanName==col.CleanName))
+				continue;
+
+		if (tbl.ClassName == col.CleanName)
+			col.CleanName += "X"; 
+
+		//If we are creating an extension class we skip the creation of the subsonic primary key attirbute and property.
+		if(col.CleanName==tbl.PK.CleanName && isExtension)
+			continue;
+			    
+		if(col.CleanName==tbl.PK.CleanName){#>                
+		[SubSonicPrimaryKey]<#}#>        
+        public <#=col.SysType #><#=CheckNullable(col)#> <#=col.CleanName #> {get; set;}
+  <#}#>       
+    } 
+<#}#>
+}

@@ -1,0 +1,64 @@
+﻿.edfi-slider
+{
+    height: 13px;
+    width: 600px;
+}
+
+.edfi-slider-left-arrow,
+.edfi-slider-right-arrow
+{
+    width: 16px;
+    cursor: pointer;    
+}
+
+.edfi-slider
+{
+    height: 13px;
+    width: 100%;
+}
+
+.edfi-slider-bar
+{
+    height: 13px;
+    width: 100px;
+    position: relative;
+}
+
+.edfi-slider-bar-left,
+.edfi-slider-bar-right
+{
+    vertical-align: middle;
+    text-align: left;
+    background-image: url('img/Slider/SliderBackground.png');
+}
+
+.edfi-slider-bar-center
+{
+    width: 12px;
+    vertical-align: middle;
+    text-align: center;
+}
+
+.edfi-slider-bar-right
+{
+    text-align:right;
+}
+
+/*edfi-slider-bar-range-selector-left*/
+.edfi-slider-bar-range-selector-left,
+.edfi-slider-bar-range-selector-right
+{
+    
+    height: 20px;
+    width: 9px;
+    background-image: url('img/Slider/RangeSelector.png');
+    cursor: w-resize;
+    border: 0;
+    position: relative;
+    left: 0;
+    -webkit-user-select: none;
+    -khtml-user-select: none;
+    -moz-user-select: none;
+    -o-user-select: none;
+    user-select: none;
+}

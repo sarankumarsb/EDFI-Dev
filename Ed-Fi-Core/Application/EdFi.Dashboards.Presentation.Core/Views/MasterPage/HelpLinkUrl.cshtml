@@ -1,0 +1,11 @@
+﻿@model System.String
+@{
+	Layout = null;
+}
+@if (!string.IsNullOrWhiteSpace(Model))
+{
+    <a href="@Model" title="View Training and Planning Materials" class="HeadLinks" target="_blank">Help</a>
+} else
+{
+    <span title="Training and Planning Materials are not available. Click on Support to submit a request." class="HeadLinksGrayOut">Help</span>
+}

@@ -1,0 +1,12 @@
+﻿@model MetricBase
+@using EdFi.Dashboards.Metric.Resources.Models
+<tr id="vMetric@(Model.MetricVariantId)">
+    <td class="MetricSubTitle" title="@Model.ToolTip" style="border: 2px solid red;" colspan="3"> <!-- Use colspan=3 because that's the with templates, 3 is the lowest number of columns we have-->
+        <span id="vName@(Model.MetricVariantId)" class="MetricTitle">Metric Id(@(Model.MetricId)-@(Model.MetricVariantType))&nbsp;-&nbsp;@Model.DisplayName</span>
+        <br />
+        <span id="vDescription@(Model.MetricVariantId)">@Model.Description</span>
+        <br/>
+        <span>Metric Type: @Model.MetricType</span>
+        <span>Domain Entity Type: @(string.IsNullOrWhiteSpace(Model.DomainEntityType) ? "DomainEntityType is required but not set." : Model.DomainEntityType)</span>
+    </td>
+</tr>

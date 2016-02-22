@@ -1,0 +1,28 @@
+﻿@using EdFi.Dashboards.Presentation.Core.Models.Shared
+@{
+    var legendItems = new List<EdFiGridLegendModel>
+        {
+            new EdFiGridLegendModel
+                {
+                    CssClass = EdFiWebFormsDashboards.Site.Common.ThemeImage("StatusLabel/RoundGood.png").Resolve(),
+                    Text = "Desarrollado (D)",
+                    Alt = "Green"
+                },
+            new EdFiGridLegendModel
+                {
+                    CssClass = EdFiWebFormsDashboards.Site.Common.ThemeImage("StatusLabel/RoundLow.png").Resolve(),
+                    Text = "Nivel esperado (NE) / Nivel de intervención (NI)",
+                    Alt = "Red"
+                }
+        };
+}
+
+@foreach (var entry in @legendItems)
+{
+    <td class="EdFiGrid-legend-table-image">
+        <img src="@entry.CssClass" alt="@entry.Alt" />
+    </td>
+    <td class="EdFiGrid-legend-table-text">
+        @entry.Text
+    </td>
+}

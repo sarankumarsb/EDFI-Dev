@@ -1,0 +1,19 @@
+﻿@using EdFi.Dashboards.Presentation.Architecture.Mvc.Extensions
+@{
+    //ViewBag.Title = "_Layout";
+	Layout = this.GetLayout("_SiteLayout");
+}
+
+@section head {
+	@RenderSection("ContentPlaceHolderHead", required: false)
+}
+
+@section ContentPlaceHolderTopMost {
+	<table border="0" cellpadding="0" cellspacing="0" style="width:754px; margin:0px auto;">
+		<tr>
+			<td style="vertical-align:top; text-align:left;">
+				@RenderSection("ContentPlaceHolder1", required: false)
+			</td>
+		</tr>
+	</table>
+}

@@ -1,0 +1,188 @@
+﻿@model EdFi.Dashboards.Presentation.Core.Models.Shared.Detail.HistoricalChartWithPeriodsModel
+         
+@{
+  string urlForWebServiceDefaultPeriod = (Model.WebServiceUrl).Resolve();
+  string urlForWebServiceSuppliedPeriod = (Model.WebServiceUrl).Resolve();
+  
+  var blueHeaderSpan = "#blueHeaderSpan" + Model.MetricVariantId + Model.ActionTitle;
+}
+
+<div class="historical-chart" id="historical-chart-@(Model.MetricVariantId)">
+    
+    <div id="dataLoading@(Model.MetricVariantId)" class="loading">
+        <span class="loading-message">Loading data...</span>
+    </div>
+
+    <br id="topSpace@(Model.MetricVariantId)" style="display:none;"/>
+						
+    <div class="display-periods">
+        <span id="tableForAvailablePeriods@(Model.MetricVariantId)">Display by:&nbsp;</span>
+    </div>
+
+    <div class="chart" aria-hidden="true">
+        <div class="school-goal" id="placeHolderForSchoolGoal@(Model.MetricVariantId)"></div>
+        <div class="chart-placeholder" id="placeHolderForChart@(Model.MetricVariantId)"></div>
+    
+        <div class="tooltip" id="chartTooltip@(Model.MetricVariantId)">
+            <div class="tooltip-value" id="tooltipValue@(Model.MetricVariantId)"></div>
+        </div>
+    
+        <div class="tooltip-indicator" id="tooltipIndicator@(Model.MetricVariantId)">
+            <div class="tooltip-indicator-value" id="tooltipIndicatorValue@(Model.MetricVariantId)"></div>
+            <div class="tooltip-indicator-pointer">---</div>
+        </div>
+    
+        <div class="overview" id="placeHolderForChartOverview@(Model.MetricVariantId)"></div>
+        
+    </div>
+    
+    <div class="slider-container doNotPrint">
+        <div class="slider" id="sliderContainer@(Model.MetricVariantId)" title="* Move the slider to the left or right to change the time period.  Click either side of the highlighted area to expand the number of time periods.">
+            <div class="left-arrow" id="sliderLeftArrow@(Model.MetricVariantId)"></div>
+            <div class="middle-area">
+                <div class="slider-bar ui-draggable" id="sliderBar@(Model.MetricVariantId)"></div>
+                <div class="slider-adjuster slider-adjuster-left" id="sliderRangeSelectorLeft@(Model.MetricVariantId)"></div>
+                <div class="slider-adjuster slider-adjuster-right" id="sliderRangeSelectorRight@(Model.MetricVariantId)"></div>
+            </div>
+            <div class="right-arrow" id="sliderRightArrow@(Model.MetricVariantId)"></div>
+        </div>
+    </div>
+    
+    <div id="chart-grid-@(Model.MetricVariantId)" class="hidden" aria-live="assertive"></div>
+
+    <span id="msgsLabel@(Model.MetricVariantId)" class="MetricNoData" style="display: none;">No data available. (Coming soon.)</span>
+    <span id="errorLoading@(Model.MetricVariantId)" class="MetricNoData" style="display: none;">Error loading data.</span>
+</div>
+
+<script id="chart-grid-template-@(Model.MetricVariantId)" type="text/html">
+    <table summary="Historical data for metric ${ChartData.ChartTitle}">
+        <thead>
+            <tr id="chart-grid-header-${metricVariantId}">
+                <th id="chart-grid-info-${metricVariantId}">Info</th>
+                <th id="chart-grid-category-${metricVariantId}">Category</th>
+                <th id="chart-grid-performance-${metricVariantId}">Performance</th>
+            </tr>
+        </thead>
+        <tbody>
+            {{each ChartData.SeriesCollection[0].Points}}
+            <tr>
+                <td headers="chart-grid-info-${metricVariantId}">${Tooltip}</td>
+                <td headers="chart-grid-category-${metricVariantId}">${Label}</td>
+                <td headers="chart-grid-performance-${metricVariantId}">${(Value*100).toFixed(1)}%</td>
+            </tr>
+            {{/each}}
+        </tbody>
+    </table>
+</script>
+
+<script type="text/javascript">
+		
+    $(function () {
+        //The chart...
+        //First get a handle on the placeholders and Dom Objects and vars needed...
+        var metricVariantId = @(Model.MetricVariantId);
+        	
+        var schoolGoalPlaceHolder = $('#placeHolderForSchoolGoal'+metricVariantId);
+        	
+        var blueHeaderSpan = '@(blueHeaderSpan)';
+
+        //Then go get data async
+        var dataToSendToService = @Html.Raw(Model.ParametersToSendToWebService);
+
+        var loadingDiv=$("#dataLoading"+metricVariantId);
+        loadingDiv.css('zIndex', 9999);
+        loadingDiv.show();
+
+        $.ajax({
+            type: "POST",
+            url: '@(urlForWebServiceDefaultPeriod)',
+            data: JSON.stringify(dataToSendToService),
+            contentType: "application/json; charset=utf-8",
+            dataType: "json",
+            success: function (jsonData) {
+                loadingDiv.hide();
+
+                //Lets see if we got data back.
+                if(hasHistoricalChartasData(jsonData)) {        
+                    setPeriodTitle(blueHeaderSpan, jsonData.DrillDownTitle);
+                    $('#tableForAvailablePeriods'+metricVariantId).after(setAvailablePeriods(metricVariantId, jsonData.AvailablePeriods));
+                    schoolGoalPlaceHolder.text(setSchoolGoal(jsonData.ChartData.StripLines));
+                    showHistoricalChartComponent(metricVariantId);
+                    plot(metricVariantId,jsonData.ChartData,null);
+                    jsonData.metricVariantId = metricVariantId;
+                    $("#chart-grid-" + metricVariantId).html($("#chart-grid-template-" + metricVariantId).tmpl(jsonData));
+                }
+                else //No data so lets hide everything.
+                {
+                    clearPeriodTitle(blueHeaderSpan);
+                    hideHistoricalChartComponent(metricVariantId);
+                    $('#msgsLabel'+metricVariantId).show();
+                }
+						
+            },
+            error: function (result) {
+                clearPeriodTitle(blueHeaderSpan);
+                loadingDiv.hide();
+                console.log("AJAX call failed: " + result.status + "\n\n " + result.statusText + "\n\n obj:"+JSON.stringify(result)); 
+                $('#errorLoading'+metricVariantId).show();
+            }
+        });
+        	
+        //HistoricalChartFunctions.js Init
+        initSlider(metricVariantId);
+            			
+    });//End of Document ready.
+        
+        
+
+    function getJsonDataForPeriod(metricVariantId, periodId) {
+        
+        var blueHeaderSpan = '@(blueHeaderSpan)';
+        //Set selected period.
+        $('#tableForAvailablePeriods'+metricVariantId+' td[class="LinkFromListActive"]').attr('class', 'LinkFromList');
+        $('#tableForAvailablePeriods'+metricVariantId+' td[data-period="' + periodId + '"]').attr('class', 'LinkFromListActive');
+            
+        var dataToSendToService = @Html.Raw(Model.ParametersToSendToWebService);
+        dataToSendToService.metricVariantId = metricVariantId;
+
+        dataToSendToService.periodId = periodId;
+
+        var loadingDiv=$("#dataLoading"+metricVariantId);
+        loadingDiv.show();
+            
+        analyticsManager.trackHistoricalChart('changePeriod', metricVariantId, { periodId: periodId });
+        $.ajax({
+            type: "POST",
+            url: '@(urlForWebServiceSuppliedPeriod)',
+            data: JSON.stringify(dataToSendToService),
+            contentType: "application/json; charset=utf-8",
+            dataType: "json",
+            success: function (jsonData) {
+                loadingDiv.hide();
+                //Lets see if we got data back.
+                if(hasHistoricalChartasData(jsonData))
+                {
+                    setPeriodTitle(blueHeaderSpan, jsonData.DrillDownTitle);
+                    plot(metricVariantId, jsonData.ChartData, null);
+                    sliderReset(metricVariantId);
+                    jsonData.metricVariantId = metricVariantId;
+                    $("#chart-grid-" + metricVariantId).html($("#chart-grid-template-" + metricVariantId).tmpl(jsonData));
+                }
+                else //No data so lets hide everything.
+                {
+                    clearPeriodTitle(blueHeaderSpan);
+                    hideHistoricalChartComponent(metricVariantId);
+                    $('#msgsLabel'+metricVariantId).text("No data available.");
+                }
+						
+            },
+            error: function (result) {
+                clearPeriodTitle(blueHeaderSpan);
+                loadingDiv.hide();
+                console.log("AJAX call failed: " + result.status + " " + result.statusText + " obj:"+JSON.stringify(result)); 
+                $('#errorLoading'+metricVariantId).show();
+            }
+        });
+            
+    }
+</script>

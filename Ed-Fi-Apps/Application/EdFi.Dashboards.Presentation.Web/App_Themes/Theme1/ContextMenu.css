@@ -1,0 +1,132 @@
+﻿.contextMenu-Button
+{
+    background-color: #E0DFDF;
+    border: 1px solid rgba(0,0,0,.2);
+    color: #444;
+    -webkit-border-radius: 2px;
+    -moz-border-radius: 2px;
+    border-radius: 2px;
+    cursor: pointer;
+    font-size: 10px;
+    font-weight: bold;
+    text-align: center;
+    height: 18px;
+    line-height: 18px;
+    width: 45px;
+    outline: 0;
+    padding: 0 8px;
+    margin: auto auto;
+}
+
+.contextMenu-Button:hover, .contextMenu-Button:active
+{
+    box-shadow: rgba(0,0,0,.1) 2px 2px 2px 0px;
+    -webkit-box-shadow: rgba(0,0,0,.1) 2px 2px 2px 0px;
+}
+
+.contextMenu-ButtonSelected,
+.contextMenu-ButtonSelected:hover,
+.contextMenu-ButtonSelected:active
+{
+    box-shadow: rgba(0,0,0,.1) 2px 2px 2px 0px inset;
+    -webkit-box-shadow: rgba(0,0,0,.1) 2px 2px 2px 0px inset;
+}
+
+.contextMenu-Button span
+{
+    color: #444;
+    font-size: 10px;
+    font-weight: bold;
+    text-align: center;
+    line-height: 18px;
+}
+
+.contextMenu-DownArrow
+{
+    opacity: .5;
+    margin-top: -2px;
+    vertical-align: middle;
+    position: relative;
+    display: inline-block;
+    height: 6px;
+    width: 7px;
+    background: url(img/MetricActions/arrow_down.png) no-repeat 0 1px;
+    vertical-align: middle;
+    font-size: 0;
+    margin-left: 3px;
+    color: #444;
+}
+
+.contextMenu-DropDown
+{
+    border: 1px solid #939598;
+    box-shadow: rgba(0,0,0,.1) 0px 1px 2px 0px inset;
+    -webkit-box-shadow: rgba(0,0,0,.1) 0px 1px 2px 0px inset;
+    font-family: Arial;
+    font-size: 8pt;
+    color: #444;
+    background-color: White;
+    position: absolute;
+    padding-top: 6px;
+    padding-bottom: 6px;
+    z-index: 3;
+}
+
+.contextMenu-DropDown div
+{
+    cursor: pointer;
+    padding: 4px 8px 4px 30px;
+    text-align: left;
+    background-color: White;
+}
+
+.contextMenu-DropDown div:hover, .contextMenu-DropDown div:active
+{
+    color: #ffffff;
+    background-color: #265a7f;
+}
+
+.contextMenu-BarChart {
+    background: url(img/MetricActions/BarChart.png) no-repeat 4px 2px;
+}
+
+.contextMenu-BarChart:hover,
+.contextMenu-BarChart:active {
+    background: url(img/MetricActions/BarChartInverse.png) no-repeat 4px 2px;
+}
+
+.contextMenu-Calendar {
+    background: url(img/MetricActions/Calendar.png) no-repeat 4px 2px;
+}
+
+.contextMenu-Calendar:hover,
+.contextMenu-Calendar:active {
+    background: url(img/MetricActions/CalendarInverse.png) no-repeat 4px 2px;
+}
+
+.contextMenu-HistoricalChart {
+    background: url(img/MetricActions/HistoricalChart.png) no-repeat 4px 2px;
+}
+
+.contextMenu-HistoricalChart:hover,
+.contextMenu-HistoricalChart:active {
+    background: url(img/MetricActions/HistoricalChartInverse.png) no-repeat 4px 2px;
+}
+
+.contextMenu-MultiTable {
+    background: url(img/MetricActions/MultiTable.png) no-repeat 4px 2px;
+}
+
+.contextMenu-MultiTable:hover,
+.contextMenu-MultiTable:active {
+    background: url(img/MetricActions/MultiTableInverse.png) no-repeat 4px 2px;
+}
+
+.contextMenu-Table {
+    background: url(img/MetricActions/Table.png) no-repeat 4px 2px;
+}
+
+.contextMenu-Table:hover,
+.contextMenu-Table:active {
+    background: url(img/MetricActions/TableInverse.png) no-repeat 4px 2px;
+}

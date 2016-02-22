@@ -1,0 +1,5 @@
+﻿@model MetricBase
+@if ((ViewData.ContainsKey("ShowUnderConstruction") && (bool)ViewData["ShowUnderConstruction"]) || Model.IsUnderConstruction)
+{ 
+    <img class="under-construction" src="@EdFiDashboardsSite.Common.ThemeImage("UnderConstructionLongIcon.png").Resolve()" alt="This feature is in development and will be enhanced in the future."/>
+}

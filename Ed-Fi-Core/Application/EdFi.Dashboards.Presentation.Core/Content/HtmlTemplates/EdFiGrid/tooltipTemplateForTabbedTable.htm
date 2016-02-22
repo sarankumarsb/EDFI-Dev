@@ -1,0 +1,11 @@
+﻿{{each(key,dataItem) $data}}
+    {{if ( key=="Columns")}}
+        {{if headerHasChildren(dataItem[0]) }}
+            {{each(i,cellData) dataItem}}	
+                {{each(j,childCellData) cellData.Children}}
+                    {{tmpl(childCellData, {group:i, index:j, identifier:$item.identifier}) getTemplateForSingleTabedHeaderTooltip(i, childCellData)}}
+                {{/each}}
+            {{/each}}
+        {{/if}}
+    {{/if}}
+{{/each}}

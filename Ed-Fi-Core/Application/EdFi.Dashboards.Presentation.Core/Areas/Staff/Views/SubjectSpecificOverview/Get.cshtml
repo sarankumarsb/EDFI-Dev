@@ -1,0 +1,73 @@
+﻿@using EdFi.Dashboards.Common
+@using EdFi.Dashboards.Common.Utilities
+@using EdFi.Dashboards.Core.Providers.Context
+@using EdFi.Dashboards.Presentation.Core.Areas.Staff.Controllers
+@using EdFi.Dashboards.Presentation.Core.Models.Shared
+@using EdFi.Dashboards.Presentation.Core.Providers.Models
+@using EdFi.Dashboards.Presentation.Web.Utilities
+@using EdFi.Dashboards.Resources.Navigation.Mvc
+
+@model EdFi.Dashboards.Presentation.Core.Areas.Staff.Models.Shared.StaffStudentListModel
+
+@{
+  var localEducationAgencyId = EdFiDashboardContext.Current.LocalEducationAgencyId.GetValueOrDefault();
+  var schoolId = EdFiDashboardContext.Current.SchoolId.GetValueOrDefault();
+  var staffUSI = EdFiDashboardContext.Current.StaffUSI.GetValueOrDefault();
+}
+@section ContentPlaceHolderHead {
+    <title>@(Html.Action("Title", typeof(StaffLayoutController).GetControllerName(), new { subTitle = "Subject Overview" }))</title>
+    <script type="text/javascript">
+        var pageArea = { Area: 'classroom', Page: 'Subject Overview' };
+    </script>
+}
+
+@section ContentPlaceHolder1 {
+   @{
+       var edFiGridModelProvider = IoC.Resolve<IEdFiGridModelProvider>();
+
+       var edfiGridModel = edFiGridModelProvider.GetEdFiGridModel(true, true, 0, "SubjectOverview", null,
+           Model.GridTable, null, Model.GetDefaultNonPersistedSettings("SubjectOverviewEdFiGrid"),
+           true, "StudentList", Model.LegendViewNames, null, false, null, true);
+
+       Html.RenderPartial("EdFiGrid", model: edfiGridModel);
+
+       if (Model.IsCurrentUserListOwner)
+       {
+           var customStudentListModel = new CustomStudentListModel
+           {
+               ControlId = "SubjectOverview",
+               IsCustomStudentList = Model.IsCustomStudentList,
+               LinkParentIdentifier = "#SubjectOverview-EdFiGrid-interaction-custom",
+               CheckboxParentIentifier = "#SubjectOverview-EdFiGrid-fixed-data-table",
+               SelectAllCheckboxParentIentifier = "#SubjectOverview-EdFiGrid-fixed-header-table",
+               CustomStudentListId = Model.IsCustomStudentList ? Model.ListId : (long?)null,
+               LocalEducationAgencyId = localEducationAgencyId,
+               SchoolId = schoolId,
+               StaffUSI = staffUSI,
+               CustomStudentListUrl = EdFiDashboards.Site.Staff.CustomStudentList(schoolId, staffUSI, null, new { format = "json" })
+           };
+
+           Html.RenderPartial("CustomStudentList", model: customStudentListModel);
+       }
+       
+    }  
+
+    @if (Model.IsCurrentUserListOwner)
+    {
+        <script>
+            $('#SubjectOverview-EdFiGrid').bind('afterDrawEvent', function(e, table) {
+                SubjectOverviewCustomStudentList.redrawCheckboxes();
+            });
+        </script>
+    }
+    
+    <script type="text/javascript">
+        $('#SubjectOverview-EdFiGrid').bind('afterMaximizeEvent', function (e, table) {
+            $('#SubjectOverview-EdFiGrid-interaction-custom2').append($('#StaffSlidingSubmenu'));
+        });
+
+        $('#SubjectOverview-EdFiGrid').bind('afterRestoreDownEvent', function (e, table) {
+            $('#StaffSlidingMenuHome').append($('#StaffSlidingSubmenu'));
+        });
+    </script>
+}

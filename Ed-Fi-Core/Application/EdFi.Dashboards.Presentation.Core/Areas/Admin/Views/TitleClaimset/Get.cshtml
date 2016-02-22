@@ -1,0 +1,153 @@
+﻿@model EdFi.Dashboards.Application.Resources.Models.Admin.TitleClaimSetModel
+
+@using System.Web.Mvc.Html
+@using EdFi.Dashboards.Common
+@using EdFi.Dashboards.Presentation.Architecture.Mvc.Extensions
+@using EdFi.Dashboards.Presentation.Core.Areas.Admin.Controllers
+@using EdFi.Dashboards.Core.Providers.Context
+@using EdFi.Dashboards.Resources.Navigation
+@using EdFi.Dashboards.Resources.Navigation.Mvc
+@using System.Web.Script.Serialization
+
+@{
+    var jss = new JavaScriptSerializer { MaxJsonLength = 50000000 };
+    var jsonData = jss.Serialize(Model);
+}
+
+@section ContentPlaceHolderHead {
+    <title>@(Html.Action("Title", typeof(AdminLayoutController).GetControllerName(), new { subTitle = "Admin" }))</title>
+}
+
+@section ContentPlaceHolder1 {
+
+    <div class="inline-radios">
+        @Html.RadioButton("PositionTitleEditType", "SingleEdit", new { id="SingleEditRadioButton", onclick = "$('#batchEditDiv').hide(); $('#singleEditDiv').show(); $('#messageDiv').hide();" })<label for="SingleEditRadioButton">Single Edit</label>
+        @Html.RadioButton("PositionTitleEditType", "BatchEdit", new { id = "BatchEditRadioButton", onclick = "$('#singleEditDiv').hide(); $('#batchEditDiv').show(); $('#messageDiv').hide();" })<label for="BatchEditRadioButton">Batch Edit</label>
+    </div>
+
+    @if (Model.IsPost && Model.Messages.Count() > 0)
+    {
+        var bgColor = Model.IsSuccess ? "#00FF00" : "#FF0000";
+
+        <div id="messageDiv" style="padding-top:20px;">
+            <div style="background-color:@bgColor">
+                <ul>
+                    @foreach(var message in Model.Messages)
+                    {
+                        <li>@message</li>
+                    }
+                </ul>
+            </div>
+        </div>
+    }
+    
+    <div id="singleEditDiv" style="display:none; padding-top:20px">
+        @using (Html.BeginForm("EditSingleClaimSet", "TitleClaimSet", FormMethod.Post))
+        {
+            <table id="titleClaimSet">
+                <tr>
+                    <td><label for="PositionTitle">Position Title</label></td>
+                    <td>@Html.DropDownListFor(m => m.PositionTitle, new SelectList(Model.EdOrgPositionTitles, "key", "value", Model.PositionTitle), "-- Select a Position Title --", new Dictionary<string, object> { { "onchange", "PositionTitleChanged();" } })</td>
+                </tr>
+                <tr class="details" style="display:none">
+                    <td><label for="ClaimSet">Claim Set</label></td>
+                    <td>@Html.DropDownListFor(m => m.ClaimSet, new SelectList(Model.PossibleClaimSets, "key", "value", Model.ClaimSet), "-- Select a ClaimSet --", new Dictionary<string, object> { { "onchange", "ClaimSetChanged();" } })</td>
+                </tr>
+                <tr id="buttonRow" class="details" style="display:none">
+                    <td>
+                        <input id="saveButton" name="saveButton" type="image" title="Save" src="@EdFiWebFormsDashboards.Site.Common.ThemeImage("SaveButton.png").Resolve()" />
+                    </td>
+                </tr>
+            </table>
+            
+            @Html.HiddenFor(m => m.LocalEducationAgencyId);
+        }
+    </div>
+
+    <div id="batchEditDiv" style="display:none; padding-top:20px;">
+        @using (Html.BeginForm("EditBatchClaimSet", "TitleClaimSet", FormMethod.Post, new { enctype = "multipart/form-data" }))
+        {
+            @*<label>Filename:</label>
+            <input type="file" name="file" id="file" accept="text/csv" />
+            <input type="submit" value="Submit File" />*@
+            
+            <div style="position:relative;">
+                <input type="file" title="Choose a file to upload" onchange="SetFileNameFromPath(this.value);" name="file" style="position: relative; text-align: right; -moz-opacity:0; filter:alpha(opacity: 0); *filter:alpha(opacity: 0); _filter:alpha(opacity: 0); opacity: 0; z-index: 2; width:200px;" />
+                <div style="position: absolute; top: 0px; left: 0px; z-index: 1;" aria-hidden="true">
+                    <input type="text" id="filename" name="filename" style="width:150px;" title="Display name of selected file" />
+                    <input type="submit" onclick="return false;" value="Browse" title="Browse files" />
+                </div>
+                <input type="submit" style="margin-left:30px" value="Submit File" title="Submit File" />
+            </div>
+            
+            <br />
+            <br />
+            
+            <label style="font-size:10pt; color:Blue; cursor:pointer; padding:10px;" onclick="ExportPositionTitleTemplates();">User Roles Template</label>
+        }
+    </div>
+
+    
+
+    <script type="text/javascript">
+        var data = @(Html.Raw(jsonData));
+
+        $(document).ready(function () {
+            PositionTitleChanged();
+
+            if (data.CurrentOperation == "EditSingleClaimSet")
+            {
+                $("#SingleEditRadioButton").prop("checked", true);
+                $("#singleEditDiv").show();
+                $("#batchEditDiv").hide();
+            }
+            else
+            {
+                $("#BatchEditRadioButton").prop("checked", true);
+                $("#singleEditDiv").hide();
+                $("#batchEditDiv").show();
+            }
+        });
+
+        function PositionTitleChanged() {
+            if ($("#PositionTitle").val() == "") {
+                $(".details").hide();
+            }
+            else {
+                $(".details").show();
+
+                var positionTitle = $("#PositionTitle").val();
+                var claimSetVal = data.ClaimSetMaps[positionTitle];
+
+                if (claimSetVal == null) {
+                    $("#ClaimSet").val("");
+                    $("#buttonRow").hide();
+                } else {
+                    $("#ClaimSet").val(claimSetVal);
+                    $("#buttonRow").show();
+                }
+            }
+        }
+
+        function ClaimSetChanged()
+        {
+            if ($("#ClaimSet").val() == "") {
+                $("#buttonRow").hide();
+            }
+            else
+            {
+                $("#buttonRow").show();
+            }
+        }
+
+        function ExportPositionTitleTemplates()
+        {
+            window.location = '@(new HtmlString(EdFiDashboards.Site.Admin.ExportTitleClaimSet(Model.LocalEducationAgencyId, new { format = "csv" })))';
+        }
+
+        function SetFileNameFromPath(path)
+        {
+            $("#filename").val(path.substr(path.lastIndexOf('\\') + 1));
+        }
+    </script>
+}

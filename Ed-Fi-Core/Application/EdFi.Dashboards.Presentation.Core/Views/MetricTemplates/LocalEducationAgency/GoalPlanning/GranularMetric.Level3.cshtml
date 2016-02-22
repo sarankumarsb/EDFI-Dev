@@ -1,0 +1,44 @@
+﻿@model IGranularMetric
+<tr id="vMetric@(Model.MetricVariantId)">
+    <td title="@Model.ToolTip" headers="MetricName@(this.GetMetricRenderingContextValue("ParentContainerMetricId"))">
+        <p class="arrow">
+            <i class="icon-blank"></i>
+            <span id="vMetricVariantId@(Model.MetricVariantId)" class="metricId">@(Model.MetricId)-@(Model.MetricVariantType)</span>
+            <span id="vName@(Model.MetricVariantId)">@(Model.DisplayName)</span>
+            @if (!String.IsNullOrWhiteSpace(Model.Context))
+            {
+                <span id="vContext@(Model.MetricVariantId)">(@Model.Context)</span>
+            }
+            <span class="under-construction">@Html.Partial("UnderConstruction", (MetricBase)Model)</span>
+        </p>
+    </td>
+    <td headers="MetricValue@(this.GetMetricRenderingContextValue("ParentContainerMetricId"))">
+        <span id="vStatus@(Model.MetricVariantId)">
+            @Html.Partial("StatusLabel", Model.State)
+        </span>
+    </td>
+    <td headers="MetricGoal@(this.GetMetricRenderingContextValue("ParentContainerMetricId"))">
+        <span id="vGoal@(Model.MetricVariantId)">
+            @Model.Values["DisplayGoal"]
+        </span>
+    </td>
+    <td headers="MetricDifferenceFromGoal@(this.GetMetricRenderingContextValue("ParentContainerMetricId"))">
+        <span id="vDifference@(Model.MetricVariantId)" class="@(Legacy.DifferenceFromGoalClass(Model.Values["GoalDifference"]))">
+            @Model.Values["DisplayGoalDifference"]
+        </span>
+    </td>
+    <td headers="MetricNewGoal@(this.GetMetricRenderingContextValue("ParentContainerMetricId"))">
+        <input required aria-required="true" id="newGoal@(Model.MetricVariantId)" class="newGoal" type="text" value="@Model.Goal.Value" data-metricId="@Model.MetricId" data-currentGoal="@Model.Goal.Value" title="Set New Goal For @(Model.Parent.Name) @(Model.DisplayName)"/>
+    </td>
+    <td headers="DropDown@(this.GetMetricRenderingContextValue("ParentContainerMetricId"))">
+        @Html.Partial("ContextMenu", (MetricBase)Model)
+        <script>
+            $('input[title="Set New Goal For @(Model.Parent.Name) @(Model.DisplayName)"]').keyup(function (event) {
+                if (event.keyCode == 13) {
+                    goals.publishEdOrgGoals();
+                }
+            });
+        </script>
+    </td>
+</tr>
+

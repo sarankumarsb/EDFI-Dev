@@ -1,0 +1,1364 @@
+﻿@import "shared";
+
+.l-area-layout-maximized
+{
+	position: absolute;
+	background: #fff;
+	top: 0;
+	left: 0;
+	right: 0;
+	bottom: 0;
+}
+
+// reenstated Ed-Fi grid styles - begin
+
+.EdFiGrid-no-data,
+.EdFiGrid-loading {
+    font-size:9pt;    
+    font-weight:bold;
+    color:#255b80;
+    padding: 10px 0px 10px 10px;
+}
+
+.EdFiGrid-processing     
+{
+    position: absolute;
+    font-size:20pt;    
+    font-weight:bold;
+    color:#255b80;
+    z-index: 501;
+	
+	div 
+	{
+		left: 50%;
+		top: 50%;
+		position: absolute;
+	}
+}
+
+.EdFiGrid-processing-background { 
+    position: absolute;
+    background: url("jQueryLightness/images/ui-bg_diagonals-thick_20_666666_40x40.png") repeat scroll 50% 50% #666666;
+    opacity: 0.5;
+    z-index: 500;
+    filter: alpha(opacity=50);
+}
+
+.EdFiGrid
+{
+    font-size: 8pt;
+    position: relative;
+
+	table {
+		padding-top: 0;
+		margin-top: 0;
+		border-bottom: none;
+		width: 0;
+
+		.EdFiGrid-value-left {
+			margin:0;
+		}
+
+		.EdFiGrid-value-center {
+			text-align: center;
+		}
+
+		.EdFiGrid-value {
+			position:relative;
+			white-space: normal;
+
+			.EdFiGrid-value-bullet{
+				position:absolute;
+				top:5px;
+				left:5px;
+			}
+
+			.icon-caret-down {
+				bottom: 1px;
+			}
+
+			.icon-up-dir {
+				bottom: 3px;
+			}
+
+			.EdFiGrid-value-text{
+				padding-left: 15px;
+			}
+
+			.EdFiGrid-value-trend,
+			.EdFiGrid-value-indicator,
+			.EdFiGrid-profile-image {
+				display:inline-block;
+				position:relative;
+				img {
+					vertical-align: middle;
+				}
+			}
+
+			[class^="icon-"],
+			[class*=" icon-"] {
+				display: inline-block;
+			}
+
+			.EdFiGrid-value-trend {
+				width: 0;
+				[class^="icon-"],
+				[class*=" icon-"] {
+					font-size: 2em;
+					position: absolute;
+					bottom: 3px;
+					line-height: 0px;
+				}
+
+				[class^="icon-"]:before,
+				[class*=" icon-"]:before {
+					width: 0;
+					line-height: 0;
+				}
+
+				.icon-no-change {
+					top: -10px;
+					left: 3px;
+				}
+
+				.icon-down-dir{
+					top: -3px;
+				}
+			}
+			.RoundStateVeryGood,
+			.RoundStateGood,
+			.RoundStateLow,
+			.RoundStateNone
+			{
+				margin:0px auto;
+				width:16px;
+				height:16px;
+			}
+
+			.RoundStateVeryGood
+			{
+				background-image:url('../Images/StatusLabel/RoundVeryGood.png');    
+			}
+
+			.RoundStateGood
+			{
+				background-image:url('../Images/StatusLabel/RoundGood.png');
+			}
+
+			.RoundStateLow
+			{
+				background-image:url('../Images/StatusLabel/RoundLow.png');
+			}
+		}
+
+		.EdFiGrid-value-table {
+			display: table;
+			border-collapse: collapse;
+			width: 100%;
+
+			.EdFiGrid-value-table-row {
+				display: table-row;
+
+				.EdFiGrid-value-table-cell {
+					display: table-cell;
+					vertical-align: middle;
+				}
+
+				.CustomStudentList-select {
+					padding-right: 11px;
+					width: 14px;
+				}
+
+				.dbId {
+					display: none;
+				}
+			}
+		}
+	}
+
+	.EdFiGrid-header-topper
+	{
+		td {
+			padding-bottom: 0;
+			padding-top: 5px;
+		}
+
+		.EdFiGrid-header-cell
+		{
+			position: relative;
+			height:100%;
+			width:100%;
+			text-align: center;
+
+			-webkit-border-top-left-radius: 8px;
+			-webkit-border-top-right-radius: 8px;
+			-moz-border-radius-topleft: 8px;
+			-moz-border-radius-topright: 8px;
+			border-top-left-radius: 8px;
+			border-top-right-radius: 8px;
+
+			-webkit-background-clip: padding-box;
+			background-clip: padding-box;
+			font-size: 8pt;
+			font-weight: bold;
+			text-align: center;
+			text-transform: uppercase;
+		}
+
+		.EdFiGrid-header-cell-yellow {
+			background: #957013;
+		}
+
+		.EdFiGrid-header-cell-red {
+			background: #972812;
+		}
+
+		.EdFiGrid-header-cell-orange {
+			background: #433B0F;
+		}
+
+		.EdFiGrid-header-cell-text {
+			position: absolute;
+			top: 50%;
+			margin-top: -17px;
+			left: 10px;
+			right: 10px;
+			display: block;
+			text-overflow: ellipsis;
+			overflow: hidden;
+		}
+	}
+
+	.EdFiGrid-footer-table { 
+		border: 1px gray solid;
+		width: 100%;
+
+		tr {
+			background-color: gray;
+			color: white;
+		}
+
+		a {
+			cursor: pointer;
+		}
+	}
+
+	.EdFiGrid-legend {
+		width: 100%;
+		background-color: #E0DFDF;
+		padding-top: 3px;
+
+		.EdFiGrid-legend-table {
+			padding: 2px 10px;
+			text-align: left;
+			vertical-align: middle;
+			color: #333333;
+			font-size: 7pt;
+			font-weight: bolder;
+			width: 100%;
+
+			.EdFiGrid-legend-table-text {
+				padding-right: 10px;
+			}
+
+			.EdFiGrid-legend-table-image {
+				width: 24px;
+
+				[class^="icon-"] {
+					margin: 3px;
+				}
+			}
+		}
+	}
+	
+	.EdFiGrid-interaction {
+		text-align: left;    
+	}
+
+	.EdFiGrid-interaction-standard,
+	.EdFiGrid-interaction-custom,
+	.EdFiGrid-interaction-custom2 {
+		display: inline-block;
+		color: #255B80;
+		font-weight: bold;
+		text-align: left;
+		cursor: pointer;
+		vertical-align: top;
+		zoom: 1;
+		margin: 5px;
+	}
+
+	.EdFiGrid-interaction-columns,
+	.EdFiGrid-interaction-size-grid,
+	.EdFiGrid-interaction-student-watchlist {
+		display: inline-block;
+		vertical-align: top;
+		zoom: 1;
+	}
+
+	.EdFiGrid-interaction-open-menu-button {
+		float:left;
+		position: absolute;
+		width:100px;
+		height:18px;
+		color: white;
+		padding-left: 20px;
+		padding-top: 2px;
+		background-image: url('../Images/GridSlidingMenuOpenButton.png');
+		background-repeat: no-repeat;
+		z-index: 1000;
+		cursor:pointer;
+		left: 0;
+		top: 0;
+	}
+
+	.EdFiGrid-interaction-open-submit-button {
+		float:left;
+		position: absolute;
+		width:150px;
+		height:18px;
+		color: white;
+		padding-left: 13px;
+		padding-top: 2px;
+		background-image: url('../Images/GridSlidingMenuOpenButton.png');
+		background-repeat: no-repeat;
+		z-index: 1000;
+		cursor:pointer;
+		left: 130px;
+		top: 0;
+	}
+
+	.EdFiGrid-interaction-menu {
+		display:none;
+		float:left;
+		position:fixed;
+		padding-left: 18px;
+		z-index: 1001;
+		color: white;
+		background-image: url('../Images/GridSlidingMenuCloseButton.png');
+		background-color: #255B80;
+		background-repeat: no-repeat;
+		position: absolute;
+		left: 0;
+		top: 0;
+	}
+
+	.EdFiGrid-interaction-submenu {
+		background-color: #B7B4B3;
+		border:5px solid #255B80;
+	}
+	.EdFiGrid-interaction-menu-button
+	{
+		display:inline-block;
+		cursor:pointer;
+		color:#ffffff;
+		font-size:7pt;
+		font-weight:bold;
+		text-align:left;
+		vertical-align:top;
+		text-decoration: none;
+		background-repeat:no-repeat;
+		background-position:top left;
+		padding: 5px 10px 5px 20px;
+		margin-right: 10px;
+	}
+
+	.EdFiGrid-change-columns
+	{
+		background-image:url('../Images/ButtonChangeColumns.png');
+		padding-right: 15px;
+	}
+
+	.EdFiGrid-save-columns
+	{
+		background-image:url('../Images/ButtonSaveColumns.png');
+	}
+
+	.EdFiGrid-reset-columns
+	{
+		background-image:url('../Images/ButtonResetColumns.png');
+	}
+
+	.EdFiGrid-cancel-columns
+	{
+		background-image:url('../Images/ButtonCancelColumns.png');
+		padding-left: 5px;  
+	}
+
+	.EdFiGrid-maximize-grid
+	{
+		background-image:url('../Images/ButtonMaximizeGrid.png');
+		padding-left: 23px;
+	}
+
+	.EdFiGrid-restore-grid
+	{
+		background-image:url('../Images/ButtonRestoreGrid.png');
+		padding-left: 25px;
+	}
+
+	.EdFiGrid-filter-grid
+	{
+		background-image:url('../Images/ButtonStudentListCreate.png');
+		padding-right: 15px;
+	}
+
+	.CustomStudentList-button {
+		display: inline-block;
+		cursor: pointer;
+		color: #fff;
+		font-size: 7pt;
+		font-weight: bold;
+		text-align: left;
+		vertical-align: top;
+		text-decoration: none;
+		background-repeat: no-repeat;
+		background-position: top left;
+		padding: 5px 10px 5px 10px;
+		margin-right: 10px;
+	}
+
+	.CustomStudentList-ButtonDiv 
+	{
+		display: inline-block;
+		zoom: 1;
+		*display: inline;
+	}
+
+	.CustomStudentList-StartLink
+	{
+		background-image:url('../Images/ButtonStudentListCreate.png');
+		background-repeat: no-repeat;
+		padding: 5px 20px 5px 24px;
+	}
+
+	.CustomStudentList-select{
+		margin-right: 6px;
+	}
+
+	.CustomStudentList-FinishLink,
+	.CustomStudentList-CloneLink
+	{
+		background-image:url('../Images/ButtonStudentListFinish.png');
+		background-repeat: no-repeat;
+		padding: 5px 20px 5px 24px;
+	}
+
+	.CustomStudentList-CancelLink
+	{
+		background-image:url('../Images/ButtonCancelColumns.png');
+		background-repeat: no-repeat;
+		padding-left: 5px;  
+	}
+
+
+
+	.buttonExportAll
+	{
+		width: 75px;
+		background-image:url('../Images/ButtonExportAll.png');
+		padding-left:22px;
+	}
+}
+
+/* IE fix for icon positioning */
+.ie .EdFiGrid table .EdFiGrid-value {
+	[class^="icon-"],
+	[class*=" icon-"] {
+		bottom: -3px;
+	} 
+}
+
+
+/* Custom Student List */
+
+div.CustomStudentList-CreateDialog {
+	padding: 5px;
+	font-family: Arial;
+	color: #255B80;
+
+	div {
+		display: inline-block;
+		zoom: 1;
+		*display: inline;
+	}
+
+	.NestedControl {
+		margin-left: 23px;
+		width: 275px;
+	}
+
+	select.NestedControl {
+		width: 279px !important;
+	}
+}
+
+div.CustomStudentList-CreateDialog-StudentList {
+	display: inline-block;
+	height:227px; 
+	overflow-y: auto;
+	float: right;
+	width:200px;
+	border: gray solid 1px;
+	zoom: 1;
+	*display: inline;
+}
+
+div.CustomStudentList-CreateDialog-StudentList,
+div.CustomStudentList-RemoveDialog-StudentList
+{
+	table {
+		border-collapse: collapse;
+		width: 100%;
+
+		tbody {
+			width: 100%;
+		}
+
+		tr.alternatingRow {
+			background-color: #e0dfdf;
+		}
+	}
+}
+
+
+div.CustomStudentList-RemoveDialog {
+	padding: 5px;
+	font-family: Arial;
+	color: #255B80;
+}
+div.CustomStudentList-RemoveDialog-Label {
+	margin:10px 0 5px 0;
+}
+div.CustomStudentList-RemoveDialog-StudentList {
+	display: inline-block;
+	height:200px; 
+	overflow-y: auto;
+	float: right;
+	width:100%;
+	border: gray solid 1px;
+	zoom: 1;
+	*display: inline;
+}
+
+input.CustomStudentList-Rename-Input {
+	width: 275px;
+}
+
+/* End Custom Student List */
+
+.EdFiGrid-reset-columns {
+    padding-left: 20px;
+}
+
+.EdFiGrid-grid-container
+{
+    overflow: hidden;
+    position: relative;
+    z-index: 0;
+}
+
+.EdFiGrid-grid-table-container 
+{
+    height: auto;
+    width: auto;
+}
+
+.EdFiGrid-fixed-top {
+    overflow: visible;
+    position: relative;
+    z-index: 4;
+}
+
+.EdFiGrid-fixed {
+    overflow: hidden;
+}
+
+.EdFiGrid-fixed-header,
+.EdFiGrid-scroll-header,
+.EdFiGrid-fixed-data,
+.EdFiGrid-scroll-data {
+    display: inline-block;
+    position: relative;
+    vertical-align: top;
+    overflow: hidden;
+    zoom: 1;
+    *display: inline;
+
+	.EdFiGrid-fixed-header-table,
+	.EdFiGrid-scroll-header-table,
+	.EdFiGrid-fixed-data-table,
+	.EdFiGrid-scroll-data-table
+	 {
+		table-layout: fixed;
+		border-collapse: separate;
+		border-spacing: 0;
+		border-style: none;
+		width: 0px;
+	}
+
+	.EdFiGrid-fixed-header-table,
+	.EdFiGrid-scroll-header-table
+	{
+		tbody tr{
+			color: #fff;
+
+			td.fixedHeaderCell,
+			td.mcHeadGrayBG,
+			td.mcHeadGrayDividerBG,
+			td.mcHeadGrayRoundCornerBG
+			 {
+				font-size: 8pt;
+				font-weight: bold;
+				text-align: center;
+				text-transform: uppercase;
+				background-image: none;
+				$header-highlight: rgb(130, 130, 130);
+				$header-flat: rgb(115, 115, 115);
+				$header-shadow: rgb(99, 99, 99);
+				@include bullnose($header-shadow, $header-flat, $header-highlight);
+				//border-bottom: 2px solid black;
+			}
+			td:first-child{ 
+				text-align:center;
+			}
+		}
+	}
+}
+
+.EdFiGrid-scroll-bottom {
+    overflow: hidden;
+    position: relative;
+    z-index: 3;
+}
+
+.EdFiGrid-shim-bottom {
+    width: 100%;
+    border-top: 1px solid #CCCCCC;
+    height: 16px;
+    background-color: #F8F8F8;
+}
+
+.EdFiGrid-shim-bottom-placeholder {
+    width: 100%;
+    height: 17px;
+}
+
+.column-freezebar-extension {
+    background-color: #DADFE8;
+    border-left: 1px solid #CCCCCC;
+    border-right: 1px solid #DBDBDB;
+    height: 100%;
+    position: relative;
+}
+
+.EdFiGrid-shim-right {
+    width: 16px;
+    border-left: 1px solid #CCCCCC;
+    background: none repeat scroll 0 0 #F8F8F8;
+    height: 100%;
+    position: absolute;
+    right: 0;
+    top: 0;
+}
+
+.row-freezebar-extension {
+    background-color: #DADFE8;
+    border-bottom: 1px solid #DBDBDB;
+    border-top: 1px solid #CCCCCC;
+    position: relative;    
+}
+
+.EdFiGrid-scrollable {
+}
+
+.EdFiGrid-horizontal-scroll {
+    overflow: hidden;
+    position: relative;
+}
+
+.EdFiGrid-scroll 
+{
+    border-width: 0;
+    left: 0;
+    margin: 0;
+    overflow: auto;
+    padding: 0;
+    position: absolute;
+    top: 0;
+    z-index: 1;
+}
+
+.EdFiGrid-footer {
+    width: 100%;
+}
+
+
+
+.EdFiGrid-footnotes {
+    text-align: left;
+}
+
+.EdFiGrid-fixed-header-table,
+.EdFiGrid-scroll-header-table,
+.EdFiGrid-fixed-data-table,
+.EdFiGrid-scroll-data-table
+{
+	a {
+		font-size: 8pt;
+		color: #255B80;
+		font-weight: bold;
+		text-align: left;
+		text-decoration: underline;
+	}
+}
+
+.EdFiGrid-fixed-header-table,
+.EdFiGrid-scroll-header-table,
+.EdFiGrid-footer-table,
+{
+	a:link,
+	a:visited {
+		color: #fff;
+		text-decoration: none;
+	}
+}
+
+.EdFiGrid-fixed-header-table .hiddenCol,
+.EdFiGrid-scroll-header-table .hiddenCol,
+.EdFiGrid-fixed-data-table .hiddenCol,
+.EdFiGrid-scroll-data-table .hiddenCol,
+.EdFiGrid-fixed-header-table .hiddenRow,
+.EdFiGrid-scroll-header-table .hiddenRow,
+.EdFiGrid-fixed-data-table .hiddenRow,
+.EdFiGrid-scroll-data-table .hiddenRow
+{
+    display: none;
+}
+
+.EdFiGrid-fixed-header-table > tbody > tr,
+.EdFiGrid-fixed-header-table > tbody > tr > td,
+.EdFiGrid-scroll-header-table > tbody > tr,
+.EdFiGrid-scroll-header-table > tbody > tr > td,
+.EdFiGrid-fixed-data-table > tbody > tr,
+.EdFiGrid-fixed-data-table > tbody > tr > td,
+.EdFiGrid-scroll-data-table > tbody > tr,
+.EdFiGrid-scroll-data-table > tbody > tr > td
+{
+    height: 45px;
+    text-align: center;
+    border: none;
+}
+
+.EdFiGrid-fixed-data-table .alternatingRow,
+.EdFiGrid-scroll-data-table .alternatingRow
+{
+    background-color: #e0dfdf;
+}
+
+.EdFiGrid-fixed-data-table .selectedRow,
+.EdFiGrid-scroll-data-table .selectedRow
+{
+    background-color: #d6ac4b !important;
+}
+
+.EdFiGrid-fixed-data-table .hoverRow,
+.EdFiGrid-scroll-data-table .hoverRow
+{
+    background-color: LightBlue;
+}
+
+.EdFiGrid-fixed-header-table td.fixedHeaderCell,
+.EdFiGrid-scroll-header-table td.scrollHeaderCell
+{
+    cursor: pointer;
+}
+
+.EdFiGrid-scroll-data-table td
+{
+    white-space: nowrap;
+}
+
+
+.EdFiGrid-fixed-header-table img.sortArrow,
+.EdFiGrid-scroll-header-table img.sortArrow
+{
+    padding-top:5px;
+    padding-bottom:2px;
+    padding-left:3px;
+    display:inline;
+}
+
+
+
+td.EdFiGrid-column-divider {
+	background-color:#cdcdcd;
+    width: 2px !important;
+    padding-right: 0px !important;
+    padding-left: 0px !important;
+}
+
+td.mcHeadGrayDividerBG
+{
+    width: 2px !important;
+}
+td.EdFiGrid-column-rounded-corner
+{
+    width: 5px !important;
+}
+td.mcHeadClearDividerBG
+{
+    width: 2px !important;
+}
+td.mcHeadGrayRoundCornerBG
+{
+    width: 5px !important;
+}
+
+td.EdFiGrid-table-cell {
+    padding-right: 5px;
+    padding-left: 5px;
+}
+
+.EdFiGrid-table-cell-first {
+    width: 5px;
+}
+
+.EdFiGrid-table-cell-student,
+.EdFiGrid-table-cell-staff {
+    width: 145px;
+}
+
+.EdFiGrid-table-cell-school {
+    width: 160px;
+}
+
+.EdFiGrid-table-cell-single {
+	width: 100px !important;
+}
+
+.EdFiGrid-table-cell-student > table > tbody > tr > td,
+.EdFiGrid-table-cell-staff > table > tbody > tr > td,
+.EdFiGrid-table-cell-student-image > table > tbody > tr > td,
+.EdFiGrid-table-cell-staff-image > table > tbody > tr > td,
+.EdFiGrid-table-cell-school > table > tbody > tr > td,
+.EdFiGrid-table-cell-email > table > tbody > tr > td,
+.EdFiGrid-table-cell-default > table > tbody > tr > td  {
+    white-space: normal;
+}
+
+.EdFiGrid-table-cell-student-image,
+.EdFiGrid-table-cell-staff-image {
+    width: 160px;
+}
+
+.EdFiGrid-table-cell-indicator {
+    width: 59px;
+}
+
+.EdFiGrid-table-cell-trend{
+	width: 72px;
+}
+
+.EdFiGrid-table-cell-metric,
+.EdFiGrid-table-cell-state-text,
+.EdFiGrid-table-cell-default {
+    width: 59px;
+}
+
+.EdFiGrid-table-cell-objective {
+    width: 65px;
+}
+
+.bringToTop {
+    z-index: 2000;
+}
+
+.EdFiGrid-table-cell-flag {
+    width: 10px;
+}
+
+.EdFiGrid-table-cell-designation {
+    width: 90px;
+}
+
+.EdFiGrid-table-cell-goal-edit {
+    width: 70px;
+}
+
+.EdFiGrid-table-cell-spacer {
+    width: 2px;
+	background-color:#cdcdcd;
+    padding-right: 0px !important;
+    padding-left: 0px !important;
+}
+
+.EdFiGrid-table-cell-email {
+    width: 145px;
+    overflow: hidden;
+}
+
+.EdFiGrid-table-cell-highest-level-of-education,
+.EdFiGrid-table-cell-years-of-experience {
+    width: 60px;
+}
+
+.EdFiGrid-table-cell-objective-text {
+    width: 350px;
+}
+
+.EdFiGrid-table-cell-objective-text > table > tbody > tr > td {
+    white-space: normal;
+}
+
+.EdFiGrid-table-fixed-data-row {
+    background-color: #EBE8D3;
+
+	tbody tr td {
+		color: #000;
+	}
+}
+
+.EdFiGrid-value-left {
+    text-align: left;
+}
+
+
+
+.EdFiGrid-profile-image {
+    border-right:0px; 
+    padding-right:5px;
+    width:28px;
+}
+
+.EdFiGrid-profile-image img {
+    border:1px solid gray;
+    height:37px;
+    width:28px;
+}
+
+.EdFiGrid-blue-square {
+    border-right: 0px;
+    padding-right: 5px;
+    width: 4px;
+}
+
+.EdFiGrid-blue-square img {
+    border: 0px;
+    vertical-align: middle;
+}
+
+.EdFiGrid-left-round-corner {
+    background-image:url('../Images/GrayHeader/LeftGrayCorner.png'); 
+	background-position:left top;
+    width:5px;
+}
+
+.EdFiGrid-right-round-corner {
+    background-image:url('../Images/GrayHeader/RightGrayCorner.png'); 
+	background-position:right top;
+    width:5px; 
+}
+
+.mcHeadGrayBG,
+.mcHeadYellowBG,
+.mcHeadOrangeBG,
+.mcHeadRedBG,
+.mcHeadGrayDividerBG
+{
+    height:100%;
+	color:White;
+	padding-bottom:0px;
+	padding-left:0px;
+    padding-right:0px;
+	vertical-align:middle;
+	text-align:center;
+	margin:auto;
+}
+
+.mcHeadGrayBG,
+.mcHeadGrayDividerBG,
+.mcHeadGrayRoundCornerBG
+{
+	background-image:url('../Images/GrayHeader/02MultiColorHeaderGrayBG.gif');
+	background-position:bottom;
+	background-repeat:repeat-x;   
+	background-color:Gray;     
+}
+
+.mcHeadGrayDividerBG,
+.mcHeadGrayRoundCornerBG
+{
+    padding:0px 0px 0px 0px;
+    margin:0px 0px 0px 0px;
+    vertical-align:top;
+}
+
+.mcHeadYellow01
+{
+	background-image:url('../Images/GrayHeader/03MultiColorHeaderTab01LeftCorner.gif');
+	background-position:left top;
+	background-repeat:no-repeat;
+    width:5px;
+}
+
+.mcHeadYellow02
+{
+	background: #957013;
+}
+
+.mcHeadYellow03
+{
+	background-image:url('../Images/GrayHeader/05MultiColorHeaderTab01RightCorner.gif');
+	background-position:right top;
+	background-repeat:no-repeat;
+    width:5px;
+}
+
+.mcHeadYellowBG
+{
+	background-color:#957013;
+}
+/**/
+.mcHeadOrange01
+{
+	background-image:url('../Images/GrayHeader/06MultiColorHeaderTab02LeftCorner.gif');
+	background-position:left top;
+	background-repeat:no-repeat;
+    width:5px;
+}
+
+.mcHeadOrange02
+{
+	background-image:url('../Images/GrayHeader/07MultiColorHeaderTab02BG.gif');
+	background-repeat:repeat-x;
+	background-position:top;
+}
+
+.mcHeadOrange03
+{
+	background-image:url('../Images/GrayHeader/08MultiColorHeaderTab02RightCorner.gif');
+	background-position:right top;
+	background-repeat:no-repeat;
+    width:5px;
+}
+
+.mcHeadOrangeBG
+{
+	background-color:#433b0f;
+}
+/**/
+.mcHeadRed01
+{
+	background-image:url('../Images/GrayHeader/09MultiColorHeaderTab03LeftCorner.gif');
+	background-position:left top;
+	background-repeat:no-repeat;
+    width:5px;
+}
+
+.mcHeadRed02
+{
+	background-image:url('../Images/GrayHeader/10MultiColorHeaderTab03BG.gif');
+	background-repeat:repeat-x;
+	background-position:top;
+}
+
+.mcHeadRed03
+{
+	background-image:url('../Images/GrayHeader/11MultiColorHeaderTab03RightCorner.gif');
+	background-position:right top;
+	background-repeat:no-repeat;
+    width:5px;
+}
+
+.mcHeadRedBG
+{
+	background-color:#972812;
+}
+
+.mcHeadSortDesc,
+.mcHeadSortAsc
+{
+	background-image:url('../Images/GrayHeader/arowDesc.gif');
+	background-repeat:no-repeat;
+	background-position:right center;
+	padding-right:15px;
+}
+.mcHeadSortAsc
+{
+	background-image:url('../Images/GrayHeader/arowAsc.gif');
+}
+
+.mcColumnDivider
+{
+	background-color:#cdcdcd;
+    width: 2px;
+}
+
+.EdFiGrid-interaction-menu-placeholder {
+    height:30px;
+    position:relative;
+}
+
+
+span.dbId 
+{
+    display: none;
+}
+
+.StateTextVeryGreen,
+.StateTextGreen,
+.StateTextYellow,
+.StateTextRed,
+.StateTextVeryRed,
+.StateTextNA,
+.StateTextNeutral,
+.StateTextGray
+{
+	text-align:center;
+    vertical-align:middle;
+	font-size:8pt;    
+	background-repeat:no-repeat;
+	width:60px;
+	height:17px;
+	color:Black;
+}
+.StateTextGreen, .StateTextVeryGreen
+{
+	color:$adaGreen;
+	font-weight:bold;
+}
+.StateTextRed, .StateTextVeryRed
+{	
+	color: $adaRed;
+	font-weight:bold;
+}
+.StateTextYellow{
+    color: $adaYellow;
+	font-weight: bold;
+}
+.StateTextGray
+{
+    color:Gray;
+	font-weight:bold;
+}
+
+
+div.edfiTooltip {
+	position: absolute;
+	display: none;
+	background-color: #fff;
+	color: #000;
+	text-align: left;
+	vertical-align: middle;
+	border: 1px solid #255b80;
+	border-bottom: 3px solid #255b80;
+	padding: 6px 6px 6px 6px;
+	max-width: 300px;
+	font-family: Arial;
+	font-size: 8pt;
+	font-style: normal;
+	font-weight: normal;
+	z-index: 2000;
+}
+
+/* Override for EdFi Grids in drilldowns */
+.l-metrics .EdFiGrid table {
+	padding-top: 0;
+	margin-top: 0;
+	border-bottom: none;
+}
+
+a.EdFiGrid-interaction-open-menu-button,
+.EdFiGrid-interaction-open-submit-button,
+.EdFiGrid-interaction-menu {
+	text-decoration:none;
+}
+.EdfiGrid-watch-list{
+	 display: none;
+	 margin: 10px 0;
+	 .EdfiGrid-filtered-list-header{
+	     overflow: hidden;
+		 background-color: $informationBlue;
+		 color: white;
+		 padding: 1% 1% 0 1%;
+		 border-radius: 5px 5px 0 0;
+	     p{
+		   float:left;
+		   label{
+		       font-weight: bold;
+		   } 
+		 }
+
+		 div{
+			float: right;
+
+			input[type="checkbox"]{
+				float: left;
+				padding-top: 5px;
+				padding-right: 5px;
+			 }
+
+			 label{
+				float: left;
+				padding-right: 10px;
+			 }
+
+			 button{
+			   background-color: $white;
+			   border: none;
+			   border-radius: 3px;
+			   width: 20px;
+			   height: 20px;
+			   float: left;
+			   i{
+				   color: $informationBlue;
+				   margin-left: -5px;
+
+			   }
+			 }
+		 }
+	 }
+	 .EdfiGrid-watch-list-checkbox {
+		clear: both;
+		
+		div{
+		  display: block;
+		  float: left;
+		}
+
+		div[id*="-checkbox"]{
+		  float: left;
+		  width: 15px;
+		}
+
+		div[id*="-checkbox-label"]{
+		  float: left;
+		  width: 90%;
+		}
+	 }
+	 .EdfiGrid-watch-list-checkbox-inline{
+		display: inline;
+		padding-right: 10px;
+	 }
+	 .EdfiGrid-watch-list-dropdown{
+	    clear: both;
+
+		div{
+		  display: block;
+		  margin: 2px;
+		  float: left;
+		  width: 100%;
+			
+		  label{
+			float: left;
+		  }
+		  select{
+			margin-right: 1%;
+		   float: left;
+		  }
+		  input[type="text"]{
+			float: left;
+		   width: 50px;
+		  }
+		}
+	 }
+	 .EdfiGrid-watch-list-edit{
+	      border: 1px solid $informationBlue;
+		  border-radius: 0 0 5px 5px;
+
+		  .btn{
+		       margin: 0 auto;
+			   border: none;
+			   width: 95%;
+		  }
+		  ul{
+		      text-align: center;
+			  padding: 2%;
+			  border-top: 1px solid $informationBlue;
+		  }
+		  li{
+		      width: 19%;
+		  }
+		  p{
+		      clear: both;
+		  }
+	 }
+     ul {
+	     clear: both;
+
+	     li {
+		    width: 16%;
+			display: inline-block;
+			display: inline-flex;
+            list-style-type: none;
+			text-align: center;
+			a {   
+			    color: white;
+			    width: 100%;
+				font-weight: bold;
+				font-size: 12px;
+				text-decoration: none;
+				height: 32px;
+			    padding: 1%;
+				text-align: center;
+				margin: 0 auto;
+
+            }
+			a:visited{
+				text-decoration: none; 
+			}
+		 }
+		 .active-filter-tab{
+		                background-color: white;
+						color: $black;
+					    border-radius: 5px 5px 0 0;
+		               }
+		.active-filter-tab a {
+			color: $black;
+		}
+	 }
+     form{
+	    background-color: white;
+	    clear: left;
+		font-size: 12px;
+		div[id*="metric-based-filters-"]{
+		    display: none;
+			.watch-list-column{
+			     float: left;
+				 margin: 1%;
+			    .watch-list-category{
+			         clear: both;
+					 display: block;
+					 padding-bottom: 10px;
+			     }
+			}
+		}
+		div[id*="metric-based-filters-"].active-filter{
+		    display: block;
+			min-height: 225px;
+			overflow: hidden;
+			border-left: 1px solid $informationBlue;
+			border-right: 1px solid $informationBlue;
+		}
+		//The following styles are for the watch-list-column sizes
+		//thin is for four columns
+		.thin{
+		    width: 23%;
+		}
+		//medium is for three columns
+		.medium{
+		    width: 31%;
+		}
+		//wide is for two columns
+		.wide{
+		    width: 48%;
+		}
+		.full{
+		    width: 98%;
+		}
+		.error-icon{
+			color: red;
+		}
+    }
+}

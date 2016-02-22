@@ -1,0 +1,734 @@
+﻿.EdFiGrid
+{
+    margin-right: auto;
+    font-family: Arial;
+    font-size: 8pt;
+    width: 100%;
+    height: 300px;
+    position: relative;
+}
+
+.EdFiGrid-no-data,
+.EdFiGrid-loading {
+    width: 100%;
+    font-family:Arial;
+    font-size:9pt;    
+    font-weight:bold;
+    color:#255b80;
+    text-align:left;
+    text-decoration:none;
+    padding: 10px 0px 10px 10px;
+    display:block;
+}
+
+.EdFiGrid-processing     
+{
+    border-width: 0;
+    margin: 0;
+    padding: 0;
+    position: absolute;
+    font-family:Arial;
+    font-size:20pt;    
+    font-weight:bold;
+    color:#255b80;
+    text-align:center;
+    text-decoration:none;
+    z-index: 501;
+}
+
+.EdFiGrid-processing-background { 
+    border-width: 0;
+    margin: 0;
+    padding: 0;
+    position: absolute;
+    font-family:Arial;
+    font-size:20pt;    
+    font-weight:bold;
+    color:#255b80;
+    text-align:center;
+    text-decoration:none;  
+    background: url("jQueryLightness/images/ui-bg_diagonals-thick_20_666666_40x40.png") repeat scroll 50% 50% #666666;
+    opacity: 0.5;
+    z-index: 500;
+    filter: alpha(opacity=50);
+}
+
+.EdFiGrid-processing div 
+{
+    left: 50%;
+    top: 50%;
+    position: absolute;
+}
+
+.EdFiGrid-interaction {
+    text-align: left;    
+}
+
+.EdFiGrid-interaction-standard,
+.EdFiGrid-interaction-custom {
+    display: inline-block;
+    font-family: Arial;
+    font-size: 8pt;
+    color: #255B80;
+    font-weight: bold;
+    text-align: left;
+    cursor: pointer;
+    vertical-align: top;
+    zoom: 1;
+    *display: inline;
+    margin-right: 1px;
+}
+
+.EdFiGrid-interaction-columns,
+.EdFiGrid-interaction-size-grid {
+    display: inline-block;
+    vertical-align: top;
+    zoom: 1;
+    *display: inline;
+}
+
+.EdFiGrid-interaction-custom2 {
+    display: block;
+}
+
+.EdFiGrid-reset-columns {
+    padding-left: 20px;
+}
+
+.EdFiGrid-grid-container
+{
+    overflow: hidden;
+    position: relative;
+    z-index: 0;
+}
+
+.EdFiGrid-grid-table-container 
+{
+    height: auto;
+    width: auto;
+}
+
+.EdFiGrid-fixed-top {
+    overflow: visible;
+    position: relative;
+    z-index: 4;
+}
+
+.EdFiGrid-fixed {
+    overflow: hidden;
+}
+
+.EdFiGrid-fixed-header,
+.EdFiGrid-scroll-header,
+.EdFiGrid-fixed-data,
+.EdFiGrid-scroll-data {
+    display: inline-block;
+    position: relative;
+    vertical-align: top;
+    overflow: hidden;
+    zoom: 1;
+    *display: inline;
+}
+
+.EdFiGrid-fixed-header-table,
+.EdFiGrid-scroll-header-table,
+.EdFiGrid-fixed-data-table,
+.EdFiGrid-scroll-data-table
+ {
+    table-layout: fixed;
+    border-collapse: separate;
+    border-spacing: 0;
+    border-style: none;
+    width: 0px;
+}
+
+.EdFiGrid-scroll-bottom {
+    overflow: hidden;
+    position: relative;
+    z-index: 3;
+}
+
+.EdFiGrid-shim-bottom {
+    width: 100%;
+    border-top: 1px solid #CCCCCC;
+    height: 16px;
+    background-color: #F8F8F8;
+}
+
+.EdFiGrid-shim-bottom-placeholder {
+    width: 100%;
+    height: 17px;
+}
+
+.column-freezebar-extension {
+    background-color: #DADFE8;
+    border-left: 1px solid #CCCCCC;
+    border-right: 1px solid #DBDBDB;
+    height: 100%;
+    position: relative;
+}
+
+.EdFiGrid-shim-right {
+    width: 16px;
+    border-left: 1px solid #CCCCCC;
+    background: none repeat scroll 0 0 #F8F8F8;
+    height: 100%;
+    position: absolute;
+    right: 0;
+    top: 0;
+}
+
+.row-freezebar-extension {
+    background-color: #DADFE8;
+    border-bottom: 1px solid #DBDBDB;
+    border-top: 1px solid #CCCCCC;
+    position: relative;    
+}
+
+.EdFiGrid-scrollable {
+}
+
+.EdFiGrid-horizontal-scroll {
+    overflow: hidden;
+    position: relative;
+}
+
+.EdFiGrid-scroll 
+{
+    border-width: 0;
+    left: 0;
+    margin: 0;
+    overflow: auto;
+    padding: 0;
+    position: absolute;
+    top: 0;
+    z-index: 1;
+}
+
+.EdFiGrid-footer {
+    width: 100%;
+}
+
+.EdFiGrid-footer-table {
+    border: 1px gray solid;
+    width: 100%;
+}
+
+.EdFiGrid-footer-table tr {
+    background-color: gray;
+    color: white;
+}
+
+.EdFiGrid-footer-table a {
+    cursor: pointer;
+}
+
+.EdFiGrid-legend {
+    width: 100%;
+    background-color: #E0DFDF;
+    padding-top: 3px;
+}
+
+.EdFiGrid-legend-table {
+    padding: 2px 10px;
+    text-align: left;
+    vertical-align: middle;
+    color: #333333;
+    font-size: 7pt;
+    font-weight: bolder;
+}
+
+.EdFiGrid-legend-table-text {
+    padding-right: 10px;
+}
+.EdFiGrid-legend-table-image {
+    width: 24px;
+}
+
+.EdFiGrid-footnotes {
+    text-align: left;
+}
+
+.EdFiGrid-fixed-header-table a,
+.EdFiGrid-scroll-header-table a,
+.EdFiGrid-fixed-data-table a,
+.EdFiGrid-scroll-data-table a
+{
+    font-size: 8pt;
+    color: #255B80;
+    font-weight: bold;
+    text-align: left;
+    text-decoration: underline;
+}
+
+.EdFiGrid-fixed-header-table .hiddenCol,
+.EdFiGrid-scroll-header-table .hiddenCol,
+.EdFiGrid-fixed-data-table .hiddenCol,
+.EdFiGrid-scroll-data-table .hiddenCol,
+.EdFiGrid-fixed-header-table .hiddenRow,
+.EdFiGrid-scroll-header-table .hiddenRow,
+.EdFiGrid-fixed-data-table .hiddenRow,
+.EdFiGrid-scroll-data-table .hiddenRow
+{
+    display: none;
+}
+
+.EdFiGrid-fixed-header-table > tbody > tr,
+.EdFiGrid-fixed-header-table > tbody > tr > td,
+.EdFiGrid-scroll-header-table > tbody > tr,
+.EdFiGrid-scroll-header-table > tbody > tr > td,
+.EdFiGrid-fixed-data-table > tbody > tr,
+.EdFiGrid-fixed-data-table > tbody > tr > td,
+.EdFiGrid-scroll-data-table > tbody > tr,
+.EdFiGrid-scroll-data-table > tbody > tr > td
+{
+    height: 45px;
+    text-align: center;
+    border: none;
+}
+
+.EdFiGrid-fixed-data-table .alternatingRow,
+.EdFiGrid-scroll-data-table .alternatingRow
+{
+    background-color: #e0dfdf;
+}
+
+.EdFiGrid-fixed-data-table .selectedRow,
+.EdFiGrid-scroll-data-table .selectedRow
+{
+    background-color: #d6ac4b !important;
+}
+
+.EdFiGrid-fixed-data-table .hoverRow,
+.EdFiGrid-scroll-data-table .hoverRow
+{
+    background-color: LightBlue;
+}
+
+.EdFiGrid-fixed-header-table td.fixedHeaderCell,
+.EdFiGrid-scroll-header-table td.scrollHeaderCell
+{
+    cursor: pointer;
+}
+
+.EdFiGrid-fixed-data-table td,
+.EdFiGrid-scroll-data-table td
+{
+    white-space: nowrap;
+}
+
+
+.EdFiGrid-fixed-header-table img.sortArrow,
+.EdFiGrid-scroll-header-table img.sortArrow
+{
+    padding-top:5px;
+    padding-bottom:2px;
+    padding-left:3px;
+    display:inline;
+}
+
+.EdFiGrid-value-table {
+    
+    width:100%;
+    border:0px;
+    margin:0px auto;
+}
+.EdFiGrid-value-table td
+{
+    border:0;
+    border-right:0px white;
+}
+
+.EdFiGrid-value-table td.NoAccomodation
+{
+    width:20px;
+}
+
+td.EdFiGrid-column-divider {
+	background-color:#cdcdcd;
+    width: 2px !important;
+    padding-right: 0px !important;
+    padding-left: 0px !important;
+}
+
+td.mcHeadGrayDividerBG
+{
+    width: 2px !important;
+}
+td.EdFiGrid-column-rounded-corner
+{
+    width: 5px !important;
+}
+td.mcHeadClearDividerBG
+{
+    width: 2px !important;
+}
+td.mcHeadGrayRoundCornerBG
+{
+    width: 5px !important;
+}
+
+td.EdFiGrid-table-cell {
+    padding-right: 5px;
+    padding-left: 5px;
+}
+
+.EdFiGrid-table-cell-first {
+    width: 5px;
+}
+
+.EdFiGrid-table-cell-student,
+.EdFiGrid-table-cell-staff {
+    width: 145px;
+}
+
+.EdFiGrid-table-cell-school {
+    width: 160px;
+}
+
+.EdFiGrid-table-cell-student > table > tbody > tr > td,
+.EdFiGrid-table-cell-staff > table > tbody > tr > td,
+.EdFiGrid-table-cell-student-image > table > tbody > tr > td,
+.EdFiGrid-table-cell-staff-image > table > tbody > tr > td,
+.EdFiGrid-table-cell-school > table > tbody > tr > td,
+.EdFiGrid-table-cell-email > table > tbody > tr > td,
+.EdFiGrid-table-cell-default > table > tbody > tr > td  {
+    white-space: normal;
+}
+
+.EdFiGrid-table-cell-student-image,
+.EdFiGrid-table-cell-staff-image {
+    width: 160px;
+}
+
+.EdFiGrid-table-cell-indicator {
+    width: 59px;
+}
+
+.EdFiGrid-table-cell-trend,
+.EdFiGrid-table-cell-metric,
+.EdFiGrid-table-cell-state-text,
+.EdFiGrid-table-cell-default {
+    width: 59px;
+}
+
+.EdFiGrid-table-cell-objective {
+    width: 65px;
+}
+
+.bringToTop {
+    z-index: 2000;
+}
+
+.EdFiGrid-table-cell-flag {
+    width: 10px;
+}
+
+.EdFiGrid-table-cell-designation {
+    width: 65px;
+}
+
+.EdFiGrid-table-cell-goal-edit {
+    width: 70px;
+}
+
+.EdFiGrid-table-cell-spacer {
+    width: 2px;
+	background-color:#cdcdcd;
+    padding-right: 0px !important;
+    padding-left: 0px !important;
+}
+
+.EdFiGrid-table-cell-email {
+    width: 145px;
+    overflow: hidden;
+}
+
+.EdFiGrid-table-cell-highest-level-of-education,
+.EdFiGrid-table-cell-years-of-experience {
+    width: 60px;
+}
+
+.EdFiGrid-table-cell-objective-text {
+    width: 350px;
+}
+
+.EdFiGrid-table-cell-objective-text > table > tbody > tr > td {
+    white-space: normal;
+}
+
+.EdFiGrid-table-fixed-data-row {
+    background-color: #EBE8D3;
+}
+
+.EdFiGrid-value-left {
+    text-align: left;
+}
+
+.EdFiGrid-value-center {
+    text-align: center;
+}
+
+.EdFiGrid-profile-image {
+    border-right:0px; 
+    padding-right:5px;
+    width:28px;
+}
+
+.EdFiGrid-profile-image img {
+    border:1px solid gray;
+    height:37px;
+    width:28px;
+}
+
+.EdFiGrid-blue-square {
+    border-right: 0px;
+    padding-right: 5px;
+    width: 4px;
+}
+
+.EdFiGrid-blue-square img {
+    border: 0px;
+    vertical-align: middle;
+}
+
+.EdFiGrid-left-round-corner {
+    background-image:url('img/GrayHeader/LeftGrayCorner.png'); 
+	background-position:left top;
+    width:5px;
+}
+
+.EdFiGrid-right-round-corner {
+    background-image:url('img/GrayHeader/RightGrayCorner.png'); 
+	background-position:right top;
+    width:5px; 
+}
+
+.mcHeadGrayBG,
+.mcHeadYellowBG,
+.mcHeadOrangeBG,
+.mcHeadRedBG,
+.mcHeadGrayDividerBG
+{
+    height:100%;
+	color:White;
+	padding-bottom:0px;
+	padding-left:0px;
+    padding-right:0px;
+	vertical-align:middle;
+	text-align:center;
+	margin:auto;
+}
+
+.mcHeadGrayBG,
+.mcHeadGrayDividerBG,
+.mcHeadGrayRoundCornerBG
+{
+	background-image:url('img/GrayHeader/02MultiColorHeaderGrayBG.gif');
+	background-position:bottom;
+	background-repeat:repeat-x;   
+	background-color:Gray;     
+}
+
+.mcHeadGrayDividerBG,
+.mcHeadGrayRoundCornerBG
+{
+    padding:0px 0px 0px 0px;
+    margin:0px 0px 0px 0px;
+    vertical-align:top;
+}
+
+.mcHeadYellow01
+{
+	background-image:url('img/GrayHeader/03MultiColorHeaderTab01LeftCorner.gif');
+	background-position:left top;
+	background-repeat:no-repeat;
+    width:5px;
+}
+
+.mcHeadYellow02
+{
+	background-image:url('img/GrayHeader/04MultiColorHeaderTab01BG.gif');
+	background-repeat:repeat-x;
+	background-position:top;
+}
+
+.mcHeadYellow03
+{
+	background-image:url('img/GrayHeader/05MultiColorHeaderTab01RightCorner.gif');
+	background-position:right top;
+	background-repeat:no-repeat;
+    width:5px;
+}
+
+.mcHeadYellowBG
+{
+	background-image:url('img/GrayHeader/04MultiColorHeaderTab01BG.gif');
+	background-repeat:repeat-x;
+	background-position:bottom;
+	background-color:#e4bd64;
+}
+/**/
+.mcHeadOrange01
+{
+	background-image:url('img/GrayHeader/06MultiColorHeaderTab02LeftCorner.gif');
+	background-position:left top;
+	background-repeat:no-repeat;
+    width:5px;
+}
+
+.mcHeadOrange02
+{
+	background-image:url('img/GrayHeader/07MultiColorHeaderTab02BG.gif');
+	background-repeat:repeat-x;
+	background-position:top;
+}
+
+.mcHeadOrange03
+{
+	background-image:url('img/GrayHeader/08MultiColorHeaderTab02RightCorner.gif');
+	background-position:right top;
+	background-repeat:no-repeat;
+    width:5px;
+}
+
+.mcHeadOrangeBG
+{
+	background-image:url('img/GrayHeader/07MultiColorHeaderTab02BG.gif');
+	background-repeat:repeat-x;
+	background-position:bottom;
+	background-color:#e4ab64;
+}
+/**/
+.mcHeadRed01
+{
+	background-image:url('img/GrayHeader/09MultiColorHeaderTab03LeftCorner.gif');
+	background-position:left top;
+	background-repeat:no-repeat;
+    width:5px;
+}
+
+.mcHeadRed02
+{
+	background-image:url('img/GrayHeader/10MultiColorHeaderTab03BG.gif');
+	background-repeat:repeat-x;
+	background-position:top;
+}
+
+.mcHeadRed03
+{
+	background-image:url('img/GrayHeader/11MultiColorHeaderTab03RightCorner.gif');
+	background-position:right top;
+	background-repeat:no-repeat;
+    width:5px;
+}
+
+.mcHeadRedBG
+{
+	background-image:url('img/GrayHeader/10MultiColorHeaderTab03BG.gif');
+	background-repeat:repeat-x;
+	background-position:bottom;
+	background-color:#e49064;
+}
+
+.mcHeadSortDesc,
+.mcHeadSortAsc
+{
+	background-image:url('img/GrayHeader/arowDesc.gif');
+	background-repeat:no-repeat;
+	background-position:right center;
+	padding-right:15px;
+}
+.mcHeadSortAsc
+{
+	background-image:url('img/GrayHeader/arowAsc.gif');
+}
+
+.mcColumnDivider
+{
+	background-color:#cdcdcd;
+    width: 2px;
+}
+
+.EdFiGrid-interaction-open-menu-button {
+    float:left;
+    position: absolute;
+    width:100px;
+    height:18px;
+    color: white;
+    padding-left: 20px;
+    padding-top: 2px;
+    background-image: url('img/GridSlidingMenuOpenButton.png');
+    background-repeat: no-repeat;
+    z-index: 1000;
+	cursor:pointer;
+    left: 0;
+    top: 0;
+}
+
+.EdFiGrid-interaction-menu {
+    display:none;
+    float:left;
+    position:fixed;
+    padding-left: 18px;
+    z-index: 1001;
+    color: white;
+    background-image: url('img/GridSlidingMenuCloseButton.png');
+    background-color: #255B80;
+    background-repeat: no-repeat;
+    position: absolute;
+    left: 0;
+    top: 0;
+}
+
+.EdFiGrid-interaction-submenu {
+    padding:10px;
+    background-color: #B7B4B3;
+    border:5px solid #255B80;
+}
+.EdFiGrid-interaction-menu-button
+{
+	cursor:pointer;
+	color:#ffffff;
+	font-size:7pt;
+	font-weight:bold;
+	text-align:left;
+	vertical-align:top;
+    text-decoration: none;
+	background-repeat:no-repeat;
+    background-position:top left;
+    padding: 5px 10px 5px 20px;
+    margin-right: 10px;
+}
+.EdFiGrid-change-columns
+{
+	background-image:url('img/ButtonChangeColumns.png');
+    padding-right: 15px;
+}
+.EdFiGrid-save-columns
+{
+	background-image:url('img/ButtonSaveColumns.png');
+}
+.EdFiGrid-reset-columns
+{
+	background-image:url('img/ButtonResetColumns.png');
+}
+.EdFiGrid-cancel-columns
+{
+	background-image:url('img/ButtonCancelColumns.png');
+    padding-left: 5px;  
+}
+.EdFiGrid-maximize-grid
+{
+	background-image:url('img/ButtonMaximizeGrid.png');
+    padding-left: 23px;
+}
+.EdFiGrid-restore-grid
+{
+	background-image:url('img/ButtonRestoreGrid.png');
+    padding-left: 25px;
+}
+.EdFiGrid-interaction-menu-placeholder {
+    height:30px;
+    position:relative;
+}

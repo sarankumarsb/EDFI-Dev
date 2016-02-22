@@ -1,0 +1,10 @@
+﻿@model IEnumerable<MetricBase>
+
+<p class="inline-links">
+    Jump to subcategory:
+    @{ var first = true; }
+    @foreach (var metricBase in Model) {
+        <a @(first ? "class=first" : "") href="#@(metricBase.DisplayName)">@metricBase.DisplayName</a>
+        first = false;
+    }
+</p>

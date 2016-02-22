@@ -1,0 +1,131 @@
+﻿@using System.Web.Mvc.Html
+@using Cassette.Views
+@using EdFi.Dashboards.Common
+@using EdFi.Dashboards.Common.Configuration
+@using EdFi.Dashboards.Presentation.Core.Controllers
+@using EdFi.Dashboards.Presentation.Web.Architecture.HtmlHelperExtensions
+@using EdFi.Dashboards.Resources.Navigation.Mvc
+@using EdFi.Dashboards.SecurityTokenService.Authentication
+@{
+    Bundles.Reference("Core_Content/Scripts/External");
+    Bundles.Reference("Core_Content/Scripts/Application");
+    Bundles.Reference("Core_Content/HtmlTemplates/EdFiGrid");
+    Bundles.Reference("Core_Content/HtmlTemplates/MetricsBasedWatchList");
+
+    Bundles.Reference("Core_Content/StyleSheets");
+    Bundles.Reference("Content/StyleSheets");
+    Bundles.Reference("Content/Scripts");
+    Bundles.Reference("jquery-ui");
+}
+<!doctype html>
+
+<html lang="en">
+    
+<head>
+	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta charset="utf-8">
+    <meta http-equiv="CACHE-CONTROL" content="NO-CACHE">
+    <meta http-equiv="PRAGMA" content="NO-CACHE">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta http-equiv="Refresh" content="10800">@* Refresh the page every 3 hours, should force the user to log in again *@
+    <link rel="stylesheet" href="@Url.Content("~/Core_Content/StyleSheets/fontello.css")">
+    <!--[if IE 7]>
+        <link rel="stylesheet" href="@Url.Content("~/Core_Content/StyleSheets/fontello-ie7.css")">
+    <![endif]--> 
+    @Bundles.RenderStylesheets()
+    @Bundles.RenderScripts()
+    <link rel="stylesheet" href="@Url.Content("~/Core_Content/StyleSheets/bootstrap.min.css")">
+    <link rel="stylesheet" href="@Url.Content("~/Core_Content/StyleSheets/jquery.fileupload-ui.css")">
+    <script type="text/javascript">
+        //This is a global variable for the path of the application.
+        //We have scenarios inside of .js files where we need to reference paths....
+        @{Html.RenderAction("JQueryGlobalSiteBasePath", typeof(MasterPageController).GetControllerName()); }
+    </script>
+    @Bundles.RenderHtmlTemplates()
+    @*<link rel='stylesheet' type='text/css' media='print' href="@(EdFiDashboards.Site.Common.Content("StyleSheets/Print.css").Resolve())" />*@
+    <link rel="stylesheet" href="@Url.Content("~/Core_Content/StyleSheets/HideDBId.css")" type='text/css' media='screen' title='Hide Ids'>
+    <link rel="alternate stylesheet" href="@Url.Content("~/Core_Content/StyleSheets/ShowDBId.css")" type='text/css' media='screen' title='Show Ids' disabled='disabled'>
+    <link rel="shortcut icon" href="@Url.Content("~/Content/Images/arkansas.ico")" />
+    @RenderSection("head", required: false)
+</head>
+
+<body class="@Html.GetBrowserSpecificCssClasses()">
+    @{ Html.RenderAction("SystemMessage", typeof(MasterPageController).GetControllerName()); }
+    
+    <script type="text/javascript">
+        var expandCollapseImages = {
+            BulletMinus: "@(EdFiDashboards.Site.Common.ThemeImage("BulletMinus.gif").Resolve())",
+            BulletPlus: "@(EdFiDashboards.Site.Common.ThemeImage("BulletPlus.gif").Resolve())"
+        };
+        
+        $(document).ready(function() {
+            if (typeof (InitEdFiGridSettings) === 'function') {
+                InitEdFiGridSettings();
+            }
+        });
+        
+        // for links that skip down the page, force focus on target element
+        $(document).ready(function () {	
+            $("a[href^='#']").click(function () {
+                $("#" + $(this).attr("href").slice(1) + "").focus();
+            });
+        });
+        
+        @if(TimeoutWarningConfiguration.Current.WarningEnabled)
+        {
+            <text>
+        $(document).ready(function() {
+            setSessionExpirationAlert(@(TimeoutWarningConfiguration.Current.WarningEnabled.ToString().ToLower()), @(TimeoutWarningConfiguration.Current.ForceEnabled.ToString().ToLower()), '@(Url.Content(TimeoutWarningConfiguration.Current.KeepAliveUrl))', '@(Url.Content(TimeoutWarningConfiguration.Current.LogoutUrl))', @(TimeoutWarningConfiguration.Current.TimeUntilWarning), @(TimeoutWarningConfiguration.Current.TimeUntilForcedLogout), '@(Enum.GetName(typeof(TimeoutWarningConfiguration.TimeoutForceAction), TimeoutWarningConfiguration.Current.ForceAction))');
+                });
+        </text>
+        }
+    </script> 
+    <div id="dialog-confirm"></div>
+    <!-- New Stuff -->
+    <header id="header" class="constrained">
+        <span class="state-logo hidden">Arkansas Department of Education Logo</span>
+        <a id="skip" href="#maincontent">Skip Navigation</a>
+        <ul>
+            @if (!Request.Url.AbsolutePath.ToLower().Contains("search")) {
+                <li><a class="btn" href="#" onclick="exportAll_Click();"><i class="icon-floppy"></i> Export All</a></li>
+            }
+            <li><a class="btn" href="#" onclick="javascript:window.print();"><i class="icon-print"></i> Print</a></li>
+            <li><a id="buttonFeedback" class="btn btn-em" href="#"><i class="icon-help-circle"></i> Support</a></li>
+            <li><a class="btn" href="#" onclick="window.location='@EdFiDashboardsSite.Common.Logout().Resolve()';"><i class="icon-logout"></i> Log Out</a></li>
+        </ul>
+        <nav id="nav-main">
+            @{ Html.RenderAction("LevelCrumb", typeof(MasterPageController).GetControllerName()); }
+            @{ Html.RenderAction("Search", typeof(MasterPageController).GetControllerName()); }
+        </nav>
+    </header>
+    <div id="content" class="constrained">
+        @if (IsSectionDefined("ContentDataHeader")) {
+            @RenderSection("ContentDataHeader", required: false)
+        }
+        @if (IsSectionDefined("ContentMenu")) {
+            @RenderSection("ContentMenu", required: false)
+        }
+        <div id="maincontent" tabindex="-1">
+            @RenderSection("ContentPlaceHolderTopMost", required: false)
+        </div>
+        @RenderBody()
+    </div>
+    <footer id="footer" class="constrained">
+        <div>
+            @{ Html.RenderPartial("Legend"); }
+        </div>
+        <div class="copyright">
+            <span class="site-logo"></span>
+            <p>&copy; @DateTime.Now.Year Ed-Fi Alliance, LLC. All Rights Reserved.</p>
+            <p>@{ Html.RenderAction("TopRightCorner", typeof(MasterPageController).GetControllerName()); }</p>
+            <img id="red" src="@(EdFiDashboards.Site.Common.ThemeImage("redStripe.png").Resolve())" class="hidden" aria-hidden="true" alt="Image used in charts"/>
+        </div>
+    </footer>
+	    <input id="userFullName" type="hidden" value="@(UserInformation.Current == null ? string.Empty : UserInformation.Current.FullName)" />
+    
+    @{Html.RenderAction("Feedback", typeof(MasterPageController).GetControllerName(), new { supportLinkControlId = "#buttonFeedback", allowNameEdit = false }); }
+    
+    @RenderSection("TrailerScript", false)
+</body>
+
+</html>

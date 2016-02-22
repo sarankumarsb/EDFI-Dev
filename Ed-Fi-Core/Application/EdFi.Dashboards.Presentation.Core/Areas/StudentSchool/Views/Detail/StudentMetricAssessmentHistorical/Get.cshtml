@@ -1,0 +1,37 @@
+﻿@using EdFi.Dashboards.Core.Providers.Context
+@using EdFi.Dashboards.Presentation.Architecture.Mvc.Extensions
+@using Resources.Navigation.Mvc
+@using EdFi.Dashboards.Presentation.Core.Models.Shared.Detail
+@model EdFi.Dashboards.Resources.Models.Student.Detail.StudentMetricAssessmentHistoricalModel
+@{
+    //This layout set to null makes it so we can render this control all by itself for debugging.
+    Layout = null;
+    
+    var localEducationAgencyId = EdFiDashboardContext.Current.LocalEducationAgencyId.GetValueOrDefault();
+    var studentUSI = EdFiDashboardContext.Current.StudentUSI.GetValueOrDefault();
+    var metricVariantId = EdFiDashboardContext.Current.MetricVariantId.GetValueOrDefault();
+
+    var historicalChartModel = new HistoricalChartModel(localEducationAgencyId,
+        metricVariantId,
+        "BenchmarkHistorical",
+        Model
+      );
+}
+
+    <script type="text/javascript" language="javascript">
+        analyticsManager.trackDrilldown('StudentMetricAssessmentHistorical', '@(metricVariantId)', '@(studentUSI)');
+    </script>
+
+@{Html.RenderPartial("HistoricalChart", model: historicalChartModel);}
+
+
+
+
+
+
+
+
+
+
+
+

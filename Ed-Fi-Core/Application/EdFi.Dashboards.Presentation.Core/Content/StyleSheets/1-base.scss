@@ -1,0 +1,1577 @@
+﻿@import "shared";
+@import "layout";
+@import "ed-fi-grid";
+@import "ui-grid";
+@import "standard";
+
+/*For the main wrapper arround the content for all the area layouts.*/
+//TODO: Talk to Tim about this.
+.l-area-layout,
+.l-search-view{
+	padding: 14px 20px 20px 20px;
+}
+[class^="icon-"] span,
+[class*=" icon-"] span {
+	position:absolute;
+	display:block;
+	width:0px;
+	height:0px;
+	text-indent:9999px;
+	overflow: hidden;
+}
+ 
+#skip, #skip:hover, #skip:visited 
+{ 
+	position:absolute; 
+	left:0px; 
+	top:0px; 
+	width:1px; 
+	height:1px; 
+	overflow:hidden;
+} 
+
+#skip:active, #skip:focus 
+{ 
+	position: absolute;
+    height: 20px;
+    overflow: hidden;
+    display: block;
+    margin-right: auto;
+    margin-left: -100px;
+    left: 50%;
+    width: 200px;
+    background: #fff;
+    text-align: center;
+}
+ 
+h3{
+	font-size: 12px;
+}
+
+.l-school-list{ 
+ 
+	h3{
+		clear: both;
+		padding-top: 14px;
+		padding-bottom: 5px;
+	}
+
+	li{ 
+		list-style-type: none; 
+		overflow: hidden;
+	}
+
+	.icon-blank{
+		vertical-align: middle;
+		color: gray;
+		font-size: 4pt;
+		padding-left: 5px;
+	}
+	 
+	.icon-pipe
+	{
+		display: inline;
+		border-right: 1px solid black;
+		margin-right: 0px;
+		margin-left: 4px;
+		font-size: 9px;
+	}
+}
+
+.l-search-view{
+
+	h1 {
+		margin-bottom: 10px;
+	}
+
+	.search-box{
+		overflow: hidden;
+		width: 360px;
+		margin-bottom: 15px;
+		float: left;
+			
+		label{
+			display: block;
+			margin-bottom: 3px;
+		}
+
+		input[type=text]{
+			float: left;
+			padding: 2px;
+			border: 1px solid gray;
+		}
+
+		.loading{
+			background-image: url('../Images/loadingSmall.gif');
+			background-repeat: no-repeat;
+			background-position: 136px 2px;
+		}
+
+		a{
+			float: left;
+			margin-left: 5px;
+		}
+	} 
+	  
+	.filter-container{
+		margin-top: 12px;
+		margin-bottom: 15px;
+		width: 732px;
+		padding: 4px 10px;
+		overflow: hidden;
+
+		span, 
+		a{
+			display: block;
+			float: left;
+			margin-right: 8px;
+			font-size: 12px;
+			font-weight: bold;
+			line-height: 20px;
+		}
+
+		.btn, .btn-deemphasized{
+			width: 90px;
+		}
+	}
+	 
+	.results-container
+	{
+		overflow:auto; 
+		width:100%; 
+		border-bottom:2px solid black; 
+		margin-bottom:18px;
+	}
+
+	table.standard-table-full{
+		margin-bottom: 0;
+		margin-top: 0;
+		
+		caption{
+			margin-top: 22px;
+			padding-left: 5px;
+			text-align: left;
+			font-weight: bold;
+			font-size: 12px;
+			text-transform: uppercase;
+		}
+
+		th a{
+			display: block;
+			line-height: 28px;
+			width: 100%;
+			height: 100%;
+		}
+
+		th i{
+			@include inline-block;
+			padding-left: 3px;
+			text-decoration: none;
+		}
+
+		tr{
+			td{
+				padding-left:5px 4px;
+			}
+		}
+
+		tbody{
+			td{
+				padding-bottom: 0;
+			}
+		}
+
+		tbody>tr{
+			height:30px;
+		}
+	}
+
+	.no-search-results{
+		margin-top: 18px;
+
+		border-bottom: 1px solid black;
+
+		ol{
+			padding-left: 40px;
+			margin-bottom: 20px;
+		}
+	}
+}
+
+.drilldown {
+	padding-bottom: 16px;
+	p:nth-of-type(1){
+		font-weight: bold;
+		text-align: right;
+	}
+}
+
+.l-information-wrapper {
+	width: 780px;
+	overflow: hidden;
+
+	li{
+		list-style: none;
+	}
+
+	.left{
+		float: left; 
+
+		img{
+			border:1px solid #666666;
+		}
+	}
+
+	.right{
+		float: right;
+		width: 620px; 
+
+		div{
+			width: 580px;
+			border-radius: 5px;
+			padding: 10px;
+			margin-right: 20px;
+			margin-bottom: 20px;
+			display: -moz-inline-block;
+			display: inline-block;
+			zoom: 1;
+			*display: inline;
+			vertical-align: top;
+
+			div{
+				float: left;
+				width: 45%;
+				padding: 0;
+				margin: 0;
+				margin-right: 10%;
+
+				&.last{
+					margin-right: 0;
+				}
+			}
+			
+		}
+
+		div.small { 
+			min-height: 200px;
+			width: 270px; 
+		}
+		
+		div.small.last { 
+			clear: right;
+			margin-right: 0; 
+		}
+
+		.title{
+			padding-bottom:10px;
+		}
+
+		h2{
+			padding-bottom: 10px;
+		}
+
+		p+h2{
+			margin-top: 15px;
+		}
+
+		.sub-h3{
+			display: block;
+			padding-left: 5px;
+			padding-bottom: 10px;
+		}
+
+		.divider{
+			border-top: 1px solid black;
+			padding-top: 7px;
+		}
+
+		.divider-bottom{
+			border-bottom: 1px solid black;
+			margin-bottom: 7px;
+		}
+	}
+}
+
+//SMACSS Module definition.
+.system-message{
+	background-color: Yellow;
+    text-align: center;
+    color:Black;
+}
+
+.four-column-info-list,
+.two-column-info-list{
+	
+	li{
+		list-style-type: none;
+
+		//For nested list items.
+		ul{
+			clear: both;
+			width: 100%;
+
+			li{
+				span{
+					padding-left: 10px;
+				}
+
+				.value{
+					padding: 0;
+					width: 35%;
+				}
+			}
+		}
+	} 
+
+	.indented > span:first-child {
+		padding-left: 10px;
+	}
+
+	span {
+		//display: block;
+		//width: 40%;
+		float: right;
+	}
+
+	.label{
+		max-width: 85%;
+		float: left;
+	}
+
+	.value{
+		text-align: right;
+		//width: 40%;
+		float: right;
+	}
+}
+
+.four-column-info-list{
+	
+	overflow: hidden;
+
+	li{
+		float: left;
+		margin: 0 32px 9px 0;
+		width: 255px;
+	}
+}
+
+// Style this list as a table
+.two-column-info-list {
+	display: table;
+	width: 100%;
+
+	li {
+		display: table-row;
+
+		span {
+			display: table-cell;
+		}
+	}
+
+	li:not(:first-child)
+	{
+		span {
+			padding-top: 5px;
+		}
+	}
+}
+
+.divider {
+	margin-top: 7px;
+}
+
+.checkbox-list{
+	li{
+		list-style-type: none;
+		padding-bottom: 5px;
+		overflow: hidden;
+	}
+
+	.indent{
+		margin-left:35px;
+	}
+}
+
+.dynamic-content {
+
+	margin-right: 10px;
+	padding-top: 10px;
+	max-width: 740px;
+	width: 100%;
+
+	.header-container {
+		border-bottom: 1px solid black;
+
+		overflow: hidden;
+		position: relative;
+	}
+
+	// blue header
+	h3 {
+		height: 21px;
+
+		white-space:nowrap;
+		text-align:left;
+
+        i {
+            vertical-align: middle;
+            margin-left: 15px;
+        }
+	}
+
+	.header-tab, a.close {
+		-webkit-border-top-left-radius: 3px;
+		-webkit-border-top-right-radius: 3px;
+		-moz-border-radius-topleft: 3px;
+		-moz-border-radius-topright: 3px;
+		border-top-left-radius: 3px;
+		border-top-right-radius: 3px;
+	}
+
+	.header-tab {
+		float: left;
+		display: block;
+		padding-left: 10px;
+		padding-right: 10px;
+	}
+
+	a.close {
+		position: absolute; 
+        top: 0px;
+        right: 0px;
+		margin-top: 2px;
+		cursor:pointer;
+		height:10px;
+		width:14px;
+		line-height: 0px;
+		text-align:center;
+		padding:5px;
+		text-decoration:none;
+	}
+
+	.loading-message {
+		padding-left: 20px;
+    }
+
+    .metric-subtitle {
+        padding-bottom:6px;
+        padding-right: 5px;
+        text-align: center;
+    }
+
+    .chart-goal {
+        text-align:right;
+        padding-top:5px;
+        padding-right:25px;
+    }
+
+    .metric-no-data,
+	.MetricNoData {
+	    padding: 10px 0px 10px 10px;
+        display:block;
+    }
+}
+
+.section-menu
+{
+	overflow: hidden;
+	margin-bottom: 10px;
+
+	li{
+		margin-left: 10px;
+		margin-right: 10px;
+		list-style-type: none;
+		padding-bottom: 5px;
+		overflow: hidden;
+		float: left;
+
+		span,
+		label {
+			display: block;
+		}
+
+		select{
+			font-size: 11px;
+			border: 1px solid $informationBlue;
+		}
+
+	}
+}
+
+//Css for metrics.
+.metricId{
+	display: none;
+}
+
+.dbId{
+	display: none;
+}
+
+.l-overview-metrics{
+
+	.entity-title{
+			padding-bottom:10px;
+	}
+
+	.left{
+		float: left; 
+
+		img{
+			border:1px solid #666666;
+		}
+	}
+
+	.right{
+		padding: 10px;
+		float: right;
+		width: 570px; 
+		height: 164px;
+		border-radius: 5px;
+
+		div{
+				float: left;
+				width: 45%;
+				padding: 0;
+				margin: 0;
+				margin-right: 10%;
+
+				&.last{
+					margin-right: 0;
+				}
+			}
+	}
+}
+
+.l-metrics{
+
+	clear: both;
+
+	//This comes form Thomas's code. Might need to revise.
+	.accountability-rating {
+	    border-radius: 5px;
+        padding: 10px;
+        margin-bottom: 10px;
+    }
+
+    > .btn {
+        // Used primarily for 'Show/Hide Prior Year' and 'Publish Goals' buttons.
+        text-align: center;
+        float: right;
+    }
+
+    > .btn.PriorYearDisplayOption {
+        text-align: center;
+        float: right;
+		width: 15%
+    }
+
+	table{
+		padding-top: 10px;
+		margin-top: 20px;
+		border-collapse: collapse;
+		width: 100%;
+		border-bottom: 1px solid black;
+		//table-layout: fixed;
+
+		th {
+			text-align: center;
+		}
+
+		thead{
+
+			th{
+				//Tried doing min-height: didnt work in Chrome or any other...
+				height: 30px;
+				padding-top: 3px;
+				padding-bottom: 2px;
+				padding-left: 5px;
+				padding-right: 5px;
+
+				small{
+					text-transform: none;
+				}
+			}
+
+			tr:first-child th:first-child{
+				-moz-border-radius: 6px 0 0 0;
+				-webkit-border-radius: 6px 0 0 0;
+				border-radius: 6px 0 0 0;
+				text-align: left;
+			}
+
+			tr:first-child th:last-child {
+				-moz-border-radius: 0 6px 0 0;
+				-webkit-border-radius: 0 6px 0 0;
+				border-radius: 0 6px 0 0;
+			}
+
+			tr:first-child th:only-child{
+				-moz-border-radius: 6px 6px 0 0;
+				-webkit-border-radius: 6px 6px 0 0;
+				border-radius: 6px 6px 0 0;
+			}
+		}
+
+		tbody{
+
+			.container{
+				border-top: 1px solid black;
+
+				td {
+					padding-top: 10px;
+				}
+			}
+
+			.dynamic-row
+			{
+				> td{
+					padding: 0;
+					width: 740px;
+				}
+			}
+
+
+			td{ 
+				padding-bottom: 5px;
+				text-align: center;
+				
+				input[type=text] {
+					border: 1px solid gray;
+					width: 100%;
+					text-align: center;
+					padding: 1px 0px;
+				}
+			 }
+			td:first-child{ text-align: left; }
+
+			.arrow,
+			.arrow-indented {
+				text-align: left;
+				padding-top: 3px;
+				padding-bottom: 3px;
+				width: 100%;
+				min-width: 157px;
+				overflow: hidden;
+
+				span{
+					vertical-align: middle;
+				}
+
+				//Bullet for prior year appearance
+				.icon-right{
+					vertical-align: middle;
+					padding-left: 5px;
+				}
+
+                .under-construction {
+                    float: right;
+                }
+			}
+			
+			.arrow-indented{
+
+				.icon-minus{
+					margin-left: 20px;
+				}
+
+				.icon-blank{
+					margin-left: 15px;
+				}
+			}
+
+			//Bullet.
+			i.icon-blank{
+				vertical-align: middle;
+				padding-left:5px;
+			}
+
+			//Dash
+			.icon-minus
+			{
+				vertical-align: middle;
+				padding-left:5px;
+			}
+
+			.under-construction {
+				margin-right:20px;
+				display:block;
+			}
+		}//tbody closing.
+
+		&.tabular {
+			// For displaying tabular-only data (as opposed to metrics)
+			td, th { padding: 4px 0 4px 10px; }
+			td { text-align: left; }
+		}
+	}
+
+	ul.tabular-notes { margin: 10px 30px 10px; }
+
+	p + h3,
+	ul + h3,
+	table + h3 { margin-top: 30px; }
+}
+
+// Module
+// For the StatusLabel Partial.
+// Revise this.... Make sure we use the sprite....
+.status-goal-met-exceeded,
+.status-goal-met,
+.status-goal-not-met-acceptable,
+.status-goal-not-met,
+.status-goal-not-met-way-below,
+.status-goal-none,
+.status-goal-na
+{
+	@include inline-block;
+
+    text-align:center;
+	vertical-align:middle;
+	width:70px;
+	height:17px;
+	padding-top: 2px;
+	white-space: nowrap;
+}
+
+.status-goal-none
+{
+	display: none;
+}
+
+
+.contextMenu-group {
+    position: relative; // Needed in order to position dropdown properly
+}
+
+// Module - More Button
+.contextMenu-Button {
+
+    display: inline-block;
+    width: 63px;
+    height: 18px;
+    line-height: 18px;
+    padding: 0;
+    border: 1px solid rgba(0, 0, 0, .2);
+    -webkit-border-radius: 2px;
+    -moz-border-radius: 2px;
+    border-radius: 2px;
+	cursor: pointer;
+}
+
+.contextMenu-Button:focus {
+	border: 1px solid $informationBlue;
+}
+
+// Module
+.contextMenu-DropDown
+{
+    position: absolute;
+    z-index: 1000;
+
+    
+    display: block;
+    padding-top: 6px;
+	padding-bottom: 6px;
+    border: 1px solid #939598;
+	
+    background-color: #fff;
+
+	li {
+        line-height: 22px;
+		text-align: left;
+		list-style-type: none;
+
+		a {
+            display: block;
+            padding: 0px 8px 0px 4px;
+            white-space: nowrap;
+
+			i {
+				font-size: 14px; // controls size of icon
+                width: 20px;
+                height: 18px;
+			}
+		}
+	}
+}
+
+//Legend Icons
+.l-legend{
+	
+	height:60px;
+	padding: 2px 0 0 8px;
+	margin-bottom: 8px;
+
+	dl{
+		float: left;
+
+		dt, dd {
+			display: inline-block;
+			vertical-align: middle;
+			*display: inline;
+			zoom: 1;
+		}
+
+		dt {
+			
+			width: 17px;
+			height: 20px;
+			padding: 5px 0;
+			margin-right: 5px;
+		}
+		dd {
+			
+			margin: 0 10px 0 0;
+			max-width: 100px;
+		}
+	}
+
+	.l-accommodations{
+		width:100%;
+
+		dd{
+			width:60px;
+			margin-right: 25px;
+		}			
+	}
+
+	.l-goal{
+		margin-left:36px;
+
+		dt{
+			width: 70px;
+		}
+		dd{
+			margin-right: 80px;
+		}
+	}
+
+	.l-trends{
+		margin-left:20px;
+
+		dt{
+			width: 15px;
+		}
+		dd{
+			margin-right: 40px;
+			padding-left: 7px;
+		}
+	}
+
+}
+ 
+header .icon-down-open {
+	font-size: 0.3em;
+	display: inline-block;
+	line-height: 37px;
+	position: relative;
+	bottom: 8px;
+	padding: 0 2px;
+	cursor: pointer;
+}
+
+.icon-no-change {
+	width: 15px;
+	height: 11px;
+	margin-top: 2px;
+	display: inline-block;
+}
+
+// Module
+.aggregate-status-tictacs {
+    display: block;
+
+    list-style-type: none;
+
+    li {
+        float: left;
+        cursor: pointer;
+        margin-right: 4px;
+		width: 10px;
+
+        a {
+            display: inline-block;
+            width: 10px;
+            height: 23px;
+			margin-bottom: 3px;
+        }
+    }
+}
+
+// aggregate status icons
+.aggregate-status-very-good,
+.aggregate-status-good,
+.aggregate-status-low,
+.aggregate-status-very-low,
+.aggregate-status-acceptable
+{
+    display: inline-block;
+    text-align:center;
+    vertical-align:middle;
+    background-repeat:no-repeat;
+    width:10px;
+    height:23px;
+    cursor:pointer;
+    background-image:url('../Images/StatusLabelSprite.png');
+}
+
+.aggregate-status-very-good,
+.aggregate-status-good
+{
+    background-position: -72px -24px; // Green tic tac
+}
+
+.aggregate-status-low,
+.aggregate-status-very-low
+{
+    background-position: -72px 0px; // Red tic tac.
+}
+
+.aggregate-status-acceptable
+{
+    background-position: -72px -71px; // yellow tic tac.
+}
+
+// Module
+.aggregate-status-details {
+    
+    display: none;
+    padding:0px 10px 10px 10px;
+    text-align: left;
+
+    .tooltip-arrow-container {
+        text-align: center;
+
+        .tooltip-arrow {
+            background-image:url('../Images/tooltip-arrow.png');
+            width: 13px;
+            height: 8px;
+            //background-position: 0 0;
+            vertical-align: text-top; // chrome and firefox need this
+            display: inline-block;
+            position: relative;
+            top: -8px;
+        }
+    }
+
+    .subtitle {
+        white-space: nowrap;
+        padding-bottom: 6px;
+        padding-right: 5px;
+    }
+
+    .aggregate-status-summary {
+
+        .bullet-title {
+            white-space: nowrap;
+            padding-left: 10px;
+            padding-right: 10px;
+        }
+
+        .status-goal-container {
+            padding-left: 14px;
+        }
+
+        .metric-context-text {
+            padding-left: 10px;
+            font-size: 11px;
+        }
+    }
+}
+
+// where should this css live?
+// Footnote after metric chart
+.metric-footnote-container {
+
+    i {
+        float: left;
+        display: block;
+        width: 50px;
+        color: $informationBlue;
+    }
+
+    ul {
+        float: left;
+        
+        > li {
+            font-size: 8px;
+        }        
+    }
+}
+
+.metric-footnote-tooltip
+{    
+    position:absolute; 
+	z-index: 9999;
+    display:none; 
+    padding:6px 6px 6px 6px;
+    max-width: 300px;
+    vertical-align:middle;
+    text-align:center;
+
+	ul{
+		padding-right: 10px;
+	}
+
+	li{
+		position: relative;
+		left: 10px;
+		text-align: left;
+	}
+}
+
+#footer.footer-maximized{
+	position: absolute;
+	bottom: 0;
+	left: 0;
+	right: 0;
+}
+
+// Feedback form
+.feedback-form {
+
+    label {
+        float: left;
+        width: 25%;
+        *width: 22%;
+    }
+
+    input {
+        margin: 0;
+        width: 73%;
+    }
+
+    select {
+        width: 70%;
+    }
+
+    p {
+        margin-bottom: 2px;
+    }
+}
+
+table.standard-table {
+
+	padding-top: 10px;
+	margin-top: 20px;
+	border-collapse: collapse;
+	border-bottom: 1px solid black;
+	margin-left: auto;
+	margin-right: auto;
+	margin-bottom: 10px;
+
+	thead {
+		@include bullnose($header-shadow, $header-flat, $header-highlight);
+		border-bottom: 2px solid black;
+
+		th {
+			text-align: center;
+			height: 30px;
+			padding-top: 3px;
+			padding-bottom: 2px;
+			padding-left: 5px;
+			padding-right: 5px;
+
+			&.top-row {
+				@include bullnose-top($header-flat, $header-highlight);
+			}
+
+			&.bottom-row {
+				@include bullnose-bottom($header-shadow, $header-flat);
+
+				-moz-border-radius: 0 !important;
+				-webkit-border-radius: 0 !important;
+				border-radius: 0 !important;
+			}
+
+			.icon-chevron-down,
+			.icon-chevron-up,
+			.icon-none{
+				font-size: 10px;
+			}
+		}
+
+		th:first-child {
+			-moz-border-radius-topleft: 6px;
+			-webkit-border-top-left-radius: 6px;
+			border-top-left-radius: 6px;
+			text-align: left;
+		}
+
+		th:last-child {
+			-moz-border-radius-topright: 6px;
+			-webkit-border-top-right-radius: 6px;
+			border-top-right-radius: 6px;
+		}
+	}
+
+	tbody {
+
+		td {
+			padding-bottom: 5px;
+			text-align: center;
+			font-size: 8pt;
+			font-weight: normal;
+		}
+
+		td:first-child {
+			text-align: left;
+			padding-left: 10px;
+		}
+
+		.arrow, .arrow-indented {
+			text-align: left;
+			padding-top: 2px;
+			padding-bottom: 2px;		
+			width: 100%;
+			min-width: 157px;
+			overflow: hidden;
+		}
+
+		span {
+			vertical-align: middle
+		}
+	}
+}
+
+table.standard-table-compressed {
+	width: 650px;
+}
+
+table.standard-table-full {
+	width: 100%;
+}
+
+.standard-table {
+	.status-goal-met-exceeded, .status-goal-met, .status-goal-not-met-acceptable, .status-goal-not-met, .status-goal-not-met-way-below, .status-goal-none, .status-goal-na{
+		margin-top:5px;
+	}
+}
+
+.historical-chart {
+	text-align: right;
+
+    .loading {
+        text-align:left;
+        padding: 10px 0px 10px 10px;
+        display:block;
+        width: 740px;
+    }
+	
+	.chart-context{
+		text-align: left;
+	}
+
+	.chart-placeholder {
+		width: 700px;
+		height: 1px; 
+	}
+
+	.display-periods{
+		text-align: left;
+
+		.display-period{
+			margin: 0 3px;
+			cursor: pointer;
+		}
+	}
+
+    .school-goal {
+        padding-top:1px;
+    }
+
+    .chart {
+        width:700px;
+		padding-top: 12px;
+		overflow: hidden;
+    }
+
+    .tooltip {
+        display:none;
+        width:130px;
+		text-align:left;
+    
+		.tooltip-value{
+			width:100%;
+			border:1px solid #225273;
+			border-bottom:2px solid #225273;
+			background-color:#FFFFFF;
+			padding:2px;
+			font-size:10px;
+		}
+	}
+
+    .tooltip-indicator {
+        display: none;
+		text-align:left;
+    
+		.tooltip-indicator-value {
+			border:1px solid #225273;
+			border-bottom:2px solid #225273;
+			padding:5px;
+			float:left;
+		}
+
+		.tooltip-indicator-pointer {
+			float: left;
+			margin-top: 6px;
+		}
+	}
+
+    .overview {
+        width:700px;
+        height:70px;
+        display:none;
+    }
+
+	.slider-container{
+		height:38px;
+		padding-left: 34px;
+		margin-right: 26px;
+		margin-bottom: 10px;
+	}
+
+	.slider {
+        position:relative;
+        height:38px;
+        width:100%;
+		display:none;
+        
+
+        .left-arrow {
+            position:absolute;
+            left:0;
+			bottom:0;
+            height:13px;
+            width:16px;
+            cursor:pointer;
+            background-image: url("../Images/Slider/LeftArrow.png");
+        }
+
+        .middle-area {
+            position: absolute;
+            left: 16px;
+            right: 16px;
+			bottom:0;
+            height: 13px;
+            background: rgb(234, 234, 234);
+
+			.slider-bar {
+				position: absolute;
+				width: 100px;
+				left: 50px;
+				height: 11px;
+				background: #e9e9ea;
+				cursor:pointer;
+				border: solid 1px #929292;
+				-webkit-border-radius: 3px;
+						border-radius: 3px;
+				-webkit-background-clip: padding-box;
+				background-clip: padding-box;
+				-webkit-box-shadow: inset 0px -4px 10px 0px #c1c2c5;
+				box-shadow: inset 0px -4px 10px 0px #c1c2c5;
+			}
+
+			.slider-adjuster {
+					height: 20px;
+					width: 9px;
+					background-image: url('../Images/Slider/RangeSelector.png');
+					cursor: w-resize;
+					border: 0;
+					position: absolute;
+					top:-20px;
+					-webkit-user-select: none;
+					-khtml-user-select: none;
+					-moz-user-select: none;
+					-o-user-select: none;
+					user-select: none;
+				}
+
+				.slider-adjuster-left {
+					left: 0;
+				}
+
+				.slider-adjuster-right {
+					right: 0;
+				}
+        }
+
+        .right-arrow {
+            position:absolute;
+            right:0;
+			bottom:0;
+            height:13px;
+            width:16px;
+            cursor:pointer;
+            background-image: url("../Images/Slider/RightArrow.png");
+        }
+	}
+}
+
+//Module for the historical tooltip.
+.historical-chart-tooltip {
+        display:none;
+        width:130px;
+		text-align:left;
+    
+		.tooltip-value{
+			width:100%;
+			border:1px solid #225273;
+			border-bottom:2px solid #225273;
+			background-color:#FFFFFF;
+			padding:2px;
+			font-size:10px;
+		}
+
+		.title{
+			font-size: 12px;
+			font-weight: bold;
+			color: #255b80;
+			text-align: left;
+			padding: 2px 2px 0 2px;
+		}
+
+		.subtitle{
+			font-size: 10px;
+			font-weight: bold;
+			text-align: left;
+			padding: 0 2px 6px 3px;
+		}
+	}
+
+    .historical-chart-tooltip-indicator {
+        display: none;
+		text-align:left;
+    
+		.tooltip-indicator-value {
+			border:1px solid #225273;
+			border-bottom:2px solid #225273;
+			padding:5px;
+			float:left;
+		}
+
+		.tooltip-indicator-pointer {
+			float: left;
+			margin-top: 6px;
+		}
+	}
+
+.student-drop-down{
+	margin-bottom: 10px;
+
+	.content-label{
+		text-align:left;
+		padding: 2px 0px 2px;
+		vertical-align:middle;
+	}
+
+	.drop-down
+	{
+		border: 1px solid #255B80;
+		width: 200px;
+	}
+}
+
+.newGoal,
+.childNewGoal {
+    text-align: center;
+    width: 60px !important;
+	border: 1px solid gray;
+}
+
+.changedGoal {
+    background-color: #EBE8D3;
+	border: inset !important;
+}
+
+.pendingGoal {
+}
+
+.ChartGoal
+{
+    text-align:right;
+    padding-top:5px;
+    padding-right:25px;
+}
+
+.l-metrics table.class-absences-chart{
+	table-layout: inherit;
+	border-bottom: 0px;
+}
+
+.class-absences-chart {
+    tr {
+		.class-label {
+			height: 17px;
+			text-align: right;
+		}
+
+		.day-header{
+			width: 21px;
+			height: 17px;
+			padding: 2px 0;
+			text-align: center;
+		}
+
+		.day-header-friday{
+			box-sizing: border-box;
+			width: 38px;
+			text-align: left;
+			padding-left: 8px;
+		}
+
+		.day-header-monday:before
+		{
+			content: 'M';
+		}
+
+		.day-header-tuesday:before
+		{
+			content: 'T';
+		}
+
+		.day-header-wednesday:before
+		{
+			content: 'W';
+		}
+
+		.day-header-thursday:before
+		{
+			content: 'Th';
+		}
+
+		.day-header-friday:before
+		{
+			content: 'F';
+		}
+
+		th,
+		td {
+			padding: 3px;
+			vertical-align: top;
+		}
+
+		.attendance {
+			
+			.attendance-type {
+				display: block;
+				height: 18px;
+				width: 17px;
+				text-align: center;
+				line-height: 18px;
+			}
+
+			.attendance-footer-box{
+			    display: inline-block;
+			}
+
+			.attendance-type-Excused,
+			.attendance-type-Unexcused
+			{
+				background-image: url('../Images/AbsentIndicator.png');
+			}
+
+			.attendance-type-Unexcused:before {
+				content: 'U';
+			}
+
+			.attendance-type-Tardy:before {
+				content: 'T';
+			}			
+		}
+		li{
+			text-align: left;
+		}
+	}
+}
+
+
+.credit-accumulation-grid {
+
+    .expand-collapse-header,
+    .expand-collapse {
+        display: table;
+        border-collapse: collapse;
+        width: 100%;
+
+		.expand-collapse-row {
+			display: table-row;
+
+			span {
+				display: table-cell;
+				padding-bottom: 5px;
+				text-align: center;
+			}
+
+			.subject-area {
+				width: 70%;
+				text-align: left;
+			}
+
+			.credits-earned {
+				width: 30%;
+				font-weight: bold;
+			}
+		}
+    }
+
+	.expand-collapse {
+        margin: 10px 0;
+    }
+
+    .expand-collapse-header {
+        padding-top: 10px;
+        margin-top: 20px;
+        border-bottom: 1px solid #000;
+
+		.expand-collapse-row {
+
+			span {
+				@include bullnose($header-shadow, $header-flat, $header-highlight);
+				
+				border-bottom: 2px solid #000;
+				height: 30px;
+				line-height: 30px;
+				padding: 3px 5px 2px 5px;
+				text-align: center;
+			}
+
+			span:first-child {
+				-moz-border-radius: 6px 0 0 0;
+				-webkit-border-radius: 6px 0 0 0;
+				border-radius: 6px 0 0 0;
+				text-align: left;
+			}
+
+			span:last-child {
+				-moz-border-radius: 0 6px 0 0;
+				-webkit-border-radius: 0 6px 0 0;
+				border-radius: 0 6px 0 0;
+			}
+		}
+    }
+}
+
+.buttonImage
+{
+    cursor:pointer;
+    text-align:left;
+    vertical-align:top;
+    height: 20px;
+    padding-left:20px;
+    padding-top:3px;
+}
+
+.buttonReplicate
+{
+    width:64px;
+    background-image:url('../Images/ButtonReplicate.png');
+    padding-left:22px;
+	display: block;
+	color: #fff !important;
+}
+
+.overviewTopAlign *{
+	vertical-align: top;
+}

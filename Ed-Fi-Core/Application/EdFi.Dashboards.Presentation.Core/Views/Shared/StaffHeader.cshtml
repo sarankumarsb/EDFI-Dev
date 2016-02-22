@@ -1,0 +1,13 @@
+﻿@model EdFi.Dashboards.Resources.Models.Staff.StaffModel
+@using EdFi.Dashboards.Presentation.Core.Controllers
+@using EdFi.Dashboards.Common
+@{
+    Layout = null;
+}
+<header class="l-selected-entity-header">
+    @{Html.RenderAction("PreviousNext", typeof(PreviousNextController).GetControllerName());}
+    <h1>
+        <img src="@(Model.ProfileThumbnail)" alt="@Model.FullName" />
+        @Model.FullName
+    </h1>
+</header>

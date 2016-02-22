@@ -1,0 +1,66 @@
+﻿#PreviousNextControlTable 
+{
+	width:100%;
+	height:25px;
+	font-family:Arial;
+	font-size:8pt;
+	border:1px solid #cacaca;
+	color:#255B80;
+	font-weight:bold;
+}
+
+#PreviousNextControlTable td.divider
+{
+	width:16px;
+	color:#999999;
+	text-align:center;
+}
+
+#PreviousNextControlTable a
+{
+	font-family:Arial;	
+	font-size:8pt;
+	font-weight:bold;
+	text-decoration:none;
+	background-repeat:no-repeat;
+	display:block;
+	height:15px;
+}
+
+.PreviousNextControlBackToList
+{
+	color:#255B80;
+	background-image: url('img/ArrowBack.png');
+	background-position:left center;
+	padding-left:18px;
+}
+
+.PreviousNextControlPrevious,
+.PreviousNextControlPreviousGrayOut
+{
+	color:#255B80;
+	background-image: url('img/ArrowLeft.png');
+	background-position:left center;
+	padding-left:15px;
+}
+
+.PreviousNextControlNext,
+.PreviousNextControlNextGrayOut
+{
+	color:#255B80;
+	background-image: url('img/ArrowRight.png');
+	background-position:right center;
+	padding-right:15px;
+}
+
+.PreviousNextControlPreviousGrayOut
+{
+	color:Gray;
+	background-image: url('img/ArrowLeftGrayOut.png');
+}
+
+.PreviousNextControlNextGrayOut
+{
+	color:Gray;
+	background-image: url('img/ArrowRightGrayOut.png');
+}

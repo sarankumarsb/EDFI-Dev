@@ -1,0 +1,443 @@
+﻿@using EdFi.Dashboards.Core.Providers.Context
+@using EdFi.Dashboards.Common;
+@using EdFi.Dashboards.Resources.Models.Common;
+@using EdFi.Dashboards.SecurityTokenService.Authentication
+@model EdFi.Dashboards.Presentation.Core.Models.Shared.EdFiGridModel
+           
+@{
+    var localEducationAgencyId = EdFiDashboardContext.Current.LocalEducationAgencyId.GetValueOrDefault();
+    var schoolId = EdFiDashboardContext.Current.SchoolId.GetValueOrDefault();
+    var staffUSI = UserInformation.Current.StaffUSI;
+    var pageStaffUSI = EdFiDashboardContext.Current.StaffUSI.GetValueOrDefault();
+    var sectionId = EdFiDashboardContext.Current.SectionOrCohortId.GetValueOrDefault();
+    var studentListType = EdFiDashboardContext.Current.StudentListType;
+    var atLeaLevel = localEducationAgencyId > 0 && schoolId == 0;
+}
+
+<div id="@(Model.GridName)EdfiGrid-watch-list" class="EdfiGrid-watch-list">
+    <div id="@(Model.GridName)EdfiGrid-filtered-list-header" class="EdfiGrid-filtered-list-header">
+        <p>
+            <label>Dynamic List Name:</label>
+            <span data-bind="text: WatchListName"></span>
+        </p>
+        <div>
+            @if (!atLeaLevel)
+            {
+                <input type="checkbox" data-bind="checked: IsWatchListShared" id="@(Model.GridName)EdfiGrid-watch-list-isShared"/>
+                <label for="@(Model.GridName)EdfiGrid-watch-list-isShared">Share Dynamic List</label>
+            }
+
+            <button>
+                <i class="icon-cancel"></i>
+            </button>
+        </div>
+        <ul id="@(Model.GridName)EdfiGrid-watch-list-nav" class="EdfiGrid-watch-list-nav" data-bind="template: { name: 'metricTabTemplate', foreach: Tabs }"></ul>
+    </div>
+    
+    <form id="@(Model.GridName)EdfiGrid-watch-list-form">
+        <div data-bind="template: { name: 'metricTabPageTemplate', foreach: Tabs }"></div>
+        <div class="EdfiGrid-watch-list-edit">
+            <p>Selected Filters:&nbsp;</p><div data-bind="text: SelectedValuesDisplay "></div>
+            <ul>
+                <li><button id="@(Model.GridName)EdfiGrid-rename-watch-list" class="btn">Change Name</button></li>
+                <li><button id="@(Model.GridName)EdfiGrid-delete-watch-list" class="btn">Delete</button></li>
+                <li><button id="@(Model.GridName)EdfiGrid-save-watch-list" class="btn">Save</button></li>
+            </ul>
+        </div>
+    </form>
+</div>
+
+<div id="@(Model.GridName)EdfiGrid-rename-popup" title="Change Name" style="display: none;">
+    <table>
+        <tr>
+            <td style="vertical-align: top;"><label>Enter List Name:</label></td>
+            <td><input type="text" id="@(Model.GridName)EdfiGrid-rename-popup-watch-list-name"/></td>
+        </tr>
+        <tr>
+            <td style="vertical-align: top;"><label>Enter List Description:</label></td>
+            <td><textarea id="@(Model.GridName)EdfiGrid-rename-popup-watch-list-description" rows="5" cols="50"></textarea></td>
+        </tr>
+    </table>
+</div>
+
+<div id="@(Model.GridName)EdfiGrid-save-confirmation-popup" title="Save Changes?" style="display: none;">
+    <label>Do you wish to save your changes?</label>
+</div>
+
+<div id="@(Model.GridName)EdfiGrid-delete-confirmation-popup" title="Delete Dynamic List" style="display: none;">
+    <label>Are you sure you want to delete this dynamic list?</label>
+</div>
+
+<div id="@(Model.GridName)EdFiGrid-sharing-confirmation-popup" title="Sharing Confirmation" style="display: none;">
+    <label>You have selected your dynamic list '<label data-bind="text: WatchListName"></label>' for sharing with your school. Please save this setting for the list to be shared.</label>
+</div>
+
+<script type="text/javascript">
+    $("#@(Model.GridName)EdfiGrid-watch-list-form").submit(function(event) {
+        event.preventDefault();
+    });
+</script>
+
+<!-- This is the top level tab template -->
+<script type="text/html" id="metricTabTemplate">
+    <!-- ko if: IsActiveTab() -->
+    <li class="active-filter-tab"><a class="active-filter-tab" href="#" data-bind="attr: { id: '@(Model.GridName)-' + Name + '-tab', 'data-tab-content': '@(Model.GridName)-' + Name }, text: DisplayText"></a></li>
+    <!-- /ko -->
+    <!-- ko ifnot: IsActiveTab() -->
+    <li><a href="#" data-bind="attr: { id: '@(Model.GridName)-' + Name + '-tab', 'data-tab-content': '@(Model.GridName)-' + Name }, text: DisplayText"></a></li>
+    <!-- /ko -->
+</script>
+<!-- This is the tab page template -->
+<script type="text/html" id="metricTabPageTemplate">
+    <!-- ko if: IsActiveTab() -->
+    <div data-bind="attr: { id: '@(Model.GridName)-' + Name }, template: { name: 'metricColumnTemplate', data: { Columns: Columns } }" class="active-filter"></div>
+    <!-- /ko -->
+    <!-- ko ifnot: IsActiveTab() -->
+    <div data-bind="attr: { id: '@(Model.GridName)-' + Name }, template: { name: 'metricColumnTemplate', data: { Columns: Columns } }"></div>
+    <!-- /ko -->
+</script>
+<!-- This is the Column template -->
+<script type="text/html" id="metricColumnTemplate">
+    <!-- ko if: Columns().length == 4 -->
+    <!-- ko foreach: Columns -->
+    <div class="watch-list-column thin" data-bind="template: { name: 'metricGroupTemplate', foreach: Templates }"></div>
+    <!-- /ko -->
+    <!-- /ko -->
+    <!-- ko if: Columns().length == 3 -->
+    <!-- ko foreach: Columns -->
+    <div class="watch-list-column medium" data-bind="template: { name: 'metricGroupTemplate', foreach: Templates }"></div>
+    <!-- /ko -->
+    <!-- /ko -->
+    <!-- ko if: Columns().length == 2 -->
+    <!-- ko foreach: Columns -->
+    <div class="watch-list-column wide" data-bind="template: { name: 'metricGroupTemplate', foreach: Templates }"></div>
+    <!-- /ko -->
+    <!-- /ko -->
+    <!-- ko if: Columns().length == 1 -->
+    <!-- ko foreach: Columns -->
+    <div class="watch-list-column full" data-bind="template: { name: 'metricGroupTemplate', foreach: Templates }"></div>
+    <!-- /ko -->
+    <!-- /ko -->
+</script>
+<!-- This is the Group template -->
+<script type="text/html" id="metricGroupTemplate">
+    <!-- ko ifnot: IsViewModelArray -->
+    <div data-bind="template: { name: TemplateName, data: ViewModel }"></div>
+    <!-- /ko -->
+    <!-- ko if: IsViewModelArray -->
+    <h4 data-bind="text: GroupDisplayValue"></h4>
+    <!-- ko foreach: ViewModel -->
+    <div data-bind="template: { name: TemplateName, data: ViewModel }"></div>
+    <!-- /ko -->
+    <!-- /ko -->
+</script>
+<!-- This is the Checkbox template -->
+<script type="text/html" id="metricCheckboxTemplate">
+    <div class="watch-list-category">
+        <h4 data-bind="text: DisplayValue"></h4>
+        
+        <!-- ko foreach: Values -->
+        <div class="EdfiGrid-watch-list-checkbox">
+            <div data-bind="attr: { id: Name + '-checkbox' }">
+                <input type="checkbox" data-bind="attr: { id: $parent.Name + '-' + Name, name: $parent.Name, value: Name }, checked: IsSelected"/>
+            </div>
+            <div data-bind="attr: { id: Name + '-checkbox-label' }">
+                <label data-bind="attr: { 'for': $parent.Name + '-' + Name }, text: DisplayValue"></label>
+            </div>
+        </div>
+        <!-- /ko -->
+    </div>
+</script>
+<!-- This is the inline Checkbox template -->
+<script type="text/html" id="metricCheckboxInlineTemplate">
+    <div class="watch-list-category">
+        <h4 data-bind="text: DisplayValue"></h4>
+        
+        <!-- ko foreach: Values -->
+        <p class="EdfiGrid-watch-list-checkbox-inline">
+            <input type="checkbox" data-bind="attr: { id: $parent.Name + '-' + Name, name: $parent.Name, value: Name }, checked: IsSelected"/>
+            <label data-bind="attr: { 'for': $parent.Name + '-' + Name }, text: DisplayValue"></label>
+        </p>
+        <!-- /ko -->
+    </div>
+</script>
+<!-- This is the Radio button template -->
+<script type="text/html" id="metricRadioButtonTemplate">
+    <div class="watch-list-category">
+        <h4 data-bind="text: DisplayValue"></h4>
+        
+        <!-- ko foreach: Values -->
+        <p>
+            <input type="radio" data-bind="attr: { id: $parent.Name + '-' + Name, name: $parent.Name, value: Name }, checked: $parent.SelectedValue"/>
+            <label data-bind="attr: { 'for': $parent.Name + '-' + Name }, text: DisplayValue"></label>
+        </p>
+        <!-- /ko -->
+    </div>
+</script>
+<!-- This is the Double Drop Down with a Textbox template -->
+<script type="text/html" id="metricDropDownTextboxTemplate">
+    <div class="watch-list-category">
+        <div class="EdfiGrid-watch-list-dropdown">
+            <div>
+                <h4 data-bind="text: DisplayValue"></h4>
+            </div>
+            <div>
+                <select data-bind="attr: { id: Name, name: Name }, options: Comparisons, optionsValue: 'Name', optionsText: 'DisplayValue', optionsCaption: 'Unselected', value: SelectedComparison"></select>
+                <!-- ko if: SelectedComparison() === undefined -->
+                <input type="text" disabled="disabled" data-bind="attr: { id: Name + '-value', name: Name + '-value', 'data-min-value': TextboxMinValue, 'data-max-value': TextboxMaxValue, 'data-format': TextboxFormat }, value: TextboxValue, valueUpdate: 'afterkeydown'" />
+                <!-- /ko -->
+                <!-- ko ifnot: SelectedComparison() === undefined -->
+                <input type="text" data-bind="attr: { id: Name + '-value', name: Name + '-value', 'data-min-value': TextboxMinValue, 'data-max-value': TextboxMaxValue, 'data-format': TextboxFormat }, value: TextboxValue, valueUpdate: 'afterkeydown'" />
+                <!-- /ko -->
+            </div>
+        </div>
+    </div>
+</script>
+<!-- This is the Double Drop Down template -->
+<script type="text/html" id="metricDropDownTemplate">
+    <div class="watch-list-category">
+        <div class="EdfiGrid-watch-list-dropdown">
+            <div>
+                <h4 data-bind="text: DisplayValue"></h4>
+            </div>
+            <div>
+                <select data-bind="attr: { id: Name, name: Name }, options: Comparisons, optionsValue: 'Name', optionsText: 'DisplayValue', optionsCaption: 'Unselected', value: SelectedComparison"></select>
+                <!-- ko if: Values().length > 0 -->
+                <select data-bind="attr: { id: Name + '-values', name: Name + '-values' }, options: Values, optionsValue: 'Name', optionsText: 'DisplayValue', value: SelectedValue, optionsCaption: 'Unselected'"></select>
+                <!-- /ko -->
+            </div>
+        </div>
+    </div>
+</script>
+
+<!-- Contains the observable objects that will be loaded with json data -->
+<script type="text/javascript">
+    // the top level model containing all data for the watch list
+    var WatchListModel = function (data) {
+        var self = this;
+        this.WatchListName = ko.observable(data.WatchListName);
+        this.WatchListName.subscribe(function() {
+            @(Model.GridName)WatchList.WatchListModel.IsWatchListChanged = true;
+        });
+        this.WatchListDescription = ko.observable(data.WatchListDescription);
+        this.WatchListDescription.subscribe(function() {
+            @(Model.GridName)WatchList.WatchListModel.IsWatchListChanged = true;
+        });
+        this.IsWatchListShared = ko.observable(data.IsWatchListShared);
+        this.IsWatchListShared.subscribe(function() {
+            @(Model.GridName)WatchList.WatchListModel.IsWatchListChanged = true;
+        });
+        this.SelectedValuesDisplay = ko.observable();
+        this.SelectedValuesJson = '';
+        this.IsWatchListChanged = data.IsWatchListChanged;
+        this.Tabs = ko.utils.arrayMap(data.Tabs,
+            function (tab) {
+                return new WatchListTabModel(tab);
+            });
+    };
+
+    // contains the tab related data
+    var WatchListTabModel = function (tab) {
+        this.DisplayText = tab.DisplayText;
+        this.Name = tab.Name;
+        this.IsActiveTab = ko.observable(tab.IsActiveTab);
+
+        this.Columns = ko.observableArray(ko.utils.arrayMap(tab.Columns,
+            function (column) {
+                return new WatchListColumnModel(column);
+            }));
+    };
+
+    // contains the data related to columns
+    var WatchListColumnModel = function(column) {
+        this.Templates = ko.observableArray(ko.utils.arrayMap(column.Templates,
+            function (template) {
+                return new WatchListTemplateModel(template);
+            }));
+    };
+
+    // loads all templates even nested templates
+    var WatchListTemplateModel = function (template) {
+        this.TemplateName =  template.TemplateName;
+        this.GroupDisplayValue = template.GroupDisplayValue;
+        this.ViewModel = null;
+        this.IsViewModelArray = $.isArray(template.ViewModel);
+
+        if (this.IsViewModelArray) {
+            // if the ViewModel property is an array then recursively load the
+            // ViewModel object
+            this.ViewModel = ko.utils.arrayMap(template.ViewModel,
+                function(templateModel) {
+                    return new WatchListTemplateModel(templateModel);
+                });
+        } else if (template.ViewModel.TemplateName != undefined) {
+            // if the ViewModel property contains another ViewModel object then
+            // load the ViewModel object recursively
+            this.ViewModel = new WatchListTemplateModel(template.ViewModel);
+        } else {
+            switch(template.TemplateName) {
+                case 'metricRadioButtonTemplate':
+                case 'metricCheckboxTemplate':
+                case 'metricCheckboxInlineTemplate':
+                    this.ViewModel = new WatchListSingleSelectionModel(template.ViewModel);
+                    break;
+                case 'metricDropDownTemplate':
+                    this.ViewModel = new WatchListDoubleSelectionModel(template.ViewModel);
+                    break;
+                case 'metricDropDownTextboxTemplate':
+                    this.ViewModel = new WatchListDoubleSelectionTextboxModel(template.ViewModel);
+                    break;
+            }
+        }
+    };
+
+    // contains the data for the single selection controls (radio or checkbox)
+    var WatchListSingleSelectionModel = function (viewModel) {
+        this.Name = viewModel.Name;
+        this.DisplayValue = viewModel.DisplayValue;
+        this.SelectionValue = viewModel.SelectionValue;
+        this.SelectedValue = ko.observable();
+        this.SelectedValue.subscribe(function() {
+            modelChanged();
+        });
+        this.IsShownInFilterList = viewModel.IsShownInFilterList;
+
+        this.Values = ko.observableArray(ko.utils.arrayMap(viewModel.Values,
+            function (value) {
+                return new WatchListSelectionItemModel(value);
+            }));
+    };
+
+    // contains the data for a single or double drop-down control
+    var WatchListDoubleSelectionModel = function (viewModel) {
+        var self = this;
+        this.Name = viewModel.Name;
+        this.DisplayValue = viewModel.DisplayValue;
+        this.SelectionValue = viewModel.SelectionValue;
+        this.Comparisons = ko.observableArray(ko.utils.arrayMap(viewModel.Comparisons,
+            function(comparison) {
+                return new WatchListSelectionItemModel(comparison);
+            }));
+        this.SelectedDisplayText = "";
+        this.SelectedComparison = ko.observable();
+        this.SelectedComparison.subscribe(function() {
+            self.SelectedDisplayText = $('#' + self.Name + ' option[value="' + self.SelectedComparison() + '"]').text();
+            modelChanged();
+        });
+        this.Values = ko.observableArray(ko.utils.arrayMap(viewModel.Values,
+            function(value) {
+                return new WatchListSelectionItemModel(value);
+            }));
+        this.SelectedValue = ko.observable();
+        this.SelectedValue.subscribe(function() {
+            modelChanged();
+        });
+        this.IsShownInFilterList = viewModel.IsShownInFilterList;
+    };
+
+    // contains the data for the drop-down/textbox control
+    var WatchListDoubleSelectionTextboxModel = function(viewModel) {
+        var self = this;
+        this.Name = viewModel.Name;
+        this.DisplayValue = viewModel.DisplayValue;
+        this.SelectionValue = viewModel.SelectionValue;
+        this.TextboxFormat = viewModel.TextboxFormat;
+        this.TextboxMinValue = viewModel.TextboxMinValue;
+        this.TextboxMaxValue = viewModel.TextboxMaxValue;
+        this.TextboxValue = ko.observable();
+        this.TextboxValue.subscribe(function() {
+            modelChanged();
+        });
+        this.Comparisons = ko.observableArray(ko.utils.arrayMap(viewModel.Comparisons,
+            function(comparison) {
+                return new WatchListSelectionItemModel(comparison);
+            }));
+        this.SelectedDisplayText = "";
+        this.SelectedComparison = ko.observable();
+        this.SelectedComparison.subscribe(function() {
+            self.SelectedDisplayText = $('#' + self.Name + ' option[value="' + self.SelectedComparison() + '"]').text();
+            modelChanged();
+        });
+        this.IsShownInFilterList = viewModel.IsShownInFilterList;
+    };
+
+    // this object will be contained in the Comparisons and Values properties
+    var WatchListSelectionItemModel = function(value) {
+        this.Name = value.Name;
+        this.DisplayValue = value.DisplayValue;
+        this.IsSelected = ko.observable(value.IsSelected);
+        this.IsSelected.subscribe(function() {
+            modelChanged();
+        });
+        this.IsShownInFilterList = value.IsShownInFilterList;
+    };
+
+    function modelChanged() {
+        if (!@(Model.GridName)WatchList.IsLoading && !@(Model.GridName)WatchList.WatchListModel.IsCancelling) {
+            @(Model.GridName)WatchList.WatchListModel.SelectedValuesJson = @(Model.GridName)WatchList.SelectionBuilder.GetSelectedValuesJson();
+            @(Model.GridName)WatchList.DisplayBuilder.BuildDisplayList();
+            @(Model.GridName)WatchList.WatchListModel.IsWatchListChanged = true;
+
+            @(Model.GridName)EdFiGrid.setStudentWatchListData(JSON.parse(@(Model.GridName)WatchList.WatchListModel.SelectedValuesJson));
+        } else if (@(Model.GridName)WatchList.WatchListModel.IsCancelling && @(Model.GridName)WatchList.WatchListModel.IsWatchListChanged) {
+            @(Model.GridName)EdFiGrid.setStudentWatchListData(@(Model.GridName)WatchList.WatchListModel.OriginalSelection);
+            @(Model.GridName)WatchList.WatchListModel.IsWatchListChanged = false;
+        }
+    }
+</script>
+
+<!-- Model Data & Binding -->
+<script type="text/javascript">
+    // we need to set a boolean flag to determine if the grid should be redrawn
+    // also look into if we can persist the student USI's back into the grid
+    var @(Model.GridName)WatchListData = @Model.StudentWatchList.ToJson();
+
+    var @(Model.GridName)WatchList = new MetricsBasedWatchList(
+        '@Model.GridName',
+        {
+            SavePopup: { PopupName: 'EdfiGrid-save-confirmation-popup' },
+            RenamePopup:
+            {
+                PopupName: 'EdfiGrid-rename-popup',
+                TextboxName: 'EdfiGrid-rename-popup-watch-list-name',
+                DescriptionNameTextArea: 'EdfiGrid-rename-popup-watch-list-description'
+            },
+            DeletePopup: { PopupName: 'EdfiGrid-delete-confirmation-popup' },
+            SharingPopup: { PopupName: 'EdFiGrid-sharing-confirmation-popup' }
+        },
+        '@(Model.StudentWatchList.WatchListUrl)',
+        '@(Model.StudentWatchList.WatchListSearchUrl)',
+        {
+            LocalEducationAgencyId: @(localEducationAgencyId),
+            SchoolId: @(schoolId),
+            StaffUSI: "@(staffUSI)",
+            PageStaffUSI: "@(pageStaffUSI)",
+            MetricBasedWatchListId: @(studentListType == StudentListType.MetricsBasedWatchList.ToString() ? sectionId : 0),
+            StudentListType: "@(studentListType)",
+            SavingControllerName: "@(Model.PreviousNextSessionPage)"
+        },
+        {
+            SaveButton: 'EdfiGrid-save-watch-list',
+            DeleteButton: 'EdfiGrid-delete-watch-list',
+            RenameButton: 'EdfiGrid-rename-watch-list'
+        },
+        'EdfiGrid-watch-list-isShared',
+        {
+            Demographic: '@(Model.SelectedDemographicOption)',
+            SchoolCategory: '@(Model.SelectedSchoolCategoryOption)',
+            Grade: '@(Model.SelectedGradeOption)'
+        }
+    );
+
+    @(Model.GridName)WatchList.loadWatchList(@(Model.GridName)WatchListData);
+    @(Model.GridName)WatchList.initializeEvents();
+
+    $('#@(Model.GridName)EdfiGrid-watch-list').on("closing", function(e, table) {
+        @(Model.GridName)EdFiGrid.hideStudentWatchListMenu();
+        @(Model.GridName)EdFiGrid.hideInteractionMenu(null);
+    });
+    $('#@(Model.GridName)EdfiGrid-watch-list').on("opening", function(e, table) {
+        @(Model.GridName)EdFiGrid.showStudentWatchListMenu();
+        @(Model.GridName)EdFiGrid.hideInteractionMenu(null);
+    });
+</script>

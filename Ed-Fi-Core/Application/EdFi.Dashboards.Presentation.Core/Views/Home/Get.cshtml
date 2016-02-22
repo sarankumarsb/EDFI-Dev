@@ -1,0 +1,77 @@
+﻿@using Cassette.Views
+@model EdFi.Dashboards.Resources.Models.Application.HomeModel
+
+@{
+    Layout = null;
+
+    Bundles.Reference("Core_Content/Scripts/External");
+    Bundles.Reference("App_Themes/Ed-Fi");
+    Bundles.Reference("App_Themes/Dashboards");
+}
+
+<!DOCTYPE html>
+<!--[if lt IE 7]> <html class="no-js lt-ie9 lt-ie8 lt-ie7" lang="en"> <![endif]-->
+<!--[if IE 7]>    <html class="no-js lt-ie9 lt-ie8" lang="en"> <![endif]-->
+<!--[if IE 8]>    <html class="no-js lt-ie9" lang="en"> <![endif]-->
+<!--[if gt IE 8]><!--> <html xmlns="http://www.w3.org/1999/xhtml" class="no-js" lang="en"> <!--<![endif]-->
+
+<head>
+    <meta charset="utf-8" />
+	<title>Ed-Fi Powered Dashboards</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <meta name="description" content=""/>
+    <meta name="author" content=""/>
+    
+    @Bundles.RenderStylesheets()
+    @Bundles.RenderScripts()
+    
+    <!-- Le HTML5 shim, for IE6-8 support of HTML5 elements -->
+	<!--[if lt IE 9]>
+	<script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+
+    <link rel="shortcut icon" href="@Url.Content("~/App_Themes/Ed-Fi/ico/favicon.ico")" />
+
+</head>
+<body>
+    <div class="container">
+		<div class="row">
+			<div class="span12">
+				<div class="hero-unit">
+					<h1>Dashboards</h1>
+					<p id="hero-logo">
+						<img src="@Url.Content("~/App_Themes/Ed-Fi/img/EdFi-logo-Powered-RGB-TM.png")" alt="Ed-Fi Logo" width="237" height="121" />
+					</p>
+					<p style="margin:20px 0;">
+						Ed-Fi Powered Dashboards provide educators access to historical, timely, and predictive information on all students.  Educators can 
+						use Ed-Fi Powered Dashboards to help manage academic performance and address the needs of students throughout the year.
+					</p>
+				</div>
+				<div class="row">
+					<div class="span12">
+						<h2 class="landing">Please Select Your District</h2>
+						<ul>
+                            @foreach (var localEducationAgency in Model.LocalEducationAgencies)
+                            {
+                                <li><a href="@localEducationAgency.HomeUrl" class="landing">@localEducationAgency.LocalEducationAgencyName</a></li>
+                            }
+						</ul>
+					</div>
+					<!--/span-->
+				</div>
+			</div>
+			<!--/span--> 
+		</div>
+		<!--/row-->
+		
+        <hr/>
+        
+        <footer>
+			<p>
+			    &copy;@DateTime.Today.Year Ed-Fi Alliance, LLC. All Rights Reserved.<br/>For the latest information about Ed-Fi visit our website at <a href="http://www.ed-fi.org/">Ed-Fi.org</a>.
+			</p>
+		</footer>
+	</div>
+	<!--/.container--> 
+</body>
+</html>

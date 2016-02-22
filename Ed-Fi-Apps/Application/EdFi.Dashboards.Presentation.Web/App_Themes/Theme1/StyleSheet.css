@@ -1,0 +1,898 @@
+﻿/*BODY ELEMENT*/
+body {
+ margin:0px 0px 0px 0px;
+ font-family:Arial;
+ color:Black;
+}
+
+hr
+{
+    color:Black;
+    background-color:Black;
+    height:1px;
+    border-style:none;
+}
+
+hr.End
+{
+    color:Black;
+    background-color:Black;
+    height:2px;
+    border-style:none;
+}
+
+/*GENERAL TEXT ITEMS*/
+.HeaderTabGrayText
+{
+	font-family:Arial;
+    font-size:8pt;
+    font-weight:bold;
+    color:White;
+}
+
+.HeadTextStyle,
+.LegendTextStyle
+{
+    font-size:7pt;
+    color:#b7b4b3; /*Web Standard says #cccccc*/ 
+    font-weight:bolder;    
+}
+
+.LegendTextStyle
+{
+   color:#333333;
+}
+
+.HeaderTextStyle
+{
+    font-size:23pt;
+    color:#255b80;
+    font-weight:bold;    
+}
+
+.SubHeaderTextStyle,
+.SubHeaderTextStyleGrayOut
+{
+    font-size:11pt;    
+    font-weight:bold;
+    color:#255b80;
+    text-align:left;
+}
+
+
+.SubHeaderDarkTextStyle
+{
+    font-family:Arial;
+    font-size:13pt;    
+    font-weight:bold;
+    color:Black;
+    text-align:left;
+}
+
+.SubHeaderTextItalics,
+.SubHeaderTextItalicsGrayOut
+{
+    font-size:8pt;    
+    font-weight:bold;
+    font-style:italic;
+    color:#255b80;
+    text-align:left;
+}
+
+.SubHeaderTextItalicsDark
+{
+    font-size:8pt;    
+    font-weight:bold;
+    font-style:italic;
+    color:Black;
+    text-align:left;
+}
+
+.TitleTextStyle
+{
+    font-size:10pt;    
+    font-weight:bold;
+    color:#255b80;
+    text-align:left;
+}
+.PageTitleTextStyleBlue,
+.PageTitleTextStyle
+{
+    font-size:12pt;    
+    font-weight:Bolder;
+    color:Black;
+    text-align:left;
+}
+
+.PageTitleTextStyleBlue
+{
+        color:#255b80;
+}
+
+.ContentBigTextBoldStyle
+{
+    font-size:10pt;    
+    font-weight:bold;
+    text-align:left;
+}
+
+.ContentTextStyle,
+.ContentTextStyleGrayOut,
+.ContentTextStyle a,
+.ContentTextStyle a:hover,
+.ContentTextStyle a:active
+{
+    font-size:9pt;    
+    font-weight:normal;
+    text-align:left;
+    padding: 2px 0px 2px;
+    vertical-align:top;
+    color:Black;
+    text-decoration:none;
+}
+
+.ContentLabelStyle,
+.ContentLabelStyleGrayOut,
+.ContentLabelStyle a,
+.ContentLabelStyle a:hover,
+.ContentLabelStyle a:active
+{
+    font-size:9pt;    
+    font-weight:bold;
+    text-align:left;
+    padding: 2px 0px 2px;
+    vertical-align:middle;
+    color:Black;
+    text-decoration:none;
+    text-indent: 10px;
+}
+
+.ContentTextBlueStyle
+{
+    font-size:9pt;    
+    font-weight:normal;    
+    color:#255b80;
+}
+
+.ContentBoldTextBlueStyle,
+.ContentBoldTextBlueStyle a,
+.ContentBoldTextBlueStyle a:hover,
+.ContentBoldTextBlueStyle a:active
+{
+    font-size:9pt;
+    font-weight: bold;    
+    color:#255b80;
+    text-align:left;
+    padding: 2px 0px 2px;
+    vertical-align:top;
+    text-decoration:none;
+}
+
+.ContentBoldTextStyle,
+.ContentBoldTextStyleGrayOut,
+.ContentBoldTextStyle a,
+.ContentBoldTextStyle a:hover,
+.ContentBoldTextStyle a:active
+{
+    font-size:9pt;    
+    font-weight:bold;
+    text-align:left;
+    color:Black;
+    text-decoration:none;
+    padding: 2px 0px 2px;
+    vertical-align:top;
+}
+
+.SubContentTextStyle
+{
+    font-size:8pt;    
+    font-weight:normal;
+    text-align:left;
+}
+
+.SubContentBlueTextStyle
+{
+    font-size:8pt;    
+    font-weight:normal;
+    text-align:left;
+    color:#255b80;
+}
+
+.SubHeaderTextStyleGrayOut,
+.SubHeaderTextItalicsGrayOut,
+.ContentBoldTextStyleGrayOut,
+.ContentTextStyleGrayOut,
+.BGLightYellowGrayOut
+{
+	color:#999999;
+}
+
+.SecondLineIndent
+{
+    text-indent:-10px; 
+    padding-left:10px;
+}
+
+/*LINKS*/
+a.email,
+a.details,
+a.detailsGrayOut,
+a.LinkSmall,
+a.LinkContent
+{
+	font-size:10pt;    
+    font-weight:bold;
+    color:#255b80;
+    text-decoration:underline;
+    text-align:left;
+}
+
+.LinkFromList
+    {
+        font-size:8pt;
+        color:#255B80;   
+        text-align: left;
+    }
+    
+.LinkFromListActive
+    {
+        font-size:8pt;
+        color:#255B80;   
+        font-weight: bold;
+        text-align: left;
+        text-decoration: underline; 
+    }
+
+a.details,
+a.detailsGrayOut
+{
+    border-style:none;
+    text-decoration:none;
+}
+
+a.detailsGrayOut
+{
+	color:#999999;
+}
+
+a.BreadCrumb
+{
+	color:#b7b4b3;
+}
+
+a.HeadLinks,
+a.HeadLinksGrayOut
+{
+	color:#ffffff;
+    font-size:7pt;
+    font-weight:bolder;
+    text-decoration:none;
+}
+
+a.HeadLinksGrayOut
+{
+	color:#999999;
+}
+
+a.LinkSmall
+{
+	font-size:7pt;
+}
+
+a.LinkContent
+{
+	font-size:8pt;
+}
+
+/*IMAGE BORDER/WRAPER/CONTAINER*/
+.ImageBorder
+{
+    border:1px solid #666666;
+}
+
+/*Exterior CONTAINERS*/
+* {
+    margin: 0;
+}
+#ContainerExterior
+{   
+    min-height: 700px;
+    min-width: 800px;
+    height: auto !important;
+    height: 100%;
+    margin: 0 auto -129px;
+    width:800px;
+    border:1px solid #939598;  /*Web standard says 999999*/
+}
+
+#MasterWrapper {
+    min-height: 100%;
+    height: auto !important;
+    height: 100%;
+    margin: 0 auto -129px;
+}
+
+.Header
+{
+    background-image:url('img/BGHeadEdFi.gif');
+}
+
+.Header td {
+    vertical-align: middle;
+    
+}
+
+.Header td.buttonImage {
+    vertical-align: text-top;
+}
+
+.SubHeader
+{
+    background-image:url('img/BGSubHeader.png');
+    height:30px;
+    vertical-align: middle;
+}
+
+.SubHeader td {
+    vertical-align: middle;
+}
+
+.MasterSpacer {
+    height: 15px;
+}
+
+.DataHeader {
+    height: 55px;
+    vertical-align:top; 
+    text-align:left; 
+    padding-left:22px; 
+    padding-right:22px;
+}
+
+.Menu {
+}
+
+
+#MasterBody 
+{
+    vertical-align: top;
+}
+
+#Push {
+    height: 129px;    
+    margin: 0 auto;
+    width:800px;
+}
+
+#MasterLegend 
+{
+    height: 79px;
+    margin: 0 auto;
+    width:800px;
+}
+
+.SubLegend
+{
+    background-image:url('img/BGSubHead.gif');
+    height: 64px;
+}
+
+.LegendTextStyle td {
+    vertical-align: middle;
+}
+
+#Footer
+{  
+    background-image:url('img/BGHead.gif');
+    height:45px;
+	margin:0px auto;
+	text-align:center;
+    color:#b7b4b3; /*Web Standard says #cccccc*/  
+    font-size:8pt;
+    padding-top: 5px;
+    width:800px;
+}
+
+/*BLUE HEADER TAB*/
+.HeaderTabBlue1
+{
+    width:9px;
+    height:22px;
+    background-image:url('img/BlueHeader/C1.gif');
+    background-repeat:no-repeat;
+    background-position:right;
+}
+
+.HeaderTabBlueBG
+{ 
+    background-image:url('img/BlueHeader/BG.gif');
+    white-space:nowrap;
+    font-family:Arial;
+    font-size:8pt;
+    font-weight:bold;
+    color:White;
+    text-align:left;
+}
+
+.HeaderTabBlue2
+{
+    width:29px;
+    height:22px;
+    background-image:url('img/BlueHeader/C2.gif');
+    background-repeat:no-repeat;
+    background-position:left;
+}
+
+.HeaderTabBlueRuler
+{
+    height:1px;
+    width:100%;
+    background-image:url('img/BlueHeader/Line.gif');
+}
+
+/*Backgrounds*/
+.BGLightYellow,
+.BGLightYellowGrayOut
+{
+    background-color:#EBE8D3;
+    font-weight:400;
+    padding: 10px 20px 17px 20px;
+    margin-left:15px;
+    vertical-align:top;
+}
+
+/*DROPDOWNLISTS*/
+select
+{
+    font-family:Arial;
+    font-size:8pt;
+    border:1px solid #255b80;
+    
+}
+
+/*Attendance control*/
+.AttendanceDayLabel
+{
+    color:Black;
+    background-color:White;
+    width: 17px;
+    height:17px;
+    font-size:9pt;
+    font-weight:bold;
+    padding: 2px 0;
+    text-align:center;
+}
+
+.AttendanceNoData,
+.AttendancePresent,
+.AttendanceUnexcused,
+.AttendanceTardy,
+.AttendanceExcused,
+.AttendanceNonInstructional
+{
+	background-color:White;
+    width:17px;
+    height:17px;
+    text-align:center;
+}
+
+.AttendancePresent
+{
+    background-image:url('img/Attendance/BGGray.gif');
+}
+
+.AttendanceUnexcused
+{
+    background-image:url('img/Attendance/BGRed.gif');
+    text-align:center;
+    vertical-align:middle;
+	font-size:8pt;
+    font-weight:bold;
+	color:White;
+}
+
+.AttendanceTardy
+{
+    background-image:url('img/Attendance/BGYellow.gif');
+    text-align:center;
+    vertical-align:middle;
+	font-size:8pt;
+    font-weight:bold;
+	color:White;
+}
+
+.AttendanceExcused
+{
+    background-image:url('img/Attendance/BGBlue.gif');
+    background-image:url('img/Attendance/BGRed.gif');
+}
+
+.AttendanceNonInstructional
+{	
+	border:1px solid gray;
+}
+
+.AttendanceClassLabels
+{
+    height:17px;
+    font-size:8pt;    
+    font-weight:bold;
+    text-align:right;
+    vertical-align:middle;
+}
+
+/*ToolTip*/
+#JQToolTip
+{
+    display:none;
+    background:transparent url('img/ToolTipBox.png');
+    background-repeat:no-repeat;
+       
+    width:122px;    
+    color:#000000;
+    padding-top:15px;
+    padding-bottom:3px;
+    
+    font-size:8pt;    
+    font-weight:normal;
+    text-align:center;   
+    
+    border-bottom:2px solid #396386;
+}
+
+.JQToolTipTarget,
+.JQToolTipTargetDisabled
+{
+    font-size:7pt;    
+    font-weight:normal;
+    text-align:left;
+    color:#255b80;
+}
+
+.JQToolTipTargetDisabled
+{
+	font-size:7pt;
+    color:#999999;
+}
+
+
+
+/*General bullets*/
+.Bullet
+{
+	 background-color:#e0dfdf;	 
+	 vertical-align:middle;
+	 text-align:center;	
+	 width:10px;
+}
+
+.BulletWhite
+{	 
+	 vertical-align:middle;
+	 text-align:center;	
+	 width:10px;
+}
+
+/*Error page*/
+.ErrorTable
+{
+	border:1px solid #333433;
+	font-family:Arial;
+    font-size:9pt;	
+    text-align:left;
+}
+.ErrorHeader
+{
+	background-color:#f8971d;
+    border-bottom:1px solid #333433;
+    font-family:Arial;
+    font-size:9pt;
+    color:White;
+    height:20px;
+    font-weight:bold;    
+}
+.buttonImage
+{
+    cursor:pointer;
+    color:#ffffff;
+    font-size:7pt;
+    font-weight:bold;
+    text-align:left;
+    vertical-align:top;
+    text-decoration: none;
+    height: 20px;
+    background-repeat:no-repeat;
+    background-position:top left;
+    padding-left:20px;
+    padding-top:3px;
+}
+.buttonReplicate
+{
+    width:64px;
+    background-image:url('img/ButtonReplicate.png');
+    padding-left:22px;
+}
+#buttonPublishLEAGoals
+{
+    width:125px;
+    height: 25px;
+    background-image:url('img/ButtonPublishLEAGoals.png');
+    padding: 5px 5px;
+    margin-left: 4px;
+    display: inline-block;
+    position: relative;
+    vertical-align: top;
+}
+#buttonPublishSchoolGoals
+{
+    width:120px;
+    height: 25px;
+    background-image:url('img/ButtonPublishSchoolGoals.png');
+    padding: 5px 5px;
+    display: inline-block;
+    position: relative;
+    vertical-align: top;
+}
+#buttonPublishAllGoals
+{
+    width:100px;
+    height: 25px;
+    background-image:url('img/ButtonPublishAllGoals.png');
+    padding: 5px 5px;    
+    display: inline-block;
+    position: relative;
+    vertical-align: top;
+}
+#buttonExportAll,
+.buttonExportAll
+{
+    width: 75px;
+    background-image:url('img/ButtonExportAll.png');
+    padding-left:22px;
+}
+#buttonPrint
+{
+    width: 45px;
+    background-image:url('img/ButtonPrint.png');
+}
+#buttonFeedback
+{
+    height: 23px;
+    width: 65px;
+    background-image:url('img/FeedBackWide.png');
+    padding-left:22px;
+}
+#buttonErrorBack
+{
+    width:50px;
+    background-image:url('img/BackWide.png');
+    padding-top:4px;
+}
+#buttonErrorLogout
+{
+    width: 45px;
+    background-image:url('img/BackLogout.png');
+    padding-top:4px;
+    padding-left:22px;
+}
+#buttonLogout
+{
+    width: 50px;
+    background-image:url('img/BackLogout.png');
+}
+#buttonErrorFeedback
+{
+    height: 23px;
+    width:75px;
+    background-image:url('img/FeedBackWideBlue.png');
+    padding-left:22px;
+    padding-top:4px;
+}
+
+div.edfiTooltip
+{    
+	position:absolute; 
+	display:none; 
+	background-color:white; 	 
+	color:Black;
+	text-align:left; 
+    vertical-align:middle;
+	border:1px solid #255b80;
+	border-bottom:3px solid #255b80;
+	padding:6px 6px 6px 6px;
+    max-width: 300px;
+    
+    font-family: Arial;
+    font-size: 8pt;
+    font-style:normal;
+    font-weight:normal;
+    z-index: 2000;
+}
+
+div.edfiTooltip ul
+{
+    padding-left:20px;
+    margin:0px;
+}
+
+.SchoolPicker a
+{
+    display: block;
+    width: 100%;
+    height: 100%;
+    background-color:white;
+    font-size:16pt;
+    color:#255b80;
+    font-weight:bold;
+    text-decoration: none;
+}
+.SchoolPicker a:hover,
+.SchoolPicker a:active
+{
+    color:white;
+    background-color:#255b80;
+    text-decoration: none;
+}
+.SystemMessage
+{
+    background-color: Yellow;
+    text-align: center;
+    color:Black;
+}
+    .SystemMessage td {
+        padding: 5px;
+        height:25px;
+    }
+    
+   .tickLabel{
+       font-family:Arial;
+       font-size:10px;
+       font-weight:bold;
+       color:black;
+   }
+   
+.MetricSubTitle span.metricId 
+{
+        color: #255B80;
+    font-family: Arial;
+    font-size: 9pt;
+    font-weight: bold;
+    padding-top: 1px;
+    text-align: left;
+    text-decoration: none;
+    
+}
+
+.hrContainer {
+    padding-top: 8px;
+    padding-bottom: 8px;
+}
+
+input[type="checkbox"] {
+margin: 3px 3px 3px 4px;
+}
+
+.multiMetricLegend {
+    font-family: Arial;
+    font-size: 9pt;
+    text-align: left;
+    vertical-align: middle;
+}
+
+img.goalPlanningMultiMetric {
+    vertical-align: middle;
+}
+
+#StaffSlidingMenuButton {
+    display: none;
+    float:left;
+    position:fixed;
+    top: 3px;
+    left:0px;
+    background-image: url('img/StaffSlidingMenuOpenButton.png');
+    background-repeat: no-repeat;
+    width:18px;
+    height:62px;
+    z-index: 1000;
+}
+
+#StaffSlidingMenu {
+    display:none;
+    float:left;
+    position:fixed;
+    top:3px;
+    left:0px;
+    padding-left: 18px;
+    z-index: 1001;
+    height: 62px;
+    background-image: url('img/StaffSlidingMenuCloseButton.png');
+    background-repeat: no-repeat;
+}
+
+#SubStaffSlidingMenu {
+    height: 32px;
+    padding:10px;
+    background-color: #B7B4B3;
+    border-top:5px solid #255B80;
+    border-right:5px solid #255B80;
+    border-bottom:5px solid #255B80;
+}
+
+#demographicSelector,
+#gradeSelector,
+#cohortSelector {
+    position: relative;
+    vertical-align: middle;
+    display: inline-block;
+    white-space: normal;
+    zoom: 1;
+    *display: inline;
+}
+
+#demographicSelector_div,
+#gradeSelector_div,
+#cohortSelector_div {
+    padding: 0px;
+    height: 400px;
+    overflow-y: scroll;
+}
+
+#demographicSelector_Title,
+#gradeSelector_Title,
+#cohortSelector_Title {
+    position: relative;
+    vertical-align: middle;
+	background-image:url('img/DropDownArrowButton.png');
+    background-position: right;
+    background-repeat: no-repeat;
+    padding: 1px 20px 1px 0px;
+    display: block;
+    white-space: nowrap;
+    zoom: 1;
+    *display: inline;
+}
+
+#demographicSelector img,
+#gradeSelector img,
+#cohortSelector img {
+    position: relative;
+    vertical-align: middle;
+    white-space: normal;
+    float: right;
+}
+.demographicSelector_Section,
+.cohortSelector_Section
+{
+    white-space: normal;
+    display: block;
+    background-color:white;
+    padding: 2px 6px 2px 6px;
+    color:black;
+    font-weight:bold;
+    text-decoration: none;
+    font-size: 9pt;
+}
+.demographicSelector_Option,
+.gradeSelector_Option,
+.cohortSelector_Option
+{
+    white-space: normal;
+    margin: 6px 3px;
+    padding: 2px 6px 2px 12px;
+    display: block;
+    background-color:white;
+    color:#255b80;
+    font-weight:bold;
+    text-decoration: none;
+}
+.demographicSelector_Option:hover,
+.demographicSelector_Option:active,
+.gradeSelector_Option:hover,
+.gradeSelector_Option:active,
+.cohortSelector_Option:hover,
+.cohortSelector_Option:active
+{
+    color:white;
+    background-color:#255b80;
+    text-decoration: none;
+}

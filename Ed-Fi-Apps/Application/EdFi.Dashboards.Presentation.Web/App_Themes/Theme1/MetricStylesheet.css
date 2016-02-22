@@ -1,0 +1,392 @@
+﻿/*GRAY HEADER TAB*/
+.HeaderTabGray1
+{
+    width:5px;
+    height:27px;
+    background-image:url('img/GrayHeader/C1.gif');
+    background-repeat:no-repeat;
+    background-position:left top;
+}
+
+.HeaderTabGrayBG
+{ 
+    background-image:url('img/GrayHeader/BG.gif');
+    text-align:center;
+}
+
+.HeaderTabGray2
+{
+    width:5px;
+    height:27px;
+    background-image:url('img/GrayHeader/C2.gif');
+    background-repeat:no-repeat;
+    background-position:right top;
+}
+
+.HeaderTabGray1Big
+{
+    width:5px;
+    background-image:url('img/GrayHeader/BGBig.gif');
+    background-repeat:repeat-x;
+    background-position:bottom;
+    background-color: #a5a6a6;
+    vertical-align: top;
+    padding-top: 0px;
+    margin-top: 0px;
+}
+
+.HeaderTabGrayBGBig
+{ 
+    background-image:url('img/GrayHeader/BGBig.gif');
+    text-align:center;
+    background-repeat:repeat-x;
+    background-position: bottom;
+    padding-bottom: 3px;
+    padding-top: 2px;
+    background-color: #a5a6a6;
+}
+
+.HeaderTabGray2Big
+{
+    width:5px;
+    background-image:url('img/GrayHeader/BGBig.gif');
+    background-repeat:repeat-x;
+    background-position:bottom;
+    background-color: #a5a6a6;
+    vertical-align: top;
+    padding-top: 0px;
+    margin-top: 0px;
+}
+
+.HeaderTabGrayDividerBig
+{
+    width:7px;
+    background-image:url('img/GrayHeader/BGBig.gif');
+    background-repeat:repeat-x;
+}
+.HeaderTabSortable
+{ 
+    cursor:pointer;
+}
+
+.GrayHeaderLeft {
+    width:5px; 
+    height:8px; 
+    position:relative; 
+    top:0px;
+    background-image: url('img/GrayHeader/LeftGrayCorner.png');
+}
+
+.GrayHeaderRight {
+    width:5px; 
+    height:8px; 
+    position:relative; 
+    top:0px;
+    background-image: url('img/GrayHeader/RightGrayCorner.png');
+}
+
+/*sorting arrows*/
+.metricSortingAsc, .metricSortingDesc
+    {
+        background-image:url('img/GrayHeader/DescArrowWhite.png');
+	    background-repeat:no-repeat;
+	    background-position:right center;
+	    padding-right:11px;
+    }    
+    
+.metricSortingDesc
+{
+    background-image:url('img/GrayHeader/AscArrowWhite.png');
+}
+
+/*Text Items*/
+.MetricHeaderTitle
+{
+    font-family:Arial;
+    font-size:8pt;
+    font-weight:bold;
+    color:White;
+    text-transform:uppercase;
+    height: 28px;
+}
+
+.MetricHeaderTitle .SubTitle
+{
+    font-size:6pt;
+    font-weight:normal;
+    text-transform:none;
+}
+
+a.MetricTitle,
+.MetricTitle,
+.MetricTitleGrayOut,
+.PriorYearDisplayOption
+{
+	font-family:Arial;
+	font-size:9pt;    
+    font-weight:bold;
+    color:#255b80;
+    text-align:left;
+    text-decoration:none;
+    padding-top:1px;
+}
+
+.PriorYearDisplayOption 
+{
+    background-image: url("img/ButtonPriorYear.png");
+    cursor:pointer;
+    color:#ffffff;
+    font-size:7pt;
+    font-weight:bold;
+    text-align:right;
+    vertical-align:top;
+    text-decoration: none;
+    height: 20px;
+    background-repeat:no-repeat;
+    background-position:top right;
+    padding-right:10px;
+    padding-top:3px;
+}
+
+.PriorYearDisplayOption:hover,
+.PriorYearDisplayOption:active {
+    cursor: pointer;
+}
+
+.MetricSubTitle,
+.MetricSubTitleGrayOut
+{
+	font-family:Times New Roman;
+	font-size:8pt;    
+    font-weight:normal;
+    text-align:left;
+    padding-bottom:6px;
+    padding-right: 5px;
+}
+
+.MetricBulletTitle,
+.MetricBulletTitleGrayOut
+{
+	font-family:Arial;
+	font-size:8pt;    
+    font-weight:bold;
+    text-align:left;
+    padding-top:1px;
+}
+
+.MetricContentText,
+.MetricContentTextGrayOut
+{
+    font-size:8pt;    
+    font-weight:normal;
+    text-align:left;
+}
+
+.MetricSuperText,
+.MetricSuperTextBlue,
+.MetricFootnoteText
+{
+    vertical-align:super;
+    font-family:Arial;
+    font-weight:normal;
+    color:Black;
+    font-size:6pt;
+}
+
+.MetricSuperTextBlue
+{
+    color:#255b80;
+}
+
+.SubMetricBG,
+.SubMetricBGGrayOut
+{
+	 background-color:#e0dfdf;
+	 background-image:url('img/Metric/BGArrowBig.gif');
+	 background-repeat:no-repeat;
+	 background-position:right center;
+	 vertical-align:middle;
+	 
+	font-family:Arial;
+	font-size:8pt;    
+	font-weight:bold;
+	text-align:left;
+	padding-right:15px;
+    height: 20px;
+}
+
+.BulletMetricBG
+{
+	 background-color:#e0dfdf;
+	 vertical-align:middle; 
+	 text-align:center;	
+	 width:20px;	 
+}
+
+.ArrowMetricBG {
+    width: 15px;
+    height: 25px;
+    background:url('img/BulletBlueArrow.gif') no-repeat left center;
+}
+
+.BulletOverviewMetricBG {
+    width: 35px;
+    height: 25px;
+    background:url('img/BulletBluesquare.gif') no-repeat 25px 2px;   
+}
+
+.SquareBulletMetricBG {
+    padding-left: 13px;
+    background:url('img/BulletBluesquare.gif') no-repeat 5px; 
+}
+
+.ArrowBulletMetricBG {
+    padding-left: 17px;
+    background:url('img/BulletArrow.gif') no-repeat 5px; 
+}
+
+.DisabledArrowMetricBG {
+    width: 15px;
+    height: 25px;
+    background:url('img/BulletBlueArrowGrayOut.gif') no-repeat left center;
+}
+
+.DisabledBulletOverviewMetricBG {
+    width: 35px;
+    height: 25px;
+    background:url('img/BulletBluesquareGrayOut.gif') no-repeat 25px 2px;   
+}
+
+.DisabledSquareBulletMetricBG {
+    padding-left: 13px;
+    background:url('img/BulletBluesquareGrayOut.gif') no-repeat 5px; 
+}
+
+.DisabledArrowBulletMetricBG {
+    padding-left: 17px;
+    background:url('img/BulletArrowGrayOut.gif') no-repeat 5px; 
+}
+
+/*Grayed Out Metrics*/
+.MetricTitleGrayOut,
+.MetricSubTitleGrayOut,
+.MetricBulletTitleGrayOut,
+.MetricContentTextGrayOut,
+.SubMetricBGGrayOut
+{
+	color:#999999;
+}
+
+.MetricNoData 
+{
+	font-family:Arial;
+	font-size:9pt;    
+    font-weight:bold;
+    color:#255b80;
+    text-align:left;
+    text-decoration:none;
+    padding: 10px 0px 10px 10px;
+    display:block;
+}
+
+
+/*Metric Link Styles*/
+a.LinkBullet
+{
+	text-decoration:none;
+	font-family:Arial;
+	font-size:8pt;    
+	font-weight:bold;
+	text-align:left;
+	color:Black;
+}
+
+/*Dynamic Grid Values*/
+table.GridValue
+{
+    width:100%;
+    border:0px;
+}
+
+table.GridValue td
+{
+    border:0;
+    border-right:0px white;
+}
+
+table.GridValue td.NoAccomodation
+{
+    width:20px;
+}
+
+/*Table styles*/
+tr.AlternatingEvenRowStyle {
+    background-color:#cacaca;
+}
+
+tr.MetricAlternatingOddRowStyle,
+tr.MetricAlternatingEvenRowStyle
+{
+	font-family:Arial;
+    font-size:8pt;
+	text-align:left;	
+	height:30px;
+	background-color:White;
+}
+
+tr.MetricAlternatingEvenRowStyle
+{
+	background-color:#e0dfdf; /*light gray*/
+}
+
+tr.MetricFooterRowStyle
+{
+	height:1px;
+	background-color:#000000;
+}
+
+a.MetricCellLinkStyle
+{
+	font-family:Arial;
+    font-size:8pt;
+    color:#255B80;   
+    font-weight: bold;
+    text-align: left;
+    text-decoration: underline;
+}
+
+.MetricLevel2Desc
+{
+	padding-left: 25px;
+}
+
+td.CellValue {
+	font-family:Arial;
+	font-size:8pt;    
+	font-weight:bold;
+	text-align:center;
+    
+}
+
+.newGoal,
+.childNewGoal {
+    text-align: center;
+    width: 60px;
+}
+
+.changedGoal {
+    background-color: #EBE8D3;
+}
+
+.pendingGoal {
+}
+
+.ChartGoal
+{
+	font-family:Arial;
+	font-size:8pt;    
+    font-weight:bold;
+    text-align:right;
+    padding-top:5px;
+    padding-right:25px;
+}

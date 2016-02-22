@@ -1,0 +1,45 @@
+﻿@using EdFi.Dashboards.Core.Providers.Context
+@using EdFi.Dashboards.Presentation.Architecture.Mvc.Extensions
+@using EdFi.Dashboards.Resources.Navigation
+@model IList<EdFi.Dashboards.Resources.Models.Student.Detail.DaysAbsentModel>
+
+@{
+    var studentUSI = EdFiDashboardContext.Current.StudentUSI.GetValueOrDefault();
+    var metricVariantId = EdFiDashboardContext.Current.MetricVariantId.GetValueOrDefault();
+}
+
+<script>
+    analyticsManager.trackDrilldown('StudentDaysAbsentList', '@(metricVariantId)', '@(studentUSI)');
+</script>
+@if (Model.Any())
+{
+    <table class="standard-table standard-table-compressed" summary="Table lists a detail of days absent.">		
+        <thead>
+            <tr>
+                <th style="text-align:left;">Grading Period</th>
+                <th>Excused Days</th>
+                <th>Unexcused Days</th>
+            </tr>
+        </thead>
+        <tbody>
+        @for (int i = 0; i < Model.Count(); i++)
+        {
+            var objective = Model[i];
+            <tr>
+                <td>
+                    <p class="arrow">
+                    <i class="icon-blank"></i>
+                    <span class="MetricBulletTitle">@objective.Context</span>
+                    </p>
+                </td>
+                <td>@objective.ExcusedDays</td>
+                <td>@objective.UnexcusedDays</td>
+            </tr>
+        }
+        </tbody>
+    </table>
+}
+else
+{
+    <span class="MetricNoData">No data available.</span>
+}

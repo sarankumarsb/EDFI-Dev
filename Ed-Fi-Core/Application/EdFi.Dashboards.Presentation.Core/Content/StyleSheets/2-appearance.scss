@@ -1,0 +1,932 @@
+﻿@import "shared";
+
+/*
+    - Contents -
+
+    1 Site-Wide
+    2 Site Header and Footer
+    3 Page Header
+	4 School Lists
+	5 Metrics
+	6 Search
+	7 Information Wrapper
+	8 Dynamic Drilldown
+	9 Context Menu
+	10 Footnotes
+	11 Standard Table
+	12 Historical Chart
+	13 Absenses Chart
+	14 Credit Accumulation
+	15 Additional Controls
+
+*/
+
+/* 1 Site-Wide
+/* ====================================================== */
+
+body {
+    -webkit-font-smoothing: antialiased;
+}
+
+
+body, button, input, select, textarea {
+    font-family: Arial, sans-serif;
+}
+
+h1{
+	font-size: 30px;
+	font-weight: bold;
+}
+
+h4 {
+	font-size: 12px;
+	font-weight: bold;
+}
+
+a span {
+	text-decoration: inherit;
+}
+
+a:link, a:visited { color: #23597f; /* $accent-secondary; */ }
+
+.constrained {
+   border-left: 1px solid $background-tertiary;
+   border-right: 1px solid $background-tertiary;
+}
+
+#header {
+   background-color: $background-primary;
+   border-top: 1px solid $background-tertiary;
+}
+
+#footer {
+    background-color: $background-primary;
+    border-bottom: 1px solid $background-tertiary;
+}
+
+
+.deemphasized{
+	color: #999999 !important;
+}
+
+// 2.1 Buttons
+.btn {
+   background: #23597f; // $accent-secondary;
+   color: $white !important;
+}
+
+.btn:disabled {
+	background-color: #999999;
+	color: $white !important;
+}
+
+.btn-em {
+    background: $accent-primary;
+    //color: $black !important;
+}
+
+// 2.2 Tables
+table {
+	.alt td { background-color: #cacaca; }
+}
+
+/* 2 Site Header and Footer
+/* ====================================================== */
+
+#header {
+   background-color: $background-primary;
+   border-top: 1px solid $background-tertiary;
+}
+
+#nav-main {
+    background-color: $background-secondary;
+}
+
+header .icon-down-open {
+	background: #23597f;
+	color: #fff;
+	font-size: 0.3em;
+}
+
+.l-metrics table thead[name=CourseHistoryHeader]{
+	background: rgb(255, 255, 255);
+	border-bottom: none;
+	th{
+		color: rgb(0, 0, 0);
+	}
+}
+
+
+
+#footer {
+    background-color: $background-primary;
+    border-bottom: 1px solid $background-tertiary;
+	padding-bottom: 5px;
+
+	.site-logo {
+		background-image: url('../Images/edfi_logo.png');
+		background-repeat: no-repeat;
+	}
+}
+
+#footer .copyright {
+	padding-top: 10px;
+	padding-bottom: 10px;
+}
+
+#footer p {
+    color: #fff;
+    font-size: 11px;
+    text-align: center;
+}
+
+#footer strong {
+    text-transform: uppercase;
+}
+
+.l-legend{
+	background-color: #d6d6d7;
+
+	dl{
+		dt, dd {
+			color: #333;
+			font-size: 7pt;
+			font-weight: bolder;
+		}
+	}
+}
+
+.icon-no-change {
+	background-image:url('../Images/sidewaysArrows.png');   
+	background-repeat: no-repeat;
+}
+
+/* 3 Page Header
+/* ====================================================== */
+
+// 4.1 Selected Entity Header
+
+
+// 4.2 Tabs
+.l-tabs {
+    a { color: $black; }
+
+    & > li {
+        border-bottom-color: $accent-secondary;
+        
+        & > a { background: $accent-tertiary; }
+        &.active > a { background: $accent-secondary; }
+    }
+
+    ul {
+        background: $accent-secondary;
+
+        li.active a { color: $black; }
+        a { border-right-color: $accent-secondary; }
+    }
+}
+
+/* 4 School Lists
+/* ====================================================== */
+
+.l-school-list{ 
+	a {
+		font-weight: bold;
+		font-size: 12px; 
+	}
+	
+	.two-column-list{
+		.alternate-color {
+			background-color: #e0dfdf;
+		}
+	}
+}
+
+/* 5 Metrics
+/* ====================================================== */
+
+.l-metrics{
+
+	.accountability-rating {
+		font-size: 9pt;
+	    background-color: #d2e2ef;
+
+        span:first-child {
+            font-weight: bold;
+        }
+	}
+
+	p, ul.tabular-notes {
+		font-size: 12px;
+	}
+
+	table{
+		
+		thead{
+			border-bottom: 2px solid black;
+
+			th, td {
+				@include bullnose($header-shadow, $header-flat, $header-highlight);
+			}
+
+			th{
+				color: White;
+
+				small{
+					font-size: 6pt;
+					font-weight: normal;
+				}
+			}
+		}
+
+		th {
+			font-size: 8pt;
+			font-weight: bold;
+			text-transform: uppercase;
+		}
+
+		tbody{
+
+			td{ 
+				font-size: 8pt;
+				font-weight: normal;
+			}
+
+			.arrow,
+			.arrow-indented {
+				background-color: $arrowBackground;
+				background-image: url('../Images/MetricBackgroundArrowBig.png');
+				background-repeat: no-repeat;
+				background-position: right center;
+
+				font-size: 8pt;
+				font-weight: bold;
+
+				.icon-right{
+					color: $informationBlue;
+					font-size: 10pt;
+					font-weight: bold;
+				}
+			}
+
+			//Bullet.
+			i.icon-blank{
+				color: $informationBlue;
+				font-size: 4pt;
+			}
+
+			//Dash
+			.icon-minus
+			{
+				color: $informationBlue;
+				font-size: 4pt;
+			}
+
+			.goal-not-met
+			{
+				color: $adaRed;
+				font-weight: bold;
+			}
+
+			.title {
+				font-size: 12px;
+				font-weight: bold;
+				color: $informationBlue;
+				text-align: left;
+				display: inline;
+
+				h2 {
+					font: 12px normal Arial, sans-serif;
+					text-transform: none }
+			}
+
+			.title-district-level{
+				display: inline;
+			}
+
+			.subtitle {
+				font-size: 12px;
+				font-weight: bold;
+				color: $textBlack;
+				text-align: left;
+			}
+
+			.description {
+				font-family: Times New Roman;
+				font-size: 10px;
+				color: Black;
+				font-weight: normal;
+				text-align: left;
+			}
+		}
+	}
+}
+
+.l-overview-metrics{
+
+	.entity-title{
+		font-weight: bold;
+		font-size: 23pt;
+		color: $informationBlue;
+	}
+
+	.right{
+		font-size: 9pt;
+		color: black;
+		background-color: $informationLightBlue;
+	}
+}
+
+.status-goal-met-exceeded,
+.status-goal-met,
+.status-goal-not-met-acceptable,
+.status-goal-not-met,
+.status-goal-not-met-way-below,
+.status-goal-none,
+.status-goal-na
+{
+	font-size:8pt;
+	font-weight:bold;
+	background-repeat:no-repeat;	
+	color:White;
+	background-image:url('../Images/StatusLabelSprite.png');
+}
+
+.status-goal-met-exceeded, .status-goal-met
+{
+	background-position:0 -24px;
+}
+
+.status-goal-not-met-acceptable
+{
+	background-position:0 -72px;
+}
+
+.status-goal-not-met
+{	
+	background-position:0 0;
+}
+
+.status-goal-none
+{
+	background-position:0 -48px;
+	color:Black;
+	font-weight:normal;
+}
+
+.status-goal-na
+{
+	background-position:0 -96px;
+	color:Black;
+}
+
+/* 6 Search
+/* ====================================================== */
+
+.l-search-view{
+
+	h1 {
+		text-transform: uppercase;
+		color: $textBlack;
+		font-size: 16px;
+	}
+
+	h2 {
+		font-size: 12px;
+	}
+
+	.search-box{
+		
+		label {
+			color: $informationBlue;
+			font-size: 11px;
+			font-weight: bold;
+		}
+	}
+	
+	.filter-container{
+		background-color:#d6d6d6;
+		text-transform: uppercase;
+
+		a { color: white; }
+
+		.btn, .btn-deemphasized{
+			font-size: 11px !important;
+			text-align: center;
+		}
+	}
+
+	table.standard-table-full{
+	
+		th a{
+			color: white;
+		}
+
+		tbody>tr:hover{
+			background-color: $rowHover;
+		}
+
+		tr.alternating-row{
+			background-color: #e0dfdf;
+		}
+		
+		tr{
+			td{
+				text-align: left;
+
+				a{
+					font-weight: bold;
+				}
+
+				em{
+					color: #000;
+					font-weight: bold;
+					font-style: normal;
+				}
+			}
+		}
+	}
+
+	.no-search-results{
+		font-size: 11px;	
+	}
+}
+
+/* 7 Information Wrapper
+/* ====================================================== */
+
+.l-information-wrapper {
+	
+	.email
+	{
+		font-size: 10pt;    
+		font-weight: bold;
+		color: $informationBlue;
+		text-decoration: underline;
+		text-align: left;
+	}
+
+	.right {
+		
+		div {
+			font-size: 9pt;
+			color: black;
+			background-color: $informationLightBlue;
+		}
+
+		.title{
+			font-weight: bold;
+			font-size: 23pt;
+			color: $informationBlue;
+		}
+
+		.subtitle{
+			font-weight: bold;
+			font-size: 10pt;
+			color: $textBlack;
+		}
+
+		h2{
+			font-size:11pt;
+			font-weight: bold;
+			color: $informationBlue;
+		}
+		
+		.sub-h3{
+			font-size: 10pt;
+			font-weight: bold;
+			color: $informationBlue;
+		}
+	}
+}
+
+/* 8 Dynamic Drilldown
+/* ====================================================== */
+
+.dynamic-content {
+	h3, h4 {
+		font-family:Arial;
+		font-size:11px;
+		font-weight:bold;
+		color:White;
+
+        i {
+            font-size: 14px;
+        }
+	}
+
+	h4{
+		font-size: 12px;
+		color: $informationBlue;
+	}
+
+	.header-tab, a.close {
+		background: #255c83; /* Old browsers */
+		background: -moz-linear-gradient(top,  #859fb5 0%, #10507a 5%, #245b82 10%, #214d75 100%); /* FF3.6+ */
+		background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,#859fb5), color-stop(5%,#10507a), color-stop(10%,#245b82), color-stop(100%,#214d75)); /* Chrome,Safari4+ */
+		background: -webkit-linear-gradient(top,  #859fb5 0%,#10507a 5%,#245b82 10%,#214d75 100%); /* Chrome10+,Safari5.1+ */
+		background: -o-linear-gradient(top,  #859fb5 0%,#10507a 5%,#245b82 10%,#214d75 100%); /* Opera 11.10+ */
+		background: -ms-linear-gradient(top,  #859fb5 0%,#10507a 5%,#245b82 10%,#214d75 100%); /* IE10+ */
+		background: linear-gradient(to bottom,  #859fb5 0%,#10507a 5%,#245b82 10%,#214d75 100%); /* W3C */
+		filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#859fb5', endColorstr='#214d75',GradientType=0 ); /* IE6-9 */
+	}
+	
+	.header-tab {
+		color: #fff; 
+		font-weight: bold;
+		line-height: 22px;
+	}
+
+	a.close {
+		color: White;
+	}
+	
+	.loading-message {
+        background: url('../Images/loading.gif') top left no-repeat;
+	}
+    
+	.metric-subtitle {
+        font-family:'Times New Roman';
+        font-size:11px;
+	}
+
+	.chart-goal {
+        font-size:11px;
+        font-weight:bold;
+    }
+
+	.metric-no-data,
+	.MetricNoData {
+	    font-size: 12px;
+        font-weight:bold;
+        color:$informationBlue;
+    }
+}
+
+/* 9 Context Menu
+/* ====================================================== */
+
+// Module - More Button
+.contextMenu-Button {
+    background-color: #E0DFDF;
+    color: #444;
+    font-size: 10px;
+    font-weight: bold;
+    text-decoration: none;
+
+	&:hover {
+        -webkit-box-shadow: inset 2px 2px 2px 0px rgba(0, 0, 0, .1);
+        box-shadow: inset 2px 2px 2px 0px rgba(0, 0, 0, .1);
+    }
+}
+
+.contextMenu-DropDown
+{
+	li {
+		a {
+			text-decoration: none;
+			color: #444444;			
+			font-size: 10.6667px;
+			
+			i {
+				color: #265A7F;
+				font-size: 14px; // controls size of icon
+			}
+		}
+
+		a:hover {
+			background-color: #265a7f;
+            color: #ffffff;
+
+			i {
+				color: #ffffff;
+			}
+		}
+
+	}
+}
+
+.aggregate-status-details {
+    background: #fff;
+    border:1px solid $informationBlue;
+    border-bottom:3px solid $informationBlue;
+
+    .title {
+        color: $informationBlue;
+        font-size: 12px;
+        font-weight:bold;
+    }
+
+    .subtitle {
+        font-family:Times New Roman;
+        font-size: 11px;
+	}
+
+    .aggregate-status-summary {
+
+        .bullet-title {
+            font-size: 11px;
+            font-weight: bold;
+		}
+	}
+}
+
+/* 10 Footnotes
+/* ====================================================== */
+
+.metric-footnote-container {
+    i {
+        color: $informationBlue;
+    }
+}
+
+.metric-footnote-indicator {
+    text-decoration: none;
+    color: $informationBlue;
+}
+
+.metric-footnote-tooltip
+{    
+    border:1px solid $informationBlue;
+    border-bottom:3px solid $informationBlue;
+    background-color:white;
+    color:Black;
+    font-family: Arial;
+    font-size: 11px;
+    font-style:normal;
+    font-weight:normal;
+}
+
+/* 11 Standard Table
+/* ====================================================== */
+
+table.standard-table {
+	thead {
+		th {
+			font-size: 8pt;
+			font-weight: bold;
+			color: White;
+			text-transform: uppercase;
+		}
+	}
+
+	tbody {
+		.arrow, .arrow-indented {
+			background-color: #dfdfdf; /*$arrowBackground;*/
+			background-repeat: no-repeat;
+			background-position: right center;
+			font-size: 8pt;
+			font-weight: bold;
+		}
+	}
+}
+
+/* 12 Historical Chart
+/* ====================================================== */
+
+.historical-chart {
+    .loading {
+        font-family:Arial;
+        font-size:9pt;    
+        font-weight:bold;
+        color:$informationBlue;
+        text-decoration:none;
+	}
+
+    .school-goal {
+        font-family:Arial;
+        font-size:8pt;    
+        font-weight:bold;
+	}
+
+    .chart {
+		.tickLabel {
+			font-family:Arial;
+			font-size:10px;
+			font-weight:bold;
+			color:black;
+		}
+    }
+
+    .tooltip-indicator {
+		.tooltip-indicator-value {
+			background-color:White;
+			border:1px solid #225273;
+			border-bottom:2px solid #225273;
+			font-size:10px;
+		}
+	}
+}
+
+/* 13 Absenses Chart
+/* ====================================================== */
+
+.class-absences-chart {
+    tr {
+		.class-label {
+			font-size: 8pt;
+			font-weight: bold;
+		}
+		
+		.week-header{
+			font-size: 9pt;
+			font-weight: normal;
+			color: $informationBlue;
+		}
+		
+		.day-header{
+			color: #000;
+			background-color: #fff;
+			font-size: 9pt;
+			font-weight: bold;
+		}
+
+		.attendance {
+			.attendance-type {
+				font-size: 8pt;
+				font-weight: bold;
+				color: #fff;
+			}
+
+			.attendance-type-Present {
+				background: #cdcdcd;
+			}
+
+			.attendance-type-Tardy {
+				background: #ffb400;
+			}
+
+			.attendance-type-Tardy:before {
+				color: black;
+			}
+		}
+	}
+}
+
+/* 14 Credit Accumulation
+/* ====================================================== */
+
+.credit-accumulation-grid {
+
+    .expand-collapse-header,
+    .expand-collapse {
+
+		.expand-collapse-row {
+
+			span {
+				font-size: 8pt;
+				font-weight: normal;
+			}
+		}
+	}
+
+    .expand-collapse-header {
+		.expand-collapse-row {
+			span {
+				color: #fff;
+				font-size: 8pt;
+				font-weight: bold;
+				text-transform: uppercase;
+			}
+		}
+	}
+}
+
+/* 15 Additional Controls
+/* ====================================================== */
+
+.accordion-toggle {
+	font-size: 12px;
+	font-weight: bold;
+	line-height: 1.5;
+	text-decoration: none;
+}
+
+.four-column-info-list,
+.two-column-info-list{
+	.label {
+		font-weight: bold;
+	}
+}
+
+
+.checkbox-list{
+	li{
+		font-weight: bold;
+	}
+
+	i{
+		font-size: 10pt;
+		color: $informationBlue;
+	}
+
+	.indent{
+		font-weight: normal;
+	}
+}
+
+.section-menu
+{
+
+	li{
+
+		span,
+		label {
+			font-size: 11px;
+			font-weight: bold;
+			color: $informationBlue;
+		}
+
+	}
+
+}
+
+.feedback-form {
+   textarea.defaultTextActive {
+        color: #a1a1a1;
+        font-style: italic;
+    }
+}
+
+.student-drop-down{
+
+	.content-label{
+		font-family: Arial;
+		font-size:9pt;    
+		font-weight:bold;
+		color:Black;
+		text-decoration:none;
+		text-indent: 10px;
+	}
+
+	.drop-down
+	{
+		font-family: Arial;
+		font-size: 8pt;
+	}
+}
+
+.ChartGoal
+{
+	font-family:Arial;
+	font-size:8pt;    
+    font-weight:bold;
+}
+
+.buttonImage
+{
+    color:#ffffff;
+    font-size:7pt;
+    font-weight:bold;
+    text-decoration: none;
+    background-repeat:no-repeat;
+    background-position:top left;
+}
+
+#PhotoManagementContainer .InputField {
+    margin: 8px 0 8px 0;
+}
+#PhotoManagementContainer #Counts {
+    margin: 20px 0 10px 0px;
+    padding: 0px;
+    list-style-type: none;
+}
+#PhotoManagementContainer #progress {
+    margin-top: 10px;
+}
+#PhotoManagementContainer #ErrorMessages
+{
+	margin-left: 20px;
+}
+
+.RoundVeryGood{
+	background-image: url("../Images/StatusLabel/RoundVeryGood.png");
+	height: 16px;
+	width: 16px;
+    margin-right: auto;
+    margin-left: auto;
+}
+
+.RoundGood{
+	background-image: url("../Images/StatusLabel/RoundGood.png");
+	height: 16px;
+	width: 16px;
+    margin-right: auto;
+    margin-left: auto;
+}
+
+.RoundLow {
+	background-image: url("../Images/StatusLabel/RoundLow.png");
+	height: 16px;
+	width: 16px;
+    margin-right: auto;
+    margin-left: auto;
+}
+
+.RoundNone{
+	background-image: url("../Images/StatusLabel/RoundNone.png");
+	height: 16px;
+	width: 16px;
+    margin-right: auto;
+    margin-left: auto;
+}

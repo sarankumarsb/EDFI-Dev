@@ -1,0 +1,71 @@
+﻿div.AggregateStatusDiv
+{
+    position: absolute;
+    display: none;
+	background-color:white; 	 
+	text-align:left; 
+	border:1px solid #255b80;
+	border-bottom:3px solid #255b80;
+	padding:0px 10px 10px 10px;	
+}
+
+img.AggregateStatusImg
+{
+	position:relative; 
+	top:-11px;
+}
+
+.AggregateStatusVeryGood,
+.AggregateStatusGood,
+.AggregateStatusAcceptable,
+.AggregateStatusLow,
+.AggregateStatusVeryLow,
+.AggregateStatusGreen,
+.AggregateStatusYellow,
+.AggregateStatusRed
+{
+	text-align:center;
+    vertical-align:middle;
+	background-repeat:no-repeat;
+	width:10px;
+	height:23px;
+	cursor:pointer;
+}
+
+.AggregateStatusVeryGood,
+.AggregateStatusGood,
+.AggregateStatusGreen
+{
+	background-image:url('img/OverviewStatus/Green.png');
+}
+.AggregateStatusAcceptable,
+.AggregateStatusYellow
+{
+	background-image:url('img/OverviewStatus/Yellow.png');
+}
+.AggregateStatusLow,
+.AggregateStatusVeryLow,
+.AggregateStatusRed
+{
+	background-image:url('img/OverviewStatus/Red.png');
+}
+
+.AggregateSummary,
+.AggregateSummary_Low,
+ .AggregateSummary_Total
+ {
+    font-family: Arial;
+    font-size: 8pt;
+    text-align: left;
+}
+
+.AggregateSummary_Low 
+{
+    font-size: 9pt;
+    font-weight: bold;
+}
+
+.AggregateSummary_Total {
+    font-size: 9pt;
+    font-weight: bold;   
+}

@@ -1,0 +1,5 @@
+﻿@model EdFi.Dashboards.Metric.Resources.Models.Trend
+@if (Legacy.IsVisible(Model))
+{
+    <i class="@Legacy.GetArrowDirection(Model) @Legacy.GetArrowColor(Model)" title="@Legacy.Tooltip(Model)"></i>
+}

@@ -1,0 +1,108 @@
+@using EdFi.Dashboards.Common
+@using EdFi.Dashboards.Common.Utilities
+@using EdFi.Dashboards.Core.Providers.Context
+@using EdFi.Dashboards.Presentation.Core.Areas.LocalEducationAgency.Controllers
+@using EdFi.Dashboards.Presentation.Core.Models.Shared
+@using EdFi.Dashboards.Presentation.Core.Providers.Models
+@using EdFi.Dashboards.Resources.Navigation.Mvc
+@using EdFi.Dashboards.SecurityTokenService.Authentication
+
+@model EdFi.Dashboards.Presentation.Core.Areas.LocalEducationAgency.Models.StudentList.StudentListModel
+           
+@{
+    //ViewBag.Title = "Demographic";
+    var localEducationAgencyId = EdFiDashboardContext.Current.LocalEducationAgencyId.GetValueOrDefault();
+    var staffUSI = UserInformation.Current.StaffUSI;
+}
+
+@section ContentPlaceHolderHead {
+    <title>@(Html.Action("Title", typeof(LocalEducationAgencyLayoutController).GetControllerName(), new { subTitle = Model.Cohort }))</title>
+    <script type="text/javascript">
+        var pageArea = { Area: 'local education agency', Page: 'Student List' };
+    </script>
+}
+
+@section ContentPlaceHolder1 {
+    <div id="cohortSelector" style="margin-bottom:10px;">
+        <h2>My Student Lists</h2>
+        <label class="ContentLabelStyle" for="cohortSelect">Select list to show:</label>
+        <select id="cohortSelect" style="width: 470px;">
+            @foreach (var cohort in Model.MenuModel)
+            {
+                <option value="@cohort.Href"
+                    @if (cohort.SectionId==Model.ListId || (Request.Url != null && cohort.Href.EndsWith(Request.Url.PathAndQuery)))
+                    {
+                        @:selected='selected'
+                    }>
+                    @cohort.Description
+                </option>
+            }
+            @if (Model.WatchListMenuModel != null && Model.WatchListMenuModel.Any())
+            {
+                <optgroup label="Dynamic Lists">
+                    @foreach (var watchList in Model.WatchListMenuModel)
+                    {
+                        <option value="@watchList.Href">@watchList.Description</option>
+                    }
+                </optgroup>
+            }
+        </select>
+    </div>
+<script type="text/javascript">
+    $(document).ready(function () {
+        $("#cohortSelect").navigateOnChange();
+    });
+    
+
+     $(document).ready(function () {
+            $('#StudentList-EdFiGrid-interaction-custom').append($('#buttonExportAllStudentList'));
+            $('#buttonExportAllStudentList').show();
+            $('#buttonExportAllStudentList-EdFiGrid').bind('afterDrawEvent', function(e, table) {
+                CustomStudentListCustomStudentList.redrawCheckboxes();
+                        });
+        });
+</script>
+
+    @{
+        if (Model.GridTable != null)
+        {
+            var callbackUrl = EdFiDashboardContext.Current.RoutedUrl;
+
+            var edFiGridModelProvider = IoC.Resolve<IEdFiGridModelProvider>();
+
+            var edfiGridModel = edFiGridModelProvider.GetEdFiGridModel(true, true, 0, "StudentList", null, Model.GridTable, 
+                null, null, true, "StudentList", new List<string> { "Default" }, null, true, callbackUrl, true);
+
+            Html.RenderPartial("EdFiGrid", edfiGridModel);
+
+            if (Model.IsCurrentUserListOwner)
+            {
+                var customStudentListModel = new CustomStudentListModel
+                {
+                    ControlId = "StudentList",
+                    IsCustomStudentList = Model.IsCustomStudentList,
+                    LinkParentIdentifier = "#StudentList-EdFiGrid-interaction-custom",
+                    CheckboxParentIentifier = "#StudentList-EdFiGrid-fixed-data-table",
+                    SelectAllCheckboxParentIentifier = "#StudentList-EdFiGrid-fixed-header-table",
+                    CustomStudentListId = Model.IsCustomStudentList ? Model.ListId : (long?)null,
+                    LocalEducationAgencyId = localEducationAgencyId,
+                    StaffUSI = staffUSI,
+                    CustomStudentListUrl = EdFiDashboards.Site.Staff.LocalEducationAgencyCustomStudentList(localEducationAgencyId, staffUSI, null, new { format = "json" })
+                };
+                
+       
+                <a id="buttonExportAllStudentList" class="EdFiGrid-interaction-menu-button doNotPrint buttonExportAll" style="display:none;" onclick="ExportLocalEducationAgencyCustomStudentList('All', '@(EdFiDashboards.Site.LocalEducationAgency.ExportStudentList(localEducationAgencyId, EdFiDashboardContext.Current.StaffUSI.GetValueOrDefault(), null, Model.ListId, EdFiDashboardContext.Current.StudentListType , new { format = "csv" }))')">EXPORT ALL</a>
+
+                Html.RenderPartial("CustomStudentList", model: customStudentListModel);
+            }
+        }
+    }
+    @if (Model.IsCurrentUserListOwner)
+    {
+        <script>
+            $('#StudentList-EdFiGrid').bind('afterDrawEvent', function(e, table) {
+                StudentListCustomStudentList.redrawCheckboxes();
+            });
+        </script>
+    }
+}

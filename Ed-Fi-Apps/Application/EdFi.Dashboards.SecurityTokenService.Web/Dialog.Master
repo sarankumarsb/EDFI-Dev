@@ -1,0 +1,76 @@
+﻿<%@ Master Language="C#" AutoEventWireup="true" CodeBehind="Dialog.master.cs" Inherits="EdFi.Dashboards.SecurityTokenService.Web.Dialog" %>
+<%@ Import Namespace="EdFi.Dashboards.Resources.Navigation" %>
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en">
+    <head id="Head1" runat="server">
+        <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+        <title>Untitled Page</title>
+        <script type='text/javascript' language='javascript' src='Scripts/jquery-1.6.1.js'> </script>
+        <script type='text/javascript' language='javascript' src='Scripts/jquery-ui-1.8.15.custom.min.js'> </script>
+        <script type='text/javascript' language='javascript' src='Scripts/jquery.tools.min.js'> </script>
+        <script type='text/javascript' language='javascript' src='Scripts/jquery.cookie.js'> </script>
+        <script type='text/javascript' language='javascript' src='Scripts/jquery.json2.js'> </script>
+        <script type='text/javascript' language='javascript' src='Scripts/jquery.tmpl.js'> </script>
+        <script type='text/javascript' language='javascript' src='Scripts/jquery.base64.js'> </script>
+        <link href="App_Themes/Theme1/jQueryLightness/jquery-ui-1.8.15.custom.css" type='text/css' rel='stylesheet'/>
+        <link href="Core_Content/StyleSheets/style.css" type='text/css' rel='stylesheet'/>
+
+        <script language="javascript">
+            jQuery.fn.center = function() {
+                this.css("position", "absolute");
+                this.css("top", ($(window).height() - this.height()) / 2 + $(window).scrollTop() + "px");
+                this.css("left", ($(window).width() - this.width()) / 2 + $(window).scrollLeft() + "px");
+                return this;
+            };
+
+            $(window).resize(function() {
+                $("#ContainerTable").center();
+            });
+
+            $(document).ready(function() {
+                $("#ContainerTable").center();
+                $("#ContainerTable").show();
+            });
+
+        </script>
+        <asp:ContentPlaceHolder ID="HeadContent" runat="server"></asp:ContentPlaceHolder>
+    </head>
+    <body>
+        <h1 class="hidden">Texas Student Data System - Student GPS Security Token Service.</h1>
+        <form id="form1" runat="server">
+            <div id="ContainerTable">
+                        <div class="edge">
+                                <div style="float: left; margin: 35px 40px 88px 40px;">
+                                    <img src="<%= EdFiWebFormsDashboards.Site.Common.ThemeImage("studentGPS.png").Resolve() %>" alt="studentGPS Logo" /> 
+                                </div>
+                                <div style="float: left; margin: 35px 0px 30px 23px;">
+                                    <asp:ContentPlaceHolder ID="DialogContent" runat="server">
+                                    </asp:ContentPlaceHolder>
+                                </div>
+                                <div style="clear: both; margin-left: 10px;">
+                                    <asp:ContentPlaceHolder ID="FooterMessage" runat="server">
+                                    </asp:ContentPlaceHolder>
+                                </div>
+                        </div>
+                    <div style="padding-left: 21px; padding-right: 15px; padding-top: 4px;">
+                        <div class="footnote">
+                            studentGPS was created for the Texas Student Data Systems by Double Line Partners, LLC with oversight from the Texas Education Agency and support from the Michael & Susan Dell Foundation. 
+                            <img src="<%= EdFiWebFormsDashboards.Site.Common.ThemeImage("EdFi-logo-RGB-TM-203x100.png").Resolve() %>" alt="Powered By Ed-Fi" /> 
+                        <div class="footnote" style="padding-left: 150px; width: 330px; float: left;">
+                            The Ed-Fi solution was developed by Ed-Fi Alliance, LLC and Double Line, Inc. through funding from the Michael & Susan Dell Foundation. 
+                            <br />
+                            <br />
+                            &copy;<%= DateTime.Now.Year %> ©2013 Ed-Fi Alliance, LLC. All Rights Reserved.
+                            <br />
+                            <span style="color:#FFFFFF"><%= Server.HtmlEncode(System.Web.HttpContext.Current.Request.ServerVariables["LOCAL_ADDR"]) %></span>
+                        </div>
+                    </div>
+            </div>
+		
+            <EDFI:SupportForm ID="supportForm" runat="server" SupportLinkControlId="#feedbackLink" SupportLinkControlId2="#buttonErrorFeedback" AllowNameEdit="true"/>
+            <asp:ContentPlaceHolder ID="AdditionalContent" runat="server"></asp:ContentPlaceHolder>
+        </form>
+    </body>
+</html>

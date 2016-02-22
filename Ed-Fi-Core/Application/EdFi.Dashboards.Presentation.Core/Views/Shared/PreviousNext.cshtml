@@ -1,0 +1,15 @@
+﻿@{
+    Layout = null;
+    ViewBag.Title = "PreviousNext";
+}
+
+@model EdFi.Dashboards.Presentation.Core.Models.Shared.PreviousNextViewModel
+         
+@if (Model != null) {
+    <div class="paginator">
+        <a class="back" href="@Model.ListLink"><i class="icon-up-circled"></i> @Html.Raw(Model.BackToListText)</a>
+        <a class="previous" href="@Model.PreviousEntityLink"><i class="icon-left-circled"></i> <span class="hidden">Previous</span></a>
+        <span class="page">@Model.PositionText</span>
+        <a class="next" href="@Model.NextEntityLink"><span class="hidden">Next</span> <i class="icon-right-circled"></i></a>
+    </div>
+}

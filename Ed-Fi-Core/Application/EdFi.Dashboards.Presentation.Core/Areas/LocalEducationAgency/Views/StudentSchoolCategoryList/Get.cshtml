@@ -1,0 +1,103 @@
+@using EdFi.Dashboards.Common
+@using EdFi.Dashboards.Common.Utilities
+@using EdFi.Dashboards.Core.Providers.Context
+@using EdFi.Dashboards.Presentation.Core.Areas.LocalEducationAgency.Controllers
+@using EdFi.Dashboards.Presentation.Core.Models.Shared
+@using EdFi.Dashboards.Presentation.Core.Providers.Models
+@using EdFi.Dashboards.Resources.Navigation.Mvc
+@using EdFi.Dashboards.SecurityTokenService.Authentication
+
+@model EdFi.Dashboards.Presentation.Core.Areas.LocalEducationAgency.Models.StudentSchoolCategoryList.StudentSchoolCategoryListModel
+           
+@{
+    var safeName = Model.Title.Replace(" ", "").Replace("/","");
+    var localEducationAgencyId = EdFiDashboardContext.Current.LocalEducationAgencyId.GetValueOrDefault();
+    var staffUSI = UserInformation.Current.StaffUSI;
+}
+
+@section ContentPlaceHolderHead {
+    <title>@(Html.Action("Title", typeof(LocalEducationAgencyLayoutController).GetControllerName(), new { subTitle = Model.Title }))</title>
+    <script>
+        var pageArea = { Area: 'local education agency', Page: 'Students by Level' };
+    </script>
+}
+
+@section ContentPlaceHolder1 {
+	<div id="gradeSelector" class="student-drop-down">
+	<h2>Students by Level</h2>
+	<label class="content-label" for="categorySelect">Select level to show:</label>
+	<select id="categorySelect" class="drop-down">
+		@if (Model.Title.ToLower() == "select level")
+		{
+			<option selected="selected" >@Model.Title.ToUpper()</option>
+		}
+		@foreach (var schoolCategory in Model.MenuModel.SchoolCategories)
+		{
+			<option value="@schoolCategory.Url"
+				@if (Request.Url != null && schoolCategory.Selected)
+				{
+					@: selected='selected'
+				}>
+				@schoolCategory.Attribute
+			</option>
+		}
+		@if (Model.MenuModel.DynamicWatchLists.Any())
+		{
+			<optgroup label="Dynamic Lists">
+			@foreach (var watchList in Model.MenuModel.DynamicWatchLists)
+			{
+				<option value="@watchList.Url"
+					@if (Request.Url != null && watchList.Selected) 
+					{ 
+						@: selected='selected'
+					}>
+					@watchList.Attribute
+				</option>
+			}
+			</optgroup>
+		}
+	</select>
+    </div>
+    <script>
+        $(document).ready(function () {
+            $("#categorySelect").navigateOnChange();
+            $('#SchoolCategory@(safeName)-EdFiGrid-interaction-custom').append($('#buttonExportAll@(safeName)'));
+            $('#buttonExportAll@(safeName)').show();
+            $('#SchoolCategory@(safeName)-EdFiGrid').bind('afterDrawEvent', function(e, table) {
+                        SchoolCategory@(safeName)CustomStudentList.redrawCheckboxes();
+                        });
+        });
+    </script>
+
+    @{
+        if (Model.GridData != null)
+        {
+            var callbackUrl = EdFiDashboardContext.Current.RoutedUrl;
+
+            var edFiGridModelProvider = IoC.Resolve<IEdFiGridModelProvider>();
+
+            var edfiGridModel = edFiGridModelProvider.GetEdFiGridModel(true, true, 0, "SchoolCategory" + safeName, 
+                null, Model.GridData, null, null, true, "StudentList", new List<string> { "Default" }, null, true, callbackUrl, true,
+                Model.GridData.WatchList, null, Model.Level, null, Model.PreviousNextSessionPage, Model.ExportGridDataUrl, Model.ListType);
+            
+            var customStudentListModel = new CustomStudentListModel
+            {
+                ControlId = "SchoolCategory" + safeName,
+                IsCustomStudentList = false,
+                LinkParentIdentifier = "#SchoolCategory" + safeName + "-EdFiGrid-interaction-custom",
+                CheckboxParentIentifier = "#SchoolCategory" + safeName + "-EdFiGrid-fixed-data-table",
+                SelectAllCheckboxParentIentifier = "#SchoolCategory" + safeName + "-EdFiGrid-fixed-header-table",
+                CustomStudentListId = null,
+                LocalEducationAgencyId = localEducationAgencyId,
+                SchoolId = null,
+                StaffUSI = staffUSI,
+                CustomStudentListUrl = EdFiDashboards.Site.Staff.LocalEducationAgencyCustomStudentList(localEducationAgencyId, staffUSI, null, new { format = "json" }),
+                UniqueId = localEducationAgencyId
+            };
+
+            <a id="buttonExportAll@(safeName)" class="btn" style="display: none;" onclick="SchoolCategory@(safeName)EdFiGrid.exportGrid(); "><i class="icon-floppy"></i> EXPORT ALL</a>
+            Html.RenderPartial("EdFiGrid", edfiGridModel);
+            Html.RenderPartial("CustomStudentList", model: customStudentListModel);
+        }
+    }
+}

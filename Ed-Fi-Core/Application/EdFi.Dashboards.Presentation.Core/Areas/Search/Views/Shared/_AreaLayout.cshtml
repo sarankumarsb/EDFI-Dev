@@ -1,0 +1,19 @@
+﻿@using EdFi.Dashboards.Presentation.Architecture.Mvc.Extensions
+@using EdFi.Dashboards.Resources.Navigation.Mvc
+@using Cassette.Views
+@{
+    
+    //ViewBag.Title = "Local Education Agency";
+    Layout = this.GetLayout("_SiteLayout");
+    Bundles.Reference("Core_Content/HtmlTemplates/Search");
+}
+
+@section head {
+    @RenderSection("ContentPlaceHolderHead", required: false)
+}
+
+@section ContentPlaceHolderTopMost {
+<div class="l-search-view">
+		@RenderSection("ContentPlaceHolder1", required: false)
+</div>
+}

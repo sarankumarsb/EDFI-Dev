@@ -1,0 +1,46 @@
+﻿@model IGranularMetric
+<tr id="vMetric@(Model.MetricVariantId)" class="container">
+    <td headers="MetricName@(this.GetMetricRenderingContextValue("ParentContainerMetricId"))" data-item-type="DisplayName" title="@Model.ToolTip">
+        <span class="metricId">
+            @(Model.MetricId)-@(Model.MetricVariantType)
+        </span>
+        <h3 class="title">
+            <span>
+                @(Model.DisplayName)
+            </span>
+            @if (!String.IsNullOrWhiteSpace(Model.Context))
+            {
+                <span>&nbsp;(@Model.Context)</span>
+            }
+        </h3>
+        @Html.Partial("MetricFootnoteLabelSuperText", Model.Footnotes)
+        <p class="description"><span>@Model.Description</span></p>
+        @Html.Partial("UnderConstruction", (MetricBase)Model)
+    </td>
+    <td headers="MetricValue@(this.GetMetricRenderingContextValue("ParentContainerMetricId"))" data-item-type="State">
+        @Html.Partial("StatusLabel", Model.State)
+    </td>
+    <td headers="MetricTrend@(this.GetMetricRenderingContextValue("ParentContainerMetricId"))" data-item-type="Trend">
+        @Html.Partial("Trend", Model.Trend)
+    </td>
+    <td headers="MetricGoal@(this.GetMetricRenderingContextValue("ParentContainerMetricId"))" data-item-type="DistrictGoal">
+        @if (Model.Value != null)
+        {
+            @Model.Values["DisplayGoal"]
+        }
+    </td>
+    <td headers="MetricDifferenceFromGoal@(this.GetMetricRenderingContextValue("ParentContainerMetricId"))" data-item-type="DifferenceFromGoal" class="@(Legacy.DifferenceFromGoalClass(Model.Values["GoalDifference"]))">
+        @Model.Values["DisplayGoalDifference"]
+    </td>
+    <td headers="MetricStudentAttainment@(this.GetMetricRenderingContextValue("ParentContainerMetricId"))" data-item-type="Attainment" id="vValue@(Model.MetricVariantId)">
+        @Model.Values["SchoolAttainment"]
+        @if (Model.Values["SchoolAttainment"] != null)
+        {
+            <text> of </text>
+        }
+        @Model.Values["SchoolTotal"]
+    </td>
+    <td headers="MetricDetails@(this.GetMetricRenderingContextValue("ParentContainerMetricId"))" data-item-type="ContextMenu">
+        @Html.Partial("ContextMenu", (MetricBase)Model)
+    </td>
+</tr>

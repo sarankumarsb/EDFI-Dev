@@ -1,0 +1,11 @@
+﻿-- Temp. Remove From PostBuild Event
+md "$(TargetDir)Merge"
+"$(SolutionDir)packages\ILMerge.2.13.0307\ILMerge.exe" /targetPlatform:v4 /out:"$(TargetDir)Merge\$(TargetName).dll" "$(TargetDir)$(TargetName).dll" "$(TargetDir)EdFi.Dashboards.Presentation.Core.UITests.dll" /lib:"C:\Program Files (x86)\Microsoft ASP.NET\ASP.NET MVC 3\Assemblies"
+del "$(TargetDir)$(TargetName).dll"
+del "$(TargetDir)$(TargetName).pdb"
+copy /y "$(TargetDir)Merge\$(TargetName).dll" "$(TargetDir)$(TargetName).dll"
+copy /y "$(TargetDir)Merge\$(TargetName).pdb" "$(TargetDir)$(TargetName).pdb"
+rd /s /q "$(TargetDir)Merge"
+"$(TargetDir)ApplyAspects" "$(TargetDir)$(TargetName).dll"
+REM del "$(TargetDir)EdFi.Dashboards.Presentation.Core.UITests.dll"
+REM del "$(TargetDir)EdFi.Dashboards.Presentation.Core.UITests.pdb"

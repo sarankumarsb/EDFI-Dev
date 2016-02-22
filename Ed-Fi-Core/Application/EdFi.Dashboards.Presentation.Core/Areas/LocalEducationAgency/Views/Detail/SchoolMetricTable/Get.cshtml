@@ -1,0 +1,26 @@
+﻿@using EdFi.Dashboards.Common.Utilities
+@using EdFi.Dashboards.Core.Providers.Context
+@using EdFi.Dashboards.Presentation.Core.Providers.Models
+@using EdFi.Dashboards.Resources.Navigation.Mvc
+@model EdFi.Dashboards.Resources.Models.CustomGrid.GridTable
+         
+@{
+    var localEducationAgencyId = EdFiDashboardContext.Current.LocalEducationAgencyId.GetValueOrDefault();
+    var metricVariantId = EdFiDashboardContext.Current.MetricVariantId.GetValueOrDefault();
+
+    var edFiGridModelProvider = IoC.Resolve<IEdFiGridModelProvider>();
+
+    var edfiGridModel = edFiGridModelProvider.GetEdFiGridModel(true, false, 10, "Metric" + metricVariantId, metricVariantId, Model,
+        null, Model.GetDefaultNonPersistedSettings("Metric" + metricVariantId + "EdFiGrid"), false, "SchoolList", null, "metricContext", false, null, false);
+}
+<div id="SchoolMetricTable@(metricVariantId)">
+    <script type="text/javascript" language="javascript">
+        analyticsManager.trackDrilldown('LocalEducationAgencySchoolMetricTable', '@(metricVariantId)', '@(localEducationAgencyId)');
+        $("#Metric@(metricVariantId)-EdFiGrid-interaction-custom").append($("#buttonExportAll-@(metricVariantId)"));
+        $("#buttonExportAll-@(metricVariantId)").show();
+    </script>
+    <a href="#" onclick="ExportLocalEducationAgencySchoolMetricList(@(metricVariantId), '@(EdFiDashboards.Site.LocalEducationAgency.ExportMetricList(localEducationAgencyId, metricVariantId, new { format = "csv" }))');(event.preventDefault) ? event.preventDefault() : event.returnValue = false;" id="buttonExportAll-@(metricVariantId)" class="btn" style="display:none;"><i class="icon-floppy"></i> EXPORT ALL</a>
+    <a href="#" onclick="ExportLocalEducationAgencySchoolMetricList(@(metricVariantId), '@(EdFiDashboards.Site.LocalEducationAgency.ExportMetricList(localEducationAgencyId, metricVariantId, new { format = "csv" }))');(event.preventDefault) ? event.preventDefault() : event.returnValue = false;" class="hidden">Export learning objectives for metric @(metricVariantId) to csv</a>
+    @{Html.RenderPartial("EdFiGrid", model: edfiGridModel);}
+</div>
+

@@ -1,0 +1,65 @@
+﻿<tbody>
+    {{each(key,dataItem) $data}}
+    
+        {{if ( key=="Columns")}}
+            <tr>
+                {{if headerHasChildren(dataItem[0]) }}
+                    {{each(i,cellData) dataItem}}
+                        {{if (cellData.IsFixedColumn == $item.drawFixedColumn)}}
+                            {{each(j,childCellData) cellData.Children}}
+                            <td style="${$item.overriddenStyles[getFlattendedColumnIndex(dataItem,i,j)]}" class="${getCssClassForHeader(i,j,getFlattendedColumnIndex(dataItem,i,j),childCellData,$item.drawFixedColumn,$item.headerClasses)} ${getCssClassForFixedOrScrollHeader($item.drawFixedColumn)}">
+                                    {{tmpl(childCellData,{index:j}) getTemplateForSingleTabedHeader(i, j, childCellData)}}
+                                    {{html sortArrow(getFlattendedColumnIndex(dataItem,i,j),$item)}}
+                            </td>
+                            {{/each}}
+                        {{/if}}
+                    {{/each}}
+                {{/if}}
+            </tr>
+            <tr class="EdFiGrid-header-topper">
+                {{each(i,cellData) dataItem}}
+                    {{if (cellData.IsFixedColumn == $item.drawFixedColumn)}}
+                        <td colspan="${getVisibleChildrenCount(cellData.Children)}" class="${getCssClassForTopHeader(i, cellData)}"  valign="top" style="width:100%;" >
+                            {{tmpl(cellData) getTemplateForTabedHeader(i, cellData)}}
+                        </td>
+                    {{/if}}
+                {{/each}}
+            </tr>
+            <tr>
+                {{if headerHasChildren(dataItem[0]) }}
+                    {{each(i,cellData) dataItem}}
+                        {{if (cellData.IsFixedColumn == $item.drawFixedColumn)}}
+                            {{each(j,childCellData) cellData.Children}}
+                                <td style="${$item.overriddenStyles[getFlattendedColumnIndex(dataItem,i,j)]}" class="${getCssClassForHeader(i,j,getFlattendedColumnIndex(dataItem,i,j),childCellData,$item.drawFixedColumn,$item.headerClasses)} ${getCssClassForFixedOrScrollHeader($item.drawFixedColumn)}" prop="${getFlattendedColumnIndex(dataItem,i,j)}" tooltipId="${getIdForTooltip(i, j, $item.identifier)}">
+                                    <a href="#" onclick="(event.preventDefault) ? event.preventDefault() : event.returnValue = false;">
+                                        {{tmpl(childCellData,{index:j}) getTemplateForSingleTabedHeader(i, j, childCellData)}}
+                                        {{html sortArrow(getFlattendedColumnIndex(dataItem,i,j),$item)}} 
+                                    </a>
+                                </td>
+                            {{/each}}
+                        {{/if}}
+                    {{/each}}
+                {{/if}}
+            </tr>
+        {{/if}}
+
+        {{if (key=="FixedRows")}}
+            {{each(j, rowItem) dataItem}}
+                <tr class="EdFiGrid-table-fixed-data-row">
+                    {{each(i,cellItem) rowItem}}
+                        {{if drawCell($item.columnsToDraw, i)}}
+                            <td class="fixedDataColumn${i} ${$item.dataClasses[i]}">
+                                <table summary="" class="EdFiGrid-value-table EdFiGrid-value-center" cellpadding="0" cellspacing="0" border="0">
+                                    <tr>
+                                        <td>${cellItem.DV}</td>
+                                    </tr>
+                                </table>
+                            </td>
+                        {{/if}}
+                    {{/each}}
+                </tr>
+            {{/each}}
+        {{/if}}
+
+    {{/each}}
+</tbody> 

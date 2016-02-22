@@ -1,0 +1,218 @@
+﻿@* Generator : MvcView *@
+@model InformationModel
+@using EdFi.Dashboards.Common
+@using EdFi.Dashboards.Core.Providers.Context
+@using EdFi.Dashboards.Presentation.Core.Areas.LocalEducationAgency.Controllers
+@using EdFi.Dashboards.Presentation.Core.Utilities.ExtensionMethods.HtmlHelper
+@using EdFi.Dashboards.Resources.Models.LocalEducationAgency.Information
+@{
+    //ViewBag.Title = Model.Name + " - District Information";
+}
+@section ContentPlaceHolderHead {
+    <title>@(Html.Action("Title", typeof(LocalEducationAgencyLayoutController).GetControllerName(), new { subTitle = "District Information" }))</title>
+    <script type="text/javascript">
+        var pageArea = { Area: 'local education agency', Page: 'District Information' };
+    </script>
+}
+
+@section ContentPlaceHolder1 {
+    @{
+        var localEducationAgencyId = EdFiDashboardContext.Current.LocalEducationAgencyId.GetValueOrDefault();
+    }
+    <div class="tab-content">
+        <div role="tabpanel" class="tab-pane active tab-red-damask" id="tab-student-info">
+            <div class="action-btn action-btn-red-damask">
+                <a class="btn" href="#"><i class="fa fa-download"></i></a>
+                <a class="btn" href="#"><i class="fa fa-print"></i></a>
+                <a class="btn" href="#"><i class="fa fa-pencil"></i></a>
+            </div>
+            <div class="clearfix edfitable clear">
+                <div class="col-sm-6 col-md-4 std-grid-md-4">
+                    <div class="std-primary-col first">
+                        <div class="row pt40 mb20">
+                            <h3 class="std-name std-red-damask schoolhead">@(Model.Name)</h3>
+                            <div class="col-xs-6 sm-pr0 std-primary-xs-small">
+                                <div class="std-info relative">
+                                    <div class="left">
+                                        <!-- District-thumbnail -->
+                                        <img id="InformationModel.ProfileThumbnail" src="@(Model.ProfileThumbnail)" alt="Photograph of @(Model.Name)" />
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-xs-6 sm-pl0 sm-pr0 std-primary-xs-small">
+                                <address class="std-address">
+                                    @foreach (var addressLine in Model.AddressLines)
+                                    {
+                                        @(addressLine)<br />
+                                    }
+                                    <span>@(Model.City), @(Model.State) @(Model.ZipCode)</span>
+                                </address>
+                                <div class="std-desc">
+                                    @foreach (var telephoneNumber in Model.TelephoneNumbers)
+                                    {
+                                        <span class="tel"><i class="icon icon-tel"></i>@(telephoneNumber.Number)</span><span>&nbsp;&nbsp;@(telephoneNumber.Type)</span><br />
+                                    }
+                                    @*<span class="email"><a class="underline" href="mailto:@(Model.EmailAddress)"><i class="icon icon-email"></i>@(Model.EmailAddress)</a></span>*@
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-sm-6 col-md-4 std-grid-md-5">
+                    <div class="std-primary-col std-primary-col-second">
+                        <div class="sm-pl3 clearfix">
+                            <h4 class="std-title-red-damask">Administration</h4>
+                            @foreach (var administrator in Model.Administrators)
+                            {
+                                <div class="split">
+                                    <h5 class="std-sub-title">@administrator.Role : </h5><span> @administrator.Name </span>
+                                </div>
+                            }
+                        </div>
+                        <div class="row">
+                            <div class="sm-pl30 sm-p130new">
+                                <h4 class="std-title-red-damask">Accountability</h4>
+                                @foreach (var accountability in Model.Accountability)
+                                {
+                                    <h5 class="std-sub-title">@accountability.Attribute : </h5> @accountability.Value <br />
+                                }
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="clearfix visible-sm"></div>
+                <div class="col-sm-12 col-md-4 std-grid-md-3">
+                    <div class="std-primary-col std-primary-col-third">
+                        <div class="sm-pl20">
+                            <h4 class="std-title-red-damask">Number of Schools by Rating</h4>
+                            <table class="table table-demograhpics">
+                                @foreach (var schoolAccountability in Model.SchoolAccountabilityRatings)
+                                {
+                                    <tr>
+                                        <td>
+                                            <span class="label">@(schoolAccountability.Attribute)</span>
+                                            <span class="value">@(schoolAccountability.Value)</span>
+                                        </td>
+                                    </tr>
+                                }
+                            </table>
+                            @*<hr />
+                                @(Html.AttributeItemPercentageWithUrl(Model.GradePopulation.SchoolLateEnrollment))
+                                <hr />*@
+                        </div>
+                        <div class="sm-pl20">
+                            <h4 class="std-title-red-damask">District Characteristics</h4>
+                            <table class="table table-demograhpics">
+                                <tr>
+                                    <td>
+                                        <span class="label">District Enrollment</span>
+                                        <span class="value">@( String.Format("{0:#,#}", Model.LocalEducationAgencyEnrollment))</span>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>
+                                        <span class="label">Number of Schools</span>
+                                        <span class="value"></span>
+                                    </td>
+                                </tr>
+                                @foreach (var schoolCategory in Model.NumberOfSchools)
+                                {
+                                    <tr>
+                                        <td>
+                                            @(Html.AttributeItemNumberWithUrl(schoolCategory, false))
+                                        </td>
+                                    </tr>
+                                }
+                                <tr>
+                                    <td>
+                                        <span>@(Html.AttributeItemPercentageWithUrl(Model.LateEnrollmentStudents))</span>
+                                    </td>
+                                </tr>
+                                @if (Model.StudentTeacherRatios.Any())
+                                {
+                                    <tr>
+                                        <td>
+                                            <span class="label">Student Teacher Ratio</span>
+                                            <span class="value"></span>
+                                        </td>
+                                    </tr>
+                                    foreach (var studentTeacherRatio in Model.StudentTeacherRatios)
+                                    {
+                                        <tr>
+                                            <td>
+                                                <span class="label">@(studentTeacherRatio.Attribute)</span>
+                                                <span class="value">@(studentTeacherRatio.Value)</span>
+                                            </td>
+                                        </tr>
+                                    }
+                                }
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="row std-secondarymain">
+            <div class="std-secondary no-gutter clearfix">
+                <div class="col-sm-6 col-md-4 std-tablefirst">
+                    <h4 class="std-secondary-title first">Student Demographics</h4>
+                    <div class="std-secondary-col first">
+                        <table class="table std-table">
+                            <tr>
+                                <td><b>Gender</b></td>
+                                <td>@(Html.AttributeItemPercentageWithUrl(Model.StudentDemographics.Female)) <br /> @(Html.AttributeItemPercentageWithUrl(Model.StudentDemographics.Male))</td>
+                            </tr>
+                            <tr>
+                                <td><b>Ethnicity</b></td>
+                                <td>
+                                    @foreach (var ethnicity in Model.StudentDemographics.ByEthnicity)
+                                    {
+                                        @(Html.AttributeItemPercentageWithUrl(ethnicity)) <br />
+                                    }
+                                </td>
+                            </tr>
+                            <tr>
+                                <td><b>Race</b></td>
+                                <td>
+                                    @foreach (var race in Model.StudentDemographics.ByRace)
+                                    {
+                                        @(Html.AttributeItemPercentageWithUrl(race)) <br />
+                                    }
+                                </td>
+                            </tr>
+                        </table>
+                    </div>
+                </div>
+                <div class="col-sm-6 col-md-4">
+                    <h4 class="std-secondary-title">Students by Program</h4>
+                    <div class="std-secondary-col">
+                        <table class="table std-table">
+                            @foreach (var program in Model.StudentsByProgram)
+                            {
+                                <tr>
+                                    <td>@(Html.AttributeItemPercentageWithUrl(program))</td>
+                                </tr>
+                            }
+                        </table>
+                    </div>
+                </div>
+                <div class="col-sm-6 col-md-4">
+                    <h4 class="std-secondary-title">Other Student Information</h4>
+                    <div class="std-secondary-col">
+                        <table class="table std-table">
+                            @foreach (var indicator in Model.StudentIndicatorPopulation)
+                            {
+                                <tr>
+                                    <td>
+                                        @(Html.AttributeItemPercentageWithUrl(indicator))
+                                    </td>
+                                </tr>
+                            }
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+}
+

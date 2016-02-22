@@ -1,0 +1,108 @@
+@using EdFi.Dashboards.Common
+@using EdFi.Dashboards.Common.Utilities
+@using EdFi.Dashboards.Core.Providers.Context
+@using EdFi.Dashboards.Presentation.Core.Providers.Models
+@using EdFi.Dashboards.Presentation.Core.Areas.School.Controllers
+@using EdFi.Dashboards.Presentation.Core.Models.Shared
+@using EdFi.Dashboards.Presentation.Core.Areas.School.Models.StudentGradeList;
+@using EdFi.Dashboards.Resources.Navigation.Mvc
+@using EdFi.Dashboards.SecurityTokenService.Authentication
+
+@model StudentGradeListModel
+           
+@{
+    //ViewBag.Title = "Grade";
+    var safeGradeName = Model.Grade.Replace(" ", "").Replace("/", "").Replace("-", "");
+    var localEducationAgencyId = EdFiDashboardContext.Current.LocalEducationAgencyId.GetValueOrDefault();
+    var schoolId = EdFiDashboardContext.Current.SchoolId.GetValueOrDefault();
+    var staffUSI = UserInformation.Current.StaffUSI;
+}
+
+@section ContentPlaceHolderHead {
+    <title>@(Html.Action("Title", typeof(SchoolLayoutController).GetControllerName(), new { subTitle = Model.Grade }))</title>
+    <script type="text/javascript">
+        var pageArea = { Area: 'school', Page: 'Students by Grade' };
+    </script>
+}
+
+@section ContentPlaceHolder1 {
+    <div class="student-drop-down" id="gradeSelector">
+        <h2>Students by Grade</h2>
+        <label class="content-label" for="gradeSelect">Select grade to show:</label>
+        <select id="gradeSelect" class="drop-down">
+            @foreach (var grade in Model.MenuModel.Grades)
+            {
+                <option value="@grade.Url"
+                    @if (Request.Url != null && grade.Attribute==Model.Grade)
+                    {
+                        @:selected='selected'
+                    }>
+                    @grade.Attribute
+                </option>
+            }
+        </select>
+    </div>
+<script type="text/javascript">
+    $(document).ready(function () {
+        $("#gradeSelect").navigateOnChange();
+        $('#Grade@(safeGradeName)-EdFiGrid-interaction-custom').append($('#buttonExportAll@(safeGradeName)'));
+        $('#buttonExportAll@(safeGradeName)').show();
+        $('#Grade@(safeGradeName)-EdFiGrid').bind('afterDrawEvent', function(e, table) {
+                        Grade@(safeGradeName)CustomStudentList.redrawCheckboxes();
+                    });
+    });
+</script>
+    
+
+    @{
+        if (Model.GridData != null)
+        {
+            var callbackUrl = EdFiDashboardContext.Current.RoutedUrl;
+
+            var edFiGridModelProvider = IoC.Resolve<IEdFiGridModelProvider>();
+           
+            var edfiGridModel = edFiGridModelProvider.GetEdFiGridModel(
+                displayInteractionMenu: true, 
+                displayAddRemoveColumns: true, 
+                fixedHeight: 0, 
+                name: "Grade" + safeGradeName, 
+                metricVariantId: null, 
+                gridTable: Model.GridData, 
+                metricFootnotes: null, 
+                nonPersistedSettings: null, 
+                sizeToWindow: true, 
+                listType: "StudentList", 
+                legendViewNames: new List<string> { "Default" }, 
+                hrefToUse: null, 
+                usePagination: true, 
+                paginationCallbackUrl: callbackUrl, 
+                allowMaximizeGrid: true, 
+                studentWatchlist: null, 
+                selectedDemographicOption: null, 
+                selectedSchoolCategoryOption: null, 
+                selectedGradeOption: Model.Grade, 
+                previousNextSessionPage: Model.PreviousNextSessionPage, 
+                exportGridDataUrl: Model.ExportGridDataUrl, 
+                gridListType: Model.ListType);
+        
+            var customStudentListModel = new CustomStudentListModel
+            {
+                ControlId = "Grade" + safeGradeName,
+                IsCustomStudentList = false,
+                LinkParentIdentifier = "#Grade" + safeGradeName + "-EdFiGrid-interaction-custom",
+                CheckboxParentIentifier = "#Grade" + safeGradeName + "-EdFiGrid-fixed-data-table",
+                SelectAllCheckboxParentIentifier = "#Grade" + safeGradeName + "-EdFiGrid-fixed-header-table",
+                CustomStudentListId = null,
+                LocalEducationAgencyId = localEducationAgencyId,
+                SchoolId = schoolId,
+                StaffUSI = staffUSI,
+                CustomStudentListUrl = EdFiDashboards.Site.Staff.CustomStudentList(schoolId, staffUSI, null, new { format = "json" }),
+                UniqueId = schoolId
+            };
+
+            <a href="#" id="buttonExportAll@(safeGradeName)" class="btn" style="display:none;" onclick="Grade@(safeGradeName)EdFiGrid.exportGrid();"><i class="icon-floppy"></i> EXPORT ALL</a>
+            Html.RenderPartial("EdFiGrid", edfiGridModel);
+            Html.RenderPartial("CustomStudentList", customStudentListModel);
+        }
+    }
+}

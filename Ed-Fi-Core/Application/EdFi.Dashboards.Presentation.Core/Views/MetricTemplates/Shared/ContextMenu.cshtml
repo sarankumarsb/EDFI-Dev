@@ -1,0 +1,71 @@
+﻿@using EdFi.Dashboards.Core.Providers.Context
+@using EdFi.Dashboards.Metric.Resources.Models
+@using EdFi.Dashboards.Resources.Navigation
+@using EdFi.Dashboards.Presentation.Web.Utilities
+@using EdFi.Dashboards.Presentation.Core.Utilities
+@model MetricBase
+           
+@helper IconName(string action)
+{
+    switch (action)
+    {
+        case "BarChart":
+            @:icon-chart-bar
+            break;
+        case "Calendar":
+            @:icon-calendar
+            break;
+        case "HistoricalChart":
+            @:icon-chart-bar
+            break;
+        case "MultiTable":
+            @:icon-list
+            break;
+        case "Table":
+            @:icon-menu
+            break;
+    }
+}
+
+@helper Description(MetricBase model)
+{
+    string description = string.Empty;
+    if(model.Parent != null && model.Parent.DisplayName != null)
+    {
+        description += (model.Parent.DisplayName + ", ");
+    }
+    
+    description += model.DisplayName ?? string.Empty;
+    
+<text>@description</text>
+}
+
+@if (Model.Actions.Any())
+{
+    var granular = Model as IGranularMetric;
+    if (granular == null || granular.Value != null || Model.Actions.Count(x => x.ActionType == MetricActionType.AlwaysDisplayedDynamicContent) > 0)
+    {
+        string moreActionDivId = "moreActions-" + Model.MetricVariantId;
+        string contextValues = "{metricVariantId:" + Model.MetricVariantId + ",subjectArea:" + Legacy.GetSubjectArea(Model.MetricId) + ",studentUSI:" + EdFiDashboardContext.Current.StudentUSI + ",schoolId:" + EdFiDashboardContext.Current.SchoolId + ",localEducationAgencyId:" + EdFiDashboardContext.Current.LocalEducationAgencyId + ",listContext:" + Request.QueryString["listContext"] + "}";
+
+        <div class="contextMenu-group">
+            <a href="#" id="@("main" + moreActionDivId)" class="contextMenu-Button doNotPrint">More <i class="icon-down-dir"></i><span class="hidden">actions for @Description(Model)</span></a>
+
+            <ul class="contextMenu-DropDown doNotPrint" id="@(moreActionDivId)_List" style="display: none;">
+                @foreach (var metricAction in Legacy.GetModelActions(Model))
+                {
+                    <li>
+                        <a href="#"
+                            id="@(moreActionDivId + metricAction.GetTitleSafeForHtmlId())"
+                            data-tdid="@(metricAction.GetTitleSafeForHtmlId() + metricAction.MetricVariantId)"
+                            onclick="@Html.Raw(Legacy.GetMenuActionScript(Model, metricAction, moreActionDivId, contextValues)) return false;"
+                            data-metricAction="@moreActionDivId">
+                            <i class="@IconName(metricAction.Icon) icon-large"></i>
+                            @metricAction.Title
+                        </a>
+                    </li>
+                }
+            </ul>
+        </div>
+    }
+}

@@ -1,0 +1,23 @@
+﻿@model MetricBase   
+@{
+    //Default value is 7 columns.
+    var columnSpan = this.GetMetricRenderingContextValue("colCount") ?? 7;
+}                    
+@foreach(var metricAction in Model.Actions.Where(x => x.ActionType == MetricActionType.DynamicContent || x.ActionType == MetricActionType.AlwaysDisplayedDynamicContent))
+{
+    var isPriorYearRow = Model.MetricVariantType == MetricVariantType.PriorYear ? "PriorYearRow" : "";
+    var dynamicContentName = EdFi.Dashboards.Presentation.Web.Utilities.Legacy.GetDynamicContentNameFromAction(metricAction);
+    <tr id="vMetricChart@(dynamicContentName)" class="dynamic-row @isPriorYearRow">
+        <td colspan="@(columnSpan)" headers="MetricName@(this.GetMetricRenderingContextValue("ParentContainerMetricId"))">
+            <div id="DynamicContentDiv@(dynamicContentName)" style="display: none;" class="dynamic-content">
+                @Html.Partial("BlueHeader", metricAction)
+                <div id="DrillDownDiv@(dynamicContentName)" class="drilldown" style="display: none;"></div>
+                <div id="LoadingDiv@(dynamicContentName)">
+                    <div class="MetricNoData">
+                        <span class="loading-message">Loading data...</span>
+                    </div>
+                </div>
+            </div>
+        </td>
+    </tr>
+}

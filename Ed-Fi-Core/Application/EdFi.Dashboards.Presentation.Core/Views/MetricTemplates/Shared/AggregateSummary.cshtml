@@ -1,0 +1,37 @@
+﻿@model AggregateMetric
+
+@{
+    var includedStates = new[] {
+                                 MetricStateType.VeryGood,
+                                 MetricStateType.Good,
+                                 MetricStateType.Acceptable,
+                                 MetricStateType.Low,
+                                 MetricStateType.VeryLow
+                             };
+    var granularMetricCount =
+    (from m in Model.Descendants
+     where m.MetricType == MetricType.GranularMetric
+     let gm = m as IGranularMetric
+     where includedStates.Contains(gm.State.StateType)
+            && gm.MetricVariantType == MetricVariantType.CurrentYear
+     select gm).Count();
+
+    var lowGranularMetricCount =
+   (from m in Model.Descendants
+    where m.MetricType == MetricType.GranularMetric
+    let gm = m as IGranularMetric
+    where (gm.State.StateType == MetricStateType.Low || gm.State.StateType == MetricStateType.VeryLow)
+            && gm.MetricVariantType == MetricVariantType.CurrentYear
+    select gm).Count();
+}
+
+@if (granularMetricCount > 0) {
+    <span class="aggregate-summary">
+        @if (lowGranularMetricCount > 0) {
+            var goalsMet = granularMetricCount - lowGranularMetricCount;
+            <text><em>@goalsMet</em> of <em>@granularMetricCount</em> metric@(granularMetricCount == 1 ? string.Empty : "s") met goal</text>
+        } else {
+            <text><em>@granularMetricCount</em> metric@(granularMetricCount == 1 ? string.Empty : "s") met goal</text>
+        }
+    </span>
+}

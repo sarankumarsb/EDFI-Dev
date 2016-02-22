@@ -1,0 +1,87 @@
+﻿@using EdFi.Dashboards.Resources.Navigation.Mvc
+@model EdFi.Dashboards.Presentation.Core.Models.Shared.CustomStudentListModel
+
+@{
+    ViewBag.Title = "Student Selector";
+    Layout = null;
+    var sessionStudentListUrl = EdFiDashboards.Site.LocalEducationAgency.Resource(Model.LocalEducationAgencyId, "SessionStudentList");
+}
+
+<div style="display:none;">
+    <!-- Student Name and Image Template for the custom student list dialog -->
+    <script id="@(Model.ControlId)-CustomStudentList-NameAndImageCellItemTemplate" type="x-jquery-tmpl">
+        <tr>
+            <td style="border-right:0px;">
+            {{if I}}
+                <img src="${I}" style="border:1px solid gray;height:37px;width:28px;" />
+            {{/if}}
+            </td>
+            <td>
+               ${DV}
+            </td>
+        </tr>
+    </script>
+
+    <div id="@(Model.ControlId)-CustomStudentList-CreateDialog" class="CustomStudentList-CreateDialog" title="Add students to list" style="display: none;">
+        <div>
+            <input id="@(Model.ControlId)-CustomStudentList-Create-UseNewListRadio" type="radio" title="Use new list" name="ListUseTypes" value="new" checked="checked"/>
+                <label for="@(Model.ControlId)-CustomStudentList-Create-NewListName">Create a new list named:</label><br />
+            <input id="@(Model.ControlId)-CustomStudentList-Create-NewListName" type="text" class="NestedControl" /><br /><br />
+            <input id="@(Model.ControlId)-CustomStudentList-Create-UseOldListRadio" title="Use existing list" type="radio" name="ListUseTypes" value="old" />
+            <label for="@(Model.ControlId)-CustomStudentList-Create-ListSelectionListbox">Add selected students to an existing list:</label><br />
+            <select id="@(Model.ControlId)-CustomStudentList-Create-ListSelectionListbox" size="9" class="NestedControl" disabled="disabled">
+            </select>
+            <div id="@(Model.ControlId)-CustomStudentList-Create-Wait" style="display:none;">
+                <img src="@EdFiDashboards.Site.Common.ThemeImage("loadingSmall.gif").Resolve()" alt="Submitting..." /> Submitting request...
+            </div>
+        </div>
+        <div class="CustomStudentList-CreateDialog-StudentList">
+            <table id="@(Model.ControlId)-CustomStudentList-Create-StudentListTable">
+                <tbody></tbody>
+            </table>
+        </div>
+    </div>
+
+    <div id="@(Model.ControlId)-CustomStudentList-RemoveDialog" class="CustomStudentList-RemoveDialog" title="Remove students from list" style="display: none;">
+        <div class="CustomStudentList-RemoveDialog-Label">The following students will be removed from the list:</div>
+        <div id="@(Model.ControlId)-CustomStudentList-RemoveDialog-Wait" style="display:none;">
+            <img src="@EdFiDashboards.Site.Common.ThemeImage("loadingSmall.gif").Resolve()" alt="Submitting..." /> Submitting request...
+        </div>
+        <div class="CustomStudentList-RemoveDialog-StudentList">
+            <table id="@(Model.ControlId)-CustomStudentList-Remove-StudentListTable">
+                <tbody></tbody>
+            </table>
+        </div>
+    </div>
+
+    <div id="@(Model.ControlId)-CustomStudentList-RenameDialog" style="display: none;">
+        <label for="@(Model.ControlId)-CustomStudentList-Rename-Input">New list name:</label>
+        <input id="@(Model.ControlId)-CustomStudentList-Rename-Input" class="CustomStudentList-Rename-Input" type="text"/>
+        <div id="@(Model.ControlId)-CustomStudentList-Rename-Wait" style="display:none;">
+            <img src="@EdFiDashboards.Site.Common.ThemeImage("loadingSmall.gif").Resolve()" alt="Submitting..." /> Submitting request...
+        </div>
+    </div>
+
+    <div id="@(Model.ControlId)-CustomStudentList-DeleteDialog" style="display: none;">
+        Are you sure you want to delete this list?
+        <div id="@(Model.ControlId)-CustomStudentList-DeleteDialog-Wait" style="display:none;">
+            <img src="@EdFiDashboards.Site.Common.ThemeImage("loadingSmall.gif").Resolve()" alt="Submitting..." /> Submitting request...
+        </div>
+    </div>
+
+    <script>
+        var @(Model.ControlId)CustomStudentList = new customStudentList('@Model.ControlId', 
+                                                                        @Model.IsCustomStudentList.ToString().ToLower(), 
+                                                                        '@Model.LinkParentIdentifier', 
+                                                                        '@Model.CheckboxParentIentifier',
+                                                                        '@Model.SelectAllCheckboxParentIentifier',
+                                                                        @(Model.CustomStudentListId != null ? Model.CustomStudentListId.ToString() : "null"), 
+                                                                        @Model.LocalEducationAgencyId, 
+                                                                        @(Model.SchoolId != null ? Model.SchoolId.ToString() : "null"), 
+                                                                        @Model.StaffUSI, 
+                                                                        '@Model.CustomStudentListUrl',
+                                                                        '@sessionStudentListUrl',
+                                                                        @(Model.UniqueId != null ? Model.UniqueId.ToString() : "null"));
+        @(Model.ControlId)CustomStudentList.initialize();
+    </script>
+</div>

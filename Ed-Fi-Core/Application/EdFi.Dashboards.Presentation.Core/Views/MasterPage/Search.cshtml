@@ -1,0 +1,120 @@
+﻿@using EdFi.Dashboards.Core.Providers.Context
+@using EdFi.Dashboards.Resources.Navigation.Mvc
+@using EdFi.Dashboards.Resources.Navigation.Support
+@model EdFi.Dashboards.Presentation.Web.Areas.Search.Models.QuickSearchModel
+           
+@{
+    int? schoolId = EdFiDashboardContext.Current.SchoolId;
+    int localEducationAgencyId = EdFiDashboardContext.Current.LocalEducationAgencyId.GetValueOrDefault();
+    var quickSearchUrl = EdFiDashboards.Site.Search.QuickSearchWebService(localEducationAgencyId, schoolId);
+    var searchResultsUrl = EdFiDashboards.Site.Search.Results(localEducationAgencyId);
+    var logUserAction = EdFiDashboards.Site.Search.LogUserActionWebService(localEducationAgencyId, schoolId);
+}
+
+@if (Model.CanSearch)
+{
+    <form>
+        <label for="quicksearch">Search for</label>
+        <div class="input">
+            <input id="quicksearch" type="search" placeholder="Search" />
+            <span class="loading-indicator"><span class="hidden">Loading...</span></span>
+        </div>
+        <button type="button" onclick="GoToSearchResultsPage();"><i class="icon-right"></i><span class="hidden">Search</span></button>
+        <ul class="l-search-results"></ul>
+    </form>
+
+    <script type="text/javascript">
+        var autoCompleteSettings =
+            {
+                urlForWebService: '@quickSearchUrl',
+                urlForSearchResults: '@searchResultsUrl',
+                onItemSelect: navigateToDefaultLevelPage,
+                onNavigateToSearchResults: GoToSearchResultsPage,
+                onLogSearch: logUserQuickSearch,
+                onLogSearchError: logUserQuickSearchError
+            };
+
+        $(document).ready(function() {
+            $('#quicksearch').SearchAutoCompleteControl(autoCompleteSettings);
+        });
+
+
+        function navigateToDefaultLevelPage(selectedItem) {
+
+            if (selectedItem.count > 1)
+                GoToSearchResultsPage(selectedItem.text);
+            else {
+
+                var url = selectedItem.link;
+                switch (selectedItem.type) {
+                case "Schools":
+                    logUserQuickSelect('School');
+                    break;
+                case "Teachers":
+                    logUserQuickSelect('Teacher');
+                    break;
+                case "Students":
+                    logUserQuickSelect('Student');
+                    break;
+                default:
+                    //do nothing because i don't know what to do with it.
+                    break;
+                }
+
+                if (url) {
+                    logUserActionAndRedirect(url);
+                }
+            }
+        }
+
+        function GoToSearchResultsPage(searchString) {
+
+          var searchResultsPage = '@searchResultsUrl.AppendParameters("t={textValue}")';
+            if (searchString == undefined || searchString == '') {
+                searchString = $('#quicksearch').val();
+                if (searchString == $('#quicksearch')[0].title)
+                    searchString = '';
+            }
+
+            var url = searchResultsPage.replace("{textValue}", searchString);
+
+            logUserActionAndRedirect(url);
+        }
+
+        function logUserQuickSearchError(terms) {
+            analyticsManager.trackSearch('Quick JSON error', "'" + terms + "'");
+        }
+
+        function logUserQuickSearch(terms) {
+            analyticsManager.trackSearch('Quick Terms', terms);
+        }
+
+        function logUserQuickSelect(type) {
+            analyticsManager.trackSearch('Quick Select', type);
+        }
+
+
+        function logUserActionAndRedirect(url) {
+            //Then go get data asynchronously
+            var dataToSendToService = { url: url, controlNameWhoIsCalling: "by selecting a simple search auto-complete link" };
+
+            $.ajax({
+                type: "POST",
+                url: '@logUserAction',
+                data: JSON.stringify(dataToSendToService),
+                contentType: "application/json; charset=utf-8",
+                dataType: "json",
+                success: function () {
+                    window.location = url;
+                },
+                error: function () {
+                    //we might have an error because we are probably leaving the page while we submit the data.
+                    //even though it will throw an error. It always executes the command on the web service.
+                    //alert("AJAX call failed: " + result.status + " " + result.statusText + " obj:" + JSON.stringify(result));
+                }
+            });
+
+        }
+    </script>
+
+}

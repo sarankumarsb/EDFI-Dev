@@ -1,0 +1,15 @@
+﻿@model ContainerMetric
+
+<tr id="vMetric@(Model.MetricVariantId)">
+    <td title="@(Model.ToolTip)" class="bulleted-metric bulleted-metric-border">
+        <i class="icon-right-circled deemphasized"></i>
+        <p class="title deemphasized">
+            <a href="@(Url.Content(Model.Url))" id="vName@(Model.MetricVariantId)">@(Model.DisplayName)</a>
+            <span id="vDescription@(Model.MetricVariantId)" class="description">
+                @Model.Description
+            </span>
+        </p>
+    </td>
+    <td class="bulleted-metric-border"></td>
+    <td class="bulleted-metric-border"></td>
+</tr>

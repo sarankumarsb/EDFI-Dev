@@ -1,0 +1,141 @@
+﻿@using EdFi.Dashboards.Presentation.Core.Models.Shared
+@using EdFi.Dashboards.Resources.Models.Student.Detail.CurrentCourses
+@model EdFi.Dashboards.Presentation.Core.Areas.StudentSchool.Models.Shared.TermCoursesModel
+@using EdFi.Dashboards.Resources.Navigation
+
+@{
+    Func<GradingPeriod, string> GetHeaderForPeriod = (period) => period == GradingPeriod.FinalGrade ? "final-grade-" + Model.TermKey : "period-" + period.ToString().ToLower() + "-" + Model.TermKey;
+}
+
+@if (Model.SemesterCount == 0)
+{
+    <table summary="Current courses for the @Model.Model.Term" class="standard-table tabular course_table">
+        <thead id="courses">
+            <tr>
+                <th id="student-bay" class="studentProfie" colspan="2" rowspan="2">
+                    @*<img id="Model.ProfileThumbnail" src="@(Model.ProfileThumbnail)" alt="Photograph of @(Model.FullName)" />
+                    <h4>@(Model.FullName)</h4>*@
+                </th>
+                <th id="subject-area-@Model.TermKey" rowspan="1" style="width: 10%;">
+                    <div class="label_wrap">SUBJECT<img class="arrow" src="@Url.Content("~/App_Themes/Theme1/img/th_down_arrow.png")" alt="Downarrow" /></div>
+                </th>
+                <th id="instructor-@Model.TermKey" rowspan="1" style="width: 11%;">
+                    <div class="label_wrap">TEACHER<img class="arrow" src="@Url.Content("~/App_Themes/Theme1/img/th_down_arrow.png")" alt="Downarrow" /></div>
+                </th>
+                <th id="grade-level-@Model.TermKey" rowspan="1" style="width: 10%;">
+                    <div class="label_wrap">GRADE<img class="arrow" src="@Url.Content("~/App_Themes/Theme1/img/th_down_arrow.png")" alt="Downarrow" /></div>
+                </th>
+                <th id="credits-to-be-earned-@Model.TermKey" rowspan="1" style="width: 10%;">
+                    <div class="label_wrap">CREDITS GOAL<img class="arrow" src="@Url.Content("~/App_Themes/Theme1/img/th_down_arrow.png")" alt="Downarrow" /></div>
+                </th>
+                <th id="grades-per-grading-period-@Model.TermKey" class="top-row" colspan="@Model.Model.AvailablePeriods.Count">
+                    <div class="label_wrap">GRADES/GRADING PERIOD<img class="arrow" src="@Url.Content("~/App_Themes/Theme1/img/th_down_arrow.png")" alt="Downarrow" /></div>
+                </th>
+            </tr>
+            <tr>
+                <th colspan="4" id="period"></th>
+                @foreach (GradingPeriod period in Model.Model.AvailablePeriods)
+                {
+                    <th id="@GetHeaderForPeriod(period)" class="bottom-row" style="text-align:center;width:8%"><p>@(period == GradingPeriod.FinalGrade ? "Final Grade" : period.ToString())</p></th>
+                }
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <th colspan="2">
+                    <a class="accordion-toggle" data-target="#SemesterDetails,#CourseHeaderToggle" href="#">
+                        <h4>Current Courses</h4>
+                    </a>
+                </th>   
+            </tr>
+        </tbody>
+        <tbody id="CourseHeaderToggle">
+            <tr>
+                <td class="heading" headers="description-@Model.TermKey" colspan="@(6 + Model.Model.AvailablePeriods.Count)">
+                    @{ var coursesDivId = String.Format("{0}{1}_CoursesDiv", Model.Model.Term.Replace(" ", ""), Request["MetricId"]); }
+                    @Html.Partial("CourseHeader", new ExpandCollapseModel { CollapseExpandInitialState = ExpandCollapseModel.InitialState.Expanded, Title = Model.Model.Term, DivId = coursesDivId })
+                    <h4 class="sub">Course # And Descriptions</h4>
+                </td>
+            </tr>
+        </tbody>
+        <tbody id="CourseHeaderToggle">
+            @{ var rowCount = 0; }
+            @foreach (var course in Model.Model.Courses)
+            {
+                rowCount++;
+                <tr>
+                    <td headers="course-number-@Model.TermKey">@course.LocalCourseCode</td>
+                    <td headers="description-@Model.TermKey">@course.CourseTitle</td>
+                    <td headers="subject-area-@Model.TermKey">@course.SubjectArea</td>
+                    <td headers="instructor-@Model.TermKey">@course.Instructor</td>
+                    <td headers="grade-level-@Model.TermKey">@course.GradeLevel</td>
+                    <td headers="credits-to-be-earned-@Model.TermKey" class="center">@String.Format("{0:#.#}", course.CreditsToBeEarned)</td>
+                    @foreach (var grade in course.Grades)
+                    {
+                        <td headers="grades-per-grading-period-@Model.TermKey @GetHeaderForPeriod(grade.GradePeriod)" style="text-align:center">@grade.Value</td>
+                    }
+                </tr>
+            }
+        </tbody>
+    </table>
+}
+else
+{
+    <div id="SemesterDetails">
+        <table summary="Current courses for the @Model.Model.Term" class="standard-table tabular course_table">
+            @*<thead>
+                <tr>
+                <th id="course-number-@Model.TermKey" rowspan="2" style="width: 8%;">Local<br />Course #</th>
+                <th id="description-@Model.TermKey" rowspan="2" style="width: 16%;">Description</th>
+                <th id="subject-area-@Model.TermKey" rowspan="2" style="width: 10%;">Subject Area</th>
+                <th id="instructor-@Model.TermKey" rowspan="2" style="width: 11%;">Instructor</th>
+                <th id="grade-level-@Model.TermKey" rowspan="2" style="width: 10%;">Grade Level</th>
+                <th id="credits-to-be-earned-@Model.TermKey" rowspan="2" style="width: 10%;">Credits to be Earned</th>
+                <th id="grades-per-grading-period-@Model.TermKey" class="top-row" colspan="@Model.Model.AvailablePeriods.Count">Grades per Grading Period</th>
+                </tr>
+                <tr>
+                @foreach (GradingPeriod period in Model.Model.AvailablePeriods)
+                {
+                <th id="@GetHeaderForPeriod(period)" class="bottom-row" style="text-align:center;width:8%">@(period == GradingPeriod.FinalGrade ? "Final Grade" : period.ToString())</th>
+                }
+                </tr>
+                </thead>*@
+            <tbody>
+                <tr>
+                    <td class="heading" headers="description-@Model.TermKey" colspan="@(6 + Model.Model.AvailablePeriods.Count)">
+                        @{ var coursesDivId = String.Format("{0}{1}_CoursesDiv", Model.Model.Term.Replace(" ", ""), Request["MetricId"]); }
+                        @Html.Partial("CourseHeader", new ExpandCollapseModel { CollapseExpandInitialState = ExpandCollapseModel.InitialState.Expanded, Title = Model.Model.Term, DivId = coursesDivId })
+                        <h4 class="sub">Course # And Descriptions</h4>
+                    </td>
+                </tr>
+            </tbody>
+            <tbody id="@coursesDivId">
+                @{ var rowCount = 0; }
+                @foreach (var course in Model.Model.Courses)
+                {
+                    rowCount++;
+                    <tr>
+                        <td headers="course-number-@Model.TermKey">@course.LocalCourseCode</td>
+                        <td headers="description-@Model.TermKey">@course.CourseTitle</td>
+                        <td headers="subject-area-@Model.TermKey" style="width:10%;">@course.SubjectArea</td>
+                        <td headers="instructor-@Model.TermKey" style="width:11%;">@course.Instructor</td>
+                        <td headers="grade-level-@Model.TermKey" style="width:10%;">@course.GradeLevel</td>
+                        <td headers="credits-to-be-earned-@Model.TermKey" class="center" style="width:10%;">@String.Format("{0:#.#}", course.CreditsToBeEarned)</td>
+                        @foreach (var grade in course.Grades)
+                        {
+                            <td headers="grades-per-grading-period-@Model.TermKey @GetHeaderForPeriod(grade.GradePeriod)" style="text-align:center; width:8%;">@grade.Value</td>
+                        }
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+    if (Model.DisplayCreditText)
+    {
+        <ul class="tabular-notes">
+            <li>Credits to be earned may reflect a two semester course.</li>
+            <li>Course and grade information is reflective of courses in which the student is currently enrolled.</li>
+        </ul>
+    }
+}
+

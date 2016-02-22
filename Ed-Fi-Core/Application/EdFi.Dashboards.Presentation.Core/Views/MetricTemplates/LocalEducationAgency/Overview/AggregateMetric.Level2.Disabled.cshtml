@@ -1,0 +1,23 @@
+﻿@model AggregateMetric
+
+<tr id="vMetric@(Model.MetricVariantId)" style="height: 35px;">
+    <td title="@Model.ToolTip" class="bulleted-metric bulleted-metric-indented bulleted-metric-disabled">
+        <i class="icon-blank"></i>
+        <h3>
+            <a href="@(Url.Content(Model.Url))" id="vName@(Model.MetricVariantId)">
+                @Model.DisplayName <span class="metricId">@(Model.MetricId)-@(Model.MetricVariantType)</span>
+            </a>
+            @if (!string.IsNullOrEmpty(Model.Context))
+            {
+                <span id="vContext@(Model.MetricVariantId)">
+                    &nbsp;(@Model.Context)
+                </span>
+            }
+            <span id="vDescription@(Model.MetricVariantId)" class="description">
+                @Model.Description
+            </span>
+        </h3>
+    </td>
+    <td style="text-align: left;" align="left"></td>
+    <td style="text-align: left;" align="left"></td>
+</tr>

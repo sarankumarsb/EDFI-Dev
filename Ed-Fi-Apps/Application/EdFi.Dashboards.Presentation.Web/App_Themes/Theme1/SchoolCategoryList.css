@@ -1,0 +1,70 @@
+﻿
+.SchoolCategories
+{
+    font-family:Arial;
+    font-size:11pt;    
+    font-weight:bold;
+    color:Black;
+    text-align:left;
+}
+
+.SchoolCategoryListBG
+{
+	 vertical-align:middle;
+	 
+	font-family:Arial;
+	font-size:9pt;    
+	font-weight:bold;
+	text-align:left;
+	padding-left:5px;
+	padding-top:5px;
+	padding-bottom:5px;
+}
+
+.SchoolCategoryListDarkBG
+{
+	 background-color:#E0DFDF;
+	 	 vertical-align:middle;
+	 
+	font-family:Arial;
+	font-size:9pt;    
+	font-weight:bold;
+	text-align:left;
+	padding-left:5px;
+	padding-top:5px;
+	padding-bottom:5px;
+}
+
+
+.SchoolCategoryListBG a,
+.SchoolCategoryListBG a:hover,
+.SchoolCategoryListBG a:active,
+.SchoolCategoryListDarkBG a,
+.SchoolCategoryListDarkBG a:hover,
+.SchoolCategoryListDarkBG a:active,
+.SchoolCategoryList a,
+.SchoolCategoryList a:hover,
+.SchoolCategoryList a:active
+{
+    color:#255B80;
+    cursor:pointer;
+    text-align:left; 
+    text-decoration:none;
+}
+
+.SchoolCategoryListBG a:hover,
+.SchoolCategoryListBG a:active,
+.SchoolCategoryListDarkBG a:hover,
+.SchoolCategoryListDarkBG a:active,
+.SchoolCategoryList a:hover,
+.SchoolCategoryList a:active
+{  
+    font-weight:bold;
+    color:Black;
+    text-decoration:underline;
+}
+
+.Sublinks
+{
+    font-size:8pt;
+}

@@ -1,0 +1,30 @@
+﻿@using EdFi.Dashboards.Core.Providers.Context
+@using EdFi.Dashboards.Presentation.Core.Areas.StudentSchool.Models.Shared
+@using EdFi.Dashboards.Presentation.Core.Models.Shared
+@model EdFi.Dashboards.Resources.Models.Student.Detail.CourseHistory.CourseHistoryModel
+
+@{
+  var studentUSI = EdFiDashboardContext.Current.StudentUSI.GetValueOrDefault();
+  var metricVariantId = EdFiDashboardContext.Current.MetricVariantId.GetValueOrDefault();
+}
+
+<script>
+    analyticsManager.trackDrilldown('StudentCourseHistoryList', '@(metricVariantId)', '@(studentUSI)');
+</script>
+
+@if (Model.SubjectAreas.Any())
+{
+    var viewModel = new CourseHistoryModel()
+                        {
+                            CollapseExpandInitialState = ExpandCollapseModel.InitialState.Collapsed,
+                            ShowJump = false,
+                            Model = Model,
+                            MetricVariantId = metricVariantId
+                        };
+        
+    @Html.Partial("CourseHistory", viewModel)
+}
+else
+{
+    <span class="MetricNoData">No data available.</span>
+}

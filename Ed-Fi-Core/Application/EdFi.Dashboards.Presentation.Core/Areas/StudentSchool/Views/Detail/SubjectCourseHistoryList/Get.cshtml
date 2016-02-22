@@ -1,0 +1,53 @@
+﻿@using EdFi.Dashboards.Core.Providers.Context
+@using EdFi.Dashboards.Presentation.Architecture.Mvc.Extensions
+@using Resources.Models.Student.Detail.CourseHistory
+@using Utilities.ExtensionMethods.HtmlHelper
+@model EdFi.Dashboards.Resources.Models.Student.Detail.CourseHistory.CourseHistoryModel
+         
+@{
+    var studentUSI = EdFiDashboardContext.Current.StudentUSI.GetValueOrDefault();
+    var metricVariantId = EdFiDashboardContext.Current.MetricVariantId.GetValueOrDefault();
+}
+
+<script type="text/javascript" language="javascript">
+    analyticsManager.trackDrilldown('StudentSubjectCourseHistoryList', '@(metricVariantId)', '@(studentUSI)');
+</script>
+
+@if (Model.SubjectAreas.Any() && Model.SubjectAreas[0].Courses.Any())
+{
+    var subject = Model.SubjectAreas[0];
+    
+    <table class="standard-table-full" summary="@subject.Name Course History">
+        <thead>
+            <tr>
+	            <th>Course Number</th>
+	            <th>Description</th>
+	            <th>Semester</th>
+	            <th>Grade Level</th>
+	            <th>Final Course Grade</th>
+	            <th>Credits Earned</th>
+            </tr>
+        </thead>
+        <tbody>
+        @{
+            var rowCount = 0;
+            foreach (var course in Model.SubjectAreas[0].Courses)
+            {
+                rowCount++;
+                <tr class="@(rowCount%2 == 0 ? "alt" : "")">
+                    <td>@course.LocalCourseCode</td>
+                    <td>@course.CourseTitle</td>
+                    <td>@course.ActualSemester.TermType</td>
+                    <td>@course.GradeLevel</td>
+                    <td>@course.FinalGrade.Value</td>
+                    <td>@Html.FormatCredits(course.CreditsEarned)</td>
+                </tr>
+            }
+        }
+        </tbody>
+    </table>
+}
+else
+{
+    <span class="MetricNoData">No data available.</span>
+}

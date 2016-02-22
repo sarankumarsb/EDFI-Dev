@@ -1,0 +1,1 @@
+﻿<tr class="${alternateRow($item.rows)}">{{each(index,cellItem) $data}}{{if drawCell($item.columnsToDraw, index)}}<td style="${$item.overriddenStyles[index]}" class="dataColumn${index} ${getCssClassForRow($item.drawFixedColumn, index)} ${$item.dataClasses[index]}">{{tmpl(cellItem, {hrefToUse:$item.hrefToUse}) $item.dataTemplates[index]}}</td>{{/if}}{{/each}}</tr>

@@ -1,0 +1,367 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProductVersion>8.0.30703</ProductVersion>
+    <SchemaVersion>2.0</SchemaVersion>
+    <ProjectGuid>{CAD92AF1-7283-4258-88AF-6334EED0DD59}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>EdFi.Dashboards.Presentation.Core.UITests</RootNamespace>
+    <AssemblyName>EdFi.Dashboards.Presentation.Core.UITests</AssemblyName>
+    <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+    <SolutionDir Condition="$(SolutionDir) == '' Or $(SolutionDir) == '*Undefined*'">..\..\..\Ed-Fi-Apps\Application\</SolutionDir>
+    <RestorePackages>true</RestorePackages>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>TRACE;DEBUG</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="Castle.Core, Version=3.3.0.0, Culture=neutral, PublicKeyToken=407dd0808d44fbdc, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\..\Ed-Fi-Apps\Application\packages\Castle.Core.3.3.1\lib\net40-client\Castle.Core.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Castle.Windsor">
+      <HintPath>..\..\..\Ed-Fi-Apps\Application\packages\Castle.Windsor.3.3.0\lib\net40\Castle.Windsor.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Coypu, Version=0.19.3.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\..\Ed-Fi-Apps\Application\packages\Coypu.0.19.3\lib\net40\Coypu.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Web.Infrastructure">
+      <HintPath>..\..\..\Ed-Fi-Apps\Application\packages\Microsoft.Web.Infrastructure.1.0.0.0\lib\net40\Microsoft.Web.Infrastructure.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Moq">
+      <HintPath>..\..\..\Ed-Fi-Apps\Application\packages\Moq.4.0.10827\lib\NET40\Moq.dll</HintPath>
+    </Reference>
+    <Reference Include="Newtonsoft.Json, Version=4.5.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\..\Ed-Fi-Apps\Application\packages\Newtonsoft.Json.4.5.11\lib\net40\Newtonsoft.Json.dll</HintPath>
+    </Reference>
+    <Reference Include="nunit.framework, Version=2.6.2.12296, Culture=neutral, PublicKeyToken=96d09a1eb7f44a77, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\..\Ed-Fi-Apps\Application\packages\NUnit.2.6.2\lib\nunit.framework.dll</HintPath>
+    </Reference>
+    <Reference Include="RestSharp">
+      <HintPath>..\..\..\Ed-Fi-Apps\Application\packages\RestSharp.104.1\lib\net4\RestSharp.dll</HintPath>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.Configuration" />
+    <Reference Include="System.Core">
+      <HintPath>C:\Program Files (x86)\Reference Assemblies\Microsoft\Framework\.NETFramework\v4.0\System.Core.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Drawing" />
+    <Reference Include="System.Web" />
+    <Reference Include="System.Web.Helpers">
+      <HintPath>..\..\..\Ed-Fi-Apps\Application\packages\Microsoft.AspNet.WebPages.1.0.20105.408\lib\net40\System.Web.Helpers.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="System.Web.Mvc">
+      <HintPath>..\..\..\Ed-Fi-Apps\Application\packages\Microsoft.AspNet.Mvc.3.0.50813.1\lib\net40\System.Web.Mvc.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="System.Web.Razor">
+      <HintPath>..\..\..\Ed-Fi-Apps\Application\packages\Microsoft.AspNet.Razor.1.0.20105.408\lib\net40\System.Web.Razor.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="System.Web.WebPages">
+      <HintPath>..\..\..\Ed-Fi-Apps\Application\packages\Microsoft.AspNet.WebPages.1.0.20105.408\lib\net40\System.Web.WebPages.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="System.Web.WebPages.Deployment">
+      <HintPath>..\..\..\Ed-Fi-Apps\Application\packages\Microsoft.AspNet.WebPages.1.0.20105.408\lib\net40\System.Web.WebPages.Deployment.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="System.Web.WebPages.Razor">
+      <HintPath>..\..\..\Ed-Fi-Apps\Application\packages\Microsoft.AspNet.WebPages.1.0.20105.408\lib\net40\System.Web.WebPages.Razor.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Xml" />
+    <Reference Include="TechTalk.SpecFlow">
+      <HintPath>..\..\..\Ed-Fi-Apps\Application\packages\SpecFlow.1.9.0\lib\net35\TechTalk.SpecFlow.dll</HintPath>
+    </Reference>
+    <Reference Include="WebDriver, Version=2.35.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\..\Ed-Fi-Apps\Application\packages\Selenium.WebDriver.2.35.0\lib\net40\WebDriver.dll</HintPath>
+    </Reference>
+    <Reference Include="WebDriver.Support">
+      <HintPath>..\..\..\Ed-Fi-Apps\Application\packages\Selenium.Support.2.35.0\lib\net40\WebDriver.Support.dll</HintPath>
+    </Reference>
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Attributes\AssociatedControllerAttribute.cs" />
+    <Compile Include="Attributes\AssociatedUrlAttribute.cs" />
+    <Compile Include="Features\LocalEducationAgency\AttendanceAndDiscipline.feature.cs">
+      <DependentUpon>AttendanceAndDiscipline.feature</DependentUpon>
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+    </Compile>
+    <Compile Include="Features\Admin\Killswitch.feature.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Killswitch.feature</DependentUpon>
+    </Compile>
+    <Compile Include="Features\LocalEducationAgency\Overview.feature.cs">
+      <DependentUpon>Overview.feature</DependentUpon>
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+    </Compile>
+    <Compile Include="Features\Admin\SystemMessage.feature.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>SystemMessage.feature</DependentUpon>
+    </Compile>
+    <Compile Include="Features\Login.feature.cs">
+      <DependentUpon>Login.feature</DependentUpon>
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+    </Compile>
+    <Compile Include="Features\School\AttendanceAndDiscipline.feature.cs">
+      <DependentUpon>AttendanceAndDiscipline.feature</DependentUpon>
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+    </Compile>
+    <Compile Include="Features\School\Information.feature.cs">
+      <DependentUpon>Information.feature</DependentUpon>
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+    </Compile>
+    <Compile Include="Features\Search\Search.feature.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Search.feature</DependentUpon>
+    </Compile>
+    <Compile Include="Features\Staff\CustomStudentLists.feature.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>CustomStudentLists.feature</DependentUpon>
+    </Compile>
+    <Compile Include="Features\Staff\SeeMoreData.feature.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>SeeMoreData.feature</DependentUpon>
+    </Compile>
+    <Compile Include="Marker_EdFi_Dashboards_Presentation_Core_UITests.cs" />
+    <Compile Include="Pages\Admin\ConfigurationPage.cs" />
+    <Compile Include="Pages\Error\ErrorBasedPageBase.cs" />
+    <Compile Include="Pages\Error\ErrorPage.cs" />
+    <Compile Include="Pages\HomePage.cs" />
+    <Compile Include="Pages\LocalEducationAgency\AttendanceAndDisciplinePage.cs" />
+    <Compile Include="Pages\LocalEducationAgency\OverviewPage.cs" />
+    <Compile Include="Pages\LoginPage.cs" />
+    <Compile Include="Pages\MetricsPage.cs" />
+    <Compile Include="Pages\PageBase.cs" />
+    <Compile Include="Pages\PageBaseT.cs" />
+    <Compile Include="Pages\School\AttendanceAndDisciplinePage.cs" />
+    <Compile Include="Pages\School\InformationPage.cs" />
+    <Compile Include="Pages\School\OverviewPage.cs" />
+    <Compile Include="Pages\School\SchoolBasedPageBase.cs" />
+    <Compile Include="Pages\Search\ResultsPage.cs" />
+    <Compile Include="Pages\Search\SearchBasedPageBase.cs" />
+    <Compile Include="Pages\Staff\StaffBasedPageBase.cs" />
+    <Compile Include="Pages\Student\OverviewPage.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Steps\Hooks.cs" />
+    <Compile Include="Steps\LocalEducationAgency\AttendanceAndDisciplineSteps.cs" />
+    <Compile Include="Steps\Admin\KillswitchSteps.cs" />
+    <Compile Include="Steps\LocalEducationAgency\OverviewSteps.cs" />
+    <Compile Include="Steps\Admin\SystemMessageSteps.cs" />
+    <Compile Include="Steps\LoginSteps.cs" />
+    <Compile Include="Steps\MetricSteps.cs" />
+    <Compile Include="Steps\School\AttendanceAndDisciplineSteps.cs" />
+    <Compile Include="Steps\School\InformationSteps.cs" />
+    <Compile Include="Steps\Search\ResultsSteps.cs" />
+    <Compile Include="Steps\Shared\GivenSteps.cs" />
+    <Compile Include="Steps\Shared\ThenSteps.cs" />
+    <Compile Include="Pages\Staff\GeneralOverviewPage.cs" />
+    <Compile Include="Steps\Shared\WhenSteps.cs" />
+    <Compile Include="Steps\Staff\GeneralOverviewSteps.cs" />
+    <Compile Include="Support\Aop\Architecture\Arguments.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Support\Aop\Architecture\Enums.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Support\Aop\Architecture\MethodExecutionArgs.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Support\Aop\Architecture\MulticastAttribute.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Support\Aop\Architecture\OnMethodBoundaryAspect.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Support\Configuration\LocalEducationAgency.cs" />
+    <Compile Include="Support\Coypu\BrowserContext.cs" />
+    <Compile Include="Support\Coypu\BrowserSessionExtensions.cs" />
+    <Compile Include="Support\Coypu\Make_It.cs" />
+    <Compile Include="Support\Dashboards\MetricBaseExtensions.cs" />
+    <Compile Include="Support\Enums.cs" />
+    <Compile Include="Support\Mvc\MvcMockHelpers.cs" />
+    <Compile Include="Support\Mvc\UITestAspNetMvcFrameworkInitializer.cs" />
+    <Compile Include="Support\Mvc\UITestRouteValueProvider.cs" />
+    <Compile Include="Support\Aop\DotNetFakeSystemAttributes.cs" />
+    <Compile Include="Support\Aop\Aspects\ConventionBasedMethodOverrideAspectBase.cs" />
+    <Compile Include="Support\Aop\Aspects\FeatureTestMethodOverrideAspect.cs" />
+    <Compile Include="Support\Aop\Aspects\StepsOverrideAspect.cs" />
+    <Compile Include="Support\SpecFlow\IObjectContainerExtensions.cs" />
+    <Compile Include="Support\RestSharp\JsonCreationConverter.cs" />
+    <Compile Include="Support\RestSharp\JsonSerializer.cs" />
+    <Compile Include="Support\RestSharp\RestClientContext.cs" />
+    <Compile Include="Support\SpecFlow\ArgumentTransforms.cs" />
+    <Compile Include="Support\SpecFlow\ScenarioContextExtensions.cs" />
+    <Compile Include="Support\StringExtensions.cs" />
+    <Compile Include="Support\TestConfiguration.cs" />
+    <Compile Include="Support\TestSessionContext.cs" />
+    <Compile Include="Support\UriExtensions.cs" />
+    <Compile Include="Support\Configuration\UserProfile.cs" />
+    <None Include="..\..\..\Ed-Fi-Apps\Application\EdFi.Dashboards.Presentation.Web.UITests\UITesting.config">
+      <Link>UITesting.config</Link>
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Include="..\..\..\Ed-Fi-Apps\Application\EdFi.Dashboards.Presentation.Web\Web.config">
+      <Link>Web.config</Link>
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="App.config" />
+    <None Include="Features\LocalEducationAgency\AttendanceAndDiscipline.feature">
+      <Generator>SpecFlowSingleFileGenerator</Generator>
+      <LastGenOutput>AttendanceAndDiscipline.feature.cs</LastGenOutput>
+    </None>
+    <None Include="Features\Admin\Killswitch.feature">
+      <Generator>SpecFlowSingleFileGenerator</Generator>
+      <LastGenOutput>Killswitch.feature.cs</LastGenOutput>
+    </None>
+    <None Include="Features\LocalEducationAgency\Overview.feature">
+      <Generator>SpecFlowSingleFileGenerator</Generator>
+      <LastGenOutput>Overview.feature.cs</LastGenOutput>
+    </None>
+    <None Include="Features\Admin\SystemMessage.feature">
+      <Generator>SpecFlowSingleFileGenerator</Generator>
+      <LastGenOutput>SystemMessage.feature.cs</LastGenOutput>
+    </None>
+    <None Include="Features\Login.feature">
+      <Generator>SpecFlowSingleFileGenerator</Generator>
+      <LastGenOutput>Login.feature.cs</LastGenOutput>
+    </None>
+    <None Include="Features\School\AttendanceAndDiscipline.feature">
+      <Generator>SpecFlowSingleFileGenerator</Generator>
+      <LastGenOutput>AttendanceAndDiscipline.feature.cs</LastGenOutput>
+    </None>
+    <None Include="Features\School\Information.feature">
+      <Generator>SpecFlowSingleFileGenerator</Generator>
+      <LastGenOutput>Information.feature.cs</LastGenOutput>
+    </None>
+    <None Include="Features\Search\Search.feature">
+      <Generator>SpecFlowSingleFileGenerator</Generator>
+      <LastGenOutput>Search.feature.cs</LastGenOutput>
+    </None>
+    <None Include="Features\Staff\CustomStudentLists.feature">
+      <Generator>SpecFlowSingleFileGenerator</Generator>
+      <LastGenOutput>CustomStudentLists.feature.cs</LastGenOutput>
+    </None>
+    <None Include="Features\Staff\SeeMoreData.feature">
+      <Generator>SpecFlowSingleFileGenerator</Generator>
+      <LastGenOutput>SeeMoreData.feature.cs</LastGenOutput>
+    </None>
+    <None Include="packages.config" />
+    <Compile Include="Support\Aop\Aspects\ExceptionScreenshotAspect.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\..\..\Ed-Fi-Apps\Application\EdFi.Dashboards.Presentation.Web\EdFi.Dashboards.Presentation.Web.csproj">
+      <Project>{08201F50-2B97-4567-85DF-58B6FEFF7CC9}</Project>
+      <Name>EdFi.Dashboards.Presentation.Web</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\EdFi.Dashboards.Common\EdFi.Dashboards.Common.csproj">
+      <Project>{5138F45D-EB07-4733-97E7-C761832BDC07}</Project>
+      <Name>EdFi.Dashboards.Common</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\EdFi.Dashboards.Infrastructure\EdFi.Dashboards.Infrastructure.csproj">
+      <Project>{0C2CFA02-99C5-4BC1-8EBF-AA9EB75EEB3A}</Project>
+      <Name>EdFi.Dashboards.Infrastructure</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\EdFi.Dashboards.Metric.Resources.Models\EdFi.Dashboards.Metric.Resources.Models.csproj">
+      <Project>{D6E84CA6-8494-4F3C-90B5-2B868DDE7A6C}</Project>
+      <Name>EdFi.Dashboards.Metric.Resources.Models</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\EdFi.Dashboards.Metric.Resources\EdFi.Dashboards.Metric.Resources.csproj">
+      <Project>{83928965-AF03-4518-9940-12BEF4BC079D}</Project>
+      <Name>EdFi.Dashboards.Metric.Resources</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\EdFi.Dashboards.Presentation.Architecture\EdFi.Dashboards.Presentation.Architecture.csproj">
+      <Project>{41A9C660-FCFE-4920-BFF1-3019C434AF91}</Project>
+      <Name>EdFi.Dashboards.Presentation.Architecture</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\EdFi.Dashboards.Presentation.Core.Tests\EdFi.Dashboards.Presentation.Core.Tests.csproj">
+      <Project>{226EFBE1-C191-4629-95EE-DF23914EE0EE}</Project>
+      <Name>EdFi.Dashboards.Presentation.Core.Tests</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\EdFi.Dashboards.Presentation.Core\EdFi.Dashboards.Presentation.Core.csproj">
+      <Project>{08EBF714-4E5A-4655-ADE5-8A16E5665C5A}</Project>
+      <Name>EdFi.Dashboards.Presentation.Core</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\EdFi.Dashboards.Resource.Models.Common\EdFi.Dashboards.Resource.Models.Common.csproj">
+      <Project>{B9977F25-9C76-4585-B52B-0826255F3318}</Project>
+      <Name>EdFi.Dashboards.Resource.Models.Common</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\EdFi.Dashboards.Resources.Models\EdFi.Dashboards.Resources.Models.csproj">
+      <Project>{3C848D33-B28B-4690-BE41-84EDDF1BBB23}</Project>
+      <Name>EdFi.Dashboards.Resources.Models</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\EdFi.Dashboards.Resources.Security\EdFi.Dashboards.Resources.Security.csproj">
+      <Project>{9D65E63A-9B33-497B-A583-E95DA11D9DA2}</Project>
+      <Name>EdFi.Dashboards.Resources.Security</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\EdFi.Dashboards.Resources\EdFi.Dashboards.Resources.csproj">
+      <Project>{6EA4750A-8C3C-4111-B9A4-F35F5EF436ED}</Project>
+      <Name>EdFi.Dashboards.Resources</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\EdFi.Dashboards.SecurityTokenService.Authentication\EdFi.Dashboards.SecurityTokenService.Authentication.csproj">
+      <Project>{DBA5BFC2-B479-418E-84E9-44D39E1651D9}</Project>
+      <Name>EdFi.Dashboards.SecurityTokenService.Authentication</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="..\..\..\Ed-Fi-Apps\Application\EdFi.Dashboards.Presentation.Web.UITests\UserProfiles.xml">
+      <Link>UserProfiles.xml</Link>
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+      <SubType>Designer</SubType>
+    </Content>
+  </ItemGroup>
+  <ItemGroup>
+    <Service Include="{82A7F48D-3B50-4B1E-B82E-3ADA8210C358}" />
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <Import Project="$(SolutionDir)\.nuget\nuget.targets" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>

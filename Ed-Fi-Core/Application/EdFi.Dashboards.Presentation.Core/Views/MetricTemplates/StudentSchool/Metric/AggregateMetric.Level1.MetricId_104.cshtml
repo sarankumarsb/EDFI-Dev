@@ -1,0 +1,32 @@
+﻿@model AggregateMetric
+@{
+    //Define the ParentContainerMetricId to propagate fo the unique columns.
+    //This si needed because we have "Complex tables" meaning colspans that then need unique ids in the headers and matching the cells in the rows below with the same headers="uniqueColumnId". 
+    this.SetMetricRenderingContextValue("ParentContainerMetricId", Model.MetricId);
+    this.SetMetricRenderingContextValue("colCount", 5);
+}
+<table summary="This table displays metrics regarding @(Model.DisplayName).">
+<thead>
+    <tr id="vMetric@(Model.MetricVariantId)">    
+        <th id="MetricName@(this.GetMetricRenderingContextValue("ParentContainerMetricId"))" style="width: 42%;" title="@Model.ToolTip">
+            <span id="vMetricVariantId@(Model.MetricVariantId)" class="metricId">
+                @(Model.MetricId)-@(Model.MetricVariantType)
+            </span>
+            <a name="@(Model.DisplayName)">@(Model.DisplayName)</a>
+            <a name="m@(Model.MetricVariantId)">&nbsp;</a>
+        </th>
+        <th id="MetricEnrollment@(this.GetMetricRenderingContextValue("ParentContainerMetricId"))" style="width: 12%;" title="">
+            Enrolled
+        </th>
+        <th id="MetricCompletion@(this.GetMetricRenderingContextValue("ParentContainerMetricId"))" style="width: 13%;">
+            Completion
+        </th>
+        <th id="MetricMastery@(this.GetMetricRenderingContextValue("ParentContainerMetricId"))" style="width: 20%;" title="">
+            Mastery
+        </th>
+        <th id="MetricDetails@(this.GetMetricRenderingContextValue("ParentContainerMetricId"))" class="doNotPrint" style="text-align:center;">
+            Details
+        </th>
+    </tr>
+</thead>
+<tbody>

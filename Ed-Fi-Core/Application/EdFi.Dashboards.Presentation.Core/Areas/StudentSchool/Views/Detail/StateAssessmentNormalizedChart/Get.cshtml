@@ -1,0 +1,26 @@
+﻿@using System.Web.UI.DataVisualization.Charting
+@using EdFi.Dashboards.Core.Providers.Context
+@using EdFi.Dashboards.Presentation.Web.Architecture.HtmlHelperExtensions
+@model EdFi.Dashboards.Resources.Models.Charting.ChartData
+
+@{
+  var studentUSI = EdFiDashboardContext.Current.StudentUSI.GetValueOrDefault();
+  var metricVariantId = EdFiDashboardContext.Current.MetricVariantId.GetValueOrDefault();
+}
+
+<script type="text/javascript" language="javascript">
+    analyticsManager.trackDrilldown('StudentStateAssessmentNormalizedChart', '@(metricVariantId)', '@(studentUSI)');
+</script>
+@if (Model == null)
+{
+    <span class="MetricNoData">No data available.</span>
+}
+else
+{
+    <div>
+        @Html.BarChart(Model, 740, 250, 110, 0, 110, "{0}", false, SeriesChartType.Column, true)
+
+        <span class="MetricSubTitle">Scores include both scale and vertical scores which are not comparable. Graph has been normalized to show scores relative to Met Standard and Commended levels.</span><br />
+        <span class="MetricSubTitle">*Bar graphs missing due to historical raw score data missing for students transferring into district.</span>
+    </div>
+}

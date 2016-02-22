@@ -1,0 +1,66 @@
+﻿@model EdFi.Dashboards.Resources.Models.Admin.PhotoManagementModel
+@using System.Web.Mvc.Html
+@using EdFi.Dashboards.Common
+@using EdFi.Dashboards.Presentation.Core.Areas.Admin.Controllers
+@section ContentPlaceHolderHead {
+    <title>@(Html.Action("Title", typeof(AdminLayoutController).GetControllerName(), new { subTitle = "Admin" }))</title>
+}
+@section ContentPlaceHolder1 {
+    <div id="PhotoManagementContainer">
+        <form method="post">
+            <div id="actionMessage">
+                To import student and staff photos for display in the Ed-Fi Dashboards, use the form below to upload a collection of photos.
+            </div>
+            <div class="InputField">
+                @Html.DropDownList("schoolIdToLoadImagesTo", new SelectList(Model.Schools, "SchoolId", "Name"))
+            </div>
+            <input id="File" type="file" name="File">
+            <span class="fileupload-loading"></span>
+            <div id="progress" class="progress progress-success progress-striped" style="display: none">
+                <div class="bar" style="width: 0%;"></div>
+            </div>
+        
+            <ul id="Counts" style="display:none">
+            </ul>
+            <div id="ErrorMessageContainer" style="display:none">
+                The following errors have occurred while uploading the photos:
+                <ul id="ErrorMessages">
+                </ul>
+            </div>
+        </form>
+    </div>
+<script>
+    $(function () {
+        $('#File').fileupload({
+            dataType: 'json',
+            maxChunkSize: 4000000, // This is set purposely to be just under the default limit for upload size in a .NET application.
+            add: function (e, data) {
+                $('#Counts').css('display', 'none');
+                $('#ErrorMessageContainer').css('display', 'none');
+                $("#Counts").empty();
+                $("#ErrorMessages").empty();
+                data.submit();
+            },
+            done: function (e, data) {
+                $('#Counts').css('display', '');
+                $("#Counts").append('<li>' + data.result.TotalRecords + ' records were found in the uploaded file</li>');
+                $("#Counts").append('<li>' + data.result.SuccessfullyProcessedPhotos + ' photos have been successfully uploaded</li>');
+
+                if (data.result.ErrorMessages.length > 0) {
+                    $('#ErrorMessageContainer').css('display', '');
+                    $("#Counts").append('<li>' + data.result.ErrorMessages.length + ' errors occurred while processing the file (see below)</li>');
+                }
+
+                data.result.ErrorMessages.forEach(function (message) {
+                    $("#ErrorMessages").append('<li>' + message + '</li>');
+                });
+            },
+            progressall: function (e, data) {
+                var progress = parseInt(data.loaded / data.total * 100, 10);
+                $('#progress .bar').css('width', progress + '%');
+                $('#progress').css('display', '');
+            }
+        });
+    });
+</script>
+}

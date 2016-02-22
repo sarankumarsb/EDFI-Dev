@@ -1,0 +1,62 @@
+﻿@using Cassette.Views
+
+@{
+    Bundles.Reference("Core_Content/Scripts/External");
+    Bundles.Reference("Core_Content/Scripts/Application");
+    Bundles.Reference("App_Themes/Theme1");
+}
+
+<!DOCTYPE html>
+
+<html xmlns="http://www.w3.org/1999/xhtml" >
+<head id="Head1" runat="server">
+    <title>@ViewBag.Title</title>
+    @Bundles.RenderStylesheets()
+    @Bundles.RenderScripts()
+
+<script type="text/javascript">
+    jQuery.fn.center = function () {
+        this.css("position", "absolute");
+        this.css("top", ($(window).height() - this.height()) / 2 + $(window).scrollTop() + "px");
+        this.css("left", ($(window).width() - this.width()) / 2 + $(window).scrollLeft() + "px");
+        return this;
+    };
+
+    $(window).resize(function () {
+        $("#ContainerTable").center();
+    });
+
+    $(document).ready(function () {
+        $("#ContainerTable").center();
+        $("#ContainerTable").show();
+    });
+</script>
+    @RenderSection("HeadContent", false)
+</head>
+<body>
+		<div id="ContainerTable">
+					<table style="border-collapse: collapse;">
+						<tr valign="top">
+							<td style="padding: 10px;">
+								<img src="@(EdFiWebFormsDashboards.Site.Common.ThemeImage("EdFi-logo-RGB-TM-203x100.png").Resolve())" /> 
+							</td>
+                            <td style="padding: 15px 25px 10px 0px;">
+                                @RenderBody()
+                            </td>
+						</tr>
+						<tr>
+							<td colspan="2" style="padding-left: 25px; padding-right: 25px;">
+                                @RenderSection("FooterMessage", false)
+								<div class="footnote">
+									The Ed-Fi solution was developed by Ed-Fi Alliance, LLC and Double Line, Inc. through funding from the Michael & Susan Dell Foundation.
+									<br />
+									<br />
+									&copy;@DateTime.Now.Year Ed-Fi Alliance, LLC. All Rights Reserved.
+								</div>
+							</td>
+						</tr>
+					</table>
+		</div>
+        @RenderSection("AdditionalContent", false)
+</body>
+</html>

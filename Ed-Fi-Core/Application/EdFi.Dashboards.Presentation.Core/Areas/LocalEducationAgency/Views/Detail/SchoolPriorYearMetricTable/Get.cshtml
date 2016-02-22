@@ -1,0 +1,28 @@
+﻿@using EdFi.Dashboards.Common.Utilities
+@using EdFi.Dashboards.Core.Providers.Context
+@using EdFi.Dashboards.Presentation.Core.Providers.Models
+@model EdFi.Dashboards.Resources.Models.CustomGrid.GridTable
+         
+@{
+    var localEducationAgencyId = EdFiDashboardContext.Current.LocalEducationAgencyId.GetValueOrDefault();
+    var metricVariantId = EdFiDashboardContext.Current.MetricVariantId.GetValueOrDefault();
+
+    var edFiGridModelProvider = IoC.Resolve<IEdFiGridModelProvider>();
+
+    var edfiGridModel = edFiGridModelProvider.GetEdFiGridModel(true, false, 10, "PriorYearMetric" + metricVariantId, metricVariantId,
+        Model, null, Model.GetDefaultNonPersistedSettings("PriorYearMetric" + metricVariantId + "EdFiGrid"), false, 
+        "SchoolList", null, "metricContext", false, null, false);
+}
+<div id="SchoolPriorYearMetricTable@(metricVariantId)">
+    <script type="text/javascript" language="javascript">
+        analyticsManager.trackDrilldown('LocalEducationAgencySchoolPriorYearMetricTable', '@(metricVariantId)', '@(localEducationAgencyId)');
+        $("#PriorYearMetric@(metricVariantId)-EdFiGrid-interaction-custom").append($("#buttonExportAll-@(metricVariantId)"));
+        $("#buttonExportAll-@(metricVariantId)").show();
+    </script>
+   
+    <a href="@Url.Action("Get", "SchoolPriorYearMetricExport")" id="buttonExportAll-@(metricVariantId)" class="btn" style="display:none;"><i class="icon-floppy"></i> EXPORT ALL</a>
+    <a href="@Url.Action("Get", "SchoolPriorYearMetricExport")" class="hidden">Export prior year for metric @(metricVariantId) to csv</a>
+    
+    @{Html.RenderPartial("EdFiGrid", model: edfiGridModel);}
+</div>
+

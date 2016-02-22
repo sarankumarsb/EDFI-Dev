@@ -1,0 +1,44 @@
+﻿@using EdFi.Dashboards.Common
+@using EdFi.Dashboards.Presentation.Core.Areas.LocalEducationAgency.Controllers
+@model IList<EdFi.Dashboards.Resources.Models.LocalEducationAgency.SchoolCategoryModel>
+@{
+    ViewBag.Title = "Schools By Category";
+}
+
+@section ContentPlaceHolderHead {
+    <title>@(Html.Action("Title", typeof(LocalEducationAgencyLayoutController).GetControllerName(), new { subTitle = "Schools By Category" }))</title>
+    <script type="text/javascript">
+        var pageArea = { Area: 'local education agency', Page: 'Schools by Category' };
+    </script>
+}
+
+@section ContentPlaceHolder1 {
+
+    <div class="l-school-list">
+        <h2>School List</h2>
+        <ul>
+        @foreach (var schoolCategory in Model)
+        {
+            <li id='vSchoolCategory@(schoolCategory.Category.Replace(" ", ""))'><h3>@schoolCategory.Category</h3>
+            <ul class="two-column-list">
+                @{ 
+                    int alternating = 0;
+                }
+                @foreach (var school in schoolCategory.Schools)
+                {
+                    <li class="@(alternating % 4 < 2 ? "alternate-color" : "")">
+                        <i class="icon-blank"></i>
+                        <a href="@(school.Url)" title="Takes you to the School Academic Overview page.">@(school.Name)</a>
+                        <span class="right">
+                            <a href='@(school.Links.ElementAt(1).Href)' title="Takes you to the Teachers in this school.">Teachers</a><i class="icon-pipe"></i><a href='@(school.Links.ElementAt(0).Href)' title="Takes you to the Students in this campus.">Students</a> 
+                        </span>
+                    </li>
+
+                    alternating ++;
+                }
+            </ul>
+            </li>
+        }
+        </ul>
+    </div>
+}

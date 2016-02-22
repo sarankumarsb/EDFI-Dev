@@ -1,0 +1,31 @@
+﻿@model EdFi.Dashboards.Presentation.Web.Models.Cache.CacheModel
+
+@{
+    ViewBag.Title = "Cache Management";
+    Layout = null;
+}
+<body style="font-family: Arial; font-size: 8pt;">
+    <h1>Cache Entries</h1>
+    <form method="post">
+<table style="font-size: 8pt; border-color: gray;" border="1" cellpadding="3" cellspacing="0">
+    <tr style="background-color: #e0e0e0;">
+		<th>Remove</th>
+		<th>Disable</th>
+        <th>Prefix</th>
+    </tr>
+
+@foreach (string prefix in Model.CachePrefixes)
+{
+    bool disabled = Model.DisabledPrefixes.Contains(prefix);
+	
+    <tr style="text-align: center;">
+    <td><input type="checkbox" name="remove" value="@prefix" /></td>
+		<td><input type="checkbox" name="disable" value="@prefix" @if (disabled) { <text>checked="true"</text> } /></td>
+        <td style="text-align: left; @if (disabled) { <text>color: gray; font-style: italic;</text> } ">@prefix</td>
+    </tr>
+}
+</table>
+    <br/>
+    <input type="submit" value="Apply Changes" />
+	</form>
+</body>
